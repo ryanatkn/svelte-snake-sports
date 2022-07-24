@@ -1,9 +1,9 @@
 {
-  "name": "felt-template",
-  "description": "a static web app and Node library template with SvelteKit, Gro, and Felt",
+  "name": "@ryanatkn/svelte-snake-games",
+  "description": "games of snake in svelte",
   "version": "0.0.1",
   "type": "module",
-  "homepage": "https://template.felt.dev",
+  "homepage": "https://ryanatkn.github.io/svelte-snake-games",
   "engines": {
     "node": ">=18.6"
   },

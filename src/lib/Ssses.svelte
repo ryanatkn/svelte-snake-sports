@@ -4,42 +4,23 @@
 
 	import Positioned from '$lib/Positioned.svelte';
 
-	interface Mreow {
+	interface Sss {
 		icon: string;
 	}
 
-	const items: Mreow[] = unwrap({
+	const items: Sss[] = unwrap({
 		ok: true,
-		value: [
-			{icon: '🐵'},
-			{icon: '🐶'},
-			{icon: '🐺'},
-			{icon: '🦊'},
-			{icon: '🐱'},
-			{icon: '🦁'},
-			{icon: '🐯'},
-			{icon: '🐴'},
-			{icon: '🦄'},
-			{icon: '🦓'},
-			{icon: '🐮'},
-			{icon: '🐭'},
-			{icon: '🐹'},
-			{icon: '🐰'},
-			{icon: '🐻'},
-			{icon: '🐼'},
-			{icon: '🐸'},
-			{icon: '🐲'},
-		],
+		value: [{icon: '🐍'}],
 	});
 
-	export let mreows = [items[4]];
+	export let ssses = [items[0]];
 
-	const mreow = (): void => {
-		mreows = [{...randomItem(items)!}].concat(mreows);
+	const sss = (): void => {
+		ssses = [{...randomItem(items)!}].concat(ssses);
 	};
 
 	let layout: LayoutItem[];
-	$: layout = clientWidth === undefined ? [] : toLayout(mreows, clientWidth);
+	$: layout = clientWidth === undefined ? [] : toLayout(ssses, clientWidth);
 
 	interface LayoutItem {
 		index: number;
@@ -48,17 +29,17 @@
 		scale: number;
 		row: number;
 		column: number;
-		mreow: Mreow;
+		sss: Sss;
 		fontSize: number;
 	}
 
 	const COLUMN_COUNT = 5;
 
 	// TODO tweened x/y?
-	const toLayout = (mreows: Mreow[], width: number): LayoutItem[] => {
+	const toLayout = (ssses: Sss[], width: number): LayoutItem[] => {
 		const columnWidth = Math.floor(width / COLUMN_COUNT);
 		const ROW_HEIGHT = columnWidth;
-		return mreows.map((mreow, i): LayoutItem => {
+		return ssses.map((sss, i): LayoutItem => {
 			const row = Math.floor(i / COLUMN_COUNT);
 			const flowsLeft = row % 2 === 1;
 			const column = flowsLeft ? COLUMN_COUNT - 1 - (i % COLUMN_COUNT) : i % COLUMN_COUNT;
@@ -69,7 +50,7 @@
 				row,
 				column,
 				scale: 1,
-				mreow,
+				sss,
 				fontSize: columnWidth * 0.85,
 			};
 		});
@@ -78,18 +59,18 @@
 	let clientWidth: number;
 </script>
 
-<button on:click={mreow}> mreow </button>
-<div class="mreows" bind:clientWidth>
-	{#each layout as item, i (item.mreow)}<Positioned
+<button on:click={sss}> sss </button>
+<div class="ssses" bind:clientWidth>
+	{#each layout as item, i (item.sss)}<Positioned
 			x={item.x}
 			y={item.y}
 			scale={item.scale + Math.cos(i) / 3.5}
-			><span style:font-size="{item.fontSize}px">{item.mreow.icon}</span></Positioned
+			><span style:font-size="{item.fontSize}px">{item.sss.icon}</span></Positioned
 		>{/each}
 </div>
 
 <style>
-	.mreows {
+	.ssses {
 		position: relative;
 		width: 100%;
 	}

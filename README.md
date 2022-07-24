@@ -5,6 +5,8 @@
 deployed:
 [ryanatkn.github.io/svelte-snake-games](https://ryanatkn.github.io/svelte-snake-games)
 
+> **status**: work in progress
+
 ## what
 
 Years ago I wrote a little [`snake-game`](https://ryanatkn.github.io/snake-game)

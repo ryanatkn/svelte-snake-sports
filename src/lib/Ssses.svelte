@@ -65,7 +65,9 @@
 			x={item.x}
 			y={item.y}
 			scale={item.scale + Math.cos(i) / 3.5}
-			><span style:font-size="{item.fontSize}px">{item.sss.icon}</span></Positioned
+			><span style:font-size="{item.fontSize}px" style:filter="hue-rotate({i * 30}deg)"
+				>{item.sss.icon}</span
+			></Positioned
 		>{/each}
 </div>
 

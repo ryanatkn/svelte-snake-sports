@@ -8,8 +8,11 @@
 	<section>
 		<header class="centered-hz">
 			<h1>
-				svelte<small><a href="https://github.com/ryanatkn/svelte-snake-games">🐍</a></small
-				>snake<small><a href="https://github.com/ryanatkn/svelte-snake-games">🐍</a></small>games
+				<a href="https://svelte.dev/">svelte</a><small
+					><a href="https://github.com/ryanatkn/svelte-snake-games">🐍</a></small
+				><a href="https://wikipedia.org/wiki/Snake_game">snake</a><small
+					><a href="https://github.com/ryanatkn/svelte-snake-games">🐍</a></small
+				>games
 			</h1>
 		</header>
 	</section>

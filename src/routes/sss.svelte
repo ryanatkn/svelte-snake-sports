@@ -1,15 +1,15 @@
 <script lang="ts">
 	import Ssses from '$lib/Ssses.svelte';
-	import OriginalSnake from '$lib/games/original/OriginalSnake.svelte';
 	import Header from '$lib/Header.svelte';
+
+	let ssses: Array<{icon: string}> | undefined;
 </script>
 
 <main class="markup column">
 	<section>
 		<Header />
 	</section>
-	<p><a href="/sss">sss</a></p>
-	<OriginalSnake />
+	<Ssses bind:ssses />
 </main>
 
 <style>

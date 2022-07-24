@@ -1,0 +1,54 @@
+{
+  "name": "felt-template",
+  "description": "a static web app and Node library template with SvelteKit, Gro, and Felt",
+  "version": "0.0.1",
+  "type": "module",
+  "homepage": "https://template.felt.dev",
+  "engines": {
+    "node": ">=18.6"
+  },
+  "scripts": {
+    "start": "gro dev",
+    "dev": "gro dev",
+    "build": "gro build",
+    "test": "gro test",
+    "deploy": "gro deploy"
+  },
+  "devDependencies": {
+    "@feltcoop/eslint-config": "^0.2.1",
+    "@feltcoop/felt": "^0.35.1",
+    "@feltcoop/gro": "^0.59.0",
+    "@sveltejs/adapter-static": "^1.0.0-next.38",
+    "@sveltejs/kit": "^1.0.0-next.392",
+    "@typescript-eslint/eslint-plugin": "^5.30.7",
+    "@typescript-eslint/parser": "^5.30.7",
+    "eslint": "^8.20.0",
+    "eslint-plugin-svelte3": "^4.0.0",
+    "prettier": "^2.7.1",
+    "prettier-plugin-svelte": "^2.7.0",
+    "svelte": "^3.49.0",
+    "svelte-check": "^2.8.0",
+    "svelte-preprocess-esbuild": "^2.0.0",
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.4"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": "@feltcoop"
+  },
+  "prettier": {
+    "useTabs": true,
+    "printWidth": 100,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "bracketSpacing": false,
+    "overrides": [
+      {
+        "files": "package.json",
+        "options": {
+          "useTabs": false
+        }
+      }
+    ]
+  }
+}

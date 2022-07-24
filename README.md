@@ -3,21 +3,11 @@
 > games of snake in svelte
 
 deployed:
-[template.felt.dev](https://template.felt.dev)
+[ryanatkn.github.io/svelte-snake-games](https://ryanatkn.github.io/svelte-snake-games)
 
 ## usage
 
-> [Windows is not yet supported](https://github.com/feltcoop/svelte-snake-games/issues/4)
-> (we recommend [WSL](https://docs.microsoft.com/en-us/windows/wsl/about))
-
-If you're logged into GitHub, click "Use this template" above or clone with
-[`degit`](https://github.com/Rich-Harris/degit):
-
 ```bash
-npx degit feltcoop/svelte-snake-games cooltoy
-cd cooltoy
-npm i
-# then
 npm run dev
 # or
 gro dev # npm i -g @feltcoop/gro

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Ssses from '$lib/Ssses.svelte';
+	import SimpleSnake from '$lib/games/simple/SimpleSnake.svelte';
 
 	let ssses: Array<{icon: string}> | undefined;
 </script>
@@ -12,11 +13,12 @@
 					><a href="https://github.com/ryanatkn/svelte-snake-games">🐍</a></small
 				><a href="https://wikipedia.org/wiki/Snake_game">snake</a><small
 					><a href="https://github.com/ryanatkn/svelte-snake-games">🐍</a></small
-				>games
+				><a href="https://github.com/ryanatkn/svelte-snake-games/tree/main/src/lib/games">games</a>
 			</h1>
 		</header>
 	</section>
 	<Ssses bind:ssses />
+	<SimpleSnake />
 </main>
 
 <style>

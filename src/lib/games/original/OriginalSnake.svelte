@@ -9,12 +9,13 @@
 	import {createGameLoop} from '$lib/createGameLoop';
 
 	let game: SnakeGame | undefined;
+	$: console.log(`game`, game);
 
 	// TODO or pass a block store?
 	const cancelGameLoop = createGameLoop((dt) => {
 		// Run all logic on the game for this time delta (dt).
 		// The update function is expected to be run at least every 30-60fps.
-		updateGame(game, dt);
+		game!.update(dt);
 
 		// Tell our renderer to update.
 		// This could be refactored depending on the render method,
@@ -30,11 +31,9 @@
 <div class="OriginalSnake">
 	<SnakeGame bind:game>
 		<!-- TODO is this `if` needed? -->
-		{#if game}
-			<div slot="renderer">
-				<Renderer {game} />
-			</div>
-		{/if}
+		<div slot="renderer">
+			<Renderer {game} />
+		</div>
 	</SnakeGame>
 </div>
 

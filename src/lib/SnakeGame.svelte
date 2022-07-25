@@ -2,18 +2,16 @@
 	import {writable} from 'svelte/store';
 	import {randomInt} from '@feltcoop/felt/util/random.js';
 	import {browser} from '$app/env';
-	import {ENTITY_DEFAULT_WIDTH, ENTITY_DEFAULT_HEIGHT, type Entity, type Direction} from './Entity';
+	import {ENTITY_DEFAULT_WIDTH, ENTITY_DEFAULT_HEIGHT, Entity, type Direction} from './Entity';
 
 	const MOVEMENT_COMMAND_QUEUE_SIZE = 4; // how many inputs a player can queue up at once
-
-	export interface InputState {
-		movementCommands: Direction[];
-	}
 
 	interface Position {
 		x: number;
 		y: number;
 	}
+
+	// TODO BLOCK writable stores or no?
 
 	export let mapWidth = writable(16); // tile count x
 	export let mapHeight = writable(16); // tile count y
@@ -21,13 +19,11 @@
 	export let tickTimer = writable(0); // current tick timer
 	export let score = writable(0); // how many apples have been eaten
 	export let highScore = writable((browser && Number(localStorage.getItem('game.highScore'))) || 0);
-	export let tiles: Entity[] = writable([]);
-	export let apples: Entity[] = writable([]);
-	export let snakeMovementDirection: Direction = 'up'; // same type as items in `input.movementCommands`
-	export let snakeSegments: Entity[] = writable([]);
-	export let input: InputState = writable({
-		movementCommands: [], // queue of inputs, ('up'|'down'|'left'|'right')[]
-	});
+	export let tiles = writable<Entity[]>([]);
+	export let apples = writable<Entity[]>([]);
+	export let snakeMovementDirection = writable<Direction>('up'); // same type as items in `input.movementCommands`
+	export let snakeSegments = writable<Entity[]>([]);
+	export let movementCommandQueue = writable<Direction[]>([]); // queue of inputs, ('up'|'down'|'left'|'right')[]
 
 	/**
 	 * Sets up the initial state for a game.
@@ -37,16 +33,16 @@
 		$tickTimer = 0;
 		$score = 0;
 		$highScore = (browser && Number(localStorage.getItem('game.highScore'))) || 0; // clearly bad code to not be DRY - this whole module smells
-		$input.movementCommands = ['up'];
+		$movementCommandQueue = ['up'];
 
 		// Create the tiles.
-		const tiles: Entity[] = [];
-		for (let x = 0; x < mapWidth; x++) {
-			for (let y = 0; y < mapWidth; y++) {
-				tiles.push(new Entity(x, y));
+		const nextTiles: Entity[] = [];
+		for (let x = 0; x < $mapWidth; x++) {
+			for (let y = 0; y < $mapWidth; y++) {
+				nextTiles.push(new Entity(x, y));
 			}
 		}
-		$tiles = tiles;
+		$tiles = nextTiles;
 
 		// Create some apples, but preserve current identities if convenient.
 		$apples = [new Entity(1, 3), new Entity(7, 2), new Entity(5, 9)];
@@ -69,12 +65,12 @@
 	 * less flexible data structure.
 	 */
 	const findEntityAt = (x: number, y: number): Entity | void => {
-		for (const a of apples) {
+		for (const a of $apples) {
 			if (a.isAt(x, y)) {
 				return a;
 			}
 		}
-		for (const s of snake.segments) {
+		for (const s of $snakeSegments) {
 			if (s.isAt(x, y)) {
 				return s;
 			}
@@ -97,8 +93,8 @@
 	 */
 	const getRandomLocation = (): Position => {
 		return {
-			x: randomInt(0, mapWidth - 1),
-			y: randomInt(0, mapHeight - 1),
+			x: randomInt(0, $mapWidth - 1),
+			y: randomInt(0, $mapHeight - 1),
 		};
 	};
 
@@ -117,13 +113,13 @@
 	 * Get the height of the map in pixels.
 	 * TODO is a good candidate for MobX computed properties.
 	 */
-	$: mapHeightPx = mapHeight * ENTITY_DEFAULT_HEIGHT;
+	$: mapHeightPx = $mapHeight * ENTITY_DEFAULT_HEIGHT;
 
 	/**
 	 * Get the width of the map in pixels.
 	 * TODO is a good candidate for MobX computed properties.
 	 */
-	$: mapWidthPx = mapWidth * ENTITY_DEFAULT_WIDTH;
+	$: mapWidthPx = $mapWidth * ENTITY_DEFAULT_WIDTH;
 
 	/**
 	 * Sets the current score for the game, saving the best ever back to local storage.
@@ -143,23 +139,23 @@
 	 * but it is expected to be in a fully valid state before and after the function.
 	 * Any potentially illegal states need to be checked and reconciled before the function ends.
 	 */
-	function tick(game: SnakeGame): void {
+	function tick(): void {
 		// Updates state like `game.snake.movementDirection` based on user input
-		updateInput(game);
+		updateInput();
 
 		// Update entities
 		moveSnake(game.snake, game.snake.movementDirection);
 
 		// Check for collision events and handle all possible game state changes.
-		checkSnakeOutOfBounds(game);
-		checkSnakeEatSelf(game);
-		checkSnakeEatApple(game);
+		checkSnakeOutOfBounds();
+		checkSnakeEatSelf();
+		checkSnakeEatApple();
 	}
 
 	/**
 	 * Update the snake's movement direction with the next input direction, if any.
 	 */
-	function updateInput(game: SnakeGame): void {
+	function updateInput(): void {
 		const movementCommand = game.input.movementCommands.shift();
 		if (movementCommand) {
 			game.snake.movementDirection = movementCommand;
@@ -188,27 +184,27 @@
 	 * We only need to check the head of the snake to see if the whole thing is in bounds
 	 * because of the game's movement rules.
 	 */
-	function checkSnakeOutOfBounds(game: SnakeGame): void {
-		if (game.snake.segments[0].isOutOfBounds(game.mapWidth, game.mapHeight)) {
-			killSnake(game);
+	function checkSnakeOutOfBounds(): void {
+		if (snake.segments[0].isOutOfBounds(mapWidth, mapHeight)) {
+			killSnake();
 		}
 	}
 
 	/**
 	 * As the quickest possible thing, just reset the game state when the player dies.
 	 */
-	function killSnake(game: SnakeGame): void {
-		game.init();
+	function killSnake(): void {
+		init();
 	}
 
 	/**
 	 * Checks if the snake eats itself. If so, kill it.
 	 */
-	function checkSnakeEatSelf(game: SnakeGame): void {
-		const snakeHead = game.snake.segments[0];
-		for (const segment of game.snake.segments) {
+	function checkSnakeEatSelf(): void {
+		const snakeHead = snake.segments[0];
+		for (const segment of snake.segments) {
 			if (segment !== snakeHead && segment.isCollidingWith(snakeHead)) {
-				return killSnake(game);
+				return killSnake();
 			}
 		}
 	}
@@ -216,11 +212,11 @@
 	/**
 	 * Check if the snake eats an apple. If so, update the game state to handle it.
 	 */
-	function checkSnakeEatApple(game: SnakeGame): void {
-		const snakeHead = game.snake.segments[0];
-		for (const apple of game.apples) {
+	function checkSnakeEatApple(): void {
+		const snakeHead = snake.segments[0];
+		for (const apple of apples) {
 			if (snakeHead.isCollidingWith(apple)) {
-				return eatApple(game, apple);
+				return eatApple(apple);
 			}
 		}
 	}
@@ -228,28 +224,28 @@
 	/**
 	 * Has the snake eat an apple, removing the apple and growing the snake.
 	 */
-	function eatApple(game: SnakeGame, apple: Entity): void {
+	function eatApple(apple: Entity): void {
 		// Increase the score!
-		game.setScore(game.score + 1);
+		setScore(score + 1);
 
 		// Remove the apple.
-		game.apples.splice(game.apples.indexOf(apple), 1);
+		apples.splice(apples.indexOf(apple), 1);
 
 		// Create a new end tail segment that looks like the current end of the snake.
-		const endTailSegment = game.snake.segments.at(-1)!;
+		const endTailSegment = snakeSegments.at(-1)!;
 		const newEndTailSegment = endTailSegment.clone();
 
 		// Position the new end tail segment at the previous position of the current end of the snake.
 		newEndTailSegment.moveTo(endTailSegment.prevX, endTailSegment.prevY);
-		game.snake.segments.push(newEndTailSegment);
-		spawnApple(game);
+		snakeSegments.push(newEndTailSegment);
+		spawnApple();
 	}
 
 	/**
 	 * Creates an apple on a random empty square.
 	 */
-	function spawnApple(game: SnakeGame): void {
-		const {x, y} = game.getRandomEmptyLocation();
+	function spawnApple(): void {
+		const {x, y} = getRandomEmptyLocation();
 		const apple = new Entity(x, y);
 		game.apples.push(apple);
 	}
@@ -257,16 +253,16 @@
 	const updateKeyDown = (key: string): void => {
 		switch (key) {
 			case 'ArrowUp':
-				game.inputMovementCommand('up');
+				inputMovementCommand('up');
 				break;
 			case 'ArrowDown':
-				game.inputMovementCommand('down');
+				inputMovementCommand('down');
 				break;
 			case 'ArrowLeft':
-				game.inputMovementCommand('left');
+				inputMovementCommand('left');
 				break;
 			case 'ArrowRight':
-				game.inputMovementCommand('right');
+				inputMovementCommand('right');
 				break;
 			default:
 				break;

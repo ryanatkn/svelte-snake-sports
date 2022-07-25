@@ -60,4 +60,7 @@ gro deploy
 [Gro](https://github.com/feltcoop/gro)
 & [more](package.json)
 
+["Lurking Sloth"](/src/static/assets/Alexander_Nakarada__Lurking_Sloth.mp3)
+by Alexander Nakarada (CC-BY-4.0, [serpentsoundstudios.com](https://www.serpentsoundstudios.com/))
+
 ## [🐦](https://wikipedia.org/wiki/Free_and_open-source_software)

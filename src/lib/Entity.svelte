@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type {Entity} from '../models/Entity';
+	import type {Entity} from './Entity';
 
 	export let entity: Entity;
 

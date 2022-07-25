@@ -15,7 +15,7 @@
 
 	export const mapWidth = writable(16); // tile count x
 	export const mapHeight = writable(16); // tile count y
-	export const tickDuration = writable(200); // ms per tick
+	export const tickDuration = writable(1000); // ms per tick
 	export const tickTimer = writable(0); // current tick timer
 	export const score = writable(0); // how many apples have been eaten
 	export const highScore = writable(
@@ -33,7 +33,7 @@
 	export const init = (): void => {
 		// TODO BLOCK single state JSON object instead? update(state, controller) => nextState
 
-		$tickDuration = 120;
+		$tickDuration = 1000; // TODO make configurable
 		$tickTimer = 0;
 		$score = 0;
 		$highScore = (browser && Number(localStorage.getItem('game.highScore'))) || 0; // clearly bad code to not be DRY - this whole module smells
@@ -132,9 +132,11 @@
 		$tickTimer += dt;
 
 		// Slowly reduce the turn duration to make the game faster and more difficult with time.
+		//  TODO make this configurable -- `tickDurationDecayRate`
 		$tickDuration *= 0.9999;
 
 		if ($tickTimer >= $tickDuration) {
+			console.log('tick');
 			tick();
 			$tickTimer = 0;
 		}

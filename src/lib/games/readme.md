@@ -1,1 +1,1 @@
-# click a sport
+# click a sport in this directory

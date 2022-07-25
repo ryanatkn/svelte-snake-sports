@@ -11,11 +11,11 @@ deployed:
 
 In 2016 I wrote a tiny [`snake-game`](https://ryanatkn.github.io/snake-game)
 for an interview in React. Today I use Svelte instead, but I continue to enjoy games of
-[snake](https://en.wikipedia.org/wiki/Snake_game) 🐍
+[Snake](https://en.wikipedia.org/wiki/Snake_game) 🐍
 So, this project started as a port of that small React codebase to my current Svelte patterns.
 I have a feeling there's some fun stuff on the way!
 
-This project plans to make many distinct versions of snake in Svelte that are
+This project plans to make many distinct versions of Snake in Svelte that are
 interesting in terms of gameplay, game design, and/or technical implementation with Svelte.
 If we're lucky, it'll be simple enough for beginners to follow along
 and deep enough to hold the interest of more advanced students like myself.

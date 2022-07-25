@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Score from './Score.svelte';
 	import Entity from './Entity.svelte';
 	import Instructions from './Instructions.svelte';
 	import type SnakeGame from './SnakeGame.svelte';
@@ -11,6 +10,8 @@
 
 	$: mapHeightPx = $mapHeight * ENTITY_DEFAULT_HEIGHT;
 	$: mapWidthPx = $mapWidth * ENTITY_DEFAULT_WIDTH;
+
+	$: console.log(`$snakeSegments`, $snakeSegments);
 </script>
 
 <div class="Renderer" style:width="{mapWidthPx}px" style:height="{mapHeightPx}px">
@@ -31,7 +32,6 @@
 			{/each}
 		</ul>
 	</ul>
-	<Score score={$score} />
 	{#if $score === 0}
 		<Instructions {game} />
 	{/if}
@@ -53,6 +53,7 @@
 		padding: 0;
 	}
 
+	/* TODO fix these global styles to not be global, is a relic of the port */
 	.Renderer-tiles :global(.Entity) {
 		background-color: #f7f1f1;
 	}

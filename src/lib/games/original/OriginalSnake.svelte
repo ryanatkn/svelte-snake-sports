@@ -7,6 +7,8 @@
 	import Renderer from '$lib/Renderer.svelte';
 	import {createClock} from '$lib/clock';
 	import {browser} from '$app/env';
+	import Settings from '$lib/Settings.svelte';
+	import Score from '$lib/Score.svelte';
 	// import { createGameLoop } from '$lib/createGameLoop';
 
 	const clock = createClock({running: browser});
@@ -15,6 +17,8 @@
 	$: console.log(`game`, game);
 
 	$: game?.update($clock.dt);
+
+	let showSettings = false;
 
 	// // TODO or pass a block store?
 	// const cancelGameLoop = createGameLoop((dt) => {
@@ -46,6 +50,13 @@
 	<SnakeGame bind:this={game} />
 	{#if game}
 		<Renderer {game} />
+		<Score {game} />
+		<button on:click={() => (showSettings = !showSettings)}
+			>{#if showSettings}hide settings{:else}show settings{/if}</button
+		>
+		{#if showSettings}
+			<Settings {game} />
+		{/if}
 	{/if}
 </div>
 
@@ -54,5 +65,7 @@
 		display: flex;
 		justify-content: center;
 		padding-top: 64px;
+		flex-direction: column;
+		align-items: center;
 	}
 </style>

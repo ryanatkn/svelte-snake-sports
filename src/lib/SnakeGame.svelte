@@ -31,6 +31,7 @@
 	 * Sets up the initial state for a game.
 	 */
 	export const init = (): void => {
+		console.log('[SnakeGame] init');
 		// TODO BLOCK single state JSON object instead? update(state, controller) => nextState
 
 		$tickDuration = 1000; // TODO make configurable
@@ -136,7 +137,7 @@
 		$tickDuration *= 0.9999;
 
 		if ($tickTimer >= $tickDuration) {
-			console.log('tick');
+			console.log('[SnakeGame] tick');
 			tick();
 			$tickTimer = 0;
 		}

@@ -3,14 +3,16 @@
 
 	export let entity: Entity;
 
-	$: positionX = entity.x * entity.width;
-	$: positionY = entity.y * entity.height;
+	$: ({width, height, x, y} = entity);
+
+	$: positionX = x * width;
+	$: positionY = y * height;
 </script>
 
 <div
 	class="Entity"
-	style:width="{entity.width}px"
-	style:height="{entity.height}px"
+	style:width="{width}px"
+	style:height="{height}px"
 	style:left="{positionX}px"
 	style:top="{positionY}px"
 />

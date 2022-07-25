@@ -7,3 +7,7 @@
 }
 
 */
+
+footer {
+	padding: var(--spacing_xl5) 0;
+}

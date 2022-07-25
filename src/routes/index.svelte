@@ -16,9 +16,12 @@
 	<section>
 		<Header />
 	</section>
-	<menu>
-		<li><a href="/original">original</a></li>
-	</menu>
+	<section>
+		<menu>
+			<li><a href="/original">original</a></li>
+			<li><a href="/invincible">invincible</a></li>
+		</menu>
+	</section>
 	<section>
 		<audio src="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls bind:this={song} />
 	</section>
@@ -32,5 +35,8 @@
 		flex-direction: column;
 		align-items: center;
 		margin: 0 auto;
+	}
+	menu {
+		font-size: var(--font_size_xl);
 	}
 </style>

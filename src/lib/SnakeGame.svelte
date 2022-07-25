@@ -125,6 +125,7 @@
 	};
 
 	// TODO BLOCK something like `let tickCount: number = 0; $: tickCount, tick()`;
+	// so does that mean the game simulation shouldn't know about time at all? only ticks?
 	export const update = (dt: number): void => {
 		$tickTimer += dt;
 

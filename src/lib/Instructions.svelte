@@ -1,15 +1,17 @@
 <script lang="ts">
-	import type {GameState} from '../models/GameState';
+	import type SnakeGame from './SnakeGame.svelte';
 
-	export let game: GameState;
+	export let game: SnakeGame;
+
+	$: ({highScore} = game);
 </script>
 
 <div class="Instructions">
 	<p>use the arrow keys to move</p>
 	<p style:position="relative" style:top="{0}px" style:left="{-15}px">eat apples!</p>
-	{#if game.highScore}
+	{#if $highScore}
 		<p>
-			best {game.highScore} apple{game.highScore === 1 ? '' : 's'}!
+			best {$highScore} apple{$highScore === 1 ? '' : 's'}!
 		</p>
 	{/if}
 	<p style:position="relative" style:top="{55}px" style:left="{55}px">don't bite yourself :O</p>

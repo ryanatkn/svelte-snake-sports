@@ -13,17 +13,19 @@
 
 	// TODO BLOCK writable stores or no?
 
-	export let mapWidth = writable(16); // tile count x
-	export let mapHeight = writable(16); // tile count y
-	export let tickDuration = writable(200); // ms per tick
-	export let tickTimer = writable(0); // current tick timer
-	export let score = writable(0); // how many apples have been eaten
-	export let highScore = writable((browser && Number(localStorage.getItem('game.highScore'))) || 0);
-	export let tiles = writable<Entity[]>([]);
-	export let apples = writable<Entity[]>([]);
-	export let snakeMovementDirection = writable<Direction>('up'); // same type as items in `input.movementCommands`
-	export let snakeSegments = writable<Entity[]>([]);
-	export let movementCommandQueue = writable<Direction[]>([]); // queue of inputs, ('up'|'down'|'left'|'right')[]
+	export const mapWidth = writable(16); // tile count x
+	export const mapHeight = writable(16); // tile count y
+	export const tickDuration = writable(200); // ms per tick
+	export const tickTimer = writable(0); // current tick timer
+	export const score = writable(0); // how many apples have been eaten
+	export const highScore = writable(
+		(browser && Number(localStorage.getItem('game.highScore'))) || 0,
+	);
+	export const tiles = writable<Entity[]>([]);
+	export const apples = writable<Entity[]>([]);
+	export const snakeMovementDirection = writable<Direction>('up'); // same type as items in `input.movementCommands`
+	export const snakeSegments = writable<Entity[]>([]);
+	export const movementCommandQueue = writable<Direction[]>([]); // queue of inputs, ('up'|'down'|'left'|'right')[]
 
 	/**
 	 * Sets up the initial state for a game.

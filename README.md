@@ -5,12 +5,13 @@
 deployed:
 [ryanatkn.github.io/svelte-snake-sports](https://ryanatkn.github.io/svelte-snake-sports)
 
+> **status**: work in progress
+
 ## what
 
 Years ago I wrote a little [`snake-game`](https://ryanatkn.github.io/snake-game)
-for an interview in React. These days I use Svelte instead, but I still like games of snake.
-A goal of this project is to make many distinctly interesting games of snake in Svelte
-inspired by that one,
+for an interview in React. These days I use Svelte instead, but I still like games of snake 🐍
+This project plans to make many distinctly interesting games of snake in Svelte -
 interesting in terms of gameplay, game design, and technical implementation with Svelte.
 
 ## usage

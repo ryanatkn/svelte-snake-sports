@@ -10,7 +10,7 @@ deployed:
 ## what
 
 In 2016 I wrote a tiny [`snake-game`](https://ryanatkn.github.io/snake-game)
-for an interview in React. In 2022 I use(d) Svelte instead, but I continue to enjoy games of snake 🐍
+for an interview in React. Today I use Svelte instead, but I continue to enjoy games of snake 🐍
 So, this project started as a port of that small React codebase to my current Svelte patterns.
 I think I have some cool ideas in store!
 

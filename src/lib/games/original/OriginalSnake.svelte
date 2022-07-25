@@ -13,9 +13,11 @@
 
 	// TODO or pass a block store?
 	const cancelGameLoop = createGameLoop((dt) => {
-		// Run all logic on the game for this time delta (dt).
-		// The update function is expected to be run at least every 30-60fps.
-		game!.update(dt);
+		if (game) {
+			// Run all logic on the game for this time delta (dt).
+			// The update function is expected to be run at least every 30-60fps.
+			game.update(dt);
+		}
 
 		// Tell our renderer to update.
 		// This could be refactored depending on the render method,
@@ -24,17 +26,13 @@
 	});
 
 	onDestroy(cancelGameLoop);
-
-	console.log('Game started! Use `globalThis.cancelGameLoop()` to stop it.');
 </script>
 
 <div class="OriginalSnake">
-	<SnakeGame bind:game>
-		<!-- TODO is this `if` needed? -->
-		<div slot="renderer">
-			<Renderer {game} />
-		</div>
-	</SnakeGame>
+	<SnakeGame bind:this={game} />
+	{#if game}
+		<Renderer {game} />
+	{/if}
 </div>
 
 <style>

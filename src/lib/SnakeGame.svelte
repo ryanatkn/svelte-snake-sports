@@ -31,6 +31,8 @@
 	 * Sets up the initial state for a game.
 	 */
 	export const init = (): void => {
+		// TODO BLOCK single state JSON object instead? update(state, controller) => nextState
+
 		$tickDuration = 120;
 		$tickTimer = 0;
 		$score = 0;

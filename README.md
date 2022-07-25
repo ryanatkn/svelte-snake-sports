@@ -10,9 +10,11 @@ deployed:
 ## what
 
 Years ago I wrote a little [`snake-game`](https://ryanatkn.github.io/snake-game)
-for an interview in React. These days I use Svelte instead, but I still like games of snake 🐍
-This project plans to make many distinctly interesting games of snake in Svelte -
-interesting in terms of gameplay, game design, and technical implementation with Svelte.
+for an interview in React. These days I use Svelte instead, but I continue to enjoy games of snake 🐍
+This project plans to make many distinct versions of snake in Svelte that are
+interesting in terms of gameplay, game design, and/or technical implementation with Svelte.
+If we're lucky, it'll be simple enough for beginners to follow along
+and deep enough to hold the interest of more advanced students like myself.
 
 ## usage
 

@@ -6,7 +6,7 @@
 </script>
 
 <svelte:head>
-	<title>svelte-snake-games</title>
+	<title>svelte-snake-sports</title>
 	<link rel="icon" href="{base}/favicon.png" />
 </svelte:head>
 

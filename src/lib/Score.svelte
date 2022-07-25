@@ -1,19 +1,4 @@
 <script lang="ts">
-	/*
-  
-  import React from 'react';
-import './Score.css';
-
-export default function Score({score}) {
-  return (
-    <div className="Score">
-      {score}
-    </div>
-  );
-}
-
-*/
-
 	export let score: number;
 </script>
 

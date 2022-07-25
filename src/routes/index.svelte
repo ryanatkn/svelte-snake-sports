@@ -7,8 +7,10 @@
 	<section>
 		<Header />
 	</section>
-	<p><a href="/sss">sss</a></p>
-	<OriginalSnake />
+	<menu
+		><li><a href="/original">original</a></li>
+		<li><a href="/sss">sss</a></li></menu
+	>
 </main>
 
 <style>

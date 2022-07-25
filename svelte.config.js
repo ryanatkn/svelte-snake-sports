@@ -11,7 +11,7 @@ export default {
 	},
 	kit: {
 		adapter: adapter(),
-		paths: dev ? undefined : {base: '/svelte-snake-games'}, // for GitHub pages -- delete this line for top-level domains
+		paths: dev ? undefined : {base: '/svelte-snake-sports'}, // for GitHub pages -- delete this line for top-level domains
 		files: {assets: 'src/static'},
 		prerender: {default: true},
 	},

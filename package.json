@@ -1,9 +1,9 @@
 {
-  "name": "@ryanatkn/svelte-snake-games",
+  "name": "@ryanatkn/svelte-snake-sports",
   "description": "games of snake in svelte",
   "version": "0.0.1",
   "type": "module",
-  "homepage": "https://ryanatkn.github.io/svelte-snake-games",
+  "homepage": "https://ryanatkn.github.io/svelte-snake-sports",
   "engines": {
     "node": ">=18.6"
   },

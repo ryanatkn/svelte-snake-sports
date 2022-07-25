@@ -9,12 +9,22 @@ deployed:
 
 ## what
 
-Years ago I wrote a little [`snake-game`](https://ryanatkn.github.io/snake-game)
-for an interview in React. These days I use Svelte instead, but I continue to enjoy games of snake 🐍
+In 2016 I wrote a tiny [`snake-game`](https://ryanatkn.github.io/snake-game)
+for an interview in React. In 2022 I use(d) Svelte instead, but I continue to enjoy games of snake 🐍
+So, this project started as a port of that small React codebase to my current Svelte patterns.
+I think I have some cool ideas in store!
+
 This project plans to make many distinct versions of snake in Svelte that are
 interesting in terms of gameplay, game design, and/or technical implementation with Svelte.
 If we're lucky, it'll be simple enough for beginners to follow along
 and deep enough to hold the interest of more advanced students like myself.
+
+> note: [the project from 2016](https://ryanatkn.github.io/snake-game)
+> uses Create React App and has no lockfile,
+> and given that I wish _not_ to wake eldritch npm horrors,
+> I am not going to try to run the code, and I advise you not to try,
+> so much so that I won't even directly link the repo
+> (though it's trivially inferred; also it's archived)
 
 ## usage
 

@@ -22,7 +22,7 @@ and deep enough to hold the interest of more advanced students like myself.
 
 > note: [the project from 2016](https://ryanatkn.github.io/snake-game)
 > uses Create React App and has no lockfile,
-> and given that I wish _not_ to wake eldritch npm horrors,
+> and given that I wish not wake eldritch npm horrors,
 > I am not going to try to run the code, and I advise you not to try,
 > so much so that I won't even directly link the repo
 > (though it's trivially inferred; also it's archived)

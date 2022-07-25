@@ -1,5 +1,4 @@
 <script lang="ts">
-	import OriginalSnake from '$lib/games/original/OriginalSnake.svelte';
 	import Header from '$lib/Header.svelte';
 </script>
 

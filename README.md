@@ -1,4 +1,4 @@
-# svelte-snake-sports
+# svelte 🐍 snake 🐍 sports
 
 > games of snake in svelte
 

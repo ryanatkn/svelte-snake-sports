@@ -8,7 +8,7 @@
 			><a href="https://github.com/ryanatkn/svelte-snake-sports" title="source code">🐍</a></small
 		><a
 			href="https://github.com/ryanatkn/svelte-snake-sports/tree/main/src/lib/games"
-			title="games source code">games</a
+			title="games source code">sports</a
 		>
 	</h1>
 </header>

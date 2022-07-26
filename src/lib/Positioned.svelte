@@ -6,6 +6,7 @@
 	export let x: number;
 	export let y: number;
 	export let scale: number;
+	export let rotate: string | number = '0deg';
 
 	let scaleReady = false;
 	$: finalScale = scaleReady ? scale : 0;
@@ -19,7 +20,8 @@
 
 <div
 	class="item"
-	style:transform="translate3d({x}px, {y}px, 0px) scale3d({finalScale}, {finalScale}, {finalScale})"
+	style:transform="translate3d({x}px, {y}px, 0px) scale3d({finalScale}, {finalScale}, {finalScale})
+	rotate({rotate})"
 >
 	<slot />
 </div>

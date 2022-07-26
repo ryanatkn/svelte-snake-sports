@@ -151,6 +151,7 @@
 			x={item.x}
 			y={item.y}
 			scale={item.scale + Math.cos(i) / 3.5}
+			rotate="{Math.cos(i) * -23}deg"
 			><span style:font-size="{item.fontSize}px" style:filter="hue-rotate({i * 23}deg)"
 				>{item.sss.icon}</span
 			></Positioned

@@ -78,10 +78,17 @@
 	const startPlaying = (song: HTMLAudioElement) => {
 		void song.play();
 		queueSssInterval();
-		clearTimeout(pauseTimeout);
+		clearPauseTimeout();
 	};
-	const stopPlaying = (song: HTMLAudioElement) => {
-		pauseTimeout = setTimeout(() => song.pause(), PAUSE_TIMER);
+	const stopPlaying = (song: HTMLAudioElement | undefined, immediately = false) => {
+		if (song) {
+			if (immediately) {
+				song.pause();
+				clearPauseTimeout();
+			} else {
+				pauseTimeout = setTimeout(() => song.pause(), PAUSE_TIMER);
+			}
+		}
 		clearSssInterval();
 	};
 	const queueSssInterval = () => {
@@ -94,6 +101,10 @@
 		clearInterval(sssInterval);
 		sssInterval = undefined;
 	};
+	const clearPauseTimeout = () => {
+		clearTimeout(pauseTimeout);
+		pauseTimeout = undefined;
+	};
 	const onMousedown = () => {
 		sss();
 		playing = true;
@@ -105,7 +116,7 @@
 		playing = false;
 	};
 	onDestroy(() => {
-		song?.pause();
+		stopPlaying(song, true);
 	});
 
 	let clientWidth: number;

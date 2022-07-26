@@ -12,19 +12,21 @@
 	let song: HTMLAudioElement;
 </script>
 
-<main class="markup column">
-	<section>
-		<Header />
-	</section>
-	<section>
-		<menu>
-			<li><a href="/original">original</a></li>
-			<li><a href="/invincible">invincible</a></li>
-		</menu>
-	</section>
-	<section>
-		<audio src="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls bind:this={song} />
-	</section>
+<main class="column">
+	<div class="markup">
+		<section>
+			<Header />
+		</section>
+		<section>
+			<menu>
+				<li><a href="/original">original</a></li>
+				<li><a href="/invincible">invincible</a></li>
+			</menu>
+		</section>
+		<section>
+			<audio src="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls bind:this={song} />
+		</section>
+	</div>
 	<!-- <OriginalSnake /> -->
 	<Sss bind:ssses {song} />
 </main>

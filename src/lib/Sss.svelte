@@ -1,6 +1,8 @@
 <script lang="ts">
 	import {unwrap} from '@feltcoop/felt';
+	import {scale as scaleTransition} from 'svelte/transition';
 	import {randomItem} from '@feltcoop/felt/util/random.js';
+	import {plural} from '@feltcoop/felt/util/string.js';
 	import {onDestroy} from 'svelte';
 
 	import Positioned from '$lib/Positioned.svelte';
@@ -22,9 +24,12 @@
 	const sss = (): void => {
 		ssses = [{...randomItem(items)!}].concat(ssses);
 	};
+	const reset = (): void => {
+		ssses = [];
+	};
 
-	let layout: LayoutItem[];
-	$: layout = clientWidth === undefined ? [] : toLayout(ssses, clientWidth);
+	let layoutItems: LayoutItem[];
+	$: layoutItems = clientWidth === undefined ? [] : toLayout(ssses, clientWidth);
 
 	interface LayoutItem {
 		index: number;
@@ -135,7 +140,16 @@
 	let clientWidth: number;
 </script>
 
+<div class="panel-outset padded-md centered-hz">
+	<button
+		on:click={reset}
+		disabled={!layoutItems.length}
+		title="do snake magic to {layoutItems.length} snake{plural(layoutItems.length)}">🪄</button
+	>
+	<span class="padded-md">{layoutItems.length}</span>
+</div>
 <button
+	class="sss"
 	on:mousedown={onMousedown}
 	on:mouseup={onMouseup}
 	on:click={onClick}
@@ -146,26 +160,33 @@
 >
 	sss
 </button>
-<div class="ssses" bind:clientWidth>
-	{#each layout as item, i (item.sss)}<Positioned
+<div class="snakes" bind:clientWidth>
+	{#each layoutItems as item, i (item.sss)}<Positioned
 			x={item.x}
 			y={item.y}
 			scale={item.scale + Math.cos(i) / 3.5}
 			rotate="{Math.cos(i) * -23}deg"
-			><span style:font-size="{item.fontSize}px" style:filter="hue-rotate({i * 23}deg)"
-				>{item.sss.icon}</span
-			></Positioned
+			><div
+				in:scaleTransition={{duration: 1000}}
+				style:font-size="{item.fontSize}px"
+				style:filter="hue-rotate({i * 23}deg)"
+			>
+				{item.sss.icon}
+			</div></Positioned
 		>{/each}
 </div>
 
 <style>
-	.ssses {
+	.snakes {
 		position: relative;
 		width: 100%;
 	}
-	button {
+	.sss {
 		font-size: var(--font_size_xl5);
 		font-weight: 300;
 		text-transform: uppercase;
+	}
+	span {
+		font-size: var(--font_size_xl);
 	}
 </style>

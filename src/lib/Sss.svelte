@@ -76,20 +76,20 @@
 	let sssInterval: NodeJS.Timer | undefined;
 	let pauseTimeout: NodeJS.Timeout | undefined;
 	const startPlaying = (song: HTMLAudioElement) => {
-		void song.play();
 		queueSssInterval();
 		clearPauseTimeout();
+		void song.play();
 	};
 	const stopPlaying = (song: HTMLAudioElement | undefined, immediately = false) => {
+		clearSssInterval();
 		if (song) {
 			if (immediately) {
-				song.pause();
 				clearPauseTimeout();
+				song.pause();
 			} else {
 				pauseTimeout = setTimeout(() => song.pause(), PAUSE_TIMER);
 			}
 		}
-		clearSssInterval();
 	};
 	const queueSssInterval = () => {
 		if (sssInterval) return;
@@ -109,6 +109,10 @@
 		sss();
 		playing = true;
 	};
+	const onClick = () => {
+		sss();
+		playing = true;
+	};
 	const onMouseup = () => {
 		playing = false;
 	};
@@ -122,7 +126,12 @@
 	let clientWidth: number;
 </script>
 
-<button on:mousedown={onMousedown} on:mouseup={onMouseup} on:mouseleave={onMouseleave}>
+<button
+	on:mousedown={onMousedown}
+	on:mouseup={onMouseup}
+	on:click={onClick}
+	on:mouseleave={onMouseleave}
+>
 	sss
 </button>
 <div class="ssses" bind:clientWidth>

@@ -111,13 +111,22 @@
 	};
 	const onClick = () => {
 		sss();
-		playing = true;
 	};
 	const onMouseup = () => {
 		playing = false;
 	};
 	const onMouseleave = () => {
 		playing = false;
+	};
+	const onKeydown = (e: KeyboardEvent) => {
+		if (e.key === ' ' || e.key === 'Enter') {
+			playing = true;
+		}
+	};
+	const onKeyup = (e: KeyboardEvent) => {
+		if (e.key === ' ' || e.key === 'Enter') {
+			playing = false;
+		}
 	};
 	onDestroy(() => {
 		stopPlaying(song, true);
@@ -131,6 +140,9 @@
 	on:mouseup={onMouseup}
 	on:click={onClick}
 	on:mouseleave={onMouseleave}
+	on:mouseleave={onMouseleave}
+	on:keydown={onKeydown}
+	on:keyup={onKeyup}
 >
 	sss
 </button>

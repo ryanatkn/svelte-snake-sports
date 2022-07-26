@@ -152,6 +152,8 @@
 	 * Any potentially illegal states need to be checked and reconciled before the function ends.
 	 */
 	function tick(): void {
+		// TODO BLOCK need to have input/output from one state to the next, still using mutating functions so we can user Immer or not
+
 		// Updates state like `game.snake.movementDirection` based on user input
 		updateInput();
 

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Header from '$lib/Header.svelte';
-	import Ssses from '$lib/Ssses.svelte';
+	import Sss from '$lib/Sss.svelte';
 	// import OriginalSnake from '$lib/games/original/OriginalSnake.svelte';
 
 	let ssses: Array<{icon: string}> | undefined;
@@ -26,7 +26,7 @@
 		<audio src="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls bind:this={song} />
 	</section>
 	<!-- <OriginalSnake /> -->
-	<Ssses bind:ssses {song} />
+	<Sss bind:ssses {song} />
 </main>
 
 <style>

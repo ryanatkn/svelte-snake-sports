@@ -26,7 +26,7 @@
 		<audio src="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls bind:this={song} />
 	</section>
 	<!-- <OriginalSnake /> -->
-	<Ssses bind:ssses />
+	<Ssses bind:ssses {song} />
 </main>
 
 <style>

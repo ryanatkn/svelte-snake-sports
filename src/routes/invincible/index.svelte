@@ -6,5 +6,5 @@
 <InvincibleSnake />
 
 <footer>
-	<Breadcrumbs />
+	<Breadcrumbs>🐍</Breadcrumbs>
 </footer>

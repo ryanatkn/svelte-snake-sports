@@ -1,8 +1,8 @@
 <script lang="ts">
-	import {writable} from 'svelte/store';
 	import {randomInt} from '@feltcoop/felt/util/random.js';
 	import {browser} from '$app/env';
 	import {Entity, type Direction} from './Entity';
+	import type {SnakeGameState} from './SnakeGameState';
 
 	const MOVEMENT_COMMAND_QUEUE_SIZE = 4; // how many inputs a player can queue up at once
 
@@ -11,21 +11,21 @@
 		y: number;
 	}
 
-	// TODO BLOCK writable stores or no?
+	export let state: SnakeGameState;
 
-	export const mapWidth = writable(16); // tile count x
-	export const mapHeight = writable(16); // tile count y
-	export const tickDuration = writable(1000); // ms per tick
-	export const tickTimer = writable(0); // current tick timer
-	export const score = writable(0); // how many apples have been eaten
-	export const highScore = writable(
-		(browser && Number(localStorage.getItem('game.highScore'))) || 0,
-	);
-	export const tiles = writable<Entity[]>([]);
-	export const apples = writable<Entity[]>([]);
-	export const snakeMovementDirection = writable<Direction>('up'); // same type as items in `movementCommandQueue`
-	export const snakeSegments = writable<Entity[]>([]);
-	export const movementCommandQueue = writable<Direction[]>([]); // queue of inputs, ('up'|'down'|'left'|'right')[]
+	$: ({
+		mapWidth,
+		mapHeight,
+		tickDuration,
+		tickTimer,
+		score,
+		highScore,
+		// tiles,
+		apples, // TODO is `EntityState` but the component expects `Entity` -- Svelte component?
+		snakeSegments,
+		snakeMovementDirection,
+		movementCommandQueue,
+	} = state);
 
 	/**
 	 * Sets up the initial state for a game.
@@ -34,32 +34,32 @@
 		console.log('[SnakeGame] init');
 		// TODO BLOCK single state JSON object instead? update(state, controller) => nextState
 
-		$tickDuration = 1000; // TODO make configurable
-		$tickTimer = 0;
-		$score = 0;
-		$highScore = (browser && Number(localStorage.getItem('game.highScore'))) || 0; // clearly bad code to not be DRY - this whole module smells
-		$movementCommandQueue = ['up'];
+		tickDuration = 1000; // TODO make configurable
+		tickTimer = 0;
+		score = 0;
+		highScore = (browser && Number(localStorage.getItem('game.highScore'))) || 0; // clearly bad code to not be DRY - this whole module smells
+		movementCommandQueue = ['up'];
 
 		// Create the tiles.
 		const nextTiles: Entity[] = [];
-		for (let x = 0; x < $mapWidth; x++) {
-			for (let y = 0; y < $mapWidth; y++) {
-				nextTiles.push(new Entity(x, y));
+		for (let x = 0; x < mapWidth; x++) {
+			for (let y = 0; y < mapWidth; y++) {
+				nextTiles.push(new Entity({x, y}));
 			}
 		}
-		$tiles = nextTiles;
+		tiles = nextTiles;
 
 		// Create some apples, but preserve current identities if convenient.
-		$apples = [new Entity(1, 3), new Entity(7, 2), new Entity(5, 9)];
+		apples = [new Entity({x: 1, y: 3}), new Entity({x: 7, y: 2}), new Entity({x: 5, y: 9})];
 
 		// Create the initial snake.
-		$snakeMovementDirection = 'up';
-		$snakeSegments = [
-			new Entity(4, 4),
-			new Entity(4, 5),
-			new Entity(5, 5),
-			new Entity(5, 6),
-			new Entity(5, 7),
+		snakeMovementDirection = 'up';
+		snakeSegments = [
+			new Entity({x: 4, y: 4}),
+			new Entity({x: 4, y: 5}),
+			new Entity({x: 5, y: 5}),
+			new Entity({x: 5, y: 6}),
+			new Entity({x: 5, y: 7}),
 		];
 	};
 	init();
@@ -71,12 +71,12 @@
 	 * less flexible data structure.
 	 */
 	const findEntityAt = (x: number, y: number): Entity | void => {
-		for (const a of $apples) {
+		for (const a of apples) {
 			if (a.isAt(x, y)) {
 				return a;
 			}
 		}
-		for (const s of $snakeSegments) {
+		for (const s of snakeSegments) {
 			if (s.isAt(x, y)) {
 				return s;
 			}
@@ -99,8 +99,8 @@
 	 */
 	const getRandomLocation = (): Position => {
 		return {
-			x: randomInt(0, $mapWidth - 1),
-			y: randomInt(0, $mapHeight - 1),
+			x: randomInt(0, mapWidth - 1),
+			y: randomInt(0, mapHeight - 1),
 		};
 	};
 
@@ -109,37 +109,38 @@
 	 * Newer commands bump off older ones off the front.
 	 */
 	const inputMovementCommand = (movementCommand: Direction): void => {
-		const nextMovementCommandQueue = [...$movementCommandQueue, movementCommand];
+		const nextMovementCommandQueue = [...movementCommandQueue, movementCommand];
 		while (nextMovementCommandQueue.length > MOVEMENT_COMMAND_QUEUE_SIZE) {
 			nextMovementCommandQueue.shift();
 		}
-		$movementCommandQueue = nextMovementCommandQueue;
+		movementCommandQueue = nextMovementCommandQueue;
 	};
 
 	/**
 	 * Sets the current score for the game, saving the best ever back to local storage.
 	 */
 	const setScore = (value: number): void => {
-		$score = value;
-		if ($score > $highScore) {
-			$highScore = $score;
-			if (browser) localStorage.setItem('game.highScore', $highScore + ''); // TODO could be more automated, easy with mobx
+		score = value;
+		if (score > highScore) {
+			highScore = score;
+			if (browser) localStorage.setItem('game.highScore', highScore + ''); // TODO could be more automated, easy with mobx
 		}
 	};
 
 	// TODO BLOCK something like `let tickCount: number = 0; $: tickCount, tick()`;
 	// so does that mean the game simulation shouldn't know about time at all? only ticks?
+	// or rather, this should just have the `state: SnakeGameState` prop
 	export const update = (dt: number): void => {
-		$tickTimer += dt;
+		tickTimer += dt;
 
 		// Slowly reduce the turn duration to make the game faster and more difficult with time.
 		//  TODO make this configurable -- `tickDurationDecayRate`
-		$tickDuration *= 0.9999;
+		tickDuration *= 0.9999;
 
-		if ($tickTimer >= $tickDuration) {
+		if (tickTimer >= tickDuration) {
 			console.log('[SnakeGame] tick');
 			tick();
-			$tickTimer = 0;
+			tickTimer = 0;
 		}
 	};
 
@@ -155,7 +156,7 @@
 		updateInput();
 
 		// Update entities
-		moveSnake($snakeMovementDirection);
+		moveSnake(snakeMovementDirection);
 
 		// Check for collision events and handle all possible game state changes.
 		checkSnakeOutOfBounds();
@@ -167,9 +168,9 @@
 	 * Update the snake's movement direction with the next input direction, if any.
 	 */
 	function updateInput(): void {
-		const movementCommand = $movementCommandQueue.shift();
+		const movementCommand = movementCommandQueue.shift();
 		if (movementCommand) {
-			$snakeMovementDirection = movementCommand;
+			snakeMovementDirection = movementCommand;
 		}
 	}
 
@@ -177,16 +178,16 @@
 	 * Moves the snake in the given direction.
 	 */
 	function moveSnake(movementCommand: Direction): void {
-		const head = $snakeSegments[0];
+		const head = snakeSegments[0];
 
 		// Move the head first, because our algorithm reads the previous positions
 		// of the preceding segments to move them to, so this works.
 		head.moveDir(movementCommand);
 
 		// Make the body follow the head
-		for (let i = 1; i < $snakeSegments.length; i++) {
-			const prevSegment = $snakeSegments[i - 1];
-			const currSegment = $snakeSegments[i];
+		for (let i = 1; i < snakeSegments.length; i++) {
+			const prevSegment = snakeSegments[i - 1];
+			const currSegment = snakeSegments[i];
 			currSegment.moveTo(prevSegment.prevX, prevSegment.prevY);
 		}
 	}
@@ -196,7 +197,7 @@
 	 * because of the game's movement rules.
 	 */
 	function checkSnakeOutOfBounds(): void {
-		if ($snakeSegments[0].isOutOfBounds($mapWidth, $mapHeight)) {
+		if (snakeSegments[0].isOutOfBounds(mapWidth, mapHeight)) {
 			killSnake();
 		}
 	}
@@ -212,8 +213,8 @@
 	 * Checks if the snake eats itself. If so, kill it.
 	 */
 	function checkSnakeEatSelf(): void {
-		const snakeHead = $snakeSegments[0];
-		for (const segment of $snakeSegments) {
+		const snakeHead = snakeSegments[0];
+		for (const segment of snakeSegments) {
 			if (segment !== snakeHead && segment.isCollidingWith(snakeHead)) {
 				return killSnake();
 			}
@@ -224,8 +225,8 @@
 	 * Check if the snake eats an apple. If so, update the game state to handle it.
 	 */
 	function checkSnakeEatApple(): void {
-		const snakeHead = $snakeSegments[0];
-		for (const apple of $apples) {
+		const snakeHead = snakeSegments[0];
+		for (const apple of apples) {
 			if (snakeHead.isCollidingWith(apple)) {
 				return eatApple(apple);
 			}
@@ -237,18 +238,18 @@
 	 */
 	function eatApple(apple: Entity): void {
 		// Increase the score!
-		setScore($score + 1);
+		setScore(score + 1);
 
 		// Remove the apple.
-		$apples.splice($apples.indexOf(apple), 1);
+		apples.splice(apples.indexOf(apple), 1);
 
 		// Create a new end tail segment that looks like the current end of the snake.
-		const endTailSegment = $snakeSegments.at(-1)!;
+		const endTailSegment = snakeSegments.at(-1)!;
 		const newEndTailSegment = endTailSegment.clone();
 
 		// Position the new end tail segment at the previous position of the current end of the snake.
 		newEndTailSegment.moveTo(endTailSegment.prevX, endTailSegment.prevY);
-		$snakeSegments.push(newEndTailSegment);
+		snakeSegments.push(newEndTailSegment);
 		spawnApple();
 	}
 
@@ -256,9 +257,8 @@
 	 * Creates an apple on a random empty square.
 	 */
 	function spawnApple(): void {
-		const {x, y} = getRandomEmptyLocation();
-		const apple = new Entity(x, y);
-		$apples.push(apple);
+		const apple = new Entity(getRandomEmptyLocation());
+		apples.push(apple);
 	}
 
 	const updateKeyDown = (key: string): void => {

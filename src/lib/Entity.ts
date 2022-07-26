@@ -5,33 +5,53 @@ export const ENTITY_DEFAULT_HEIGHT = 32; // height in pixels of one entity (also
 
 export type Direction = 'left' | 'right' | 'up' | 'down';
 
+export interface EntityState {
+	x: number;
+	y: number;
+	prevX?: number; // TODO maybe store a variable-length history instead of these
+	prevY?: number; // TODO maybe store a variable-length history instead of these
+	width?: number;
+	height?: number;
+}
+
+// TODO separate implementation?
+
 export class Entity {
-	constructor(x: number, y: number) {
-		if (x) {
-			this.x = x;
-		}
-		if (y) {
-			this.y = y;
-		}
-		this.prevX = this.x;
-		this.prevY = this.y;
+	constructor(state: EntityState) {
+		this.loadState(state);
 	}
 
 	id = _id++;
-	x = 0;
-	y = 0;
-	prevX = 0;
-	prevY = 0;
-	width = ENTITY_DEFAULT_WIDTH;
-	height = ENTITY_DEFAULT_HEIGHT;
+
+	// these get initialized by the constructor with `loadState`
+	x!: number;
+	y!: number;
+	prevX!: number;
+	prevY!: number;
+	width!: number;
+	height!: number;
+
+	loadState({x, y, prevX, prevY, width, height}: EntityState): void {
+		this.x = x;
+		this.y = y;
+		this.prevX = prevX ?? x;
+		this.prevY = prevY ?? y;
+		this.width = width ?? ENTITY_DEFAULT_WIDTH;
+		this.height = height ?? ENTITY_DEFAULT_HEIGHT;
+	}
+
+	getState(): EntityState {
+		const {x, y, prevX, prevY, width, height} = this;
+		const state: EntityState = {x, y};
+		if (prevX !== state.x) state.prevX = prevX;
+		if (prevY !== state.y) state.prevY = prevY;
+		if (width !== ENTITY_DEFAULT_WIDTH) state.width = width;
+		if (height !== ENTITY_DEFAULT_WIDTH) state.height = height;
+		return state;
+	}
 
 	clone(): Entity {
-		const e = new Entity(this.x, this.y);
-		e.prevX = this.prevX;
-		e.prevY = this.prevY;
-		e.width = this.width;
-		e.height = this.height;
-		return e;
+		return new Entity(this.getState());
 	}
 
 	moveTo(x: number, y: number): void {

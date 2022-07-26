@@ -1,6 +1,7 @@
 <script lang="ts">
 	import {unwrap} from '@feltcoop/felt';
 	import {randomItem} from '@feltcoop/felt/util/random.js';
+	import {onDestroy} from 'svelte';
 
 	import Positioned from '$lib/Positioned.svelte';
 
@@ -14,6 +15,7 @@
 	});
 
 	export let ssses = [items[0]];
+	export let song: HTMLAudioElement | undefined;
 
 	const sss = (): void => {
 		ssses = [{...randomItem(items)!}].concat(ssses);
@@ -56,10 +58,56 @@
 		});
 	};
 
+	// TODO BLOCK instead of pausing immediately, pause after a cooldown that's reset when play is started again,
+	// so it't not choppy unless you go more than a second between them
+
+	let playing = false;
+	$: if (song) {
+		if (playing) {
+			startPlaying(song);
+		} else {
+			stopPlaying(song);
+		}
+	}
+	let interval: NodeJS.Timer | undefined;
+	const startPlaying = (song: HTMLAudioElement) => {
+		void song.play();
+		queueSssInterval();
+	};
+	const stopPlaying = (song: HTMLAudioElement) => {
+		song.pause();
+		clearSssInterval();
+	};
+	const queueSssInterval = () => {
+		if (interval) return;
+		interval = setInterval(() => {
+			sss();
+		}, 1000);
+	};
+	const clearSssInterval = () => {
+		clearInterval(interval);
+		interval = undefined;
+	};
+	const onMousedown = () => {
+		sss();
+		playing = true;
+	};
+	const onMouseup = () => {
+		playing = false;
+	};
+	const onMouseleave = () => {
+		playing = false;
+	};
+	onDestroy(() => {
+		song?.pause();
+	});
+
 	let clientWidth: number;
 </script>
 
-<button on:click={sss}> sss </button>
+<button on:mousedown={onMousedown} on:mouseup={onMouseup} on:mouseleave={onMouseleave}>
+	sss
+</button>
 <div class="ssses" bind:clientWidth>
 	{#each layout as item, i (item.sss)}<Positioned
 			x={item.x}
@@ -75,5 +123,10 @@
 	.ssses {
 		position: relative;
 		width: 100%;
+	}
+	button {
+		font-size: var(--font_size_xl5);
+		font-weight: 300;
+		text-transform: uppercase;
 	}
 </style>

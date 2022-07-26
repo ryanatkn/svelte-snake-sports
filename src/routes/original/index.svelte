@@ -7,5 +7,5 @@
 <OriginalSnake />
 
 <footer>
-	<Breadcrumbs />
+	<Breadcrumbs>🐍</Breadcrumbs>
 </footer>

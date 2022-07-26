@@ -22,6 +22,8 @@
 
 	let showSettings = false;
 
+	const snakeGameState = {};
+
 	// // TODO or pass a block store?
 	// const cancelGameLoop = createGameLoop((dt) => {
 	// 	if (game) {
@@ -49,7 +51,7 @@
 <svelte:window on:keydown={onKeydown} />
 
 <div class="OriginalSnake">
-	<SnakeGame bind:this={game} />
+	<SnakeGame bind:this={game} state={snakeGameState} />
 	{#if game}
 		<Renderer {game} />
 		<Score {game} />

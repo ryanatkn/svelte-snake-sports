@@ -73,6 +73,8 @@ gro deploy
 & [more](package.json)
 
 ["Lurking Sloth"](/src/static/assets/Alexander_Nakarada__Lurking_Sloth.mp3)
-by Alexander Nakarada (CC-BY-4.0, [serpentsoundstudios.com](https://www.serpentsoundstudios.com/))
+by Alexander Nakarada
+([CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/),
+[serpentsoundstudios.com](https://www.serpentsoundstudios.com/))
 
 ## [🐦](https://wikipedia.org/wiki/Free_and_open-source_software)

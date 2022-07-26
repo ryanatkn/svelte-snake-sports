@@ -143,8 +143,8 @@
 <div class="panel-outset padded-md centered-hz">
 	<button
 		on:click={reset}
-		disabled={!layoutItems.length}
-		title="do snake magic to {layoutItems.length} snake{plural(layoutItems.length)}">🪄</button
+		title="do snake magic to {layoutItems.length} snake{plural(layoutItems.length)}"
+		>{#if layoutItems.length}🪄{:else}⏱{/if}</button
 	>
 	<span class="padded-md">{layoutItems.length}</span>
 </div>

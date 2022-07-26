@@ -38,6 +38,9 @@
 		align-items: center;
 		margin: 0 auto;
 	}
+	.markup {
+		align-items: center;
+	}
 	menu {
 		font-size: var(--font_size_xl);
 	}

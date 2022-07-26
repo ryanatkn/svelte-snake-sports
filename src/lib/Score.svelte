@@ -1,13 +1,13 @@
 <script lang="ts">
-	import type SnakeGame from './SnakeGame.svelte';
+	import type {SnakeGameState} from './SnakeGameState';
 
-	export let game: SnakeGame;
+	export let state: SnakeGameState;
 
-	$: ({score} = game);
+	$: ({score} = state);
 </script>
 
 <div class="Score">
-	<div class="value">{$score}</div>
+	<div class="value">{score}</div>
 	<div class="apple" />
 </div>
 

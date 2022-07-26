@@ -21,7 +21,7 @@ export const toDefaultGameState = (): SnakeGameState => ({
 	tickDuration: 1000,
 	tickTimer: 0,
 	score: 0,
-	highScore: (browser && Number(localStorage.getItem('game.highScore'))) || 0,
+	highScore: (browser && Number(localStorage.getItem('highScore'))) || 0,
 	tiles: [],
 	apples: [],
 	snakeMovementDirection: 'up',

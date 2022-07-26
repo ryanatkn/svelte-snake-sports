@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type SnakeGame from './SnakeGame.svelte';
+	import type {SnakeGameState} from './SnakeGameState';
 
-	export let game: SnakeGame;
+	export let state: SnakeGameState;
 
-	$: ({mapWidth} = game);
+	$: ({mapWidth} = state);
 </script>
 
 <div class="Settings">

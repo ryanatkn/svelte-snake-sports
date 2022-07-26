@@ -9,14 +9,16 @@
 	import {browser} from '$app/env';
 	import Settings from '$lib/Settings.svelte';
 	import Score from '$lib/Score.svelte';
+	import {toDefaultGameState} from '$lib/SnakeGameState';
 	// import { createGameLoop } from '$lib/createGameLoop';
+	import {initGameState, updateGameState, inputMovementCommand} from '$lib/mutableSnakeGame';
 
 	const clock = createClock({running: browser});
 
 	let game: SnakeGame | undefined;
 	$: console.log(`game`, game);
 
-	$: game?.update($clock.dt);
+	const state = toDefaultGameState();
 
 	let showSettings = false;
 
@@ -47,15 +49,22 @@
 <svelte:window on:keydown={onKeydown} />
 
 <div class="OriginalSnake">
-	<SnakeGame bind:this={game} />
+	<SnakeGame
+		bind:this={game}
+		{clock}
+		{state}
+		{initGameState}
+		{updateGameState}
+		{inputMovementCommand}
+	/>
 	{#if game}
-		<Renderer {game} />
-		<Score {game} />
+		<Renderer {state} />
+		<Score {state} />
 		<button on:click={() => (showSettings = !showSettings)}
 			>{#if showSettings}hide settings{:else}show settings{/if}</button
 		>
 		{#if showSettings}
-			<Settings {game} />
+			<Settings {state} />
 		{/if}
 	{/if}
 </div>

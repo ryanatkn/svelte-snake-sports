@@ -1,39 +1,39 @@
 <script lang="ts">
 	import Entity from './Entity.svelte';
 	import Instructions from './Instructions.svelte';
-	import type SnakeGame from './SnakeGame.svelte';
 	import {ENTITY_DEFAULT_HEIGHT, ENTITY_DEFAULT_WIDTH} from './Entity';
+	import type {SnakeGameState} from './SnakeGameState';
 
-	export let game: SnakeGame;
+	export let state: SnakeGameState;
 
-	$: ({mapWidth, mapHeight, tiles, apples, snakeSegments, score} = game);
+	$: ({mapWidth, mapHeight, tiles, apples, snakeSegments, score} = state);
 
-	$: mapHeightPx = $mapHeight * ENTITY_DEFAULT_HEIGHT;
-	$: mapWidthPx = $mapWidth * ENTITY_DEFAULT_WIDTH;
+	$: mapHeightPx = mapHeight * ENTITY_DEFAULT_HEIGHT;
+	$: mapWidthPx = mapWidth * ENTITY_DEFAULT_WIDTH;
 
-	$: console.log(`$snakeSegments`, $snakeSegments);
+	$: console.log(`snakeSegments`, snakeSegments);
 </script>
 
 <div class="Renderer" style:width="{mapWidthPx}px" style:height="{mapHeightPx}px">
 	<ul class="Renderer-entities Renderer-layer">
 		<ul class="Renderer-tiles Renderer-layer">
-			{#each $tiles as t (t.id)}
+			{#each tiles as t (t.id)}
 				<Entity entity={t} />
 			{/each}
 		</ul>
 		<ul class="Renderer-apples Renderer-layer">
-			{#each $apples as a (a.id)}
+			{#each apples as a (a.id)}
 				<Entity entity={a} />
 			{/each}
 		</ul>
 		<ul class="Renderer-snake Renderer-layer">
-			{#each $snakeSegments as s (s.id)}
+			{#each snakeSegments as s (s.id)}
 				<Entity entity={s} />
 			{/each}
 		</ul>
 	</ul>
-	{#if $score === 0}
-		<Instructions {game} />
+	{#if score === 0}
+		<Instructions {state} />
 	{/if}
 </div>
 

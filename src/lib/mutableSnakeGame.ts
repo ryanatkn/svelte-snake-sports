@@ -179,7 +179,6 @@ function checkSnakeOutOfBounds(state: SnakeGameState): void {
  * As the quickest possible thing, just reset the game state when the player dies.
  */
 function destroySnake(state: SnakeGameState): void {
-	// TODO increment a counter for history tracking
 	state.stats++;
 	initGameState(state);
 }

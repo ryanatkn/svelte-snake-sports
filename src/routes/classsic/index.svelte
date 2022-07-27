@@ -6,6 +6,11 @@
 
 <ClasssicSnake />
 
-<footer>
-	<Breadcrumbs>🐍</Breadcrumbs>
+<footer class="centered">
+	<div class="padded-md">
+		<a href="https://github.com/ryanatkn/svelte-snake-sports">ssource code</a>
+	</div>
+	<div class="padded-xl">
+		<Breadcrumbs>🐍</Breadcrumbs>
+	</div>
 </footer>

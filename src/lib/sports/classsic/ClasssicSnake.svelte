@@ -69,7 +69,7 @@
 		</section>
 		<section class="centered">
 			<button on:click={() => (showSettings = !showSettings)}
-				>{#if showSettings}hide settings{:else}show settings{/if}</button
+				>{#if showSettings}stash settings{:else}show settings{/if}</button
 			>
 			{#if showSettings}
 				<Settings {state} bind:tickDuration />

@@ -2,7 +2,6 @@
 	import {createClock} from '$lib/clock';
 
 	import Header from '$lib/Header.svelte';
-	import Ticker from '$lib/Ticker.svelte';
 	import Sss from '$lib/Sss.svelte';
 	import type {BenchmarkOutput} from '$lib/benchmark';
 	// import OriginalSnake from '$lib/games/original/OriginalSnake.svelte';
@@ -37,7 +36,6 @@
 		</section>
 	</div>
 	<!-- <OriginalSnake /> -->
-	<Ticker {clock} />
 	<Sss bind:ssses {song} {clock} bind:benchmarks />
 </main>
 

@@ -119,6 +119,8 @@ const setScore = (state: SnakeGameState, value: number): void => {
 export const updateGameState = (state: SnakeGameState): SnakeGameState => {
 	// TODO BLOCK need to have input/output from one state to the next, still using mutating functions so we can user Immer or not
 
+	// TODO performance.now()
+
 	// Updates state like `game.snake.movementDirection` based on user input
 	updateInput(state);
 

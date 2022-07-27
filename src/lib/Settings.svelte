@@ -9,28 +9,24 @@
 
 <form class="Settings">
 	<label
-		><strong>tickDuration</strong><input type="number" bind:value={tickDuration} /><input
+		><strong>tickDuration</strong><input
 			type="range"
 			bind:value={tickDuration}
 			min={0}
 			max={2000}
-		/></label
+		/><input type="number" bind:value={tickDuration} /></label
 	>
 	<!-- TODO how to make these work? need to update state -->
 	<label
-		><strong>mapWidth</strong><input type="number" bind:value={mapWidth} /><input
-			type="range"
+		><strong>mapWidth</strong><input type="range" bind:value={mapWidth} min={2} max={100} /><input
+			type="number"
 			bind:value={mapWidth}
-			min={2}
-			max={100}
 		/></label
 	>
 	<label
-		><strong>mapHeight</strong><input type="number" bind:value={mapHeight} /><input
-			type="range"
+		><strong>mapHeight</strong><input type="range" bind:value={mapHeight} min={2} max={100} /><input
+			type="number"
 			bind:value={mapHeight}
-			min={2}
-			max={100}
 		/></label
 	>
 </form>
@@ -40,5 +36,9 @@
 		font-size: 18px;
 		font-weight: 300;
 		padding: var(--spacing_xl);
+		flex-direction: row;
+		align-items: flex-start;
+		justify-content: center;
+		flex-wrap: wrap;
 	}
 </style>

@@ -16,8 +16,7 @@
 	import Ticker from '$lib/Ticker.svelte';
 	import ClockControls from '$lib/ClockControls.svelte';
 
-	const clock = createClock({running: browser});
-	setClock(clock);
+	const clock = setClock(createClock({running: browser}));
 
 	let game: SnakeGame | undefined;
 	$: console.log(`game`, game);
@@ -27,22 +26,6 @@
 	let tickDuration = Math.round(1000 / 6);
 
 	let showSettings = true;
-
-	// // TODO or pass a block store?
-	// const cancelGameLoop = createGameLoop((dt) => {
-	// 	if (game) {
-	// 		// Run all logic on the game for this time delta (dt).
-	// 		// The update function is expected to be run at least every 30-60fps.
-	// 		game.update(dt);
-	// 	}
-
-	// 	// Tell our renderer to update.
-	// 	// This could be refactored depending on the render method,
-	// 	// but in this case we're telling React to redraw at 60fps, which is not recommended!
-	// 	// renderGame(game);
-	// });
-
-	// onDestroy(cancelGameLoop);
 
 	const onKeydown = (e: KeyboardEvent) => {
 		const {key} = e;

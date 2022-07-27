@@ -12,7 +12,7 @@
 <ul class="Stats">
 	<li>
 		<div class="value">{highScore}</div>
-		high score
+		bessst
 	</li>
 	<li>
 		<div class="value">{stats}</div>

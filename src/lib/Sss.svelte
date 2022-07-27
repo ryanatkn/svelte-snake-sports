@@ -1,22 +1,29 @@
 <script lang="ts">
 	import {unwrap} from '@feltcoop/felt';
-	import {scale as scaleTransition} from 'svelte/transition';
 	import {randomItem} from '@feltcoop/felt/util/random.js';
 	import {plural} from '@feltcoop/felt/util/string.js';
 	import {onDestroy} from 'svelte';
 	import Dialog from '@feltcoop/felt/ui/dialog/Dialog.svelte';
 
-	import Positioned from '$lib/Positioned.svelte';
 	import BenchmarkCreator from '$lib/BenchmarkCreator.svelte';
 	import BenchmarkRunner from '$lib/BenchmarkRunner.svelte';
 	import type {BenchmarkOutput, BenchmarkParams} from '$lib/benchmark';
 	import type {Clock} from '$lib/clock';
+	import SnakeListUnkeyedImmutable from '$lib/SnakeListUnkeyedImmutable.svelte';
+	import SnakeListUnkeyedMutable from '$lib/SnakeListUnkeyedMutable.svelte';
+	import SnakeListKeyedImmutable from '$lib/SnakeListKeyedImmutable.svelte';
+	import SnakeListKeyedMutable from '$lib/SnakeListKeyedMutable.svelte';
+	import type {LayoutItem, Sss} from '$lib/layoutItem';
+	import type {Renderer} from '$lib/renderer';
+
+	const renderersByName: Record<string, any> = {
+		SnakeListUnkeyedImmutable,
+		SnakeListUnkeyedMutable,
+		SnakeListKeyedImmutable,
+		SnakeListKeyedMutable,
+	};
 
 	// TODO fix
-
-	interface Sss {
-		icon: string;
-	}
 
 	const items: Sss[] = unwrap({
 		ok: true,
@@ -38,16 +45,11 @@
 	let layoutItems: LayoutItem[];
 	$: layoutItems = clientWidth === undefined ? [] : toLayout(ssses, clientWidth);
 
-	interface LayoutItem {
-		index: number;
-		x: number;
-		y: number;
-		scale: number;
-		row: number;
-		column: number;
-		sss: Sss;
-		fontSize: number;
-	}
+	const renderers: Renderer[] = Object.entries(renderersByName).map(([name, component]) => ({
+		name,
+		component,
+	}));
+	$: console.log(`renderers`, renderers);
 
 	const COLUMN_COUNT = 5;
 
@@ -158,10 +160,15 @@
 	let runningBenchmark: BenchmarkParams | undefined;
 	const closeBenchmark = () => (showBenchmarkDialog = false);
 	const openBenchmark = () => (showBenchmarkDialog = true);
-	const benchmarkerParams: BenchmarkParams = {tickCount: 100, spawnsPerTick: 1};
+	let benchmarkParams: BenchmarkParams = {
+		renderer: 'SnakeListUnkeyedImmutable',
+		tickCount: 100,
+		spawnsPerTick: 1,
+	};
 	const runBenchmark = (params: BenchmarkParams): void => {
 		showBenchmarkDialog = false;
 		runningBenchmark = params;
+		benchmarkParams = {...params};
 		clock.resume();
 		console.log(`params`, params);
 	};
@@ -174,6 +181,7 @@
 		if (!runningBenchmark) return;
 		const {spawnsPerTick} = runningBenchmark;
 		for (let i = 0; i < spawnsPerTick; i++) {
+			// TODO alternate behaviors like changing a single one in a list
 			sss();
 		}
 	};
@@ -189,7 +197,11 @@
 </div>
 {#if showBenchmarkDialog}
 	<Dialog on:close={() => closeBenchmark()}>
-		<BenchmarkCreator params={benchmarkerParams} on:create={(e) => runBenchmark(e.detail)} />
+		<BenchmarkCreator
+			params={benchmarkParams}
+			{renderers}
+			on:create={(e) => runBenchmark(e.detail)}
+		/>
 		<div>
 			{#each benchmarks as benchmark}
 				<div class="centered-hz panel-inset">
@@ -203,7 +215,7 @@
 {#if runningBenchmark}
 	<BenchmarkRunner
 		{clock}
-		params={benchmarkerParams}
+		params={benchmarkParams}
 		on:tick={(e) => updateBenchmark(e.detail)}
 		on:finish={(e) => finishBenchmark(e.detail)}
 	/>
@@ -222,19 +234,11 @@
 	sss
 </button>
 <div class="snakes" bind:clientWidth>
-	{#each layoutItems as item, i (item.sss)}<Positioned
-			x={item.x}
-			y={item.y}
-			scale={item.scale + Math.cos(i) / 3.5}
-			rotate="{Math.cos(i) * -23}deg"
-			><div
-				in:scaleTransition={{duration: 1000}}
-				style:font-size="{item.fontSize}px"
-				style:filter="hue-rotate({i * 23}deg)"
-			>
-				{item.sss.icon}
-			</div></Positioned
-		>{/each}
+	{#if runningBenchmark}
+		<svelte:component this={renderersByName[runningBenchmark.renderer]} {layoutItems} />
+	{:else}
+		<SnakeListUnkeyedImmutable {layoutItems} />
+	{/if}
 </div>
 
 <style>

@@ -1,10 +1,10 @@
 <script lang="ts">
 	import Breadcrumbs from '@feltcoop/felt/ui/Breadcrumbs.svelte';
 
-	import ClassicSnake from '$lib/games/classic/ClassicSnake.svelte';
+	import ClasssicSnake from '$lib/games/classsic/ClasssicSnake.svelte';
 </script>
 
-<ClassicSnake />
+<ClasssicSnake />
 
 <footer>
 	<Breadcrumbs>🐍</Breadcrumbs>

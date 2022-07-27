@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Header from '$lib/Header.svelte';
 	import Sss from '$lib/Sss.svelte';
-	// import ClassicSnake from '$lib/games/classic/ClassicSnake.svelte';
+	// import ClasssicSnake from '$lib/games/classsic/ClasssicSnake.svelte';
 
 	let ssses: Array<{icon: string}> | undefined;
 
@@ -19,8 +19,8 @@
 	<section>
 		<menu>
 			<li>
-				<a href="/classic" title="classssic snake sports"
-					><span class="snake-1">🐍</span>classic<span class="snake-2">🐍</span></a
+				<a href="/classsic" title="classssic snake sports"
+					><span class="snake-1">🐍</span>classsic<span class="snake-2">🐍</span></a
 				>
 			</li>
 			<!-- <li><a href="/invincible">invincible</a></li> -->
@@ -32,7 +32,7 @@
 			<audio src="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls bind:this={song} />
 		</section>
 	</div>
-	<!-- <ClassicSnake /> -->
+	<!-- <ClasssicSnake /> -->
 	<Sss bind:ssses {song} />
 </main>
 

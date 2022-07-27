@@ -90,6 +90,7 @@
 		content: '';
 		display: block;
 		position: absolute;
+		box-sizing: content-box;
 		left: 13px;
 		top: 13px;
 		width: 3px;

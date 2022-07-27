@@ -7,7 +7,7 @@ const dev = process.env.NODE_ENV !== 'production'; // see below
 export default {
 	preprocess: typescript(),
 	compilerOptions: {
-		immutable: true,
+		immutable: false,
 	},
 	kit: {
 		adapter: adapter(),

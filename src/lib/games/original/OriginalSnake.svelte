@@ -14,6 +14,7 @@
 	// import { createGameLoop } from '$lib/createGameLoop';
 	import {initGameState, updateGameState, inputMovementCommand} from '$lib/mutableSnakeGame';
 	import Ticker from '$lib/Ticker.svelte';
+	import ClockControls from '$lib/ClockControls.svelte';
 
 	const clock = createClock({running: browser});
 	setClock(clock);
@@ -21,7 +22,9 @@
 	let game: SnakeGame | undefined;
 	$: console.log(`game`, game);
 
-	const state = toDefaultGameState();
+	let state = toDefaultGameState(); // TODO put this in a writable?
+
+	let tickDuration = 1000 / 6;
 
 	let showSettings = false;
 
@@ -57,12 +60,13 @@
 		<Renderer {state} />
 		<Score {state} />
 		<Stats {state} />
-		<Ticker {clock} tick={(_dt) => updateGameState(state)} />
+		<Ticker {clock} {tickDuration} tick={() => (state = updateGameState(state))} />
+		<ClockControls {clock} />
 		<button on:click={() => (showSettings = !showSettings)}
 			>{#if showSettings}hide settings{:else}show settings{/if}</button
 		>
 		{#if showSettings}
-			<Settings {state} />
+			<Settings {state} bind:tickDuration />
 		{/if}
 	{/if}
 </div>

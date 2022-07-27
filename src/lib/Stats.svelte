@@ -4,7 +4,7 @@
 
 	export let state: SnakeGameState;
 
-	$: ({stats} = state);
+	$: ({stats, highScore} = state);
 
 	let fps = 0; // TODO BLOCK probably add an `Fps.svelte` that uses the clock and exports its value for binding
 </script>
@@ -12,11 +12,15 @@
 <ul class="Stats">
 	<li>
 		<div class="value">{stats}</div>
-		runs
+		lives
 	</li>
 	<li>
 		<div class="value">{fps}</div>
 		fps
+	</li>
+	<li>
+		<div class="value">{highScore}</div>
+		high score
 	</li>
 </ul>
 <Fps bind:fps />

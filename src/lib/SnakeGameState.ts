@@ -1,5 +1,5 @@
 import {browser} from '$app/env';
-import type {Direction, EntityState} from '$lib/Entity';
+import type {Direction, Entity} from '$lib/Entity';
 
 export interface SnakeGameState {
 	mapWidth: number; // tile count x
@@ -9,9 +9,9 @@ export interface SnakeGameState {
 	score: number; // how many apples have been eaten
 	highScore: number;
 	stats: number; // currently just stores a run count
-	tiles: EntityState[];
-	apples: EntityState[];
-	snakeSegments: EntityState[];
+	tiles: Entity[];
+	apples: Entity[];
+	snakeSegments: Entity[];
 	snakeMovementDirection: Direction;
 	movementCommandQueue: Direction[]; // queue of inputs, ('up'|'down'|'left'|'right')[]
 }

@@ -2,13 +2,15 @@
 	import type {SnakeGameState} from '$lib/SnakeGameState';
 
 	export let state: SnakeGameState;
+	export let tickDuration: number;
 
 	$: ({mapWidth, mapHeight} = state);
 </script>
 
 <form class="Settings">
-	<label><strong>map width</strong><input type="number" bind:value={mapWidth} /></label>
-	<label><strong>map height</strong><input type="number" bind:value={mapHeight} /></label>
+	<label><strong>mapWidth</strong><input type="number" bind:value={mapWidth} /></label>
+	<label><strong>mapHeight</strong><input type="number" bind:value={mapHeight} /></label>
+	<label><strong>tickDuration</strong><input type="number" bind:value={tickDuration} /></label>
 </form>
 
 <style>

@@ -18,9 +18,10 @@
 			<Header />
 		</section>
 		<section>
+			<h2>games</h2>
 			<menu>
 				<li><a href="/original">original</a></li>
-				<li><a href="/invincible">invincible</a></li>
+				<!-- <li><a href="/invincible">invincible</a></li> -->
 			</menu>
 		</section>
 		<section>

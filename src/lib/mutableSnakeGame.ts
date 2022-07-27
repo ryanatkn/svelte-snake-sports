@@ -22,7 +22,6 @@ export const initGameState = (state: SnakeGameState): void => {
 	state.tickTimer = 0;
 	state.score = 0;
 	state.highScore = (browser && Number(localStorage.getItem('highScore'))) || 0; // clearly bad code to not be DRY - this whole module smells
-	state.stats = 0;
 	state.movementCommandQueue = ['up'];
 
 	// Create the tiles.

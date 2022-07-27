@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Breadcrumbs from '@feltcoop/felt/ui/Breadcrumbs.svelte';
 
-	import ClasssicSnake from '$lib/games/classsic/ClasssicSnake.svelte';
+	import ClasssicSnake from '$lib/sports/classsic/ClasssicSnake.svelte';
 </script>
 
 <ClasssicSnake />

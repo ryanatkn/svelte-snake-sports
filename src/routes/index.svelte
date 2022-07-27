@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Header from '$lib/Header.svelte';
 	import Sss from '$lib/Sss.svelte';
-	// import ClasssicSnake from '$lib/games/classsic/ClasssicSnake.svelte';
+	// import ClasssicSnake from '$lib/sports/classsic/ClasssicSnake.svelte';
 
 	let ssses: Array<{icon: string}> | undefined;
 

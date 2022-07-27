@@ -3,7 +3,7 @@
 
 	// This version is a port of the original React project:
 	// https://ryanatkn.github.io/snake-game
-	// See `$lib/games/simple/SimpleSnake.svelte` for the same thing but simplified.
+	// See `$lib/sports/simple/SimpleSnake.svelte` for the same thing but simplified.
 
 	import SnakeGame from '$lib/SnakeGame.svelte';
 	import Renderer from '$lib/Renderer.svelte';

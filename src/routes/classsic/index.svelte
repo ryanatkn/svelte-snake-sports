@@ -8,7 +8,7 @@
 
 <footer class="centered">
 	<div class="padded-md">
-		<a href="https://github.com/ryanatkn/svelte-snake-sports">ssource code</a>
+		<a href="https://github.com/ryanatkn/svelte-snake-sports">ssources</a>
 	</div>
 	<div class="padded-xl">
 		<Breadcrumbs>🐍</Breadcrumbs>

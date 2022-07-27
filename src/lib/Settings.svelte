@@ -7,6 +7,12 @@
 	export let tickDuration: number;
 
 	$: ({mapWidth, mapHeight} = state);
+
+	// TODO api?
+	const clearLocalStorage = () => {
+		localStorage.removeItem('highScore');
+		localStorage.removeItem('stats');
+	};
 </script>
 
 <form class="Settings">
@@ -31,6 +37,7 @@
 			bind:value={mapHeight}
 		/></label
 	>
+	<button type="button" on:click={() => clearLocalStorage()}>reset saved data</button>
 </form>
 
 <style>

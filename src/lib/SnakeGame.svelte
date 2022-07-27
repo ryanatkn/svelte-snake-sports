@@ -1,13 +1,9 @@
 <script lang="ts">
-	import type {Clock} from '$lib/clock';
 	import type {Direction} from '$lib/Entity';
 	import type {SnakeGameState} from '$lib/SnakeGameState';
-	import Ticker from '$lib/Ticker.svelte';
 
-	export let clock: Clock;
 	export let state: SnakeGameState;
 	export let initGameState: (state: SnakeGameState) => void;
-	export let updateGameState: (state: SnakeGameState) => void;
 	export let inputMovementCommand: (state: SnakeGameState, movementCommand: Direction) => void;
 
 	initGameState(state);
@@ -36,5 +32,3 @@
 	on:keydown={(e) => {
 		updateKeyDown(e.key);
 	}} />
-
-<Ticker {clock} tick={(_dt) => updateGameState(state)} />

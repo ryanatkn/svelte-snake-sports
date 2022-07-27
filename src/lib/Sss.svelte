@@ -145,7 +145,7 @@
 	let showBenchmark = false;
 	const closeBenchmark = () => (showBenchmark = false);
 	const openBenchmark = () => (showBenchmark = true);
-	const benchmarkerParams: BenchmarkParams = {tickCount: 1000, spawnsPerTick: 1};
+	const benchmarkerParams: BenchmarkParams = {tickCount: 1000, spawnsPerTick: 1, initialSpawns: 0};
 </script>
 
 <div class="panel-outset padded-md centered-hz">

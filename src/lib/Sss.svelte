@@ -75,6 +75,8 @@
 	// TODO BLOCK instead of pausing immediately, pause after a cooldown that's reset when play is started again,
 	// so it't not choppy unless you go more than a second between them
 
+	$: inputEnabled = !runningBenchmark;
+
 	const SSS_TIMER = 1000;
 	const PAUSE_TIMER = SSS_TIMER * 1.2 + 33;
 	let playing = false;
@@ -118,24 +120,30 @@
 		pauseTimeout = undefined;
 	};
 	const onMousedown = () => {
+		if (!inputEnabled) return;
 		sss();
 		playing = true;
 	};
 	const onClick = () => {
+		if (!inputEnabled) return;
 		sss();
 	};
 	const onMouseup = () => {
+		if (!inputEnabled) return;
 		playing = false;
 	};
 	const onMouseleave = () => {
+		if (!inputEnabled) return;
 		playing = false;
 	};
 	const onKeydown = (e: KeyboardEvent) => {
+		if (!inputEnabled) return;
 		if (e.key === ' ' || e.key === 'Enter') {
 			playing = true;
 		}
 	};
 	const onKeyup = (e: KeyboardEvent) => {
+		if (!inputEnabled) return;
 		if (e.key === ' ' || e.key === 'Enter') {
 			playing = false;
 		}
@@ -147,20 +155,27 @@
 	let clientWidth: number;
 
 	let showBenchmarkDialog = false;
-	let runningBenchmark = false;
+	let runningBenchmark: BenchmarkParams | undefined;
 	const closeBenchmark = () => (showBenchmarkDialog = false);
 	const openBenchmark = () => (showBenchmarkDialog = true);
 	const benchmarkerParams: BenchmarkParams = {tickCount: 100, spawnsPerTick: 1};
 	const runBenchmark = (params: BenchmarkParams): void => {
 		showBenchmarkDialog = false;
-		runningBenchmark = true;
+		runningBenchmark = params;
 		clock.resume();
 		console.log(`params`, params);
 	};
 	const finishBenchmark = (output: BenchmarkOutput): void => {
 		console.log(`benchmark output`, output);
-		runningBenchmark = false;
+		runningBenchmark = undefined;
 		benchmarks = benchmarks.concat(output);
+	};
+	const updateBenchmark = (_tick: number): void => {
+		if (!runningBenchmark) return;
+		const {spawnsPerTick} = runningBenchmark;
+		for (let i = 0; i < spawnsPerTick; i++) {
+			sss();
+		}
 	};
 </script>
 
@@ -177,7 +192,11 @@
 		<BenchmarkCreator params={benchmarkerParams} on:create={(e) => runBenchmark(e.detail)} />
 		<div>
 			{#each benchmarks as benchmark}
-				<div>{JSON.stringify(benchmark)}</div>
+				<div class="centered-hz">
+					{JSON.stringify(benchmark)}<button on:click={() => runBenchmark(benchmark.params)}
+						>rerun</button
+					>
+				</div>
 			{/each}
 		</div>
 	</Dialog>
@@ -186,11 +205,13 @@
 	<BenchmarkRunner
 		{clock}
 		params={benchmarkerParams}
+		on:tick={(e) => updateBenchmark(e.detail)}
 		on:finish={(e) => finishBenchmark(e.detail)}
 	/>
 {/if}
 <button
 	class="sss"
+	disabled={!inputEnabled}
 	on:mousedown={onMousedown}
 	on:mouseup={onMouseup}
 	on:click={onClick}

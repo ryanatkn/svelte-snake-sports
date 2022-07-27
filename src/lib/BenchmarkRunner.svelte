@@ -16,16 +16,14 @@
 	let runningBenchmark = false;
 	$: runningBenchmark && $clock.running && updateBenchmark($clock.dt);
 	const updateBenchmark = (dt: number): void => {
-		console.log(`dt`, dt);
 		output = {params, totalTime: output ? output.totalTime + dt : dt};
 		tick++;
 		for (let i = 0; i < params.spawnsPerTick; i++) {
 			// TODO support a fn?
 			dispatch('tick', tick);
 		}
-		if (tick > output.params.tickCount) {
+		if (tick >= output.params.tickCount) {
 			runningBenchmark = false;
-			console.log(`output`, output);
 			dispatch('finish', output);
 		}
 	};

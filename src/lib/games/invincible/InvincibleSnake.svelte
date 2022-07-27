@@ -50,7 +50,7 @@
 
 <svelte:window on:keydown={onKeydown} />
 
-<div class="OriginalSnake">
+<div class="InvincibleSnake">
 	<SnakeGame bind:this={game} state={snakeGameState} />
 	{#if game}
 		<Renderer {game} />
@@ -65,7 +65,7 @@
 </div>
 
 <style>
-	.OriginalSnake {
+	.InvincibleSnake {
 		display: flex;
 		justify-content: center;
 		padding-top: 64px;

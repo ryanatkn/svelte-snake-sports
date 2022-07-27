@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Header from '$lib/Header.svelte';
 	import Sss from '$lib/Sss.svelte';
-	// import OriginalSnake from '$lib/games/original/OriginalSnake.svelte';
+	// import ClassicSnake from '$lib/games/classic/ClassicSnake.svelte';
 
 	let ssses: Array<{icon: string}> | undefined;
 
@@ -13,22 +13,26 @@
 </script>
 
 <main class="column">
+	<section>
+		<Header />
+	</section>
+	<section>
+		<menu>
+			<li>
+				<a href="/classic" title="classssic snake sports"
+					><span class="snake-1">🐍</span>classic<span class="snake-2">🐍</span></a
+				>
+			</li>
+			<!-- <li><a href="/invincible">invincible</a></li> -->
+		</menu>
+	</section>
 	<div class="markup">
 		<section>
-			<Header />
-		</section>
-		<section>
-			<h2>games</h2>
-			<menu>
-				<li><a href="/original">original</a></li>
-				<!-- <li><a href="/invincible">invincible</a></li> -->
-			</menu>
-		</section>
-		<section>
+			<h2>sss</h2>
 			<audio src="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls bind:this={song} />
 		</section>
 	</div>
-	<!-- <OriginalSnake /> -->
+	<!-- <ClassicSnake /> -->
 	<Sss bind:ssses {song} />
 </main>
 
@@ -41,8 +45,30 @@
 	}
 	.markup {
 		align-items: center;
+		text-align: center;
 	}
 	menu {
-		font-size: var(--font_size_xl);
+		font-size: var(--font_size_xl5);
+	}
+	menu a {
+		font-weight: 300;
+	}
+
+	li {
+		list-style: none;
+	}
+	a {
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+	}
+	.snake-1 {
+		transform: rotate(4deg);
+	}
+	.snake-2 {
+		transform: rotate(23deg);
+	}
+	section {
+		margin: var(--spacing_xl);
 	}
 </style>

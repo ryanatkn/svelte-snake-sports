@@ -12,18 +12,19 @@
 			title="source code"
 			class="snake second-snake">🐍</a
 		>
-		<a
-			href="https://github.com/ryanatkn/svelte-snake-sports/tree/main/src/lib/games"
-			title="games source code">sports</a
-		>
+		<a href="/classic" title="play a random sport">sports</a>
 	</h1>
 </header>
 
 <style>
 	h1 {
 		display: flex;
+		flex-wrap: wrap;
 		justify-content: center;
-		align-items: centerr;
+		align-items: center;
+	}
+	a {
+		font-weight: 300;
 	}
 	.snake {
 		padding: 0 var(--spacing_sm);

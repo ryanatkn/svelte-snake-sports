@@ -23,3 +23,10 @@ form label {
 form label:last-child {
 	margin: 0;
 }
+
+.snake-1 {
+	filter: hue-rotate(120deg);
+}
+.snake-2 {
+	filter: hue-rotate(240deg);
+}

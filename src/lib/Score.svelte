@@ -15,12 +15,12 @@
 	.Score {
 		display: flex;
 		padding: var(--spacing_xl);
+		align-items: center;
 	}
 
 	.value {
-		padding: 0 5px;
-		font-size: var(--font_size_xl);
-		font-weight: 700;
+		padding: 0 var(--spacing_lg);
+		font-size: var(--font_size_xl3);
 	}
 
 	.apple {

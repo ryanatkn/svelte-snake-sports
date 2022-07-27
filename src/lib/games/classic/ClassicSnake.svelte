@@ -24,9 +24,9 @@
 
 	let state = toDefaultGameState(); // TODO put this in a writable?
 
-	let tickDuration = 1000 / 6;
+	let tickDuration = Math.round(1000 / 6);
 
-	let showSettings = false;
+	let showSettings = true;
 
 	// // TODO or pass a block store?
 	// const cancelGameLoop = createGameLoop((dt) => {
@@ -54,7 +54,7 @@
 
 <svelte:window on:keydown={onKeydown} />
 
-<div class="OriginalSnake">
+<div class="ClassicSnake">
 	<SnakeGame bind:this={game} {state} {initGameState} {inputMovementCommand} />
 	{#if game}
 		<Renderer {state} />
@@ -72,7 +72,7 @@
 </div>
 
 <style>
-	.OriginalSnake {
+	.ClassicSnake {
 		display: flex;
 		justify-content: center;
 		padding-top: 64px;

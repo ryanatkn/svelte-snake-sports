@@ -6,7 +6,7 @@
 	$: ({running} = $clock);
 </script>
 
-<button on:click={() => clock.toggle()}
+<button on:click={() => clock.toggle()} title="[Backtick] toggle clock"
 	>{#if running}⏸{:else}▶{/if}</button
 >
 

@@ -17,13 +17,13 @@
 		/><input type="number" bind:value={tickDuration} /></label
 	>
 	<!-- TODO how to make these work? need to update state -->
-	<label
+	<label class="TODO"
 		><strong>mapWidth</strong><input type="range" bind:value={mapWidth} min={2} max={100} /><input
 			type="number"
 			bind:value={mapWidth}
 		/></label
 	>
-	<label
+	<label class="TODO"
 		><strong>mapHeight</strong><input type="range" bind:value={mapHeight} min={2} max={100} /><input
 			type="number"
 			bind:value={mapHeight}
@@ -40,5 +40,8 @@
 		align-items: flex-start;
 		justify-content: center;
 		flex-wrap: wrap;
+	}
+	.TODO {
+		display: none;
 	}
 </style>

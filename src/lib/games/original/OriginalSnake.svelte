@@ -5,16 +5,18 @@
 
 	import SnakeGame from '$lib/SnakeGame.svelte';
 	import Renderer from '$lib/Renderer.svelte';
-	import {createClock} from '$lib/clock';
+	import {createClock, setClock} from '$lib/clock';
 	import {browser} from '$app/env';
 	import Settings from '$lib/Settings.svelte';
 	import Score from '$lib/Score.svelte';
+	import Stats from '$lib/Stats.svelte';
 	import {toDefaultGameState} from '$lib/SnakeGameState';
 	// import { createGameLoop } from '$lib/createGameLoop';
 	import {initGameState, updateGameState, inputMovementCommand} from '$lib/mutableSnakeGame';
 	import Ticker from '$lib/Ticker.svelte';
 
 	const clock = createClock({running: browser});
+	setClock(clock);
 
 	let game: SnakeGame | undefined;
 	$: console.log(`game`, game);
@@ -54,6 +56,7 @@
 	{#if game}
 		<Renderer {state} />
 		<Score {state} />
+		<Stats {state} />
 		<Ticker {clock} tick={(_dt) => updateGameState(state)} />
 		<button on:click={() => (showSettings = !showSettings)}
 			>{#if showSettings}hide settings{:else}show settings{/if}</button

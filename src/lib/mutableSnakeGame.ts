@@ -21,7 +21,8 @@ export const initGameState = (state: SnakeGameState): void => {
 	state.tickDuration = 1000; // TODO make configurable
 	state.tickTimer = 0;
 	state.score = 0;
-	state.highScore = (browser && Number(localStorage.getItem('game.highScore'))) || 0; // clearly bad code to not be DRY - this whole module smells
+	state.highScore = (browser && Number(localStorage.getItem('highScore'))) || 0; // clearly bad code to not be DRY - this whole module smells
+	state.stats = 0;
 	state.movementCommandQueue = ['up'];
 
 	// Create the tiles.
@@ -105,7 +106,7 @@ const setScore = (state: SnakeGameState, value: number): void => {
 	state.score = value;
 	if (value > state.highScore) {
 		state.highScore = value;
-		if (browser) localStorage.setItem('game.highScore', value + '');
+		if (browser) localStorage.setItem('highScore', value + '');
 	}
 };
 
@@ -169,26 +170,28 @@ function moveSnake({snakeSegments, snakeMovementDirection}: SnakeGameState): voi
 function checkSnakeOutOfBounds(state: SnakeGameState): void {
 	const {snakeSegments, mapWidth, mapHeight} = state;
 	if (snakeSegments[0].isOutOfBounds(mapWidth, mapHeight)) {
-		killSnake(state);
+		destroySnake(state);
 	}
 }
 
 /**
  * As the quickest possible thing, just reset the game state when the player dies.
  */
-function killSnake(state: SnakeGameState): void {
+function destroySnake(state: SnakeGameState): void {
+	// TODO increment a counter for history tracking
+	state.stats++;
 	initGameState(state);
 }
 
 /**
- * Checks if the snake eats itself. If so, kill it.
+ * Checks if the snake eats itself. If so, destroy it.
  */
 function checkSnakeEatSelf(state: SnakeGameState): void {
 	const {snakeSegments} = state;
 	const snakeHead = snakeSegments[0];
 	for (const segment of snakeSegments) {
 		if (segment !== snakeHead && segment.isCollidingWith(snakeHead)) {
-			return killSnake(state);
+			return destroySnake(state);
 		}
 	}
 }

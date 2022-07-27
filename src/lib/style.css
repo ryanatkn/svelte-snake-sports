@@ -11,3 +11,15 @@
 footer {
 	padding: var(--spacing_xl5) 0;
 }
+
+/* TODO upstream to Felt? */
+form label {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	font-weight: bold;
+	margin-bottom: var(--spacing_xl);
+}
+form label:last-child {
+	margin: 0;
+}

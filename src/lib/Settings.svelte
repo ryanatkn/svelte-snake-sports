@@ -3,12 +3,13 @@
 
 	export let state: SnakeGameState;
 
-	$: ({mapWidth} = state);
+	$: ({mapWidth, mapHeight} = state);
 </script>
 
-<div class="Settings">
+<form class="Settings">
 	<label><strong>map width</strong><input type="number" bind:value={mapWidth} /></label>
-</div>
+	<label><strong>map height</strong><input type="number" bind:value={mapHeight} /></label>
+</form>
 
 <style>
 	.Settings {

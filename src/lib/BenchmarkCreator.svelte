@@ -40,16 +40,3 @@
 	<label>spawnsPerTick<input type="number" bind:value={_spawnsPerTick} /></label>
 	<label>tickCount<input type="number" bind:value={_tickCount} /></label>
 </form>
-
-<style>
-	label {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		font-weight: bold;
-		margin-bottom: var(--spacing_xl);
-	}
-	label:last-child {
-		margin: 0;
-	}
-</style>

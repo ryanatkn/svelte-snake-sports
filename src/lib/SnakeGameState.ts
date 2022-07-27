@@ -8,6 +8,7 @@ export interface SnakeGameState {
 	tickTimer: number; // current tick timer
 	score: number; // how many apples have been eaten
 	highScore: number;
+	stats: number; // currently just stores a run count
 	tiles: EntityState[];
 	apples: EntityState[];
 	snakeSegments: EntityState[];
@@ -22,6 +23,7 @@ export const toDefaultGameState = (): SnakeGameState => ({
 	tickTimer: 0,
 	score: 0,
 	highScore: (browser && Number(localStorage.getItem('highScore'))) || 0,
+	stats: (browser && Number(localStorage.getItem('stats'))) || 0,
 	tiles: [],
 	apples: [],
 	snakeMovementDirection: 'up',

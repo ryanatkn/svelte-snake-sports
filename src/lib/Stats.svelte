@@ -6,7 +6,7 @@
 
 	$: ({stats, highScore} = state);
 
-	let fps: number; // TODO BLOCK probably add an `Fps.svelte` that uses the clock and exports its value for binding
+	let fps: number;
 </script>
 
 <ul class="Stats">

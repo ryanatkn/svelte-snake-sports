@@ -16,7 +16,7 @@ interface Position {
 export const initGameState = (state: SnakeGameState): void => {
 	const {mapWidth, mapHeight} = state;
 	console.log('[SnakeGame] init');
-	// TODO BLOCK single state JSON object instead? update(state, controller) => nextState
+	// TODO  single state JSON object instead? update(state, controller) => nextState
 
 	state.tickDuration = 1000; // TODO make configurable
 	state.tickTimer = 0;
@@ -117,7 +117,7 @@ const setScore = (state: SnakeGameState, value: number): void => {
  * Any potentially illegal states need to be checked and reconciled before the function ends.
  */
 export const updateGameState = (state: SnakeGameState): SnakeGameState => {
-	// TODO BLOCK need to have input/output from one state to the next, still using mutating functions so we can user Immer or not
+	// TODO  need to have input/output from one state to the next, still using mutating functions so we can user Immer or not
 
 	// TODO performance.now()
 

@@ -49,7 +49,7 @@
 		});
 	};
 
-	// TODO BLOCK instead of pausing immediately, pause after a cooldown that's reset when play is started again,
+	// TODO  instead of pausing immediately, pause after a cooldown that's reset when play is started again,
 	// so it't not choppy unless you go more than a second between them
 
 	const SSS_TIMER = 1000;

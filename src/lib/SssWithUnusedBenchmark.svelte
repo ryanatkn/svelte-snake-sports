@@ -16,7 +16,7 @@
 	import type {LayoutItem, Sss} from '$lib/layoutItem';
 	import type {Renderer} from '$lib/renderer';
 
-	// TODO BLOCK implement mutable versions
+	// TODO implement mutable versions
 	const renderersByName: Record<string, any> = {
 		SnakeListKeyedImmutable,
 		SnakeListKeyedMutable,
@@ -73,7 +73,7 @@
 		});
 	};
 
-	// TODO BLOCK instead of pausing immediately, pause after a cooldown that's reset when play is started again,
+	// TODO instead of pausing immediately, pause after a cooldown that's reset when play is started again,
 	// so it't not choppy unless you go more than a second between them
 
 	$: inputEnabled = !runningBenchmark;

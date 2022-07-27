@@ -1,3 +1,5 @@
+<svelte:options immutable={false} />
+
 <script lang="ts">
 	// TODO what should the name/scope of this component be?
 

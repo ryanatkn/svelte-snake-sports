@@ -1,3 +1,5 @@
+<svelte:options immutable={false} />
+
 <script lang="ts">
 	import type {Entity} from '$lib/Entity';
 

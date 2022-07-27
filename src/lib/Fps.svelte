@@ -1,3 +1,5 @@
+<svelte:options immutable={false} />
+
 <script lang="ts">
 	import {getClock} from '$lib/clock';
 

@@ -1,3 +1,5 @@
+<svelte:options immutable={false} />
+
 <script lang="ts">
 	import Entity from '$lib/Entity.svelte';
 	import Instructions from '$lib/Instructions.svelte';
@@ -29,6 +31,7 @@
 				<Entity entity={s} />
 			{/each}
 		</ul>
+		<!-- TODO render the queued movement -->
 	</ul>
 	{#if score === 0}
 		<Instructions {state} />

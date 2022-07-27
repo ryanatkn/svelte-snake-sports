@@ -1,3 +1,5 @@
+<svelte:options immutable={false} />
+
 <script lang="ts">
 	// This version is a port of the original React project:
 	// https://ryanatkn.github.io/snake-game
@@ -33,6 +35,10 @@
 			clock.toggle();
 		}
 	};
+
+	$: currentCommand = state.movementCommandQueue[0];
+	$: console.log(`currentCommand`, currentCommand);
+	$: console.log(`state.movementCommandQueue`, state.movementCommandQueue);
 </script>
 
 <svelte:window on:keydown={onKeydown} />
@@ -44,6 +50,25 @@
 		<div class="scores-and-stats">
 			<Score {state} />
 			<Stats {state} />
+		</div>
+		<!-- TODO render the controls -->
+		<div class="controls">
+			<button
+				class:selected={currentCommand === 'left'}
+				on:click={() => inputMovementCommand(state, 'left')}>⬅</button
+			>
+			<button
+				class:selected={currentCommand === 'up'}
+				on:click={() => inputMovementCommand(state, 'up')}>⬆</button
+			>
+			<button
+				class:selected={currentCommand === 'down'}
+				on:click={() => inputMovementCommand(state, 'down')}>⬇</button
+			>
+			<button
+				class:selected={currentCommand === 'right'}
+				on:click={() => inputMovementCommand(state, 'right')}>➡</button
+			>
 		</div>
 		<section class="centered">
 			<Ticker {clock} {tickDuration} tick={() => (state = updateGameState(state))} />
@@ -74,5 +99,8 @@
 	}
 	section {
 		padding-top: var(--spacing_xl5);
+	}
+	.controls {
+		display: flex;
 	}
 </style>

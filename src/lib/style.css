@@ -30,3 +30,9 @@ form label:last-child {
 .snake-2 {
 	filter: hue-rotate(240deg);
 }
+
+.icon-button {
+	line-height: 1;
+	padding-left: var(--spacing_sm);
+	padding-right: var(--spacing_sm);
+}

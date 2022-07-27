@@ -58,16 +58,22 @@
 	<SnakeGame bind:this={game} {state} {initGameState} {inputMovementCommand} />
 	{#if game}
 		<Renderer {state} />
-		<Score {state} />
-		<Stats {state} />
-		<Ticker {clock} {tickDuration} tick={() => (state = updateGameState(state))} />
-		<ClockControls {clock} />
-		<button on:click={() => (showSettings = !showSettings)}
-			>{#if showSettings}hide settings{:else}show settings{/if}</button
-		>
-		{#if showSettings}
-			<Settings {state} bind:tickDuration />
-		{/if}
+		<div class="scores-and-stats">
+			<Score {state} />
+			<Stats {state} />
+		</div>
+		<section class="centered">
+			<Ticker {clock} {tickDuration} tick={() => (state = updateGameState(state))} />
+			<ClockControls {clock} />
+		</section>
+		<section class="centered">
+			<button on:click={() => (showSettings = !showSettings)}
+				>{#if showSettings}hide settings{:else}show settings{/if}</button
+			>
+			{#if showSettings}
+				<Settings {state} bind:tickDuration />
+			{/if}
+		</section>
 	{/if}
 </div>
 
@@ -75,8 +81,15 @@
 	.ClassicSnake {
 		display: flex;
 		justify-content: center;
-		padding-top: 64px;
+		padding-top: var(--spacing_xl3);
 		flex-direction: column;
 		align-items: center;
+	}
+	.scores-and-stats {
+		display: flex;
+		align-items: center;
+	}
+	section {
+		padding-top: var(--spacing_xl5);
 	}
 </style>

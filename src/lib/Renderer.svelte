@@ -10,8 +10,6 @@
 
 	$: mapHeightPx = mapHeight * ENTITY_DEFAULT_HEIGHT;
 	$: mapWidthPx = mapWidth * ENTITY_DEFAULT_WIDTH;
-
-	$: console.log(`snakeSegments`, snakeSegments);
 </script>
 
 <div class="Renderer" style:width="{mapWidthPx}px" style:height="{mapHeightPx}px">

@@ -2,11 +2,14 @@
 
 <script lang="ts">
 	import type {BenchmarkParams} from '$lib/benchmark';
+	import {createEventDispatcher} from 'svelte';
+
+	const dispatch = createEventDispatcher<{create: BenchmarkParams}>();
 
 	export let params: BenchmarkParams;
 
 	const runBenchmark = async (): Promise<void> => {
-		console.log('TODO run benchmark');
+		dispatch('create', params);
 	};
 </script>
 

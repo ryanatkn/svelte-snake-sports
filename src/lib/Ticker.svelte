@@ -2,7 +2,7 @@
 	import type {Clock} from '$lib/clock';
 
 	export let clock: Clock;
-	export let tick: (dt: number) => void;
+	export let tick: ((dt: number) => void) | undefined = undefined;
 	export let tickTimer = 0;
 	export let tickDuration = 0;
 	export let updateTickDuration = (t: number): number => t * 0.9999;
@@ -22,7 +22,7 @@
 		tickDuration = updateTickDuration(tickTimer);
 
 		if (tickTimer >= tickDuration) {
-			tick(dt);
+			tick?.(dt);
 			tickTimer = 0;
 		}
 	};

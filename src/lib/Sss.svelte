@@ -7,8 +7,10 @@
 	import Dialog from '@feltcoop/felt/ui/dialog/Dialog.svelte';
 
 	import Positioned from '$lib/Positioned.svelte';
-	import Benchmark from '$lib/Benchmark.svelte';
-	import type {BenchmarkParams} from '$lib/benchmark';
+	import BenchmarkCreator from '$lib/BenchmarkCreator.svelte';
+	import BenchmarkRunner from '$lib/BenchmarkRunner.svelte';
+	import type {BenchmarkOutput, BenchmarkParams} from '$lib/benchmark';
+	import type {Clock} from '$lib/clock';
 
 	// TODO fix
 
@@ -22,7 +24,9 @@
 	});
 
 	export let ssses = [items[0]];
+	export let clock: Clock;
 	export let song: HTMLAudioElement | undefined;
+	export let benchmarks: BenchmarkOutput[] = [];
 
 	const sss = (): void => {
 		ssses = [{...randomItem(items)!}].concat(ssses);
@@ -142,10 +146,22 @@
 
 	let clientWidth: number;
 
-	let showBenchmark = false;
-	const closeBenchmark = () => (showBenchmark = false);
-	const openBenchmark = () => (showBenchmark = true);
-	const benchmarkerParams: BenchmarkParams = {tickCount: 1000, spawnsPerTick: 1, initialSpawns: 0};
+	let showBenchmarkDialog = false;
+	let runningBenchmark = false;
+	const closeBenchmark = () => (showBenchmarkDialog = false);
+	const openBenchmark = () => (showBenchmarkDialog = true);
+	const benchmarkerParams: BenchmarkParams = {tickCount: 100, spawnsPerTick: 1};
+	const runBenchmark = (params: BenchmarkParams): void => {
+		showBenchmarkDialog = false;
+		runningBenchmark = true;
+		clock.resume();
+		console.log(`params`, params);
+	};
+	const finishBenchmark = (output: BenchmarkOutput): void => {
+		console.log(`benchmark output`, output);
+		runningBenchmark = false;
+		benchmarks = benchmarks.concat(output);
+	};
 </script>
 
 <div class="panel-outset padded-md centered-hz">
@@ -156,10 +172,22 @@
 	>
 	<span class="padded-md">{layoutItems.length}</span>
 </div>
-{#if showBenchmark}
+{#if showBenchmarkDialog}
 	<Dialog on:close={() => closeBenchmark()}>
-		<Benchmark params={benchmarkerParams} />
+		<BenchmarkCreator params={benchmarkerParams} on:create={(e) => runBenchmark(e.detail)} />
+		<div>
+			{#each benchmarks as benchmark}
+				<div>{JSON.stringify(benchmark)}</div>
+			{/each}
+		</div>
 	</Dialog>
+{/if}
+{#if runningBenchmark}
+	<BenchmarkRunner
+		{clock}
+		params={benchmarkerParams}
+		on:finish={(e) => finishBenchmark(e.detail)}
+	/>
 {/if}
 <button
 	class="sss"

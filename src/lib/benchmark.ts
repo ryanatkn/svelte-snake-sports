@@ -1,7 +1,7 @@
 export interface BenchmarkParams {
 	tickCount: number;
 	spawnsPerTick: number; // TODO BLOCK per unit time tho?, spawned+=spawnsPerTick, count--, loop until done
-	initialSpawns: number;
+	// initialSpawns: number; // TODO BLOCK defaults to 0
 	// minTimePerTick: number; // defaults to 0
 	// maxTimePerTick: number; // defaults to `1000/60`
 }

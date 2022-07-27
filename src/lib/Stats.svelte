@@ -12,11 +12,11 @@
 <ul class="Stats">
 	<li>
 		<div class="value">{highScore}</div>
-		bessst
+		besst
 	</li>
 	<li>
 		<div class="value">{stats}</div>
-		lives
+		livesss
 	</li>
 	<li>
 		<div class="value">{fps ?? '??'}</div>

@@ -14,7 +14,7 @@
 	import Stats from '$lib/Stats.svelte';
 	import {toDefaultGameState} from '$lib/SnakeGameState';
 	// import { createGameLoop } from '$lib/createGameLoop';
-	import {initGameState, updateGameState, inputMovementCommand} from '$lib/mutableSnakeGame';
+	import {initGameState, updateGameState} from '$lib/mutableSnakeGame';
 	import Ticker from '$lib/Ticker.svelte';
 	import ClockControls from '$lib/ClockControls.svelte';
 	import DirectionalControls from '$lib/DirectionalControls.svelte';
@@ -38,16 +38,16 @@
 		}
 	};
 
-	$: ({movementCommandQueue} = state);
-	$: currentCommand = movementCommandQueue[0];
-	$: console.log(`currentCommand`, currentCommand);
-	$: console.log(`movementCommandQueue`, movementCommandQueue);
+	$: movementCommandQueue = game?.input.movementCommandQueue;
+	$: currentCommand = $movementCommandQueue?.[0];
+
+	const onTick = () => (state = updateGameState(state, game!.input));
 </script>
 
 <svelte:window on:keydown={onKeydown} />
 
 <div class="ClasssicSnake">
-	<SnakeGame bind:this={game} {state} {initGameState} {inputMovementCommand} />
+	<SnakeGame bind:this={game} {state} {initGameState} />
 	{#if game}
 		<Renderer {state} />
 		<div class="scores-and-stats">
@@ -56,15 +56,17 @@
 			<div class="padded-md">
 				<DirectionalControls
 					selectedDirection={currentCommand}
-					select={(d) => inputMovementCommand(state, d)}
+					select={(d) => game?.inputMovementCommand(d)}
 				/>
 			</div>
 		</div>
-		<div class="padded-md">
-			<MovementCommandQueue {movementCommandQueue} />
-		</div>
+		{#if movementCommandQueue}
+			<div class="padded-md">
+				<MovementCommandQueue {movementCommandQueue} />
+			</div>
+		{/if}
 		<section class="centered">
-			<Ticker {clock} {tickDuration} tick={() => (state = updateGameState(state))} />
+			<Ticker {clock} {tickDuration} tick={onTick} />
 			<ClockControls {clock} />
 		</section>
 		<section class="centered">

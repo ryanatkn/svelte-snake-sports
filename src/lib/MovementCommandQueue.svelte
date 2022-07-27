@@ -2,12 +2,13 @@
 
 <script lang="ts">
 	import type {Direction} from '$lib/Entity';
+	import type {Writable} from 'svelte/store';
 
-	export let movementCommandQueue: Direction[];
+	export let movementCommandQueue: Writable<Direction[]>;
 </script>
 
 >
-{#each movementCommandQueue as direction}
+{#each $movementCommandQueue as direction}
 	<span>{direction}</span>
 {/each}
 

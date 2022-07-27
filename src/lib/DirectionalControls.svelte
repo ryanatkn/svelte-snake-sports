@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type {Direction} from './Entity';
 
-	export let selectedDirection: Direction;
+	export let selectedDirection: Direction | undefined; // eslint-disable-line @typescript-eslint/no-redundant-type-constituents -- TODO seems to be a bug
 	export let select: (direction: Direction) => void;
 </script>
 

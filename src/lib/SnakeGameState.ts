@@ -1,5 +1,5 @@
 import {browser} from '$app/env';
-import type {Direction, Entity} from '$lib/Entity';
+import type {Entity} from '$lib/Entity';
 
 export interface SnakeGameState {
 	mapWidth: number; // tile count x
@@ -12,8 +12,6 @@ export interface SnakeGameState {
 	tiles: Entity[];
 	apples: Entity[];
 	snakeSegments: Entity[];
-	snakeMovementDirection: Direction;
-	movementCommandQueue: Direction[]; // queue of inputs, ('up'|'down'|'left'|'right')[]
 }
 
 export const toDefaultGameState = (): SnakeGameState => ({
@@ -26,7 +24,5 @@ export const toDefaultGameState = (): SnakeGameState => ({
 	stats: (browser && Number(localStorage.getItem('stats'))) || 0,
 	tiles: [],
 	apples: [],
-	snakeMovementDirection: 'up',
 	snakeSegments: [],
-	movementCommandQueue: [],
 });

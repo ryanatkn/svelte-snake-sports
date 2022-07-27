@@ -3,7 +3,7 @@
 <script lang="ts">
 	import {getClock} from '$lib/clock';
 
-	export let fps: number;
+	export let fps = 0;
 
 	const clock = getClock();
 	$: $clock.running && update($clock.dt);

@@ -2,8 +2,8 @@ import {randomInt} from '@feltcoop/felt/util/random.js';
 import {browser} from '$app/env';
 import {Entity, type Direction} from '$lib/Entity';
 import type {SnakeGameState} from '$lib/SnakeGameState';
-
-const MOVEMENT_COMMAND_QUEUE_SIZE = 4; // how many inputs a player can queue up at once
+import {get} from 'svelte/store';
+import type {SnakeGameInput} from './SnakeGameInput';
 
 interface Position {
 	x: number;
@@ -22,7 +22,6 @@ export const initGameState = (state: SnakeGameState): void => {
 	state.tickTimer = 0;
 	state.score = 0;
 	state.highScore = (browser && Number(localStorage.getItem('highScore'))) || 0; // clearly bad code to not be DRY - this whole module smells
-	state.movementCommandQueue = ['up'];
 
 	// Create the tiles.
 	const nextTiles: Entity[] = [];
@@ -37,7 +36,6 @@ export const initGameState = (state: SnakeGameState): void => {
 	state.apples = [new Entity({x: 1, y: 3}), new Entity({x: 7, y: 2}), new Entity({x: 5, y: 9})];
 
 	// Create the initial snake.
-	state.snakeMovementDirection = 'up';
 	state.snakeSegments = [
 		new Entity({x: 4, y: 4}),
 		new Entity({x: 4, y: 5}),
@@ -86,19 +84,6 @@ const getRandomLocation = ({mapWidth, mapHeight}: SnakeGameState): Position => (
 });
 
 /**
- * Registers a movement input command to be processed by the game as a queue.
- * Newer commands bump off older ones off the front.
- */
-export const inputMovementCommand = (state: SnakeGameState, movementCommand: Direction): void => {
-	const {movementCommandQueue} = state;
-	const nextMovementCommandQueue = [...movementCommandQueue, movementCommand];
-	while (nextMovementCommandQueue.length > MOVEMENT_COMMAND_QUEUE_SIZE) {
-		nextMovementCommandQueue.shift();
-	}
-	state.movementCommandQueue = nextMovementCommandQueue;
-};
-
-/**
  * Sets the current score for the game, saving the best ever back to local storage.
  */
 const setScore = (state: SnakeGameState, value: number): void => {
@@ -116,16 +101,16 @@ const setScore = (state: SnakeGameState, value: number): void => {
  * but it is expected to be in a fully valid state before and after the function.
  * Any potentially illegal states need to be checked and reconciled before the function ends.
  */
-export const updateGameState = (state: SnakeGameState): SnakeGameState => {
+export const updateGameState = (state: SnakeGameState, input: SnakeGameInput): SnakeGameState => {
 	// TODO  need to have input/output from one state to the next, still using mutating functions so we can user Immer or not
 
 	// TODO performance.now()
 
 	// Updates state like `game.snake.movementDirection` based on user input
-	updateInput(state);
+	updateInput(input);
 
 	// Update entities
-	moveSnake(state);
+	moveSnake(state, get(input.snakeMovementDirection)); // TODO BLOCK avoid `get`
 
 	// Check for collision events and handle all possible game state changes.
 	checkSnakeOutOfBounds(state);
@@ -138,18 +123,19 @@ export const updateGameState = (state: SnakeGameState): SnakeGameState => {
 /**
  * Update the snake's movement direction with the next input direction, if any.
  */
-function updateInput(state: SnakeGameState): void {
-	const {movementCommandQueue} = state;
-	const movementCommand = movementCommandQueue.shift();
-	if (movementCommand) {
-		state.snakeMovementDirection = movementCommand;
-	}
+function updateInput(input: SnakeGameInput): void {
+	input.movementCommandQueue.update(($v) => {
+		if (!$v.length) return $v;
+		$v = $v.slice(); // eslint-disable-line no-param-reassign
+		input.snakeMovementDirection.set($v.shift()!);
+		return $v;
+	});
 }
 
 /**
  * Moves the snake in the given direction.
  */
-function moveSnake({snakeSegments, snakeMovementDirection}: SnakeGameState): void {
+function moveSnake({snakeSegments}: SnakeGameState, snakeMovementDirection: Direction): void {
 	const head = snakeSegments[0];
 
 	// Move the head first, because our algorithm reads the previous positions

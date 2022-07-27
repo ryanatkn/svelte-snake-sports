@@ -6,7 +6,6 @@
 	export let layoutItems: LayoutItem[];
 </script>
 
-SnakeListKeyedImmutable
 {#each layoutItems as item, i (item.sss)}
 	<Positioned
 		x={item.x}

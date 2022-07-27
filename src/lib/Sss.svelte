@@ -16,14 +16,13 @@
 	import type {LayoutItem, Sss} from '$lib/layoutItem';
 	import type {Renderer} from '$lib/renderer';
 
+	// TODO BLOCK implement mutable versions
 	const renderersByName: Record<string, any> = {
-		SnakeListUnkeyedImmutable,
-		SnakeListUnkeyedMutable,
 		SnakeListKeyedImmutable,
 		SnakeListKeyedMutable,
+		SnakeListUnkeyedImmutable,
+		SnakeListUnkeyedMutable,
 	};
-
-	// TODO fix
 
 	const items: Sss[] = unwrap({
 		ok: true,
@@ -161,7 +160,7 @@
 	const closeBenchmark = () => (showBenchmarkDialog = false);
 	const openBenchmark = () => (showBenchmarkDialog = true);
 	let benchmarkParams: BenchmarkParams = {
-		renderer: 'SnakeListUnkeyedImmutable',
+		renderer: 'SnakeListKeyedImmutable',
 		tickCount: 100,
 		spawnsPerTick: 1,
 	};
@@ -237,7 +236,7 @@
 	{#if runningBenchmark}
 		<svelte:component this={renderersByName[runningBenchmark.renderer]} {layoutItems} />
 	{:else}
-		<SnakeListUnkeyedImmutable {layoutItems} />
+		<SnakeListKeyedImmutable {layoutItems} />
 	{/if}
 </div>
 

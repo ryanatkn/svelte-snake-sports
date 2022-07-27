@@ -8,7 +8,6 @@
 	export let layoutItems: LayoutItem[];
 </script>
 
-SnakeListKeyedMutable
 {#each layoutItems as item, i (item.sss)}
 	<Positioned
 		x={item.x}

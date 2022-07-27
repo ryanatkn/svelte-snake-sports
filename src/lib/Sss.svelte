@@ -3,26 +3,10 @@
 	import {randomItem} from '@feltcoop/felt/util/random.js';
 	import {plural} from '@feltcoop/felt/util/string.js';
 	import {onDestroy} from 'svelte';
-	import Dialog from '@feltcoop/felt/ui/dialog/Dialog.svelte';
+	import {scale} from 'svelte/transition';
 
-	import BenchmarkCreator from '$lib/BenchmarkCreator.svelte';
-	import BenchmarkRunner from '$lib/BenchmarkRunner.svelte';
-	import type {BenchmarkOutput, BenchmarkParams} from '$lib/benchmark';
-	import type {Clock} from '$lib/clock';
-	import SnakeListUnkeyedImmutable from '$lib/SnakeListUnkeyedImmutable.svelte';
-	import SnakeListUnkeyedMutable from '$lib/SnakeListUnkeyedMutable.svelte';
-	import SnakeListKeyedImmutable from '$lib/SnakeListKeyedImmutable.svelte';
-	import SnakeListKeyedMutable from '$lib/SnakeListKeyedMutable.svelte';
 	import type {LayoutItem, Sss} from '$lib/layoutItem';
-	import type {Renderer} from '$lib/renderer';
-
-	// TODO BLOCK implement mutable versions
-	const renderersByName: Record<string, any> = {
-		SnakeListKeyedImmutable,
-		SnakeListKeyedMutable,
-		SnakeListUnkeyedImmutable,
-		SnakeListUnkeyedMutable,
-	};
+	import Positioned from '$lib/Positioned.svelte';
 
 	const items: Sss[] = unwrap({
 		ok: true,
@@ -30,9 +14,7 @@
 	});
 
 	export let ssses = [items[0]];
-	export let clock: Clock;
 	export let song: HTMLAudioElement | undefined;
-	export let benchmarks: BenchmarkOutput[] = [];
 
 	const sss = (): void => {
 		ssses = [{...randomItem(items)!}].concat(ssses);
@@ -43,12 +25,6 @@
 
 	let layoutItems: LayoutItem[];
 	$: layoutItems = clientWidth === undefined ? [] : toLayout(ssses, clientWidth);
-
-	const renderers: Renderer[] = Object.entries(renderersByName).map(([name, component]) => ({
-		name,
-		component,
-	}));
-	$: console.log(`renderers`, renderers);
 
 	const COLUMN_COUNT = 5;
 
@@ -75,8 +51,6 @@
 
 	// TODO BLOCK instead of pausing immediately, pause after a cooldown that's reset when play is started again,
 	// so it't not choppy unless you go more than a second between them
-
-	$: inputEnabled = !runningBenchmark;
 
 	const SSS_TIMER = 1000;
 	const PAUSE_TIMER = SSS_TIMER * 1.2 + 33;
@@ -121,30 +95,24 @@
 		pauseTimeout = undefined;
 	};
 	const onMousedown = () => {
-		if (!inputEnabled) return;
 		sss();
 		playing = true;
 	};
 	const onClick = () => {
-		if (!inputEnabled) return;
 		sss();
 	};
 	const onMouseup = () => {
-		if (!inputEnabled) return;
 		playing = false;
 	};
 	const onMouseleave = () => {
-		if (!inputEnabled) return;
 		playing = false;
 	};
 	const onKeydown = (e: KeyboardEvent) => {
-		if (!inputEnabled) return;
 		if (e.key === ' ' || e.key === 'Enter') {
 			playing = true;
 		}
 	};
 	const onKeyup = (e: KeyboardEvent) => {
-		if (!inputEnabled) return;
 		if (e.key === ' ' || e.key === 'Enter') {
 			playing = false;
 		}
@@ -154,74 +122,16 @@
 	});
 
 	let clientWidth: number;
-
-	let showBenchmarkDialog = false;
-	let runningBenchmark: BenchmarkParams | undefined;
-	const closeBenchmark = () => (showBenchmarkDialog = false);
-	const openBenchmark = () => (showBenchmarkDialog = true);
-	let benchmarkParams: BenchmarkParams = {
-		renderer: 'SnakeListKeyedImmutable',
-		tickCount: 100,
-		spawnsPerTick: 1,
-	};
-	const runBenchmark = (params: BenchmarkParams): void => {
-		showBenchmarkDialog = false;
-		runningBenchmark = params;
-		benchmarkParams = {...params};
-		clock.resume();
-		console.log(`params`, params);
-	};
-	const finishBenchmark = (output: BenchmarkOutput): void => {
-		console.log(`benchmark output`, output);
-		runningBenchmark = undefined;
-		benchmarks = benchmarks.concat(output);
-	};
-	const updateBenchmark = (_tick: number): void => {
-		if (!runningBenchmark) return;
-		const {spawnsPerTick} = runningBenchmark;
-		for (let i = 0; i < spawnsPerTick; i++) {
-			// TODO alternate behaviors like changing a single one in a list
-			sss();
-		}
-	};
 </script>
 
-<div class="panel-outset padded-md centered-hz">
-	<button
-		on:click={() => (layoutItems.length ? reset() : openBenchmark())}
-		title="do snake magic to {layoutItems.length} snake{plural(layoutItems.length)}"
-		>{#if layoutItems.length}🪄{:else}⏱{/if}</button
-	>
-	<span class="padded-md">{layoutItems.length}</span>
-</div>
-{#if showBenchmarkDialog}
-	<Dialog on:close={() => closeBenchmark()}>
-		<BenchmarkCreator
-			params={benchmarkParams}
-			{renderers}
-			on:create={(e) => runBenchmark(e.detail)}
-		/>
-		<div>
-			{#each benchmarks as benchmark}
-				<div class="centered-hz panel-inset">
-					<pre>{JSON.stringify(benchmark, null, 2)}</pre>
-					<button on:click={() => runBenchmark(benchmark.params)}>rerun</button>
-				</div>
-			{/each}
-		</div>
-	</Dialog>
-{/if}
-{#if runningBenchmark}
-	<BenchmarkRunner
-		{clock}
-		params={benchmarkParams}
-		on:tick={(e) => updateBenchmark(e.detail)}
-		on:finish={(e) => finishBenchmark(e.detail)}
-	/>
-{/if}
+<button
+	on:click={reset}
+	disabled={!layoutItems.length}
+	title="do snake magic to {layoutItems.length} snake{plural(layoutItems.length)}"
+	>{layoutItems.length}</button
+>
 <button
 	class="sss"
-	disabled={!inputEnabled}
 	on:mousedown={onMousedown}
 	on:mouseup={onMouseup}
 	on:click={onClick}
@@ -233,11 +143,21 @@
 	sss
 </button>
 <div class="snakes" bind:clientWidth>
-	{#if runningBenchmark}
-		<svelte:component this={renderersByName[runningBenchmark.renderer]} {layoutItems} />
-	{:else}
-		<SnakeListKeyedImmutable {layoutItems} />
-	{/if}
+	{#each layoutItems as item, i (item.sss)}
+		<Positioned
+			x={item.x}
+			y={item.y}
+			scale={item.scale + Math.cos(i) / 3.5}
+			rotate="{Math.cos(i) * -23}deg"
+			><div
+				in:scale={{duration: 1000}}
+				style:font-size="{item.fontSize}px"
+				style:filter="hue-rotate({i * 23}deg)"
+			>
+				{item.sss.icon}
+			</div>
+		</Positioned>
+	{/each}
 </div>
 
 <style>
@@ -249,8 +169,5 @@
 		font-size: var(--font_size_xl5);
 		font-weight: 300;
 		text-transform: uppercase;
-	}
-	span {
-		font-size: var(--font_size_xl);
 	}
 </style>

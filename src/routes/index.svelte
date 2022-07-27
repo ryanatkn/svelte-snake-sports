@@ -1,9 +1,6 @@
 <script lang="ts">
-	import {createClock} from '$lib/clock';
-
 	import Header from '$lib/Header.svelte';
 	import Sss from '$lib/Sss.svelte';
-	import type {BenchmarkOutput} from '$lib/benchmark';
 	// import OriginalSnake from '$lib/games/original/OriginalSnake.svelte';
 
 	let ssses: Array<{icon: string}> | undefined;
@@ -11,11 +8,6 @@
 	let clicks = 0;
 	$: ssses, clicks++;
 	$: if (clicks === 3) void song.play();
-
-	const clock = createClock();
-
-	let benchmarks: BenchmarkOutput[];
-	$: console.log(`benchmarks`, benchmarks);
 
 	let song: HTMLAudioElement;
 </script>
@@ -36,7 +28,7 @@
 		</section>
 	</div>
 	<!-- <OriginalSnake /> -->
-	<Sss bind:ssses {song} {clock} bind:benchmarks />
+	<Sss bind:ssses {song} />
 </main>
 
 <style>

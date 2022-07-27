@@ -13,14 +13,17 @@
 
 	let tick = 0;
 
+	let spawns = 0;
+
 	let runningBenchmark = false;
 	$: runningBenchmark && $clock.running && updateBenchmark($clock.dt);
 	const updateBenchmark = (dt: number): void => {
 		output = {params, totalTime: output ? output.totalTime + dt : dt};
 		tick++;
-		for (let i = 0; i < params.spawnsPerTick; i++) {
-			// TODO support a fn?
-			dispatch('tick', tick);
+		spawns += params.spawnsPerTick; // allows partials
+		while (spawns >= 1) {
+			spawns--;
+			dispatch('tick', tick); // TODO should be a `spawn` event right? or rather `ticksPerMs`
 		}
 		if (tick >= output.params.tickCount) {
 			runningBenchmark = false;

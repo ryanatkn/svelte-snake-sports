@@ -192,10 +192,9 @@
 		<BenchmarkCreator params={benchmarkerParams} on:create={(e) => runBenchmark(e.detail)} />
 		<div>
 			{#each benchmarks as benchmark}
-				<div class="centered-hz">
-					{JSON.stringify(benchmark)}<button on:click={() => runBenchmark(benchmark.params)}
-						>rerun</button
-					>
+				<div class="centered-hz panel-inset">
+					<pre>{JSON.stringify(benchmark, null, 2)}</pre>
+					<button on:click={() => runBenchmark(benchmark.params)}>rerun</button>
 				</div>
 			{/each}
 		</div>

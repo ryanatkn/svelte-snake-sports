@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type {Clock} from './clock';
-	import type {Direction} from './Entity';
-	import type {SnakeGameState} from './SnakeGameState';
-	import Ticker from './Ticker.svelte';
+	import type {Clock} from '$lib/clock';
+	import type {Direction} from '$lib/Entity';
+	import type {SnakeGameState} from '$lib/SnakeGameState';
+	import Ticker from '$lib/Ticker.svelte';
 
 	export let clock: Clock;
 	export let state: SnakeGameState;

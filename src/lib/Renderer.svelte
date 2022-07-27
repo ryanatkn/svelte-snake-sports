@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Entity from './Entity.svelte';
-	import Instructions from './Instructions.svelte';
-	import {ENTITY_DEFAULT_HEIGHT, ENTITY_DEFAULT_WIDTH} from './Entity';
-	import type {SnakeGameState} from './SnakeGameState';
+	import Entity from '$lib/Entity.svelte';
+	import Instructions from '$lib/Instructions.svelte';
+	import {ENTITY_DEFAULT_HEIGHT, ENTITY_DEFAULT_WIDTH} from '$lib/Entity';
+	import type {SnakeGameState} from '$lib/SnakeGameState';
 
 	export let state: SnakeGameState;
 

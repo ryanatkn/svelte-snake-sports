@@ -4,8 +4,11 @@
 	import {randomItem} from '@feltcoop/felt/util/random.js';
 	import {plural} from '@feltcoop/felt/util/string.js';
 	import {onDestroy} from 'svelte';
+	import Dialog from '@feltcoop/felt/ui/dialog/Dialog.svelte';
 
 	import Positioned from '$lib/Positioned.svelte';
+	import Benchmark from '$lib/Benchmark.svelte';
+	import type {BenchmarkParams} from '$lib/benchmark';
 
 	// TODO fix
 
@@ -138,16 +141,26 @@
 	});
 
 	let clientWidth: number;
+
+	let showBenchmark = false;
+	const closeBenchmark = () => (showBenchmark = false);
+	const openBenchmark = () => (showBenchmark = true);
+	const benchmarkerParams: BenchmarkParams = {tickCount: 1000, spawnsPerTick: 1};
 </script>
 
 <div class="panel-outset padded-md centered-hz">
 	<button
-		on:click={reset}
+		on:click={() => (layoutItems.length ? reset() : openBenchmark())}
 		title="do snake magic to {layoutItems.length} snake{plural(layoutItems.length)}"
 		>{#if layoutItems.length}🪄{:else}⏱{/if}</button
 	>
 	<span class="padded-md">{layoutItems.length}</span>
 </div>
+{#if showBenchmark}
+	<Dialog on:close={() => closeBenchmark()}>
+		<Benchmark params={benchmarkerParams} />
+	</Dialog>
+{/if}
 <button
 	class="sss"
 	on:mousedown={onMousedown}

@@ -1,5 +1,5 @@
 import {browser} from '$app/env';
-import type {Direction, EntityState} from './Entity';
+import type {Direction, EntityState} from '$lib/Entity';
 
 export interface SnakeGameState {
 	mapWidth: number; // tile count x

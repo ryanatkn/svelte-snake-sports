@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type {Clock} from './clock';
+	import type {Clock} from '$lib/clock';
 
 	export let clock: Clock;
 	export let tick: (dt: number) => void;
@@ -8,6 +8,7 @@
 	export let updateTickDuration = (t: number): number => t * 0.9999;
 
 	let dt: number;
+	let running: boolean;
 	$: ({dt, running} = $clock);
 	$: update(dt);
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type {SnakeGameState} from './SnakeGameState';
+	import type {SnakeGameState} from '$lib/SnakeGameState';
 
 	export let state: SnakeGameState;
 

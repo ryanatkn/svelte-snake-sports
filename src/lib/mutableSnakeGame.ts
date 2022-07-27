@@ -1,7 +1,7 @@
 import {randomInt} from '@feltcoop/felt/util/random.js';
 import {browser} from '$app/env';
-import {Entity, type Direction} from './Entity';
-import type {SnakeGameState} from './SnakeGameState';
+import {Entity, type Direction} from '$lib/Entity';
+import type {SnakeGameState} from '$lib/SnakeGameState';
 
 const MOVEMENT_COMMAND_QUEUE_SIZE = 4; // how many inputs a player can queue up at once
 

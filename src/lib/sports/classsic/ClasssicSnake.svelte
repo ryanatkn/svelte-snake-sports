@@ -31,7 +31,7 @@
 
 	let tickDuration = Math.round(1000 / 6);
 
-	let showSettings = true;
+	let showSettings = false;
 
 	const onKeydown = (e: KeyboardEvent) => {
 		if (isEditable(e.target)) return;

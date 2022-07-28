@@ -12,6 +12,7 @@
 	const clearLocalStorage = () => {
 		localStorage.removeItem('highScore');
 		localStorage.removeItem('stats');
+		window.location = window.location;
 	};
 </script>
 

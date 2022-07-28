@@ -14,7 +14,6 @@
 	import Score from '$lib/Score.svelte';
 	import Stats from '$lib/Stats.svelte';
 	import {toDefaultGameState} from '$lib/SnakeGameState';
-	// import { createGameLoop } from '$lib/createGameLoop';
 	import {initGameState, updateGameState} from '$lib/mutableSnakeGame';
 	import Ticker from '$lib/Ticker.svelte';
 	import ClockControls from '$lib/ClockControls.svelte';

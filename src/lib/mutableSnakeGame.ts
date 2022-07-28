@@ -3,7 +3,7 @@ import {browser} from '$app/env';
 import {Entity, type Direction} from '$lib/Entity';
 import type {SnakeGameState} from '$lib/SnakeGameState';
 import {get} from 'svelte/store';
-import type {SnakeGameInput} from './SnakeGameInput';
+import type {SnakeGameInput} from '$lib/SnakeGameInput';
 
 interface Position {
 	x: number;
@@ -101,20 +101,20 @@ const setScore = (state: SnakeGameState, value: number): void => {
  * but it is expected to be in a fully valid state before and after the function.
  * Any potentially illegal states need to be checked and reconciled before the function ends.
  */
-export const updateGameState = (state: SnakeGameState, input: SnakeGameInput): SnakeGameState => {
+export const updateGameState = (state: SnakeGameState, game: SnakeGameInput): SnakeGameState => {
 	// TODO  need to have input/output from one state to the next, still using mutating functions so we can user Immer or not
 
 	// TODO performance.now()
 
 	// Updates state like `game.snake.movementDirection` based on user input
-	updateInput(input);
+	updateInput(game);
 
 	// Update entities
-	moveSnake(state, get(input.snakeMovementDirection)); // TODO BLOCK avoid `get`
+	moveSnake(state, get(game.snakeMovementDirection)); // TODO BLOCK avoid `get`
 
 	// Check for collision events and handle all possible game state changes.
-	checkSnakeOutOfBounds(state);
-	checkSnakeEatSelf(state);
+	checkSnakeOutOfBounds(state, game);
+	checkSnakeEatSelf(state, game);
 	checkSnakeEatApple(state);
 
 	return state;
@@ -123,11 +123,11 @@ export const updateGameState = (state: SnakeGameState, input: SnakeGameInput): S
 /**
  * Update the snake's movement direction with the next input direction, if any.
  */
-function updateInput(input: SnakeGameInput): void {
-	input.movementCommandQueue.update(($v) => {
+function updateInput(game: SnakeGameInput): void {
+	game.movementCommandQueue.update(($v) => {
 		if (!$v.length) return $v;
 		$v = $v.slice(); // eslint-disable-line no-param-reassign
-		input.snakeMovementDirection.set($v.shift()!);
+		game.snakeMovementDirection.set($v.shift()!);
 		return $v;
 	});
 }
@@ -154,30 +154,31 @@ function moveSnake({snakeSegments}: SnakeGameState, snakeMovementDirection: Dire
  * We only need to check the head of the snake to see if the whole thing is in bounds
  * because of the game's movement rules.
  */
-function checkSnakeOutOfBounds(state: SnakeGameState): void {
+function checkSnakeOutOfBounds(state: SnakeGameState, game: SnakeGameInput): void {
 	const {snakeSegments, mapWidth, mapHeight} = state;
 	if (snakeSegments[0].isOutOfBounds(mapWidth, mapHeight)) {
-		destroySnake(state);
+		destroySnake(state, game);
 	}
 }
 
 /**
  * As the quickest possible thing, just reset the game state when the player dies.
  */
-function destroySnake(state: SnakeGameState): void {
+function destroySnake(state: SnakeGameState, game: SnakeGameInput): void {
 	state.stats++;
 	initGameState(state);
+	game.reset();
 }
 
 /**
  * Checks if the snake eats itself. If so, destroy it.
  */
-function checkSnakeEatSelf(state: SnakeGameState): void {
+function checkSnakeEatSelf(state: SnakeGameState, game: SnakeGameInput): void {
 	const {snakeSegments} = state;
 	const snakeHead = snakeSegments[0];
 	for (const segment of snakeSegments) {
 		if (segment !== snakeHead && segment.isCollidingWith(snakeHead)) {
-			return destroySnake(state);
+			return destroySnake(state, game);
 		}
 	}
 }

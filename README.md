@@ -8,10 +8,10 @@ deployed:
 ## what
 
 In 2016 I wrote a tiny [`snake-game`](https://ryanatkn.github.io/snake-game)
-for an interview in React. Today I use Svelte instead and I continue to enjoy games of
+for an interview in React. Today I use Svelte instead and I continue to enjoy
 [Snake](https://en.wikipedia.org/wiki/Snake_game)
 for thinking through frontend development patterns.
-This project started as <a href="https://ryanatkn.github.io/svelte-snake-sports/classsic">a port</a> of that small React codebase to my current Svelte patterns
+This project started as <a href="https://ryanatkn.github.io/svelte-snake-sports/classsic">a port</a> of the React version to my current Svelte patterns
 and it's growing from there.
 
 This project plans to make many distinct versions of Snake in Svelte that are

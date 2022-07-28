@@ -1,20 +1,13 @@
 <script lang="ts">
 	import type {Direction} from '$lib/Entity';
-	import type {SnakeGameState} from '$lib/SnakeGameState';
 	import {writable} from 'svelte/store';
-	import type {SnakeGameInput} from '$lib/SnakeGameInput';
-
-	export let state: SnakeGameState;
-	export let initGameState: (state: SnakeGameState) => void;
-
-	initGameState(state);
 
 	export const snakeMovementDirection = writable<Direction>('up');
 	export const movementCommandQueue = writable<Direction[]>([]);
-	// TODO probably remove this?
-	export const input: SnakeGameInput = {
-		snakeMovementDirection,
-		movementCommandQueue,
+
+	export const reset = (): void => {
+		$snakeMovementDirection = 'up';
+		$movementCommandQueue = [];
 	};
 
 	const MOVEMENT_COMMAND_QUEUE_SIZE = 4; // how many inputs a player can queue up at once
@@ -24,25 +17,35 @@
 	 * Newer commands bump off older ones off the front.
 	 */
 	export const inputMovementCommand = (movementCommand: Direction): void => {
-		const nextMovementCommandQueue = [...$movementCommandQueue, movementCommand];
-		while (nextMovementCommandQueue.length > MOVEMENT_COMMAND_QUEUE_SIZE) {
-			nextMovementCommandQueue.shift();
-		}
-		$movementCommandQueue = nextMovementCommandQueue;
+		movementCommandQueue.update(($v) => {
+			const $updated = [...$v, movementCommand];
+			while ($updated.length > MOVEMENT_COMMAND_QUEUE_SIZE) {
+				$updated.shift();
+			}
+			return $updated;
+		});
 	};
 
 	const updateKeyDown = (key: string): void => {
 		switch (key) {
 			case 'ArrowUp':
+			case 'w':
+			case 'k':
 				inputMovementCommand('up');
 				break;
 			case 'ArrowDown':
+			case 's':
+			case 'j':
 				inputMovementCommand('down');
 				break;
 			case 'ArrowLeft':
+			case 'a':
+			case 'h':
 				inputMovementCommand('left');
 				break;
 			case 'ArrowRight':
+			case 'd':
+			case 'l':
 				inputMovementCommand('right');
 				break;
 			default:

@@ -8,13 +8,13 @@
 
 <div class="Instructions">
 	<p>use the arrow keys to move</p>
-	<p style:position="relative" style:top="{0}px" style:left="{-15}px">eat apples!</p>
+	<p style:position="relative" style:left="{-15}px">eat apples!</p>
 	{#if highScore}
 		<p>
-			best {highScore} apple{highScore === 1 ? '' : 's'}!
+			besst is {highScore} apple{highScore === 1 ? '' : 's'}!
 		</p>
 	{/if}
-	<p style:position="relative" style:top="{55}px" style:left="{55}px">don't bite yourself :O</p>
+	<p style:position="relative" style:left="{55}px">don't bite yourself :O</p>
 </div>
 
 <style>

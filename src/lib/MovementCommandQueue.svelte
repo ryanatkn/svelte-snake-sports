@@ -7,13 +7,16 @@
 	export let movementCommandQueue: Writable<Direction[]>;
 </script>
 
->
-{#each $movementCommandQueue as direction}
-	<span>{direction}</span>
-{/each}
+<ul>
+	{#each $movementCommandQueue as direction}
+		<li>> {direction}</li>
+	{:else}
+		<li>></li>
+	{/each}
+</ul>
 
 <style>
-	span {
-		padding: var(--spacing_sm);
+	ul {
+		width: 100px;
 	}
 </style>

@@ -6,12 +6,28 @@
 </script>
 
 <div class="directional-controls">
-	<button class:selected={selectedDirection === 'left'} on:click={() => select('left')}>⬅</button>
+	<button
+		title="move left [a, h, left arrow]"
+		class:selected={selectedDirection === 'left'}
+		on:click={() => select('left')}>⬅</button
+	>
 	<div class="up-and-down">
-		<button class:selected={selectedDirection === 'up'} on:click={() => select('up')}>⬆</button>
-		<button class:selected={selectedDirection === 'down'} on:click={() => select('down')}>⬇</button>
+		<button
+			title="move up [w, k, up arrow]"
+			class:selected={selectedDirection === 'up'}
+			on:click={() => select('up')}>⬆</button
+		>
+		<button
+			title="move down [s, j, down arrow]"
+			class:selected={selectedDirection === 'down'}
+			on:click={() => select('down')}>⬇</button
+		>
 	</div>
-	<button class:selected={selectedDirection === 'right'} on:click={() => select('right')}>➡</button>
+	<button
+		title="move right [d, l, right arrow]"
+		class:selected={selectedDirection === 'right'}
+		on:click={() => select('right')}>➡</button
+	>
 </div>
 
 <style>

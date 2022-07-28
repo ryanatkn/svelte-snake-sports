@@ -1,6 +1,7 @@
 import {browser} from '$app/env';
 import type {Entity} from '$lib/Entity';
 
+// TODO maybe change this to be `toJson` and `fromJson` on `SnakeGame.svelte`?
 export interface SnakeGameState {
 	mapWidth: number; // tile count x
 	mapHeight: number; // tile count y

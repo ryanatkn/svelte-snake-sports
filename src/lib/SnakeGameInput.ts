@@ -7,4 +7,5 @@ import type {Direction} from '$lib/Entity';
 export interface SnakeGameInput {
 	snakeMovementDirection: Writable<Direction>;
 	movementCommandQueue: Writable<Direction[]>;
+	reset: () => void;
 }

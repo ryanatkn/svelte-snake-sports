@@ -26,6 +26,7 @@
 	$: console.log(`game`, game);
 
 	let state = toDefaultGameState(); // TODO put this in a writable?
+	initGameState(state);
 
 	let tickDuration = Math.round(1000 / 6);
 
@@ -38,36 +39,39 @@
 		}
 	};
 
-	$: movementCommandQueue = game?.input.movementCommandQueue;
+	$: movementCommandQueue = game?.movementCommandQueue;
 	$: currentCommand = $movementCommandQueue?.[0];
 
-	const onTick = () => (state = updateGameState(state, game!.input));
+	const onTick = () => {
+		if (!game) return;
+		state = updateGameState(state, game);
+	};
 </script>
 
 <svelte:window on:keydown={onKeydown} />
 
 <div class="ClasssicSnake">
-	<SnakeGame bind:this={game} {state} {initGameState} />
+	<SnakeGame bind:this={game} />
 	{#if game}
 		<Renderer {state} />
+		<div class="controls padded-md">
+			{#if movementCommandQueue}
+				<div class="commands padded-md">
+					<MovementCommandQueue {movementCommandQueue} />
+				</div>
+			{/if}
+			<DirectionalControls
+				selectedDirection={currentCommand}
+				select={(d) => game?.inputMovementCommand(d)}
+			/>
+			<ClockControls {clock} />
+		</div>
 		<div class="scores-and-stats">
 			<Score {state} />
 			<Stats {state} />
-			<div class="padded-md">
-				<DirectionalControls
-					selectedDirection={currentCommand}
-					select={(d) => game?.inputMovementCommand(d)}
-				/>
-			</div>
 		</div>
-		{#if movementCommandQueue}
-			<div class="padded-md">
-				<MovementCommandQueue {movementCommandQueue} />
-			</div>
-		{/if}
 		<section class="centered">
 			<Ticker {clock} {tickDuration} tick={onTick} />
-			<ClockControls {clock} />
 		</section>
 		<section class="centered">
 			<button on:click={() => (showSettings = !showSettings)}
@@ -87,6 +91,9 @@
 		padding-top: var(--spacing_xl3);
 		flex-direction: column;
 		align-items: center;
+	}
+	.controls {
+		display: flex;
 	}
 	.scores-and-stats {
 		display: flex;

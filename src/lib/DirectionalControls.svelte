@@ -37,6 +37,7 @@
 	}
 	button {
 		padding: var(--spacing_xl);
+		min-width: 53px;
 	}
 	.up-and-down {
 		display: flex;

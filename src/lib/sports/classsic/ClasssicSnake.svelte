@@ -58,7 +58,7 @@
 <svelte:window on:keydown={onKeydown} />
 
 <div class="ClasssicSnake">
-	<SnakeGame bind:this={game} />
+	<SnakeGame bind:this={game} {tick} />
 	{#if game}
 		<Renderer {state} />
 		<div class="controls padded-md">
@@ -69,7 +69,7 @@
 			{/if}
 			<DirectionalControls
 				selectedDirection={currentCommand}
-				select={(d) => game?.inputMovementCommand(d)}
+				select={(d) => game?.enqueueMovementCommand(d)}
 			/>
 			<ClockControls {clock} />
 			<button title="[1] next turn" class="icon-button" on:click={tick}>⏩</button>
@@ -80,6 +80,24 @@
 		</div>
 		<section class="centered">
 			<Ticker {clock} {tickDuration} {tick} />
+		</section>
+		<section class="markup centered">
+			<ul>
+				<li>
+					<strong>move</strong>: arrow keys, <code>wasd</code>, <code>hjkl</code>
+					<ul>
+						<li>
+							optionally hold down <code>ctrl</code> or <code>shift</code> to move one turn at a time
+						</li>
+					</ul>
+				</li>
+				<li>
+					<strong>toggle clock</strong>: <code>Backtick `</code>
+				</li>
+				<li>
+					<strong>take one turn</strong>: <code>1</code>
+				</li>
+			</ul>
 		</section>
 		<section class="centered">
 			<button on:click={() => (showSettings = !showSettings)}

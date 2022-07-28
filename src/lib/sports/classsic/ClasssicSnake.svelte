@@ -4,6 +4,7 @@
 	// This version is a port of the original React project:
 	// https://ryanatkn.github.io/snake-game
 	// See `$lib/sports/simple/SimpleSnake.svelte` for the same thing but simplified.
+	import {isEditable} from '@feltcoop/felt/util/dom.js';
 
 	import SnakeGame from '$lib/SnakeGame.svelte';
 	import Renderer from '$lib/Renderer.svelte';
@@ -33,16 +34,23 @@
 	let showSettings = true;
 
 	const onKeydown = (e: KeyboardEvent) => {
-		const {key} = e;
-		if (key === '`') {
-			clock.toggle();
+		if (isEditable(e.target)) return;
+		switch (e.key) {
+			case '`': {
+				clock.toggle();
+				break;
+			}
+			case '1': {
+				tick();
+				break;
+			}
 		}
 	};
 
 	$: movementCommandQueue = game?.movementCommandQueue;
 	$: currentCommand = $movementCommandQueue?.[0];
 
-	const onTick = () => {
+	const tick = () => {
 		if (!game) return;
 		state = updateGameState(state, game);
 	};
@@ -65,13 +73,14 @@
 				select={(d) => game?.inputMovementCommand(d)}
 			/>
 			<ClockControls {clock} />
+			<button title="[1] next turn" class="icon-button" on:click={tick}>⏩</button>
 		</div>
 		<div class="scores-and-stats">
 			<Score {state} />
 			<Stats {state} />
 		</div>
 		<section class="centered">
-			<Ticker {clock} {tickDuration} tick={onTick} />
+			<Ticker {clock} {tickDuration} {tick} />
 		</section>
 		<section class="centered">
 			<button on:click={() => (showSettings = !showSettings)}
@@ -101,5 +110,8 @@
 	}
 	section {
 		padding-top: var(--spacing_xl5);
+	}
+	.icon-button {
+		font-size: var(--font_size_xl5);
 	}
 </style>

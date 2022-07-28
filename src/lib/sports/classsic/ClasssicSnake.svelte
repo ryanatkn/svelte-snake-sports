@@ -51,6 +51,7 @@
 
 	const tick = () => {
 		if (!game) return;
+		// TODO BLOCK maybe serialize input state as param instead of `game`?
 		state = updateGameState(state, game);
 	};
 </script>

@@ -5,6 +5,8 @@ import type {SnakeGameState} from '$lib/SnakeGameState';
 import {get} from 'svelte/store';
 import type {SnakeGameInput} from '$lib/SnakeGameInput';
 
+// TODO `tickDurationDecay
+
 interface Position {
 	x: number;
 	y: number;
@@ -19,7 +21,6 @@ export const initGameState = (state: SnakeGameState): void => {
 	// TODO  single state JSON object instead? update(state, controller) => nextState
 
 	state.tickDuration = 1000; // TODO make configurable
-	state.tickTimer = 0;
 	state.score = 0;
 	state.highScore = (browser && Number(localStorage.getItem('highScore'))) || 0; // clearly bad code to not be DRY - this whole module smells
 
@@ -124,6 +125,7 @@ export const updateGameState = (state: SnakeGameState, game: SnakeGameInput): Sn
  * Update the snake's movement direction with the next input direction, if any.
  */
 function updateInput(game: SnakeGameInput): void {
+	// TODO this is always called first in update, so maybe it's a totally separate process, we only send serialized inputs here, then `.reset()` below gets converted
 	game.movementCommandQueue.update(($v) => {
 		if (!$v.length) return $v;
 		$v = $v.slice(); // eslint-disable-line no-param-reassign

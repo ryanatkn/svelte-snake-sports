@@ -1,4 +1,3 @@
-import {browser} from '$app/env';
 import type {Entity} from '$lib/Entity';
 
 // TODO maybe change this to be `toJson` and `fromJson` on `SnakeGame.svelte`?
@@ -7,8 +6,6 @@ export interface SnakeGameState {
 	mapHeight: number; // tile count y
 	tickDuration: number; // ms per tick
 	score: number; // how many apples have been eaten
-	highScore: number;
-	stats: number; // currently just stores a run count
 	tiles: Entity[];
 	apples: Entity[];
 	snakeSegments: Entity[];
@@ -19,8 +16,6 @@ export const toDefaultGameState = (): SnakeGameState => ({
 	mapHeight: 16,
 	tickDuration: 1000,
 	score: 0,
-	highScore: (browser && Number(localStorage.getItem('highScore'))) || 0,
-	stats: (browser && Number(localStorage.getItem('stats'))) || 0,
 	tiles: [],
 	apples: [],
 	snakeSegments: [],

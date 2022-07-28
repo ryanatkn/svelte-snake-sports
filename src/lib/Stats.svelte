@@ -1,21 +1,21 @@
 <script lang="ts">
-	import type {SnakeGameState} from '$lib/SnakeGameState';
 	import Fps from '$lib/Fps.svelte';
+	import type {ISnakeGame} from '$lib/SnakeGame';
 
-	export let state: SnakeGameState;
+	export let game: ISnakeGame;
 
-	$: ({stats, highScore} = state);
+	$: ({runCount, highScore} = game);
 
 	let fps: number;
 </script>
 
 <ul class="Stats">
 	<li>
-		<div class="value">{highScore}</div>
+		<div class="value">{$highScore}</div>
 		besst
 	</li>
 	<li>
-		<div class="value">{stats}</div>
+		<div class="value">{$runCount}</div>
 		livesss
 	</li>
 	<li>

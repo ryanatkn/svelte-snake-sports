@@ -1,16 +1,38 @@
+<svelte:options immutable={false} />
+
 <script lang="ts">
+	import {browser} from '$app/env';
 	import type {Direction} from '$lib/Entity';
 	import {writable} from 'svelte/store';
+	import type {SnakeGameState} from '$lib/SnakeGameState';
+	import {swallow} from '@feltcoop/felt/util/dom.js';
 
+	// TODO BLOCK add state store?
+	export let state: SnakeGameState;
 	export let tick: () => void;
 
 	export const snakeMovementDirection = writable<Direction>('up');
 	export const movementCommandQueue = writable<Direction[]>([]); // TODO should this be a generic command queue, not just movement?
+	export const highScore = writable<number>(
+		(browser && Number(localStorage.getItem('highScore'))) || 0,
+	);
+	export const runCount = writable<number>(0);
 
 	export const reset = (): void => {
 		$snakeMovementDirection = 'up';
 		$movementCommandQueue = [];
 	};
+
+	$: ({score} = state);
+
+	$: console.log(`score`, score);
+
+	// TODO is there a better place to do this? imperatively after updating the state?
+	$: if (score > $highScore) {
+		console.log(`score`, score);
+		$highScore = score;
+		if (browser) localStorage.setItem('highScore', score + ''); // TODO use helper on store instead
+	}
 
 	const MOVEMENT_COMMAND_QUEUE_SIZE = 4; // how many inputs a player can queue up at once
 
@@ -32,7 +54,7 @@
 		$movementCommandQueue = [movementCommand];
 	};
 
-	const updateKeyDown = (key: string, shiftKey: boolean, ctrlKey: boolean): void => {
+	const updateKeyDown = (key: string, shiftKey: boolean, ctrlKey: boolean): boolean => {
 		switch (key) {
 			case 'ArrowUp':
 			case 'w':
@@ -43,7 +65,7 @@
 				} else {
 					enqueueMovementCommand('up');
 				}
-				break;
+				return true;
 			case 'ArrowDown':
 			case 's':
 			case 'j':
@@ -53,7 +75,7 @@
 				} else {
 					enqueueMovementCommand('down');
 				}
-				break;
+				return true;
 			case 'ArrowLeft':
 			case 'a':
 			case 'h':
@@ -63,7 +85,7 @@
 				} else {
 					enqueueMovementCommand('left');
 				}
-				break;
+				return true;
 			case 'ArrowRight':
 			case 'd':
 			case 'l':
@@ -73,14 +95,15 @@
 				} else {
 					enqueueMovementCommand('right');
 				}
-				break;
-			default:
-				break;
+				return true;
 		}
+		return false;
 	};
 </script>
 
 <svelte:body
 	on:keydown={(e) => {
-		updateKeyDown(e.key, e.shiftKey, e.ctrlKey);
+		if (updateKeyDown(e.key, e.shiftKey, e.ctrlKey)) {
+			swallow(e);
+		}
 	}} />

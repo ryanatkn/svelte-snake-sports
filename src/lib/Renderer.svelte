@@ -5,8 +5,10 @@
 	import Instructions from '$lib/Instructions.svelte';
 	import {ENTITY_DEFAULT_HEIGHT, ENTITY_DEFAULT_WIDTH} from '$lib/Entity';
 	import type {SnakeGameState} from '$lib/SnakeGameState';
+	import type SnakeGame from '$lib/SnakeGame.svelte';
 
 	export let state: SnakeGameState;
+	export let game: SnakeGame;
 
 	$: ({mapWidth, mapHeight, tiles, apples, snakeSegments, score} = state);
 
@@ -34,7 +36,7 @@
 		<!-- TODO render the queued movement -->
 	</ul>
 	{#if score === 0}
-		<Instructions {state} />
+		<Instructions {game} />
 	{/if}
 </div>
 

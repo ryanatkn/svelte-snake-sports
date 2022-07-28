@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type {SnakeGameState} from '$lib/SnakeGameState';
+	import type SnakeGame from '$lib/SnakeGame.svelte';
 
-	export let state: SnakeGameState;
+	export let game: SnakeGame;
 
-	$: ({highScore} = state);
+	$: ({highScore} = game);
 </script>
 
 <div class="Instructions">
@@ -11,7 +11,7 @@
 	<p style:position="relative" style:left="{-15}px">eat apples!</p>
 	{#if highScore}
 		<p>
-			besst is {highScore} apple{highScore === 1 ? '' : 's'}!
+			besst is {$highScore} apple{$highScore === 1 ? '' : 's'}!
 		</p>
 	{/if}
 	<p style:position="relative" style:left="{55}px">don't bite yourself :O</p>

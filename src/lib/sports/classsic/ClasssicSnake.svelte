@@ -59,9 +59,9 @@
 <svelte:window on:keydown={onKeydown} />
 
 <div class="ClasssicSnake">
-	<SnakeGame bind:this={game} {tick} />
+	<SnakeGame bind:this={game} {state} {tick} />
 	{#if game}
-		<Renderer {state} />
+		<Renderer {state} {game} />
 		<div class="controls padded-md">
 			{#if movementCommandQueue}
 				<div class="commands padded-md">
@@ -77,7 +77,7 @@
 		</div>
 		<div class="scores-and-stats">
 			<Score {state} />
-			<Stats {state} />
+			<Stats {game} />
 		</div>
 		<section class="centered">
 			<Ticker {clock} {tickDuration} {tick} />

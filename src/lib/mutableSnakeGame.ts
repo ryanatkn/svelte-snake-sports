@@ -1,9 +1,8 @@
 import {randomInt} from '@feltcoop/felt/util/random.js';
-import {browser} from '$app/env';
 import {Entity, type Direction} from '$lib/Entity';
 import type {SnakeGameState} from '$lib/SnakeGameState';
 import {get} from 'svelte/store';
-import type {SnakeGameInput} from '$lib/SnakeGameInput';
+import type {ISnakeGame} from '$lib/SnakeGame';
 
 // TODO `tickDurationDecay
 
@@ -21,8 +20,7 @@ export const initGameState = (state: SnakeGameState): void => {
 	// TODO  single state JSON object instead? update(state, controller) => nextState
 
 	state.tickDuration = 1000; // TODO make configurable
-	state.score = 0;
-	state.highScore = (browser && Number(localStorage.getItem('highScore'))) || 0; // clearly bad code to not be DRY - this whole module smells
+	state.score = 0; // TODO BLOCK
 
 	// Create the tiles.
 	const nextTiles: Entity[] = [];
@@ -89,10 +87,6 @@ const getRandomLocation = ({mapWidth, mapHeight}: SnakeGameState): Position => (
  */
 const setScore = (state: SnakeGameState, value: number): void => {
 	state.score = value;
-	if (value > state.highScore) {
-		state.highScore = value;
-		if (browser) localStorage.setItem('highScore', value + '');
-	}
 };
 
 /**
@@ -102,7 +96,7 @@ const setScore = (state: SnakeGameState, value: number): void => {
  * but it is expected to be in a fully valid state before and after the function.
  * Any potentially illegal states need to be checked and reconciled before the function ends.
  */
-export const updateGameState = (state: SnakeGameState, game: SnakeGameInput): SnakeGameState => {
+export const updateGameState = (state: SnakeGameState, game: ISnakeGame): SnakeGameState => {
 	// TODO  need to have input/output from one state to the next, still using mutating functions so we can user Immer or not
 
 	// TODO performance.now()
@@ -124,7 +118,7 @@ export const updateGameState = (state: SnakeGameState, game: SnakeGameInput): Sn
 /**
  * Update the snake's movement direction with the next input direction, if any.
  */
-function updateInput(game: SnakeGameInput): void {
+function updateInput(game: ISnakeGame): void {
 	// TODO this is always called first in update, so maybe it's a totally separate process, we only send serialized inputs here, then `.reset()` below gets converted
 	game.movementCommandQueue.update(($v) => {
 		if (!$v.length) return $v;
@@ -156,7 +150,7 @@ function moveSnake({snakeSegments}: SnakeGameState, snakeMovementDirection: Dire
  * We only need to check the head of the snake to see if the whole thing is in bounds
  * because of the game's movement rules.
  */
-function checkSnakeOutOfBounds(state: SnakeGameState, game: SnakeGameInput): void {
+function checkSnakeOutOfBounds(state: SnakeGameState, game: ISnakeGame): void {
 	const {snakeSegments, mapWidth, mapHeight} = state;
 	if (snakeSegments[0].isOutOfBounds(mapWidth, mapHeight)) {
 		destroySnake(state, game);
@@ -166,8 +160,7 @@ function checkSnakeOutOfBounds(state: SnakeGameState, game: SnakeGameInput): voi
 /**
  * As the quickest possible thing, just reset the game state when the player dies.
  */
-function destroySnake(state: SnakeGameState, game: SnakeGameInput): void {
-	state.stats++;
+function destroySnake(state: SnakeGameState, game: ISnakeGame): void {
 	initGameState(state);
 	game.reset();
 }
@@ -175,7 +168,7 @@ function destroySnake(state: SnakeGameState, game: SnakeGameInput): void {
 /**
  * Checks if the snake eats itself. If so, destroy it.
  */
-function checkSnakeEatSelf(state: SnakeGameState, game: SnakeGameInput): void {
+function checkSnakeEatSelf(state: SnakeGameState, game: ISnakeGame): void {
 	const {snakeSegments} = state;
 	const snakeHead = snakeSegments[0];
 	for (const segment of snakeSegments) {

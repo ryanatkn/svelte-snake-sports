@@ -6,14 +6,17 @@
 	import {writable} from 'svelte/store';
 	import type {SnakeGameState} from '$lib/SnakeGameState';
 	import Hotkeys from '$lib/Hotkeys.svelte';
+	import type {SnakeGameEvent} from '$lib/SnakeGame';
 
 	export const TICK_DURATION_MIN = 17;
 	export const TICK_DURATION_MAX = 2000;
 
 	export let initialState: SnakeGameState;
+	export let initialEvents: SnakeGameEvent[] = [];
 	export let tick: () => void;
 
-	export const state = writable<SnakeGameState>(initialState);
+	export const state = writable(initialState);
+	export const events = writable(initialEvents);
 	export const baseTickDuration = writable(Math.round(1000 / 6)); // the starting tick duration, may be modified by gameplay
 	export const currentTickDuration = writable($baseTickDuration);
 	export const snakeMovementDirection = writable<Direction>('up');
@@ -27,6 +30,7 @@
 	export const tickDurationMax = writable(TICK_DURATION_MAX);
 
 	export const reset = (): void => {
+		$events = [];
 		$currentTickDuration = $baseTickDuration;
 		$snakeMovementDirection = 'up';
 		$movementCommandQueue = [];

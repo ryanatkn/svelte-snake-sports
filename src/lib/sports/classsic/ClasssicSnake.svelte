@@ -28,13 +28,23 @@
 	let showSettings = false;
 
 	$: state = game?.state;
+	$: events = game?.events;
 	$: movementCommandQueue = game?.movementCommandQueue;
 	$: currentCommand = $movementCommandQueue?.[0];
 
 	const tick = () => {
-		if (!game || !$state) return;
+		if (!game || !$state || !$events) return;
 		// TODO BLOCK maybe serialize input state as param instead of `game`?
 		$state = updateGameState($state, game);
+		for (const event of $events) {
+			switch (event.type) {
+				case 'fail': {
+					console.log(`event`, event);
+					game.reset();
+					break;
+				}
+			}
+		}
 		// TODO BLOCK after updating game, if it's reset we need to increment runCount,
 		// so we probably want an events/effects/output system
 	};
@@ -92,23 +102,21 @@
 			<audio src="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls />
 			<Stats {game} />
 		</div>
-		<section class="markup centered">
-			<ul>
-				<li>
-					<strong>move</strong>: arrow keys, <code>wasd</code>, <code>hjkl</code>
-					<ul>
-						<li>
-							optionally hold down <code>ctrl</code> or <code>shift</code> to move one turn at a time
-						</li>
-					</ul>
-				</li>
-				<li>
-					<strong>toggle clock</strong>: <code>Backtick `</code>
-				</li>
-				<li>
-					<strong>take one turn</strong>: <code>1</code>
-				</li>
-			</ul>
+		<section class="markup column-sm">
+			<div>
+				<strong>to move</strong>: arrow keys, <code>wasd</code>, <code>hjkl</code>
+				<ul>
+					<li>
+						optionally hold down <code>ctrl</code> or <code>shift</code> to move one turn at a time
+					</li>
+				</ul>
+			</div>
+			<div>
+				<strong>toggle clock</strong>: <code>Backtick `</code>
+			</div>
+			<div>
+				<strong>take one turn</strong>: <code>1</code>
+			</div>
 		</section>
 		<section class="centered">
 			<button on:click={() => (showSettings = !showSettings)}

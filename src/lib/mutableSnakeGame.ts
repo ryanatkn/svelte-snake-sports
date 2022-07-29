@@ -4,6 +4,8 @@ import type {SnakeGameState} from '$lib/SnakeGameState';
 import {get} from 'svelte/store';
 import type {ISnakeGame} from '$lib/SnakeGame';
 
+// TODO refactor this -- into what? a component?
+
 interface Position {
 	x: number;
 	y: number;
@@ -161,7 +163,7 @@ function checkSnakeOutOfBounds(state: SnakeGameState, game: ISnakeGame): void {
  */
 function destroySnake(state: SnakeGameState, game: ISnakeGame): void {
 	initGameState(state);
-	game.reset();
+	game.events.update(($v) => $v.concat({type: 'fail'}));
 }
 
 /**

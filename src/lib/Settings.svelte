@@ -2,11 +2,13 @@
 
 <script lang="ts">
 	import type {SnakeGameState} from '$lib/SnakeGameState';
+	import type SnakeGame from '$lib/SnakeGame.svelte';
 
 	export let state: SnakeGameState;
-	export let tickDuration: number;
+	export let game: SnakeGame;
 
 	$: ({mapWidth, mapHeight} = state);
+	$: ({baseTickDuration} = game);
 
 	// TODO api?
 	const clearLocalStorage = () => {
@@ -18,12 +20,12 @@
 
 <form class="Settings">
 	<label
-		><strong>tickDuration</strong><input
+		><strong>baseTickDuration</strong><input
 			type="range"
-			bind:value={tickDuration}
+			bind:value={$baseTickDuration}
 			min={0}
 			max={2000}
-		/><input type="number" bind:value={tickDuration} /></label
+		/><input type="number" bind:value={$baseTickDuration} /></label
 	>
 	<!-- TODO how to make these work? need to update state -->
 	<label class="TODO"

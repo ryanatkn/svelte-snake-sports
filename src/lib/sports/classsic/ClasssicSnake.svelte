@@ -28,8 +28,6 @@
 	let state = toDefaultGameState(); // TODO put this in a writable?
 	initGameState(state);
 
-	let tickDuration = Math.round(1000 / 6);
-
 	let showSettings = false;
 
 	const onKeydown = (e: KeyboardEvent) => {
@@ -80,7 +78,7 @@
 			<Stats {game} />
 		</div>
 		<section class="centered">
-			<Ticker {clock} {tickDuration} {tick} />
+			<Ticker {clock} tickDuration={game.currentTickDuration} {tick} />
 		</section>
 		<section class="markup centered">
 			<ul>
@@ -105,7 +103,7 @@
 				>{#if showSettings}stash settings{:else}show settings{/if}</button
 			>
 			{#if showSettings}
-				<Settings {state} bind:tickDuration />
+				<Settings {state} {game} />
 			{/if}
 		</section>
 	{/if}

@@ -4,8 +4,6 @@ import type {SnakeGameState} from '$lib/SnakeGameState';
 import {get} from 'svelte/store';
 import type {ISnakeGame} from '$lib/SnakeGame';
 
-// TODO `tickDurationDecay
-
 interface Position {
 	x: number;
 	y: number;
@@ -19,8 +17,7 @@ export const initGameState = (state: SnakeGameState): void => {
 	console.log('[SnakeGame] init');
 	// TODO  single state JSON object instead? update(state, controller) => nextState
 
-	state.tickDuration = 1000; // TODO make configurable
-	state.score = 0; // TODO BLOCK
+	state.score = 0;
 
 	// Create the tiles.
 	const nextTiles: Entity[] = [];

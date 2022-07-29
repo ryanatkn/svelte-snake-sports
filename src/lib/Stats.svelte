@@ -4,7 +4,7 @@
 
 	export let game: ISnakeGame;
 
-	$: ({runCount, highScore} = game);
+	$: ({runCount, highScore, currentTickDuration} = game);
 
 	let fps: number;
 </script>
@@ -17,6 +17,10 @@
 	<li>
 		<div class="value">{$runCount}</div>
 		livesss
+	</li>
+	<li>
+		<div class="value">{$currentTickDuration}</div>
+		ms
 	</li>
 	<li>
 		<div class="value">{fps ?? '??'}</div>

@@ -11,6 +11,8 @@
 	export let state: SnakeGameState;
 	export let tick: () => void;
 
+	export const baseTickDuration = writable<number>(Math.ceil(1000 / 6)); // the starting tick duration, may be modified by gameplay
+	export const currentTickDuration = writable<number>($baseTickDuration);
 	export const snakeMovementDirection = writable<Direction>('up');
 	export const movementCommandQueue = writable<Direction[]>([]); // TODO should this be a generic command queue, not just movement?
 	export const highScore = writable<number>(
@@ -19,6 +21,7 @@
 	export const runCount = writable<number>(0);
 
 	export const reset = (): void => {
+		$currentTickDuration = $baseTickDuration;
 		$snakeMovementDirection = 'up';
 		$movementCommandQueue = [];
 	};
@@ -26,6 +29,11 @@
 	$: ({score} = state);
 
 	$: console.log(`score`, score);
+
+	// TODO BLOCK move this outside of the component
+	$: $currentTickDuration = decayTickDuration($baseTickDuration, score);
+	const decayTickDuration = (duration: number, score: number): number =>
+		Math.ceil(duration * 0.98 ** (1 + score));
 
 	// TODO is there a better place to do this? imperatively after updating the state?
 	$: if (score > $highScore) {

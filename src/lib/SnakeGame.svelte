@@ -7,33 +7,43 @@
 	import type {SnakeGameState} from '$lib/SnakeGameState';
 	import {swallow} from '@feltcoop/felt/util/dom.js';
 
+	export const TICK_DURATION_MIN = 35;
+	export const TICK_DURATION_MAX = 2000;
+
 	// TODO BLOCK add state store?
 	export let state: SnakeGameState;
 	export let tick: () => void;
 
-	export const baseTickDuration = writable<number>(Math.ceil(1000 / 6)); // the starting tick duration, may be modified by gameplay
-	export const currentTickDuration = writable<number>($baseTickDuration);
+	export const baseTickDuration = writable(Math.round(1000 / 6)); // the starting tick duration, may be modified by gameplay
+	export const currentTickDuration = writable($baseTickDuration);
 	export const snakeMovementDirection = writable<Direction>('up');
 	export const movementCommandQueue = writable<Direction[]>([]); // TODO should this be a generic command queue, not just movement?
 	export const highScore = writable<number>(
 		(browser && Number(localStorage.getItem('highScore'))) || 0,
 	);
-	export const runCount = writable<number>(0);
+	export const runCount = writable(0);
+	export const tickDurationDecay = writable(0.97);
+	export const tickDurationMin = writable(TICK_DURATION_MIN);
+	export const tickDurationMax = writable(TICK_DURATION_MAX);
 
 	export const reset = (): void => {
 		$currentTickDuration = $baseTickDuration;
 		$snakeMovementDirection = 'up';
 		$movementCommandQueue = [];
+		$runCount++;
 	};
 
 	$: ({score} = state);
 
 	$: console.log(`score`, score);
 
-	// TODO BLOCK move this outside of the component
+	// TODO seems a bit hacky to rely on score changes -- should probably recalculate this every tick
 	$: $currentTickDuration = decayTickDuration($baseTickDuration, score);
 	const decayTickDuration = (duration: number, score: number): number =>
-		Math.ceil(duration * 0.98 ** (1 + score));
+		Math.max(
+			$tickDurationMin,
+			Math.min($tickDurationMax, Math.round(duration * $tickDurationDecay ** (1 + score))),
+		);
 
 	// TODO is there a better place to do this? imperatively after updating the state?
 	$: if (score > $highScore) {

@@ -16,7 +16,7 @@
 	</li>
 	<li>
 		<div class="value">{$runCount}</div>
-		livesss
+		lives
 	</li>
 	<li>
 		<div class="value">{$currentTickDuration}</div>

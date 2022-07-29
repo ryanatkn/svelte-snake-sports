@@ -51,6 +51,7 @@
 		if (!game) return;
 		// TODO BLOCK maybe serialize input state as param instead of `game`?
 		state = updateGameState(state, game);
+		// TODO BLOCK after updating game, if it's reset we need to increment runCount
 	};
 </script>
 

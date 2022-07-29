@@ -102,7 +102,7 @@ export const updateGameState = (state: SnakeGameState, game: ISnakeGame): SnakeG
 	updateInput(game);
 
 	// Update entities
-	moveSnake(state, get(game.snakeMovementDirection)); // TODO BLOCK avoid `get`
+	moveSnake(state, get(game.snakeMovementDirection)); // TODO BLOCK avoid `get` -- probably with serialized inputs
 
 	// Check for collision events and handle all possible game state changes.
 	checkSnakeOutOfBounds(state, game);

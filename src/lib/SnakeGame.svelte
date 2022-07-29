@@ -7,7 +7,7 @@
 	import type {SnakeGameState} from '$lib/SnakeGameState';
 	import Hotkeys from '$lib/Hotkeys.svelte';
 
-	export const TICK_DURATION_MIN = 35;
+	export const TICK_DURATION_MIN = 17;
 	export const TICK_DURATION_MAX = 2000;
 
 	export let initialState: SnakeGameState;

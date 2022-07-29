@@ -37,6 +37,7 @@
 	}
 	button {
 		padding: var(--spacing_xl);
+		font-size: var(--font_size_md);
 		min-width: 53px;
 	}
 	.up-and-down {

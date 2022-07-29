@@ -75,24 +75,22 @@
 		<Renderer {game} />
 		<Ticker {clock} tickDuration={game.currentTickDuration} {tick} />
 		<div class="controls padded-md">
-			{#if movementCommandQueue}
-				<div class="commands padded-md">
-					<MovementCommandQueue {movementCommandQueue} />
-				</div>
-			{/if}
+			<button title="[1] next turn" class="icon-button" on:click={tick}>⏩</button>
+			<ClockControls {clock} />
 			<DirectionalControls
 				selectedDirection={currentCommand}
 				select={(d) => game?.enqueueMovementCommand(d)}
 			/>
-			<ClockControls {clock} />
-			<button title="[1] next turn" class="icon-button" on:click={tick}>⏩</button>
+			{#if movementCommandQueue}
+				<div class="padded-md">
+					<MovementCommandQueue {movementCommandQueue} />
+				</div>
+			{/if}
 		</div>
-		<div class="scores-and-stats">
-			<Score {game} />
-			<Stats {game} />
-		</div>
+		<Score {game} />
 		<div class="centered">
 			<audio src="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls />
+			<Stats {game} />
 		</div>
 		<section class="markup centered">
 			<ul>
@@ -133,10 +131,6 @@
 	}
 	.controls {
 		display: flex;
-	}
-	.scores-and-stats {
-		display: flex;
-		align-items: center;
 	}
 	section {
 		padding-top: var(--spacing_xl5);

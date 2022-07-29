@@ -7,24 +7,24 @@
 
 <div class="directional-controls">
 	<button
-		title="move left [a, h, left arrow]"
+		title="queue move left [a, h, left arrow] [end turn with shift or ctrl]"
 		class:selected={selectedDirection === 'left'}
 		on:click={() => select('left')}>⬅</button
 	>
 	<div class="up-and-down">
 		<button
-			title="move up [w, k, up arrow]"
+			title="queue move up [w, k, up arrow] [end turn with shift or ctrl]"
 			class:selected={selectedDirection === 'up'}
 			on:click={() => select('up')}>⬆</button
 		>
 		<button
-			title="move down [s, j, down arrow]"
+			title="queue move down [s, j, down arrow] [end turn with shift or ctrl]"
 			class:selected={selectedDirection === 'down'}
 			on:click={() => select('down')}>⬇</button
 		>
 	</div>
 	<button
-		title="move right [d, l, right arrow]"
+		title="queue move right [d, l, right arrow] [end turn with shift or ctrl]"
 		class:selected={selectedDirection === 'right'}
 		on:click={() => select('right')}>➡</button
 	>

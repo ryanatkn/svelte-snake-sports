@@ -104,12 +104,10 @@
 		</div>
 		<section class="markup column-sm">
 			<div>
-				<strong>to move</strong>: arrow keys, <code>wasd</code>, <code>hjkl</code>
-				<ul>
-					<li>
-						optionally hold down <code>ctrl</code> or <code>shift</code> to move one turn at a time
-					</li>
-				</ul>
+				<strong>to queue a move</strong>: arrow keys, <code>wasd</code>, <code>hjkl</code>
+			</div>
+			<div>
+				<strong>to move and end turn</strong>: <code>ctrl</code> or <code>shift</code>
 			</div>
 			<div>
 				<strong>toggle clock</strong>: <code>Backtick `</code>

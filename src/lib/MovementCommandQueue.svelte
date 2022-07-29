@@ -17,6 +17,6 @@
 
 <style>
 	ul {
-		width: 100px;
+		width: 70px;
 	}
 </style>

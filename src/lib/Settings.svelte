@@ -1,14 +1,12 @@
 <svelte:options immutable={false} />
 
 <script lang="ts">
-	import type {SnakeGameState} from '$lib/SnakeGameState';
 	import type SnakeGame from '$lib/SnakeGame.svelte';
 
-	export let state: SnakeGameState;
 	export let game: SnakeGame;
 
-	$: ({mapWidth, mapHeight} = state);
-	$: ({baseTickDuration, tickDurationDecay, tickDurationMin, tickDurationMax} = game);
+	$: ({state, baseTickDuration, tickDurationDecay, tickDurationMin, tickDurationMax} = game);
+	$: ({mapWidth, mapHeight} = $state);
 
 	// TODO api?
 	const clearLocalStorage = () => {

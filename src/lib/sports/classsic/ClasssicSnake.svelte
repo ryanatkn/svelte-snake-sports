@@ -25,18 +25,16 @@
 	let game: SnakeGame | undefined;
 	$: console.log(`game`, game);
 
-	let state = toDefaultGameState(); // TODO put this in a writable?
-	initGameState(state);
-
 	let showSettings = false;
 
+	$: state = game?.state;
 	$: movementCommandQueue = game?.movementCommandQueue;
 	$: currentCommand = $movementCommandQueue?.[0];
 
 	const tick = () => {
-		if (!game) return;
+		if (!game || !$state) return;
 		// TODO BLOCK maybe serialize input state as param instead of `game`?
-		state = updateGameState(state, game);
+		$state = updateGameState($state, game);
 		// TODO BLOCK after updating game, if it's reset we need to increment runCount,
 		// so we probably want an events/effects/output system
 	};
@@ -72,9 +70,9 @@
 />
 
 <div class="ClasssicSnake">
-	<SnakeGame bind:this={game} {state} {tick} />
+	<SnakeGame bind:this={game} initialState={initGameState(toDefaultGameState())} {tick} />
 	{#if game}
-		<Renderer {state} {game} />
+		<Renderer {game} />
 		<Ticker {clock} tickDuration={game.currentTickDuration} {tick} />
 		<div class="controls padded-md">
 			{#if movementCommandQueue}
@@ -90,7 +88,7 @@
 			<button title="[1] next turn" class="icon-button" on:click={tick}>⏩</button>
 		</div>
 		<div class="scores-and-stats">
-			<Score {state} />
+			<Score {game} />
 			<Stats {game} />
 		</div>
 		<div class="centered">
@@ -119,7 +117,7 @@
 				>{#if showSettings}stash settings{:else}show settings{/if}</button
 			>
 			{#if showSettings}
-				<Settings {state} {game} />
+				<Settings {game} />
 			{/if}
 		</section>
 	{/if}

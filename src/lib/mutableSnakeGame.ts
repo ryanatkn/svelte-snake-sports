@@ -12,7 +12,7 @@ interface Position {
 /**
  * Sets up the initial state for a game.
  */
-export const initGameState = (state: SnakeGameState): void => {
+export const initGameState = (state: SnakeGameState): SnakeGameState => {
 	const {mapWidth, mapHeight} = state;
 	console.log('[SnakeGame] init');
 	// TODO  single state JSON object instead? update(state, controller) => nextState
@@ -39,6 +39,8 @@ export const initGameState = (state: SnakeGameState): void => {
 		new Entity({x: 5, y: 6}),
 		new Entity({x: 5, y: 7}),
 	];
+
+	return state;
 };
 
 /**

@@ -10,10 +10,10 @@
 	export const TICK_DURATION_MIN = 35;
 	export const TICK_DURATION_MAX = 2000;
 
-	// TODO BLOCK add state store?
-	export let state: SnakeGameState;
+	export let initialState: SnakeGameState;
 	export let tick: () => void;
 
+	export const state = writable<SnakeGameState>(initialState);
 	export const baseTickDuration = writable(Math.round(1000 / 6)); // the starting tick duration, may be modified by gameplay
 	export const currentTickDuration = writable($baseTickDuration);
 	export const snakeMovementDirection = writable<Direction>('up');
@@ -33,7 +33,7 @@
 		$runCount++;
 	};
 
-	$: ({score} = state);
+	$: ({score} = $state);
 
 	$: console.log(`score`, score);
 

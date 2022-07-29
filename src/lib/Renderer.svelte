@@ -4,13 +4,12 @@
 	import Entity from '$lib/Entity.svelte';
 	import Instructions from '$lib/Instructions.svelte';
 	import {ENTITY_DEFAULT_HEIGHT, ENTITY_DEFAULT_WIDTH} from '$lib/Entity';
-	import type {SnakeGameState} from '$lib/SnakeGameState';
 	import type SnakeGame from '$lib/SnakeGame.svelte';
 
-	export let state: SnakeGameState;
 	export let game: SnakeGame;
 
-	$: ({mapWidth, mapHeight, tiles, apples, snakeSegments, score} = state);
+	$: ({state} = game);
+	$: ({mapWidth, mapHeight, tiles, apples, snakeSegments, score} = $state);
 
 	$: mapHeightPx = mapHeight * ENTITY_DEFAULT_HEIGHT;
 	$: mapWidthPx = mapWidth * ENTITY_DEFAULT_WIDTH;

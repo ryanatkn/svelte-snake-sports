@@ -74,6 +74,7 @@
 	{#if game}
 		<Renderer {game} />
 		<Ticker {clock} tickDuration={game.currentTickDuration} {tick} />
+		<Score {game} />
 		<div class="controls padded-md">
 			<button title="[1] next turn" class="icon-button" on:click={tick}>⏩</button>
 			<ClockControls {clock} />
@@ -87,7 +88,6 @@
 				</div>
 			{/if}
 		</div>
-		<Score {game} />
 		<div class="centered">
 			<audio src="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls />
 			<Stats {game} />

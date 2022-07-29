@@ -21,11 +21,10 @@
 	<section>
 		<menu>
 			<li>
-				<a href="/classsic" title="classssic snake sports"
+				<a href="{base}/classsic" title="classssic snake sports"
 					><span class="snake-1">🐍</span>classsic<span class="snake-2">🐍</span></a
 				>
 			</li>
-			<!-- <li><a href="/invincible">invincible</a></li> -->
 		</menu>
 	</section>
 	<div class="markup">

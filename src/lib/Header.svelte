@@ -1,3 +1,7 @@
+<script lang="ts">
+	import {base} from '$app/paths';
+</script>
+
 <header class="centered-hz">
 	<h1>
 		<a href="https://svelte.dev/" title="Svelte: cybernetically enhanced web apps">svelte</a>
@@ -12,7 +16,7 @@
 			title="source code"
 			class="snake second-snake">🐍</a
 		>
-		<a href="/classsic" title="play a random sport">sports</a>
+		<a href="{base}/classsic" title="play a random sport">sports</a>
 	</h1>
 </header>
 

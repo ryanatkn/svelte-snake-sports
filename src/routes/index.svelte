@@ -1,4 +1,6 @@
 <script lang="ts">
+	import {base} from '$app/paths';
+
 	import Header from '$lib/Header.svelte';
 	import Sss from '$lib/Sss.svelte';
 	// import ClasssicSnake from '$lib/sports/classsic/ClasssicSnake.svelte';
@@ -29,7 +31,7 @@
 	<div class="markup">
 		<section>
 			<h2>sss</h2>
-			<audio src="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls bind:this={song} />
+			<audio src="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls bind:this={song} />
 		</section>
 	</div>
 	<!-- <ClasssicSnake /> -->

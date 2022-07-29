@@ -4,11 +4,12 @@
 	// This version is a port of the original React project:
 	// https://ryanatkn.github.io/snake-game
 	// See `$lib/sports/simple/SimpleSnake.svelte` for the same thing but simplified.
+	import {base} from '$app/paths';
+	import {browser} from '$app/env';
 
 	import SnakeGame from '$lib/SnakeGame.svelte';
 	import Renderer from '$lib/Renderer.svelte';
 	import {createClock, setClock} from '$lib/clock';
-	import {browser} from '$app/env';
 	import Settings from '$lib/Settings.svelte';
 	import Score from '$lib/Score.svelte';
 	import Stats from '$lib/Stats.svelte';
@@ -99,7 +100,7 @@
 			{/if}
 		</div>
 		<div class="centered">
-			<audio src="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls />
+			<audio src="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls />
 			<Stats {game} />
 		</div>
 		<section class="markup column-sm">

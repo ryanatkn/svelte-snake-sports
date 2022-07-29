@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Breadcrumbs from '@feltcoop/felt/ui/Breadcrumbs.svelte';
+	import {base} from '$app/paths';
 
 	import ClasssicSnake from '$lib/sports/classsic/ClasssicSnake.svelte';
 </script>
@@ -12,7 +13,7 @@
 	</div>
 	<div class="padded-md markup">
 		<p>
-			<a href="/assets/Alexander_Nakarada__Lurking_Sloth.mp3">"Lurking Sloth"</a>
+			<a href="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3">"Lurking Sloth"</a>
 			by Alexander Nakarada <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY-4.0</a>,
 			<a href="https://www.serpentsoundstudios.com/">serpentsoundstudios.com</a>
 		</p>

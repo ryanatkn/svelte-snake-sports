@@ -3,7 +3,7 @@
 <script lang="ts">
 	import {onMount, createEventDispatcher} from 'svelte';
 	import type {BenchmarkOutput, BenchmarkParams} from '$lib/benchmark';
-	import type {Clock} from './clock';
+	import type {Clock} from '$lib/clock';
 
 	const dispatch = createEventDispatcher<{tick: number; finish: BenchmarkOutput}>();
 

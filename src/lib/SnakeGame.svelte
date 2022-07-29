@@ -5,7 +5,7 @@
 	import type {Direction} from '$lib/Entity';
 	import {writable} from 'svelte/store';
 	import type {SnakeGameState} from '$lib/SnakeGameState';
-	import {swallow} from '@feltcoop/felt/util/dom.js';
+	import Hotkeys from '$lib/Hotkeys.svelte';
 
 	export const TICK_DURATION_MIN = 35;
 	export const TICK_DURATION_MAX = 2000;
@@ -71,8 +71,10 @@
 	export const setMovementCommand = (movementCommand: Direction): void => {
 		$movementCommandQueue = [movementCommand];
 	};
+</script>
 
-	const updateKeyDown = (key: string, shiftKey: boolean, ctrlKey: boolean): boolean => {
+<Hotkeys
+	onKeydown={(key, shiftKey, ctrlKey) => {
 		switch (key) {
 			case 'ArrowUp':
 			case 'w':
@@ -116,12 +118,5 @@
 				return true;
 		}
 		return false;
-	};
-</script>
-
-<svelte:body
-	on:keydown={(e) => {
-		if (updateKeyDown(e.key, e.shiftKey, e.ctrlKey)) {
-			swallow(e);
-		}
-	}} />
+	}}
+/>

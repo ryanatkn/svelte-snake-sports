@@ -96,11 +96,13 @@
 		box-sizing: content-box;
 		left: 13px;
 		top: 13px;
-		width: 3px;
-		height: 3px;
-		background-color: rgba(0, 0, 0, 0.3);
-		border-radius: 4px;
-		border: 3px solid rgba(255, 255, 255, 0.8);
+		width: 5px;
+		height: 5px;
+		background-color: rgba(0, 0, 0, 0.5);
+		border-radius: 5px;
+		border: 4px solid rgba(255, 255, 255, 0.8);
+		border-top-width: 2px;
+		border-right-width: 3px;
 	}
 
 	.Renderer-snake :global(.Entity:last-child) {

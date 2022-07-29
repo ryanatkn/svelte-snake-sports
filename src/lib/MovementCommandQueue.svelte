@@ -11,7 +11,7 @@
 	{#each $movementCommandQueue as direction}
 		<li>> {direction}</li>
 	{:else}
-		<li>></li>
+		<li>> ...</li>
 	{/each}
 </ul>
 

@@ -4,7 +4,6 @@
 	// This version is a port of the original React project:
 	// https://ryanatkn.github.io/snake-game
 	// See `$lib/sports/simple/SimpleSnake.svelte` for the same thing but simplified.
-	import {isEditable} from '@feltcoop/felt/util/dom.js';
 
 	import SnakeGame from '$lib/SnakeGame.svelte';
 	import Renderer from '$lib/Renderer.svelte';
@@ -19,6 +18,7 @@
 	import ClockControls from '$lib/ClockControls.svelte';
 	import DirectionalControls from '$lib/DirectionalControls.svelte';
 	import MovementCommandQueue from '$lib/MovementCommandQueue.svelte';
+	import Hotkeys from '$lib/Hotkeys.svelte';
 
 	const clock = setClock(createClock({running: browser}));
 
@@ -30,20 +30,6 @@
 
 	let showSettings = false;
 
-	const onKeydown = (e: KeyboardEvent) => {
-		if (isEditable(e.target)) return;
-		switch (e.key) {
-			case '`': {
-				clock.toggle();
-				break;
-			}
-			case '1': {
-				tick();
-				break;
-			}
-		}
-	};
-
 	$: movementCommandQueue = game?.movementCommandQueue;
 	$: currentCommand = $movementCommandQueue?.[0];
 
@@ -51,16 +37,45 @@
 		if (!game) return;
 		// TODO BLOCK maybe serialize input state as param instead of `game`?
 		state = updateGameState(state, game);
-		// TODO BLOCK after updating game, if it's reset we need to increment runCount
+		// TODO BLOCK after updating game, if it's reset we need to increment runCount,
+		// so we probably want an events/effects/output system
 	};
 </script>
 
-<svelte:window on:keydown={onKeydown} />
+<Hotkeys
+	onKeydown={(key, _shiftKey, ctrlKey) => {
+		switch (key) {
+			case '`': {
+				if (!ctrlKey) {
+					clock.toggle();
+					return true;
+				} else {
+					return false;
+				}
+			}
+			case '1': {
+				tick();
+				return true;
+			}
+			case '2': {
+				tick();
+				tick();
+				return true;
+			}
+			case '3': {
+				for (let i = 0; i < 10; i++) tick();
+				return true;
+			}
+		}
+		return false;
+	}}
+/>
 
 <div class="ClasssicSnake">
 	<SnakeGame bind:this={game} {state} {tick} />
 	{#if game}
 		<Renderer {state} {game} />
+		<Ticker {clock} tickDuration={game.currentTickDuration} {tick} />
 		<div class="controls padded-md">
 			{#if movementCommandQueue}
 				<div class="commands padded-md">
@@ -78,9 +93,9 @@
 			<Score {state} />
 			<Stats {game} />
 		</div>
-		<section class="centered">
-			<Ticker {clock} tickDuration={game.currentTickDuration} {tick} />
-		</section>
+		<div class="centered">
+			<audio src="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls />
+		</div>
 		<section class="markup centered">
 			<ul>
 				<li>

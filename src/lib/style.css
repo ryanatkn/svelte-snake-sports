@@ -7,3 +7,38 @@
 }
 
 */
+
+body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+footer {
+	padding: var(--spacing_xl5) 0;
+}
+
+/* TODO upstream to Felt? */
+form label {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	font-weight: bold;
+	margin-bottom: var(--spacing_xl);
+}
+form label:last-child {
+	margin: 0;
+}
+
+.snake-1 {
+	filter: hue-rotate(120deg);
+}
+.snake-2 {
+	filter: hue-rotate(240deg);
+}
+
+.icon-button {
+	line-height: 1;
+	padding-left: var(--spacing_sm);
+	padding-right: var(--spacing_sm);
+}

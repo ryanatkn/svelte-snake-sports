@@ -5,15 +5,14 @@
 deployed:
 [ryanatkn.github.io/svelte-snake-sports](https://ryanatkn.github.io/svelte-snake-sports)
 
-> **status**: work in progress
-
 ## what
 
 In 2016 I wrote a tiny [`snake-game`](https://ryanatkn.github.io/snake-game)
-for an interview in React. Today I use Svelte instead, but I continue to enjoy games of
-[Snake](https://en.wikipedia.org/wiki/Snake_game) 🐍
-So, this project started as a port of that small React codebase to my current Svelte patterns.
-I have a feeling there's some fun stuff on the way!
+for an interview in React. Today I use Svelte instead and I continue to enjoy
+[Snake](https://en.wikipedia.org/wiki/Snake_game)
+for thinking through frontend development patterns.
+This project started as <a href="https://ryanatkn.github.io/svelte-snake-sports/classsic">a port</a> of the React version to my current Svelte patterns
+and it's growing from there.
 
 This project plans to make many distinct versions of Snake in Svelte that are
 interesting in terms of gameplay, game design, and/or technical implementation with Svelte.
@@ -26,6 +25,9 @@ and deep enough to hold the interest of more advanced students like myself.
 > I am not going to try to run the code, and I advise you not to try,
 > so much so that I won't even directly link the repo
 > (though it's trivially inferred; also it's archived)
+
+on the web:
+[ryanatkn.github.io/svelte-snake-sports](https://ryanatkn.github.io/svelte-snake-sports)
 
 ## usage
 
@@ -71,5 +73,10 @@ gro deploy
 [Felt](https://github.com/feltcoop/felt) ∙
 [Gro](https://github.com/feltcoop/gro)
 & [more](package.json)
+
+["Lurking Sloth"](/src/static/assets/Alexander_Nakarada__Lurking_Sloth.mp3)
+by Alexander Nakarada
+([CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/),
+[serpentsoundstudios.com](https://www.serpentsoundstudios.com/))
 
 ## [🐦](https://wikipedia.org/wiki/Free_and_open-source_software)

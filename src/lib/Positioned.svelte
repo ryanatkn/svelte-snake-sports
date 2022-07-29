@@ -1,25 +1,17 @@
-<script lang="ts">
-	import {onMount} from 'svelte';
+<svelte:options immutable={false} />
 
+<script lang="ts">
 	// TODO what should the name/scope of this component be?
 
 	export let x: number;
 	export let y: number;
 	export let scale: number;
-
-	let scaleReady = false;
-	$: finalScale = scaleReady ? scale : 0;
-
-	// TODO what's a better way to do this? problem is using Svelte's `in:scale`
-	// makes things go haywire in some cases because we're also setting `transform`
-	onMount(() => {
-		setTimeout(() => (scaleReady = true)); // doing one `await tick()` doesn't work but timeout does
-	});
+	export let rotate: string | number = '0deg';
 </script>
 
 <div
 	class="item"
-	style:transform="translate3d({x}px, {y}px, 0px) scale3d({finalScale}, {finalScale}, {finalScale})"
+	style:transform="translate3d({x}px, {y}px, 0px) scale3d({scale}, {scale}, {scale}) rotate({rotate})"
 >
 	<slot />
 </div>

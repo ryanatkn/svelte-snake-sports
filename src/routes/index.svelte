@@ -1,25 +1,40 @@
 <script lang="ts">
-	import Ssses from '$lib/Ssses.svelte';
-	import SimpleSnake from '$lib/games/simple/SimpleSnake.svelte';
+	import {base} from '$app/paths';
+
+	import Header from '$lib/Header.svelte';
+	import Sss from '$lib/Sss.svelte';
+	// import ClasssicSnake from '$lib/sports/classsic/ClasssicSnake.svelte';
 
 	let ssses: Array<{icon: string}> | undefined;
+
+	let clicks = 0;
+	$: ssses, clicks++;
+	$: if (clicks === 3) void song.play();
+
+	let song: HTMLAudioElement;
 </script>
 
-<main class="markup column">
+<main class="column">
 	<section>
-		<header class="centered-hz">
-			<h1>
-				<a href="https://svelte.dev/">svelte</a><small
-					><a href="https://github.com/ryanatkn/svelte-snake-sports">🐍</a></small
-				><a href="https://wikipedia.org/wiki/Snake_game">snake</a><small
-					><a href="https://github.com/ryanatkn/svelte-snake-sports">🐍</a></small
-				><a href="https://github.com/ryanatkn/svelte-snake-sports/tree/main/src/lib/games">sports</a
-				>
-			</h1>
-		</header>
+		<Header />
 	</section>
-	<Ssses bind:ssses />
-	<SimpleSnake />
+	<section>
+		<menu>
+			<li>
+				<a href="{base}/classsic" title="classssic snake sports"
+					><span class="snake-1">🐍</span>classsic<span class="snake-2">🐍</span></a
+				>
+			</li>
+		</menu>
+	</section>
+	<div class="markup">
+		<section>
+			<h2>sss</h2>
+			<audio src="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls bind:this={song} />
+		</section>
+	</div>
+	<!-- <ClasssicSnake /> -->
+	<Sss bind:ssses {song} />
 </main>
 
 <style>
@@ -29,7 +44,32 @@
 		align-items: center;
 		margin: 0 auto;
 	}
-	h1 {
+	.markup {
+		align-items: center;
 		text-align: center;
+	}
+	menu {
+		font-size: var(--font_size_xl5);
+	}
+	menu a {
+		font-weight: 300;
+	}
+
+	li {
+		list-style: none;
+	}
+	a {
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+	}
+	.snake-1 {
+		transform: rotate(4deg);
+	}
+	.snake-2 {
+		transform: rotate(23deg);
+	}
+	section {
+		margin: var(--spacing_xl);
 	}
 </style>

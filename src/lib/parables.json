@@ -1,0 +1,10 @@
+{
+	"description": "parables of the game of snake",
+	"parables": [
+		"infinite growth is certain death",
+		"you can only go forwards",
+		"timing is critical",
+		"the segments of the snake are interdependent, all depend on each",
+		"retry"
+	]
+}

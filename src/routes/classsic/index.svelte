@@ -1,8 +1,10 @@
 <script lang="ts">
-	import Breadcrumbs from '@feltcoop/felt/ui/Breadcrumbs.svelte';
+	// import Breadcrumbs from '@feltcoop/felt/ui/Breadcrumbs.svelte';
 	import {base} from '$app/paths';
 
 	import ClasssicSnake from '$lib/sports/classsic/ClasssicSnake.svelte';
+
+	console.log(`base`, base);
 </script>
 
 <ClasssicSnake />
@@ -18,9 +20,10 @@
 			<a href="https://www.serpentsoundstudios.com/">serpentsoundstudios.com</a>
 		</p>
 	</div>
-	<div class="padded-xl">
-		<Breadcrumbs>🐍</Breadcrumbs>
-	</div>
+	<!-- TODO why is this not working? latest sveltekit problem with Felt? -->
+	<!-- <div class="padded-xl"> -->
+	<!-- <Breadcrumbs basePath={base}>🐍</Breadcrumbs> -->
+	<!-- </div> -->
 </footer>
 
 <style>

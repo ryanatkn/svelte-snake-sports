@@ -34,7 +34,7 @@
 
 	const tick = () => {
 		if (!game || !$state || !$events) return;
-		// TODO BLOCK maybe serialize input state as param instead of `game`?
+		// TODO maybe serialize input state as param instead of `game`?
 		$state = updateGameState($state, game);
 		for (const event of $events) {
 			switch (event.type) {
@@ -45,7 +45,7 @@
 				}
 			}
 		}
-		// TODO BLOCK after updating game, if it's reset we need to increment runCount,
+		// TODO after updating game, if it's reset we need to increment runCount,
 		// so we probably want an events/effects/output system
 	};
 </script>

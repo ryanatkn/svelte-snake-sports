@@ -8,7 +8,7 @@
 	import {base} from '$app/paths';
 
 	import SnakeGame from '$lib/SnakeGame.svelte';
-	import Renderer from '$lib/Renderer.svelte';
+	import DomRenderer from '$lib/DomRenderer.svelte';
 	import {createClock, setClock} from '$lib/clock';
 	import Settings from '$lib/Settings.svelte';
 	import Score from '$lib/Score.svelte';
@@ -91,7 +91,7 @@
 <div class="ClasssicSnake">
 	<SnakeGame bind:this={game} initialState={initGameState(toDefaultGameState())} {tick} />
 	{#if game}
-		<Renderer {game} />
+		<DomRenderer {game} />
 		<Ticker {clock} tickDuration={game.currentTickDuration} {tick} />
 		{#if score !== undefined && winningScore != null}
 			<StageProgress {score} {winningScore} />

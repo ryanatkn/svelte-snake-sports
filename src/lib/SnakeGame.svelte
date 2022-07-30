@@ -92,7 +92,8 @@
 			case 'ArrowUp':
 			case 'w':
 			case 'k':
-				if ($status !== 'initial') start();
+				if ($status !== 'initial') start(); // TODO BLOCK maybe emit event? should this be called on any key?
+				// TODO BLOCK should it bail if the event doesn't change the status? `if ($status === 'initial') return;`
 				if (ctrlKey || shiftKey) {
 					setMovementCommand('up');
 					tick();
@@ -103,7 +104,7 @@
 			case 'ArrowDown':
 			case 's':
 			case 'j':
-				if ($status !== 'initial') start();
+				if ($status !== 'initial') start(); // TODO BLOCK maybe emit event?
 				if (ctrlKey || shiftKey) {
 					setMovementCommand('down');
 					tick();
@@ -114,7 +115,7 @@
 			case 'ArrowLeft':
 			case 'a':
 			case 'h':
-				if ($status !== 'initial') start();
+				if ($status !== 'initial') start(); // TODO BLOCK maybe emit event?
 				if (ctrlKey || shiftKey) {
 					setMovementCommand('left');
 					tick();
@@ -125,7 +126,7 @@
 			case 'ArrowRight':
 			case 'd':
 			case 'l':
-				if ($status !== 'initial') start();
+				if ($status !== 'initial') start(); // TODO BLOCK maybe emit event?
 				if (ctrlKey || shiftKey) {
 					setMovementCommand('right');
 					tick();

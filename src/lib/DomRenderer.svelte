@@ -8,26 +8,26 @@
 
 	export let game: SnakeGame;
 
-	$: ({state} = game);
+	$: ({state, snakeMovementDirection} = game);
 	$: ({mapWidth, mapHeight, tiles, apples, snakeSegments, score} = $state);
 
 	$: mapHeightPx = mapHeight * ENTITY_DEFAULT_HEIGHT;
 	$: mapWidthPx = mapWidth * ENTITY_DEFAULT_WIDTH;
 </script>
 
-<div class="Renderer" style:width="{mapWidthPx}px" style:height="{mapHeightPx}px">
-	<ul class="Renderer-entities Renderer-layer">
-		<ul class="Renderer-tiles Renderer-layer">
+<div class="renderer" style:width="{mapWidthPx}px" style:height="{mapHeightPx}px">
+	<ul class="entities layer">
+		<ul class="tiles layer">
 			{#each tiles as t (t.id)}
 				<Entity entity={t} />
 			{/each}
 		</ul>
-		<ul class="Renderer-apples Renderer-layer">
+		<ul class="apples layer">
 			{#each apples as a (a.id)}
 				<Entity entity={a} />
 			{/each}
 		</ul>
-		<ul class="Renderer-snake Renderer-layer">
+		<ul class="snake layer moving-{$snakeMovementDirection}">
 			{#each snakeSegments as s (s.id)}
 				<Entity entity={s} />
 			{/each}
@@ -40,12 +40,12 @@
 </div>
 
 <style>
-	.Renderer {
+	.renderer {
 		position: relative;
 		display: block;
 	}
 
-	.Renderer-layer {
+	.layer {
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -56,17 +56,17 @@
 	}
 
 	/* TODO fix these global styles to not be global, is a relic of the port */
-	.Renderer-tiles :global(.Entity) {
+	.tiles :global(.Entity) {
 		background-color: #f7f1f1;
 	}
 
-	.Renderer-apples :global(.Entity) {
+	.apples :global(.Entity) {
 		background-color: #c89;
 		border-radius: 17px 14px 12px 10px;
 		animation: pop-in 0.66s ease-in-out;
 	}
 
-	.Renderer-apples :global(.Entity:after) {
+	.apples :global(.Entity:after) {
 		content: '';
 		display: block;
 		position: absolute;
@@ -78,33 +78,47 @@
 		border-radius: 4px;
 	}
 
-	.Renderer-snake :global(.Entity) {
+	.snake :global(.Entity) {
 		background-color: #9da;
 	}
-	.Renderer-snake :global(.Entity:first-child) {
+	.snake :global(.Entity:first-child) {
 		background-color: #8c9;
 	}
-	.Renderer-snake :global(.Entity:last-child) {
+	.snake :global(.Entity:last-child) {
 		background-color: #97d7a7;
 	}
 
-	.Renderer-snake :global(.Entity:first-child:after) {
+	.snake :global(.Entity:first-child:after) {
 		content: '';
 		display: block;
 		position: absolute;
 		box-sizing: content-box;
 		left: 13px;
 		top: 13px;
-		width: 5px;
-		height: 5px;
+		width: 7px;
+		height: 7px;
 		background-color: rgba(0, 0, 0, 0.5);
 		border-radius: 5px;
 		border: 4px solid rgba(255, 255, 255, 0.8);
-		border-top-width: 2px;
-		border-right-width: 3px;
+	}
+	.snake.moving-up :global(.Entity:first-child:after) {
+		border-bottom-width: 0;
+		border-right-width: 2px;
+	}
+	.snake.moving-right :global(.Entity:first-child:after) {
+		border-top-width: 0;
+		border-right-width: 2px;
+	}
+	.snake.moving-down :global(.Entity:first-child:after) {
+		border-top-width: 0;
+		border-right-width: 2px;
+	}
+	.snake.moving-left :global(.Entity:first-child:after) {
+		border-top-width: 0;
+		border-left-width: 2px;
 	}
 
-	.Renderer-snake :global(.Entity:last-child) {
+	.snake :global(.Entity:last-child) {
 		border-radius: 4px 7px 10px 7px;
 	}
 
@@ -118,8 +132,8 @@
 	}
 
 	/* TODO turn these into components? Discard completely? They're helpful as documentation.
-.Renderer-entities {}
-.Renderer-tiles {}
-.Renderer-apples {}
-.Renderer-snake {}*/
+.entities {}
+.tiles {}
+.apples {}
+.snake {}*/
 </style>

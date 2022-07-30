@@ -42,5 +42,6 @@
 	}
 	img {
 		margin-bottom: var(--spacing_xl7);
+		border-radius: 160px;
 	}
 </style>

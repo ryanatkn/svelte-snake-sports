@@ -20,11 +20,18 @@
 			<a href="https://www.serpentsoundstudios.com/">serpentsoundstudios.com</a>
 		</p>
 	</div>
+	<div class="padded-md">
+		<a href="/">go back home</a>
+	</div>
 	<!-- TODO why is this not working? latest sveltekit problem with Felt? -->
 	<!-- <div class="padded-xl"> -->
 	<!-- <Breadcrumbs basePath={base}>🐍</Breadcrumbs> -->
 	<!-- </div> -->
 </footer>
+
+<div class="centered column">
+	<img alt="logo for svelte snake sports: classsic" src="{base}/assets/classsic.webp" />
+</div>
 
 <style>
 	.markup {

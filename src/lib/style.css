@@ -62,3 +62,14 @@ form label:last-child {
 	background-color: rgba(122, 100, 100, 0.8);
 	border-radius: 4px;
 }
+
+.clickable-box {
+	transition: border-radius 0.09s ease-out;
+	border-radius: 160px;
+}
+.clickable-box:hover {
+	border-radius: 120px;
+}
+.clickable-box:active {
+	border-radius: 0;
+}

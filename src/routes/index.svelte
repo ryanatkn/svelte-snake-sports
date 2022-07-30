@@ -21,9 +21,13 @@
 	<section>
 		<menu>
 			<li>
-				<a href="{base}/classsic" title="classssic snake sports"
-					><span class="snake-1">🐍</span> classsic <span class="snake-2">🐍</span></a
-				>
+				<a href="{base}/classsic" title="classssic snake sports">
+					<img
+						alt="logo for svelte snake sports: classsic"
+						src="{base}/assets/classsic.webp"
+						class="clickable-box"
+					/>
+				</a>
 			</li>
 		</menu>
 	</section>
@@ -42,7 +46,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		margin: 0 auto;
+		margin: 0 auto 1000px;
 	}
 	.markup {
 		align-items: center;
@@ -72,12 +76,6 @@
 		flex-wrap: wrap;
 		align-items: center;
 		justify-content: center;
-	}
-	.snake-1 {
-		transform: rotate(4deg);
-	}
-	.snake-2 {
-		transform: rotate(23deg);
 	}
 	section {
 		margin: var(--spacing_xl);

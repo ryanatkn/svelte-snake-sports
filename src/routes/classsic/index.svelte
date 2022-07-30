@@ -37,4 +37,7 @@
 	.markup {
 		text-align: center;
 	}
+	img {
+		margin-bottom: var(--spacing_xl7);
+	}
 </style>

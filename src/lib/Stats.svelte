@@ -7,6 +7,8 @@
 	$: ({runCount, highScore, currentTickDuration} = game);
 
 	let fps: number;
+
+	$: framesPerTurn = fps && Math.floor($currentTickDuration / (1000 / fps));
 </script>
 
 <ul class="Stats">
@@ -20,11 +22,15 @@
 	</li>
 	<li>
 		<div class="value">{$currentTickDuration}</div>
-		ms
+		ms per turn
 	</li>
 	<li>
 		<div class="value">{fps ?? '??'}</div>
 		fps
+	</li>
+	<li>
+		<div class="value">{framesPerTurn ?? '??'}</div>
+		frames per turn
 	</li>
 </ul>
 <Fps bind:fps />

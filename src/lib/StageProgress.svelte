@@ -1,17 +1,15 @@
 <svelte:options immutable={false} />
 
 <script lang="ts">
-	import type SnakeGame from '$lib/SnakeGame.svelte';
+	export let score: number;
+	export let winningScore: number;
 
-	export let game: SnakeGame;
-
-	$: ({state} = game);
-	$: ({score} = $state);
+	$: pct = score / winningScore;
 </script>
 
 <div class="Score">
-	<div class="value">{score}</div>
-	<div class="apple" />
+	<div class="apple" style:transform="translate3d({pct}%, 0, 0)" />
+	<div class="value">{score} / {winningScore}</div>
 </div>
 
 <style>

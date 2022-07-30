@@ -17,8 +17,12 @@ export interface ISnakeGame {
 	setMovementCommand: (movementCommand: Direction) => void;
 }
 
-export type SnakeGameEvent = SnakeGameEventFail;
+export type SnakeGameEvent = SnakeGameWinEvent | SnakeGameFailEvent;
 
-export interface SnakeGameEventFail {
-	type: 'fail';
+export interface SnakeGameWinEvent {
+	type: 'win_stage';
+}
+
+export interface SnakeGameFailEvent {
+	type: 'fail_stage';
 }

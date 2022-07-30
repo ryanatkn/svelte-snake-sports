@@ -28,6 +28,7 @@
 	export const tickDurationDecay = writable(0.97);
 	export const tickDurationMin = writable(TICK_DURATION_MIN);
 	export const tickDurationMax = writable(TICK_DURATION_MAX);
+	export const status = writable<'initial' | 'success' | 'failure'>('initial');
 
 	export const reset = (): void => {
 		$events = [];
@@ -35,6 +36,14 @@
 		$snakeMovementDirection = 'up';
 		$movementCommandQueue = [];
 		$runCount++;
+	};
+
+	export const end = (outcomeStatus: 'success' | 'failure'): void => {
+		$status = outcomeStatus;
+	};
+	export const start = (): void => {
+		$status = 'initial';
+		reset();
 	};
 
 	$: ({score} = $state);
@@ -83,6 +92,7 @@
 			case 'ArrowUp':
 			case 'w':
 			case 'k':
+				if ($status !== 'initial') start();
 				if (ctrlKey || shiftKey) {
 					setMovementCommand('up');
 					tick();
@@ -93,6 +103,7 @@
 			case 'ArrowDown':
 			case 's':
 			case 'j':
+				if ($status !== 'initial') start();
 				if (ctrlKey || shiftKey) {
 					setMovementCommand('down');
 					tick();
@@ -103,6 +114,7 @@
 			case 'ArrowLeft':
 			case 'a':
 			case 'h':
+				if ($status !== 'initial') start();
 				if (ctrlKey || shiftKey) {
 					setMovementCommand('left');
 					tick();
@@ -113,6 +125,7 @@
 			case 'ArrowRight':
 			case 'd':
 			case 'l':
+				if ($status !== 'initial') start();
 				if (ctrlKey || shiftKey) {
 					setMovementCommand('right');
 					tick();

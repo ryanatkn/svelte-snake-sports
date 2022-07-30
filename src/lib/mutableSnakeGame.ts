@@ -113,7 +113,15 @@ export const updateGameState = (state: SnakeGameState, game: ISnakeGame): SnakeG
 	checkSnakeEatSelf(state, game);
 	checkSnakeEatApple(state);
 
+	checkWin(state, game);
+
 	return state;
+};
+
+const checkWin = (state: SnakeGameState, game: ISnakeGame): void => {
+	if (state.winningScore !== null && state.score >= state.winningScore) {
+		game.events.update(($v) => $v.concat({type: 'win_stage'}));
+	}
 };
 
 /**
@@ -154,16 +162,15 @@ function moveSnake({snakeSegments}: SnakeGameState, snakeMovementDirection: Dire
 function checkSnakeOutOfBounds(state: SnakeGameState, game: ISnakeGame): void {
 	const {snakeSegments, mapWidth, mapHeight} = state;
 	if (snakeSegments[0].isOutOfBounds(mapWidth, mapHeight)) {
-		destroySnake(state, game);
+		destroySnake(game);
 	}
 }
 
 /**
  * As the quickest possible thing, just reset the game state when the player dies.
  */
-function destroySnake(state: SnakeGameState, game: ISnakeGame): void {
-	initGameState(state);
-	game.events.update(($v) => $v.concat({type: 'fail'}));
+function destroySnake(game: ISnakeGame): void {
+	game.events.update(($v) => $v.concat({type: 'fail_stage'}));
 }
 
 /**
@@ -174,7 +181,7 @@ function checkSnakeEatSelf(state: SnakeGameState, game: ISnakeGame): void {
 	const snakeHead = snakeSegments[0];
 	for (const segment of snakeSegments) {
 		if (segment !== snakeHead && segment.isCollidingWith(snakeHead)) {
-			return destroySnake(state, game);
+			return destroySnake(game);
 		}
 	}
 }

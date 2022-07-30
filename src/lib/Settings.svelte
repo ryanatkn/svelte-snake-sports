@@ -6,7 +6,7 @@
 	export let game: SnakeGame;
 
 	$: ({state, baseTickDuration, tickDurationDecay, tickDurationMin, tickDurationMax} = game);
-	$: ({mapWidth, mapHeight} = $state);
+	$: ({mapWidth, mapHeight, winningScore} = $state);
 
 	// TODO api?
 	const clearLocalStorage = () => {
@@ -14,10 +14,39 @@
 		localStorage.removeItem('stats');
 		window.location = window.location;
 	};
+
+	$: enableWinningScore = winningScore !== null;
+	$: console.log(`enableWinningScore`, enableWinningScore);
+	$: updatedWinningScore = winningScore;
+	const updateWinningScore = (value: number | null) => {
+		$state = {...$state, winningScore: value};
+	};
+	// TODO BLOCK not sure about this
+	$: if (enableWinningScore) {
+		if (updatedWinningScore !== winningScore) updateWinningScore(updatedWinningScore);
+	} else {
+		if (winningScore !== null) updateWinningScore(null);
+	}
 </script>
 
 <form class="Settings">
 	<section>
+		<label
+			><strong>winningScore</strong><input
+				type="checkbox"
+				bind:checked={enableWinningScore}
+			/><input
+				type="range"
+				disabled={!enableWinningScore}
+				bind:value={updatedWinningScore}
+				min={1}
+				max={100}
+			/><input
+				type="number"
+				disabled={!enableWinningScore}
+				bind:value={updatedWinningScore}
+			/></label
+		>
 		<label
 			><strong>baseTickDuration</strong><input
 				type="range"

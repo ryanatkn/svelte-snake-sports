@@ -20,6 +20,7 @@
 	import DirectionalControls from '$lib/DirectionalControls.svelte';
 	import MovementCommandQueue from '$lib/MovementCommandQueue.svelte';
 	import Hotkeys from '$lib/Hotkeys.svelte';
+	import StageProgress from '$lib/StageProgress.svelte';
 
 	const clock = setClock(createClock({running: browser}));
 
@@ -29,19 +30,26 @@
 	let showSettings = false;
 
 	$: state = game?.state;
+	$: score = $state?.score;
+	$: winningScore = $state?.winningScore;
 	$: events = game?.events;
 	$: movementCommandQueue = game?.movementCommandQueue;
 	$: currentCommand = $movementCommandQueue?.[0];
+	$: status = game?.status;
 
 	const tick = () => {
-		if (!game || !$state || !$events) return;
+		if (!game || !$state || !$events || $status !== 'initial') return;
 		// TODO maybe serialize input state as param instead of `game`?
 		$state = updateGameState($state, game);
 		for (const event of $events) {
 			switch (event.type) {
-				case 'fail': {
-					console.log(`event`, event);
-					game.reset();
+				case 'fail_stage': {
+					// TODO BLOCK how to update the game state back to its initial form?
+					game.end('failure');
+					break;
+				}
+				case 'win_stage': {
+					game.end('success');
 					break;
 				}
 			}
@@ -85,7 +93,11 @@
 	{#if game}
 		<Renderer {game} />
 		<Ticker {clock} tickDuration={game.currentTickDuration} {tick} />
-		<Score {game} />
+		{#if score !== undefined && winningScore != null}
+			<StageProgress {score} {winningScore} />
+		{:else}
+			<Score {game} />
+		{/if}
 		<div class="controls padded-md">
 			<button title="[1] next turn" class="icon-button" on:click={tick}>⏩</button>
 			<ClockControls {clock} />

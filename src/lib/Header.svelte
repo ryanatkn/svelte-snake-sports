@@ -27,6 +27,16 @@
 		justify-content: center;
 		align-items: center;
 	}
+	@media (max-width: 550px) {
+		h1 {
+			font-size: var(--font_size_xl2);
+		}
+	}
+	@media (max-width: 450px) {
+		h1 {
+			font-size: var(--font_size_xl);
+		}
+	}
 	a {
 		font-weight: 300;
 	}

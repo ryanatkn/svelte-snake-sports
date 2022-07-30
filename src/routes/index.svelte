@@ -22,7 +22,7 @@
 		<menu>
 			<li>
 				<a href="{base}/classsic" title="classssic snake sports"
-					><span class="snake-1">🐍</span>classsic<span class="snake-2">🐍</span></a
+					><span class="snake-1">🐍</span> classsic <span class="snake-2">🐍</span></a
 				>
 			</li>
 		</menu>
@@ -50,6 +50,16 @@
 	}
 	menu {
 		font-size: var(--font_size_xl5);
+	}
+	@media (max-width: 500px) {
+		menu {
+			font-size: var(--font_size_xl4);
+		}
+	}
+	@media (max-width: 400px) {
+		menu {
+			font-size: var(--font_size_xl3);
+		}
 	}
 	menu a {
 		font-weight: 300;

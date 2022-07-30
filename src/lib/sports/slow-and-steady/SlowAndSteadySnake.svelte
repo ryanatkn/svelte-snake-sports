@@ -46,8 +46,6 @@
 				case 'fail_stage': {
 					// TODO BLOCK how to update the game state back to its initial form?
 					game.end('failure');
-					initGameState($state); // TODO BLOCK should this be part of `start`/`reset`?
-					game.start();
 					break;
 				}
 				case 'win_stage': {
@@ -90,7 +88,7 @@
 	}}
 />
 
-<div class="ClasssicSnake">
+<div class="SlowAndSteadySnake">
 	<SnakeGame bind:this={game} initialState={initGameState(toDefaultGameState())} {tick} />
 	{#if game}
 		<DomRenderer {game} />
@@ -143,7 +141,7 @@
 </div>
 
 <style>
-	.ClasssicSnake {
+	.SlowAndSteadySnake {
 		display: flex;
 		justify-content: center;
 		padding-top: var(--spacing_xl3);

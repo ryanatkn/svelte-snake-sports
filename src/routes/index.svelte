@@ -29,6 +29,15 @@
 					/>
 				</a>
 			</li>
+			<li>
+				<a href="{base}/slow-and-steady" title="slow and steady snake sports">
+					<img
+						alt="logo for svelte snake sports: slow and steady"
+						src="{base}/assets/slow-and-steady.webp"
+						class="clickable-box"
+					/>
+				</a>
+			</li>
 		</menu>
 	</section>
 	<div class="markup">
@@ -71,6 +80,7 @@
 
 	li {
 		list-style: none;
+		margin-bottom: var(--spacing_xl5);
 	}
 	a {
 		flex-wrap: wrap;

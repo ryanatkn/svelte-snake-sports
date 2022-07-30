@@ -44,7 +44,6 @@
 		for (const event of $events) {
 			switch (event.type) {
 				case 'fail_stage': {
-					// TODO BLOCK how to update the game state back to its initial form?
 					game.end('failure');
 					break;
 				}

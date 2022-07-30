@@ -6,6 +6,8 @@
 	import {ENTITY_DEFAULT_HEIGHT, ENTITY_DEFAULT_WIDTH} from '$lib/Entity';
 	import type SnakeGame from '$lib/SnakeGame.svelte';
 
+	// TODO maybe rename this module to `SnameGameDomRenderer`?
+
 	export let game: SnakeGame;
 
 	$: ({state, snakeMovementDirection} = game);
@@ -102,7 +104,7 @@
 		border: 4px solid rgba(255, 255, 255, 0.8);
 	}
 	.snake.moving-up :global(.Entity:first-child:after) {
-		border-bottom-width: 0;
+		border-top-width: 0;
 		border-right-width: 2px;
 	}
 	.snake.moving-right :global(.Entity:first-child:after) {
@@ -111,8 +113,8 @@
 		left: 6px;
 	}
 	.snake.moving-down :global(.Entity:first-child:after) {
-		border-top-width: 0;
-		border-right-width: 2px;
+		border-bottom-width: 0;
+		border-left-width: 2px;
 		left: 6px;
 	}
 	.snake.moving-left :global(.Entity:first-child:after) {

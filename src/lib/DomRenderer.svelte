@@ -85,7 +85,7 @@
 		background-color: #8c9;
 	}
 	.snake :global(.Entity:last-child) {
-		background-color: #97d7a7;
+		background-color: #87c997;
 	}
 
 	.snake :global(.Entity:first-child:after) {
@@ -94,9 +94,9 @@
 		position: absolute;
 		box-sizing: content-box;
 		left: 13px;
-		top: 13px;
-		width: 7px;
-		height: 7px;
+		top: 3px;
+		width: 9px;
+		height: 9px;
 		background-color: rgba(0, 0, 0, 0.5);
 		border-radius: 5px;
 		border: 4px solid rgba(255, 255, 255, 0.8);
@@ -108,10 +108,12 @@
 	.snake.moving-right :global(.Entity:first-child:after) {
 		border-top-width: 0;
 		border-right-width: 2px;
+		left: 6px;
 	}
 	.snake.moving-down :global(.Entity:first-child:after) {
 		border-top-width: 0;
 		border-right-width: 2px;
+		left: 6px;
 	}
 	.snake.moving-left :global(.Entity:first-child:after) {
 		border-top-width: 0;
@@ -119,7 +121,7 @@
 	}
 
 	.snake :global(.Entity:last-child) {
-		border-radius: 4px 7px 10px 7px;
+		border-radius: 10px;
 	}
 
 	@keyframes pop-in {

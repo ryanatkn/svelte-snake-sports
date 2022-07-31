@@ -1,5 +1,9 @@
 <script lang="ts">
 	import {base} from '$app/paths';
+	import {randomItem} from '@feltcoop/felt/util/random.js';
+
+	const sports = ['/classsic', '/slow-and-steady'];
+	$: randomSport = randomItem(sports);
 </script>
 
 <header class="centered-hz">
@@ -16,7 +20,7 @@
 			title="source code"
 			class="snake second-snake">🐍</a
 		>
-		<a href="{base}/sports" title="play some svelte snake sports">sports</a>
+		<a href="{base}{randomSport}" title="play a random svelte snake sport">sports</a>
 	</h1>
 </header>
 

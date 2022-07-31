@@ -11,12 +11,12 @@
 	export const TICK_DURATION_MIN = 17;
 	export const TICK_DURATION_MAX = 2000;
 
-	export let initialState: SnakeGameState;
-	export let initialEvents: SnakeGameEvent[] = [];
+	export let toInitialState: () => SnakeGameState;
+	export let toInitialEvents: () => SnakeGameEvent[] = () => [];
 	export let tick: () => void;
 
-	export const state = writable(initialState);
-	export const events = writable(initialEvents);
+	export const state = writable(toInitialState());
+	export const events = writable(toInitialEvents());
 	export const baseTickDuration = writable(Math.round(1000 / 6)); // the starting tick duration, may be modified by gameplay
 	export const currentTickDuration = writable($baseTickDuration);
 	export const snakeMovementDirection = writable<Direction>('up');
@@ -36,6 +36,7 @@
 		$snakeMovementDirection = 'up';
 		$movementCommandQueue = [];
 		$runCount++;
+		$state = toInitialState();
 	};
 
 	export const emit = (event: SnakeGameEvent): void => {
@@ -46,6 +47,7 @@
 		$status = outcomeStatus;
 	};
 	export const start = (): void => {
+		if ($status === 'initial') return;
 		$status = 'initial';
 		reset();
 	};

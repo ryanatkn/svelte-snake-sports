@@ -6,6 +6,7 @@
 	// See `$lib/sports/simple/SimpleSnake.svelte` for the same thing but simplified.
 	import {browser} from '$app/env';
 	import {base} from '$app/paths';
+	import {get} from 'svelte/store';
 
 	import SnakeGame from '$lib/SnakeGame.svelte';
 	import DomRenderer from '$lib/renderers/dom/DomRenderer.svelte';
@@ -44,7 +45,8 @@
 		for (const event of $events) {
 			switch (event.type) {
 				case 'fail_stage': {
-					game.end('failure');
+					game.currentTickDuration.set(get(game.baseTickDuration));
+					// game.end('failure');
 					break;
 				}
 				case 'win_stage': {
@@ -94,7 +96,7 @@
 <div class="SlowAndSteadySnake">
 	<SnakeGame
 		bind:this={game}
-		initialState={initGameState(toDefaultGameState({winningScore: 50}))}
+		toInitialState={() => initGameState(toDefaultGameState({winningScore: 50}))}
 		{tick}
 	/>
 	{#if game}

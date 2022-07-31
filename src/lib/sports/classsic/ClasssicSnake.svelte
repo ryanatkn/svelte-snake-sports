@@ -91,7 +91,7 @@
 />
 
 <div class="ClasssicSnake">
-	<SnakeGame bind:this={game} initialState={initGameState(toDefaultGameState())} {tick} />
+	<SnakeGame bind:this={game} toInitialState={() => initGameState(toDefaultGameState())} {tick} />
 	{#if game}
 		<DomRenderer {game} />
 		<Ticker {clock} tickDuration={game.currentTickDuration} {tick} />

@@ -21,6 +21,7 @@
 	import MovementCommandQueue from '$lib/MovementCommandQueue.svelte';
 	import Hotkeys from '$lib/Hotkeys.svelte';
 	import StageProgress from '$lib/StageProgress.svelte';
+	import Instructions from '$lib/sports/classsic/Instructions.svelte';
 
 	const clock = setClock(createClock({running: browser}));
 
@@ -91,7 +92,9 @@
 <div class="ClasssicSnake">
 	<SnakeGame bind:this={game} toInitialState={() => initGameState(toDefaultGameState())} {tick} />
 	{#if game}
-		<DomRenderer {game} />
+		<DomRenderer {game}>
+			<Instructions {game} slot="instructions" />
+		</DomRenderer>
 		<Ticker {clock} tickDuration={game.currentTickDuration} {tick} />
 		{#if score !== undefined && winningScore != null}
 			<StageProgress {score} {winningScore} />

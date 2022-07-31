@@ -2,12 +2,11 @@
 
 <script lang="ts">
 	import Entity from '$lib/Entity.svelte';
-	import Instructions from '$lib/Instructions.svelte';
 	import Tiles from '$lib/renderers/dom/Tiles.svelte';
 	import {ENTITY_DEFAULT_HEIGHT, ENTITY_DEFAULT_WIDTH} from '$lib/Entity';
 	import type SnakeGame from '$lib/SnakeGame.svelte';
 
-	// TODO maybe rename this module to `SnameGameDomRenderer`?
+	// TODO maybe rename this module to `SnameGameDomRenderer` or just `Renderer`?
 
 	export let game: SnakeGame;
 
@@ -37,7 +36,7 @@
 		<!-- TODO render the queued movement -->
 	</div>
 	{#if score === 0}
-		<Instructions {game} />
+		<slot name="instructions" />
 	{/if}
 </div>
 

@@ -5,18 +5,21 @@
 
 	export let game: SnakeGame;
 
-	$: ({highScore} = game);
+	// TODO show win condition info and high score
+	game;
+	// $: ({state} = game);
 </script>
 
 <div class="Instructions" transition:fade|local>
-	<p>use the arrow keys to move</p>
+	<p>move with arrow keys</p>
 	<p style:position="relative" style:left="{-15}px">eat apples!</p>
-	{#if highScore}
-		<p>
-			besst is {$highScore} apple{$highScore === 1 ? '' : 's'}!
-		</p>
-	{/if}
-	<p style:position="relative" style:left="{55}px">don't bite yourself :O</p>
+	<!-- {#if highScore} -->
+	<p>
+		asap!!
+		<!-- besst is {$highScore} apple{$highScore === 1 ? '' : 's'}! -->
+	</p>
+	<!-- {/if} -->
+	<p style:position="relative" style:left="{55}px">don't bite yoursself :]</p>
 </div>
 
 <style>

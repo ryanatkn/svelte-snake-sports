@@ -15,20 +15,10 @@ interface Position {
  * Sets up the initial state for a game.
  */
 export const initGameState = (state: SnakeGameState): SnakeGameState => {
-	const {mapWidth, mapHeight} = state;
 	console.log('[SnakeGame] init');
 	// TODO  single state JSON object instead? update(state, controller) => nextState
 
 	state.score = 0;
-
-	// Create the tiles.
-	const nextTiles: Entity[] = [];
-	for (let x = 0; x < mapWidth; x++) {
-		for (let y = 0; y < mapHeight; y++) {
-			nextTiles.push(new Entity({x, y}));
-		}
-	}
-	state.tiles = nextTiles;
 
 	// Create some apples, but preserve current identities if convenient.
 	state.apples = [new Entity({x: 1, y: 3}), new Entity({x: 7, y: 2}), new Entity({x: 5, y: 9})];
@@ -120,7 +110,7 @@ export const updateGameState = (state: SnakeGameState, game: ISnakeGame): SnakeG
 
 const checkWin = (state: SnakeGameState, game: ISnakeGame): void => {
 	if (state.winningScore !== null && state.score >= state.winningScore) {
-		game.events.update(($v) => $v.concat({type: 'win_stage'}));
+		game.emit({type: 'win_stage'});
 	}
 };
 
@@ -170,7 +160,7 @@ function checkSnakeOutOfBounds(state: SnakeGameState, game: ISnakeGame): void {
  * As the quickest possible thing, just reset the game state when the player dies.
  */
 function destroySnake(game: ISnakeGame): void {
-	game.events.update(($v) => $v.concat({type: 'fail_stage'}));
+	game.emit({type: 'fail_stage'});
 }
 
 /**

@@ -3,6 +3,7 @@
 <script lang="ts">
 	import Entity from '$lib/Entity.svelte';
 	import Instructions from '$lib/Instructions.svelte';
+	import Tiles from '$lib/renderers/dom/Tiles.svelte';
 	import {ENTITY_DEFAULT_HEIGHT, ENTITY_DEFAULT_WIDTH} from '$lib/Entity';
 	import type SnakeGame from '$lib/SnakeGame.svelte';
 
@@ -11,7 +12,7 @@
 	export let game: SnakeGame;
 
 	$: ({state, snakeMovementDirection} = game);
-	$: ({mapWidth, mapHeight, tiles, apples, snakeSegments, score} = $state);
+	$: ({mapWidth, mapHeight, apples, snakeSegments, score} = $state);
 
 	$: mapHeightPx = mapHeight * ENTITY_DEFAULT_HEIGHT;
 	$: mapWidthPx = mapWidth * ENTITY_DEFAULT_WIDTH;
@@ -20,9 +21,7 @@
 <div class="renderer" style:width="{mapWidthPx}px" style:height="{mapHeightPx}px">
 	<ul class="entities layer">
 		<ul class="tiles layer">
-			{#each tiles as t (t.id)}
-				<Entity entity={t} />
-			{/each}
+			<Tiles width={mapWidth} height={mapHeight} />
 		</ul>
 		<ul class="apples layer">
 			{#each apples as a (a.id)}

@@ -68,7 +68,7 @@ form label:last-child {
 	border-radius: 160px;
 }
 .clickable-box:hover {
-	border-radius: 120px;
+	border-radius: 130px;
 }
 .clickable-box:active {
 	border-radius: 0;

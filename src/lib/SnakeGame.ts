@@ -12,6 +12,7 @@ export interface ISnakeGame {
 	movementCommandQueue: Writable<Direction[]>;
 	highScore: Writable<number>;
 	runCount: Writable<number>;
+	emit: (event: SnakeGameEvent) => void;
 	reset: () => void;
 	enqueueMovementCommand: (movementCommand: Direction) => void;
 	setMovementCommand: (movementCommand: Direction) => void;

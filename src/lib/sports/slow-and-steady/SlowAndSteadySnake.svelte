@@ -8,7 +8,7 @@
 	import {base} from '$app/paths';
 
 	import SnakeGame from '$lib/SnakeGame.svelte';
-	import DomRenderer from '$lib/DomRenderer.svelte';
+	import DomRenderer from '$lib/renderers/dom/DomRenderer.svelte';
 	import {createClock, setClock} from '$lib/clock';
 	import Settings from '$lib/Settings.svelte';
 	import Score from '$lib/Score.svelte';
@@ -56,6 +56,10 @@
 		// TODO after updating game, if it's reset we need to increment runCount,
 		// so we probably want an events/effects/output system
 	};
+
+	// TODO BLOCK `tickDurationDecay` belongs on the game state here, should be like 0.85 or something --
+	// does that mean `tickDuration` belongs on it as well? Probably so? Then the decay should be nullable,
+	// and `tickDurationMax` and `tickDurationMin` should be there too
 </script>
 
 <Hotkeys
@@ -88,7 +92,11 @@
 />
 
 <div class="SlowAndSteadySnake">
-	<SnakeGame bind:this={game} initialState={initGameState(toDefaultGameState())} {tick} />
+	<SnakeGame
+		bind:this={game}
+		initialState={initGameState(toDefaultGameState({winningScore: 50}))}
+		{tick}
+	/>
 	{#if game}
 		<DomRenderer {game} />
 		<Ticker {clock} tickDuration={game.currentTickDuration} {tick} />

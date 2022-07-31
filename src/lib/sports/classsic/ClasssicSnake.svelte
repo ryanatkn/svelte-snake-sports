@@ -8,7 +8,7 @@
 	import {base} from '$app/paths';
 
 	import SnakeGame from '$lib/SnakeGame.svelte';
-	import DomRenderer from '$lib/DomRenderer.svelte';
+	import DomRenderer from '$lib/renderers/dom/DomRenderer.svelte';
 	import {createClock, setClock} from '$lib/clock';
 	import Settings from '$lib/Settings.svelte';
 	import Score from '$lib/Score.svelte';
@@ -45,7 +45,8 @@
 			switch (event.type) {
 				case 'fail_stage': {
 					game.end('failure');
-					initGameState($state); // TODO BLOCK should this be part of `start`/`reset`?
+					// TODO BLOCK should this be part of `start`/`reset`? or maybe `initialState` should be a getter?
+					initGameState($state);
 					game.start();
 					break;
 				}

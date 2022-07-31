@@ -38,6 +38,10 @@
 		$runCount++;
 	};
 
+	export const emit = (event: SnakeGameEvent): void => {
+		events.update(($v) => $v.concat(event));
+	};
+
 	export const end = (outcomeStatus: 'success' | 'failure'): void => {
 		$status = outcomeStatus;
 	};

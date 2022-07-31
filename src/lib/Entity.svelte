@@ -4,6 +4,8 @@
 	import type {Entity} from '$lib/Entity';
 
 	export let entity: Entity;
+	// TODO is a hack just to get apples working, haven't been doing this pattern much
+	export let classes = 'plain';
 
 	$: ({width, height, x, y} = entity);
 
@@ -12,7 +14,7 @@
 </script>
 
 <div
-	class="Entity"
+	class="Entity {classes}"
 	style:width="{width}px"
 	style:height="{height}px"
 	style:left="{positionX}px"
@@ -23,6 +25,9 @@
 	.Entity {
 		display: block;
 		position: absolute;
+	}
+	/* TODO hacky */
+	.plain {
 		border-radius: 5px;
 	}
 </style>

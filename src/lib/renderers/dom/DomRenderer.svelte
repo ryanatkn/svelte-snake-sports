@@ -25,7 +25,7 @@
 		</ul>
 		<ul class="apples layer">
 			{#each apples as a (a.id)}
-				<Entity entity={a} />
+				<Entity entity={a} classes="apple" />
 			{/each}
 		</ul>
 		<ul class="snake layer moving-{$snakeMovementDirection}">
@@ -59,24 +59,6 @@
 	/* TODO fix these global styles to not be global, is a relic of the port */
 	.tiles :global(.Entity) {
 		background-color: #f7f1f1;
-	}
-
-	.apples :global(.Entity) {
-		background-color: #c89;
-		border-radius: 17px 14px 12px 10px;
-		animation: pop-in 0.66s ease-in-out;
-	}
-
-	.apples :global(.Entity:after) {
-		content: '';
-		display: block;
-		position: absolute;
-		left: 13px;
-		top: -3px;
-		width: 3px;
-		height: 7px;
-		background-color: rgba(122, 100, 100, 0.8);
-		border-radius: 4px;
 	}
 
 	.snake :global(.Entity) {

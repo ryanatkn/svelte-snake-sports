@@ -160,7 +160,7 @@ function checkSnakeOutOfBounds(state: SnakeGameState, game: ISnakeGame): void {
  * As the quickest possible thing, just reset the game state when the player dies.
  */
 function destroySnake(game: ISnakeGame): void {
-	game.emit({type: 'fail_stage'});
+	game.emit({type: 'damage_snake'});
 }
 
 /**

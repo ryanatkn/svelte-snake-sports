@@ -44,9 +44,9 @@
 		$state = updateGameState($state, game);
 		for (const event of $events) {
 			switch (event.type) {
-				case 'fail_stage': {
+				case 'damage_snake': {
 					game.currentTickDuration.set(get(game.baseTickDuration));
-					// game.end('failure');
+					game.end('failure'); // TODO BLOCK not sure this is semantically correct
 					break;
 				}
 				case 'win_stage': {
@@ -55,6 +55,7 @@
 				}
 			}
 		}
+		if ($events.length) $events = [];
 		// TODO after updating game, if it's reset we need to increment runCount,
 		// so we probably want an events/effects/output system
 	};

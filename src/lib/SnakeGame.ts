@@ -25,5 +25,5 @@ export interface SnakeGameWinEvent {
 }
 
 export interface SnakeGameFailEvent {
-	type: 'fail_stage';
+	type: 'damage_snake';
 }

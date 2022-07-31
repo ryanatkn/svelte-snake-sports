@@ -43,10 +43,8 @@
 		$state = updateGameState($state, game);
 		for (const event of $events) {
 			switch (event.type) {
-				case 'fail_stage': {
+				case 'damage_snake': {
 					game.end('failure');
-					// TODO BLOCK should this be part of `start`/`reset`? or maybe `initialState` should be a getter?
-					initGameState($state);
 					game.start();
 					break;
 				}

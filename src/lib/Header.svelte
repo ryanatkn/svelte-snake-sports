@@ -16,7 +16,7 @@
 			title="source code"
 			class="snake second-snake">🐍</a
 		>
-		<a href="{base}/classsic" title="play a random sport">sports</a>
+		<a href="{base}/sports" title="play some svelte snake sports">sports</a>
 	</h1>
 </header>
 

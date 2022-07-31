@@ -1,8 +1,5 @@
 <script lang="ts">
-	import {base} from '$app/paths';
-
 	import Header from '$lib/Header.svelte';
-	import Sss from '$lib/Sss.svelte';
 	import Sports from '$lib/Sports.svelte';
 
 	let ssses: Array<{icon: string}> | undefined;
@@ -21,13 +18,7 @@
 	<section>
 		<Sports />
 	</section>
-	<div class="markup">
-		<section>
-			<h2>sss</h2>
-			<audio src="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls bind:this={song} />
-		</section>
-	</div>
-	<Sss bind:ssses {song} />
+	<footer><a href="/">go back home</a></footer>
 </main>
 
 <style>
@@ -35,11 +26,6 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		margin: 0 auto 1000px;
-	}
-	.markup {
-		align-items: center;
-		text-align: center;
 	}
 
 	section {

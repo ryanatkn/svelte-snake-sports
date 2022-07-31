@@ -63,6 +63,15 @@ form label:last-child {
 	border-radius: 4px;
 }
 
+@keyframes pop-in {
+	from {
+		transform: scale(0);
+	}
+	to {
+		transform: scale(1);
+	}
+}
+
 .clickable-box {
 	transition: border-radius 0.09s ease-out;
 	border-radius: 160px;

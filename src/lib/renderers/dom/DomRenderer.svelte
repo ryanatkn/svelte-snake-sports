@@ -19,22 +19,25 @@
 </script>
 
 <div class="renderer" style:width="{mapWidthPx}px" style:height="{mapHeightPx}px">
-	<ul class="entities layer">
-		<ul class="tiles layer">
-			<Tiles width={mapWidth} height={mapHeight} />
-		</ul>
-		<ul class="apples layer">
+	<div class="layer">
+		<Tiles
+			{mapWidth}
+			{mapHeight}
+			tileWidth={ENTITY_DEFAULT_WIDTH}
+			tileHeight={ENTITY_DEFAULT_HEIGHT}
+		/>
+		<ul class="apples">
 			{#each apples as a (a.id)}
 				<Entity entity={a} classes="apple" />
 			{/each}
 		</ul>
-		<ul class="snake layer moving-{$snakeMovementDirection}">
+		<ul class="snake moving-{$snakeMovementDirection}">
 			{#each snakeSegments as s (s.id)}
 				<Entity entity={s} />
 			{/each}
 		</ul>
 		<!-- TODO render the queued movement -->
-	</ul>
+	</div>
 	{#if score === 0}
 		<Instructions {game} />
 	{/if}
@@ -48,29 +51,39 @@
 
 	.layer {
 		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		margin: 0;
-		padding: 0;
+		inset: 0;
 	}
 
 	/* TODO fix these global styles to not be global, is a relic of the port */
-	.tiles :global(.Entity) {
-		background-color: #f7f1f1;
-	}
 
 	.snake :global(.Entity) {
 		background-color: #9da;
 	}
+
+	/* head */
 	.snake :global(.Entity:first-child) {
 		background-color: #8c9;
 	}
+	.snake.moving-up :global(.Entity:first-child) {
+		border-top-left-radius: 50%;
+	}
+	.snake.moving-right :global(.Entity:first-child) {
+		border-bottom-right-radius: 50%;
+	}
+	.snake.moving-down :global(.Entity:first-child) {
+		border-bottom-right-radius: 50%;
+	}
+	.snake.moving-left :global(.Entity:first-child) {
+		border-bottom-left-radius: 50%;
+	}
+
+	/* tail */
 	.snake :global(.Entity:last-child) {
+		border-radius: 10px;
 		background-color: #87c997;
 	}
 
+	/* eye */
 	.snake :global(.Entity:first-child:after) {
 		content: '';
 		display: block;
@@ -102,23 +115,4 @@
 		border-top-width: 0;
 		border-left-width: 2px;
 	}
-
-	.snake :global(.Entity:last-child) {
-		border-radius: 10px;
-	}
-
-	@keyframes pop-in {
-		from {
-			transform: scale(0);
-		}
-		to {
-			transform: scale(1);
-		}
-	}
-
-	/* TODO turn these into components? Discard completely? They're helpful as documentation.
-.entities {}
-.tiles {}
-.apples {}
-.snake {}*/
 </style>

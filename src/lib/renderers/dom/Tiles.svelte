@@ -1,24 +1,25 @@
 <script lang="ts">
-	import Entity from '$lib/Entity.svelte';
-	import {Entity as EntityClass} from '$lib/Entity';
-
-	export let width: number;
-	export let height: number;
-
-	$: tiles = createTiles(width, height);
-
-	// TODO don't use `EntityClass` (maybe delete it altogether)
-	const createTiles = (width: number, height: number): EntityClass[] => {
-		const tiles: EntityClass[] = [];
-		for (let x = 0; x < width; x++) {
-			for (let y = 0; y < height; y++) {
-				tiles.push(new EntityClass({x, y}));
-			}
-		}
-		return tiles;
-	};
+	export let mapWidth: number;
+	export let mapHeight: number;
+	export let tileWidth: number;
+	export let tileHeight: number;
 </script>
 
-{#each tiles as t (t.id)}
-	<Entity entity={t} />
+{#each {length: mapWidth} as _, x (x)}
+	{#each {length: mapHeight} as _, y (x + ':' + y)}
+		<div
+			class="tile"
+			style:width="{tileWidth}px"
+			style:height="{tileHeight}px"
+			style:transform="translate3d({x * tileWidth}px, {y * tileHeight}px, 0)"
+		/>
+	{/each}
 {/each}
+
+<style>
+	.tile {
+		position: absolute;
+		background-color: #f7f1f1;
+		border-radius: 5px;
+	}
+</style>

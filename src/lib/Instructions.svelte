@@ -1,4 +1,6 @@
 <script lang="ts">
+	import {fade} from 'svelte/transition';
+
 	import type SnakeGame from '$lib/SnakeGame.svelte';
 
 	export let game: SnakeGame;
@@ -6,7 +8,7 @@
 	$: ({highScore} = game);
 </script>
 
-<div class="Instructions">
+<div class="Instructions" transition:fade|local>
 	<p>use the arrow keys to move</p>
 	<p style:position="relative" style:left="{-15}px">eat apples!</p>
 	{#if highScore}
@@ -22,8 +24,6 @@
 		position: absolute;
 		top: 208px;
 		left: 250px;
-		font-size: 18px;
-		font-weight: 300;
-		word-break: break-all;
+		font-size: var(--font_size_lg);
 	}
 </style>

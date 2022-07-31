@@ -20,7 +20,7 @@
 			title="source code"
 			class="snake second-snake">🐍</a
 		>
-		<a href="{base}{randomSport}" title="play a random svelte snake sport">sports</a>
+		<a href="{base}{randomSport}" title="play a random svelte snake sport!">sports</a>
 	</h1>
 </header>
 

@@ -47,6 +47,12 @@
 			switch (event.type) {
 				case 'damage_snake': {
 					game.currentTickDuration.set(get(game.baseTickDuration));
+					// TODO BLOCK ok so at this point, what happens?
+					// We want to freeze the simulation, and show the status of the snake as damaged,
+					// but unlike ClasssicSnake, we want to allow pressing a key to immediately continue on
+					// as if nothing happened, EXCEPT it should reset the tick duration to the initial value,
+					// but KEEP your apple count. We could also make it reduce the tick duration,
+					// and not entirely reset it, but that's less important.
 					game.end('failure'); // TODO BLOCK not sure this is semantically correct
 					break;
 				}

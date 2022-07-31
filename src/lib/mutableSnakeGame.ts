@@ -20,6 +20,8 @@ export const initGameState = (state: SnakeGameState): SnakeGameState => {
 
 	state.score = 0;
 
+	// TODO make this all customizable
+
 	// Create some apples, but preserve current identities if convenient.
 	state.apples = [new Entity({x: 1, y: 3}), new Entity({x: 7, y: 2}), new Entity({x: 5, y: 9})];
 
@@ -29,7 +31,6 @@ export const initGameState = (state: SnakeGameState): SnakeGameState => {
 		new Entity({x: 4, y: 5}),
 		new Entity({x: 5, y: 5}),
 		new Entity({x: 5, y: 6}),
-		new Entity({x: 5, y: 7}),
 	];
 
 	return state;

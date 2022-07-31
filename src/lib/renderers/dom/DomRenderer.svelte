@@ -26,16 +26,14 @@
 			tileWidth={ENTITY_DEFAULT_WIDTH}
 			tileHeight={ENTITY_DEFAULT_HEIGHT}
 		/>
-		<ul class="apples">
-			{#each apples as a (a.id)}
-				<Entity entity={a} classes="apple" />
-			{/each}
-		</ul>
-		<ul class="snake moving-{$snakeMovementDirection}">
+		{#each apples as a (a.id)}
+			<Entity entity={a} classes="apple" />
+		{/each}
+		<div class="snake moving-{$snakeMovementDirection}">
 			{#each snakeSegments as s (s.id)}
 				<Entity entity={s} />
 			{/each}
-		</ul>
+		</div>
 		<!-- TODO render the queued movement -->
 	</div>
 	{#if score === 0}

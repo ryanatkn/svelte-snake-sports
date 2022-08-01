@@ -20,7 +20,7 @@
 	import DirectionalControls from '$lib/DirectionalControls.svelte';
 	import MovementCommandQueue from '$lib/MovementCommandQueue.svelte';
 	import Hotkeys from '$lib/Hotkeys.svelte';
-	import StageProgress from '$lib/StageProgress.svelte';
+	import StageTimedAppleProgress from '$lib/StageTimedAppleProgress.svelte';
 	import Instructions from '$lib/sports/slow-and-steady/Instructions.svelte';
 
 	const clock = setClock(createClock({running: browser}));
@@ -44,6 +44,9 @@
 	// TODO BLOCK how does this game work? do we have a fixed amount of time? then it's not really slow & steady ...
 	let applesEaten = 0;
 	const APPLES_EATEN_TO_WIN = 50;
+
+	let timer = 0;
+	$: timer += $clock.dt;
 
 	const tick = () => {
 		if (!game || !$state || !$events || $status !== 'initial') return;
@@ -122,6 +125,7 @@
 		{tick}
 		onReset={() => {
 			$currentTickDuration = $baseTickDuration;
+			timer = 0;
 		}}
 	/>
 	{#if game}
@@ -131,7 +135,7 @@
 			{/if}
 		</DomRenderer>
 		<Ticker {clock} tickDuration={currentTickDuration} {tick} />
-		<StageProgress score={applesEaten} winningScore={APPLES_EATEN_TO_WIN} />
+		<StageTimedAppleProgress {timer} {applesEaten} applesToWin={APPLES_EATEN_TO_WIN} />
 		<div class="controls padded-md">
 			<button title="[1] next turn" class="icon-button" on:click={tick}>⏩</button>
 			<ClockControls {clock} />

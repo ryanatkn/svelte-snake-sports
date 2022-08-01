@@ -12,7 +12,7 @@
 	export let tickDurationMax: Writable<number>;
 
 	$: ({state} = game);
-	$: ({mapWidth, mapHeight, winningScore} = $state);
+	$: ({mapWidth, mapHeight} = $state);
 
 	// TODO api?
 	const clearLocalStorage = () => {
@@ -21,38 +21,13 @@
 		window.location = window.location;
 	};
 
-	$: enableWinningScore = winningScore !== null;
-	$: console.log(`enableWinningScore`, enableWinningScore);
-	$: updatedWinningScore = winningScore;
-	const updateWinningScore = (value: number | null) => {
-		$state = {...$state, winningScore: value};
-	};
-	// TODO BLOCK not sure about this
-	$: if (enableWinningScore) {
-		if (updatedWinningScore !== winningScore) updateWinningScore(updatedWinningScore);
-	} else {
-		if (winningScore !== null) updateWinningScore(null);
-	}
+	const onMapWidthInput = (e: any) => ($state = {...$state, mapWidth: Number(e.target.value) | 0});
+	const onMapHeightInput = (e: any) =>
+		($state = {...$state, mapHeight: Number(e.target.value) | 0});
 </script>
 
 <form class="Settings">
 	<section>
-		<label
-			><strong>winningScore</strong><input
-				type="checkbox"
-				bind:checked={enableWinningScore}
-			/><input
-				type="range"
-				disabled={!enableWinningScore}
-				bind:value={updatedWinningScore}
-				min={1}
-				max={100}
-			/><input
-				type="number"
-				disabled={!enableWinningScore}
-				bind:value={updatedWinningScore}
-			/></label
-		>
 		<label
 			><strong>baseTickDuration</strong><input
 				type="range"
@@ -87,19 +62,25 @@
 			/><input type="number" bind:value={$tickDurationMax} /></label
 		>
 		<!-- TODO how to make these work? need to update state -->
-		<label class="TODO"
-			><strong>mapWidth</strong><input type="range" bind:value={mapWidth} min={2} max={100} /><input
-				type="number"
-				bind:value={mapWidth}
-			/></label
-		>
-		<label class="TODO"
-			><strong>mapHeight</strong><input
+		<label
+			><strong>mapWidth</strong><input
 				type="range"
-				bind:value={mapHeight}
+				value={mapWidth}
+				on:input={onMapWidthInput}
 				min={2}
 				max={100}
-			/><input type="number" bind:value={mapHeight} /></label
+				step={1}
+			/><input type="number" value={mapWidth} on:input={onMapWidthInput} /></label
+		>
+		<label
+			><strong>mapHeight</strong><input
+				type="range"
+				value={mapHeight}
+				on:input={onMapHeightInput}
+				min={2}
+				max={100}
+				step={1}
+			/><input type="number" value={mapHeight} on:input={onMapHeightInput} /></label
 		>
 	</section>
 	<section>
@@ -127,8 +108,5 @@
 		align-items: flex-start;
 		justify-content: center;
 		flex-wrap: wrap;
-	}
-	.TODO {
-		display: none;
 	}
 </style>

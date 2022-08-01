@@ -1,42 +1,44 @@
 <svelte:options immutable={false} />
 
 <script lang="ts">
-	import {browser} from '$app/env';
-	import type {Direction} from '$lib/Entity';
 	import {writable} from 'svelte/store';
+	import {noop} from '@feltcoop/felt/util/function.js';
+	import type {Direction} from '$lib/Entity';
 	import type {SnakeGameState} from '$lib/SnakeGameState';
 	import Hotkeys from '$lib/Hotkeys.svelte';
 	import type {SnakeGameEvent} from '$lib/SnakeGame';
 
-	export const TICK_DURATION_MIN = 17;
-	export const TICK_DURATION_MAX = 2000;
-
 	export let toInitialState: () => SnakeGameState;
 	export let toInitialEvents: () => SnakeGameEvent[] = () => [];
-	export let tick: () => void;
+	export let shouldTick = (): boolean => true;
+	export let tick: () => void; // TODO maybe rename to `onTick` or `onTurn`?
+	export let onReset: () => void = noop;
 
 	export const state = writable(toInitialState());
 	export const events = writable(toInitialEvents());
-	export const baseTickDuration = writable(Math.round(1000 / 6)); // the starting tick duration, may be modified by gameplay
-	export const currentTickDuration = writable($baseTickDuration);
+	export const tickCount = writable(0); // the starting tick duration, may be modified by gameplay
+	// TODO BLOCK should these two be hoisted? "tick duration" seems like an external concern, right?
+	// given that `Ticker` is external, seems so?
+
 	export const snakeMovementDirection = writable<Direction>('up');
 	export const movementCommandQueue = writable<Direction[]>([]); // TODO should this be a generic command queue, not just movement?
-	export const highScore = writable<number>(
-		(browser && Number(localStorage.getItem('highScore'))) || 0,
-	);
 	export const runCount = writable(0);
-	export const tickDurationDecay = writable(0.97);
-	export const tickDurationMin = writable(TICK_DURATION_MIN);
-	export const tickDurationMax = writable(TICK_DURATION_MAX);
 	export const status = writable<'initial' | 'success' | 'failure'>('initial');
+
+	export const nextTick = (): void => {
+		if (!shouldTick()) return;
+		tick();
+		$tickCount++;
+	};
 
 	export const reset = (): void => {
 		$events = [];
-		$currentTickDuration = $baseTickDuration;
+		$tickCount = 0;
 		$snakeMovementDirection = 'up';
 		$movementCommandQueue = [];
 		$runCount++;
 		$state = toInitialState();
+		onReset();
 	};
 
 	export const emit = (event: SnakeGameEvent): void => {
@@ -51,25 +53,6 @@
 		$status = 'initial';
 		reset();
 	};
-
-	$: ({score} = $state);
-
-	$: console.log(`score`, score);
-
-	// TODO seems a bit hacky to rely on score changes -- should probably recalculate this every tick
-	$: $currentTickDuration = decayTickDuration($baseTickDuration, score);
-	const decayTickDuration = (duration: number, score: number): number =>
-		Math.max(
-			$tickDurationMin,
-			Math.min($tickDurationMax, Math.round(duration * $tickDurationDecay ** (1 + score))),
-		);
-
-	// TODO is there a better place to do this? imperatively after updating the state?
-	$: if (score > $highScore) {
-		console.log(`score`, score);
-		$highScore = score;
-		if (browser) localStorage.setItem('highScore', score + ''); // TODO use helper on store instead
-	}
 
 	const MOVEMENT_COMMAND_QUEUE_SIZE = 4; // how many inputs a player can queue up at once
 

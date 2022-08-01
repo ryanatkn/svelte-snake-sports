@@ -1,12 +1,5 @@
-<svelte:options immutable={false} />
-
 <script lang="ts">
-	import type SnakeGame from '$lib/SnakeGame.svelte';
-
-	export let game: SnakeGame;
-
-	$: ({state} = game);
-	$: ({score} = $state);
+	export let score: number;
 </script>
 
 <div class="Score">

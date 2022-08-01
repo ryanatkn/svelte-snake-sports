@@ -18,8 +18,6 @@ export const initGameState = (state: SnakeGameState): SnakeGameState => {
 	console.log('[SnakeGame] init');
 	// TODO  single state JSON object instead? update(state, controller) => nextState
 
-	state.score = 0;
-
 	// TODO make this all customizable
 
 	// Create some apples, but preserve current identities if convenient.
@@ -75,13 +73,6 @@ const getRandomLocation = ({mapWidth, mapHeight}: SnakeGameState): Position => (
 });
 
 /**
- * Sets the current score for the game, saving the best ever back to local storage.
- */
-const setScore = (state: SnakeGameState, value: number): void => {
-	state.score = value;
-};
-
-/**
  * Mutates the game by executing one full turn and handles all state changes that result.
  * The game may be in a temporarily illegal state at any time during this function,
  * like snake segments on top of other segments,
@@ -102,17 +93,9 @@ export const updateGameState = (state: SnakeGameState, game: ISnakeGame): SnakeG
 	// Check for collision events and handle all possible game state changes.
 	checkSnakeOutOfBounds(state, game);
 	checkSnakeEatSelf(state, game);
-	checkSnakeEatApple(state);
-
-	checkWin(state, game);
+	checkSnakeEatApple(state, game);
 
 	return state;
-};
-
-const checkWin = (state: SnakeGameState, game: ISnakeGame): void => {
-	if (state.winningScore !== null && state.score >= state.winningScore) {
-		game.emit({type: 'win_stage'});
-	}
 };
 
 /**
@@ -153,15 +136,8 @@ function moveSnake({snakeSegments}: SnakeGameState, snakeMovementDirection: Dire
 function checkSnakeOutOfBounds(state: SnakeGameState, game: ISnakeGame): void {
 	const {snakeSegments, mapWidth, mapHeight} = state;
 	if (snakeSegments[0].isOutOfBounds(mapWidth, mapHeight)) {
-		destroySnake(game);
+		game.emit({name: 'snake_collide_bounds'});
 	}
-}
-
-/**
- * As the quickest possible thing, just reset the game state when the player dies.
- */
-function destroySnake(game: ISnakeGame): void {
-	game.emit({type: 'damage_snake'});
 }
 
 /**
@@ -170,9 +146,10 @@ function destroySnake(game: ISnakeGame): void {
 function checkSnakeEatSelf(state: SnakeGameState, game: ISnakeGame): void {
 	const {snakeSegments} = state;
 	const snakeHead = snakeSegments[0];
-	for (const segment of snakeSegments) {
-		if (segment !== snakeHead && segment.isCollidingWith(snakeHead)) {
-			return destroySnake(game);
+	for (let i = 1; i < snakeSegments.length; i++) {
+		const segment = snakeSegments[i];
+		if (segment.isCollidingWith(snakeHead)) {
+			game.emit({name: 'snake_collide_self', segment});
 		}
 	}
 }
@@ -180,12 +157,12 @@ function checkSnakeEatSelf(state: SnakeGameState, game: ISnakeGame): void {
 /**
  * Check if the snake eats an apple. If so, update the game state to handle it.
  */
-function checkSnakeEatApple(state: SnakeGameState): void {
+function checkSnakeEatApple(state: SnakeGameState, game: ISnakeGame): void {
 	const {snakeSegments, apples} = state;
 	const snakeHead = snakeSegments[0];
 	for (const apple of apples) {
 		if (snakeHead.isCollidingWith(apple)) {
-			return eatApple(state, apple);
+			return eatApple(state, game, apple);
 		}
 	}
 }
@@ -193,22 +170,23 @@ function checkSnakeEatApple(state: SnakeGameState): void {
 /**
  * Has the snake eat an apple, removing the apple and growing the snake.
  */
-function eatApple(state: SnakeGameState, apple: Entity): void {
-	const {score, apples, snakeSegments} = state;
+function eatApple(state: SnakeGameState, game: ISnakeGame, apple: Entity): void {
+	const {apples, snakeSegments} = state;
 
-	// Increase the score!
-	setScore(state, score + 1);
+	game.emit({name: 'eat_apple', apple});
+
+	// TODO BLOCK does this stuff all happen conditionally by the impl?
 
 	// Remove the apple.
 	apples.splice(apples.indexOf(apple), 1);
 
 	// Create a new end tail segment that looks like the current end of the snake.
-	const endTailSegment = snakeSegments.at(-1)!;
-	const newEndTailSegment = endTailSegment.clone();
+	const prevEndSegment = snakeSegments.at(-1)!;
+	const nextEndSegment = prevEndSegment.clone();
 
 	// Position the new end tail segment at the previous position of the current end of the snake.
-	newEndTailSegment.moveTo(endTailSegment.prevX, endTailSegment.prevY);
-	snakeSegments.push(newEndTailSegment);
+	nextEndSegment.moveTo(prevEndSegment.prevX, prevEndSegment.prevY);
+	snakeSegments.push(nextEndSegment);
 	spawnApple(state);
 }
 

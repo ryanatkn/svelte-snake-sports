@@ -6,13 +6,12 @@
 	// See `$lib/sports/simple/SimpleSnake.svelte` for the same thing but simplified.
 	import {browser} from '$app/env';
 	import {base} from '$app/paths';
-	import {get} from 'svelte/store';
+	import {writable} from 'svelte/store';
 
 	import SnakeGame from '$lib/SnakeGame.svelte';
 	import DomRenderer from '$lib/renderers/dom/DomRenderer.svelte';
 	import {createClock, setClock} from '$lib/clock';
 	import Settings from '$lib/Settings.svelte';
-	import Score from '$lib/Score.svelte';
 	import Stats from '$lib/Stats.svelte';
 	import {toDefaultGameState} from '$lib/SnakeGameState';
 	import {initGameState, updateGameState} from '$lib/mutableSnakeGame';
@@ -32,39 +31,54 @@
 	let showSettings = false;
 
 	$: state = game?.state;
-	$: score = $state?.score;
-	$: winningScore = $state?.winningScore;
 	$: events = game?.events;
 	$: movementCommandQueue = game?.movementCommandQueue;
 	$: currentCommand = $movementCommandQueue?.[0];
 	$: status = game?.status;
 
+	// TODO BLOCK do these need to be stores?
+
+	const baseTickDuration = writable(Math.round(1000 / 6)); // the starting tick duration, may be modified by gameplay
+	const currentTickDuration = writable($baseTickDuration);
+
+	// TODO BLOCK how does this game work? do we have a fixed amount of time? then it's not really slow & steady ...
+	let applesEaten = 0;
+	const APPLES_EATEN_TO_WIN = 50;
+
 	const tick = () => {
 		if (!game || !$state || !$events || $status !== 'initial') return;
 		// TODO maybe serialize input state as param instead of `game`?
 		$state = updateGameState($state, game);
+
+		// TODO BLOCK is this right? or do we not want to emit this event?
+		// maybe we set `game.status` and other values directly?
+		// victory` -- `{score: number} | {time: number} | {turns: number} | null`
+		if (applesEaten > 50) {
+			// TODO BLOCK or should we detect when time runs out? number of turns?
+		}
+
 		for (const event of $events) {
-			switch (event.type) {
-				case 'damage_snake': {
-					game.currentTickDuration.set(get(game.baseTickDuration));
+			switch (event.name) {
+				case 'eat_apple': {
+					applesEaten++;
+					break;
+				}
+				case 'snake_collide_self':
+				case 'snake_collide_bounds': {
 					// TODO BLOCK ok so at this point, what happens?
 					// We want to freeze the simulation, and show the status of the snake as damaged,
 					// but unlike ClasssicSnake, we want to allow pressing a key to immediately continue on
 					// as if nothing happened, EXCEPT it should reset the tick duration to the initial value,
 					// but KEEP your apple count. We could also make it reduce the tick duration,
 					// and not entirely reset it, but that's less important.
-					game.end('failure'); // TODO BLOCK not sure this is semantically correct
-					break;
-				}
-				case 'win_stage': {
-					game.end('success');
+					$currentTickDuration = $baseTickDuration; // TODO BLOCK doesn't work as intended because currentTickDuration is fully recalulated, not incrementally
 					break;
 				}
 			}
 		}
-		if ($events.length) $events = [];
-		// TODO after updating game, if it's reset we need to increment runCount,
-		// so we probably want an events/effects/output system
+		// TODO immutable? move this elsewhere? like `afterTick`?
+		// maybe this should be `onTick` and the SnakeGame's `tick` function does this work?
+		if ($events.length) $events.length = 0;
 	};
 
 	// TODO BLOCK `tickDurationDecay` belongs on the game state here, should be like 0.85 or something --
@@ -104,19 +118,18 @@
 <div class="SlowAndSteadySnake">
 	<SnakeGame
 		bind:this={game}
-		toInitialState={() => initGameState(toDefaultGameState({winningScore: 50}))}
+		toInitialState={() => initGameState(toDefaultGameState())}
 		{tick}
+		onReset={() => {
+			$currentTickDuration = $baseTickDuration;
+		}}
 	/>
 	{#if game}
 		<DomRenderer {game}>
 			<Instructions {game} slot="instructions" />
 		</DomRenderer>
-		<Ticker {clock} tickDuration={game.currentTickDuration} {tick} />
-		{#if score !== undefined && winningScore != null}
-			<StageProgress {score} {winningScore} />
-		{:else}
-			<Score {game} />
-		{/if}
+		<Ticker {clock} tickDuration={currentTickDuration} {tick} />
+		<StageProgress score={applesEaten} winningScore={APPLES_EATEN_TO_WIN} />
 		<div class="controls padded-md">
 			<button title="[1] next turn" class="icon-button" on:click={tick}>⏩</button>
 			<ClockControls {clock} />

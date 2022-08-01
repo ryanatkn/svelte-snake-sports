@@ -6,6 +6,7 @@
 	// See `$lib/sports/simple/SimpleSnake.svelte` for the same thing but simplified.
 	import {browser} from '$app/env';
 	import {base} from '$app/paths';
+	import {writable} from 'svelte/store';
 
 	import SnakeGame from '$lib/SnakeGame.svelte';
 	import DomRenderer from '$lib/renderers/dom/DomRenderer.svelte';
@@ -20,7 +21,6 @@
 	import DirectionalControls from '$lib/DirectionalControls.svelte';
 	import MovementCommandQueue from '$lib/MovementCommandQueue.svelte';
 	import Hotkeys from '$lib/Hotkeys.svelte';
-	import StageProgress from '$lib/StageProgress.svelte';
 	import Instructions from '$lib/sports/classsic/Instructions.svelte';
 
 	const clock = setClock(createClock({running: browser}));
@@ -31,30 +31,63 @@
 	let showSettings = false;
 
 	$: state = game?.state;
-	$: score = $state?.score;
-	$: winningScore = $state?.winningScore;
 	$: events = game?.events;
 	$: movementCommandQueue = game?.movementCommandQueue;
 	$: currentCommand = $movementCommandQueue?.[0];
 	$: status = game?.status;
 
+	// TODO BLOCK do these need to be stores?
+
+	let score = 0;
+	const highScore = writable<number>((browser && Number(localStorage.getItem('highScore'))) || 0);
+
+	const TICK_DURATION_MIN = 17;
+	const TICK_DURATION_MAX = 2000;
+	const tickDurationDecay = writable(0.97);
+	const baseTickDuration = writable(Math.round(1000 / 6)); // the starting tick duration, may be modified by gameplay
+	const currentTickDuration = writable($baseTickDuration);
+	const tickDurationMin = writable(TICK_DURATION_MIN);
+	const tickDurationMax = writable(TICK_DURATION_MAX);
+
+	// TODO is there a better place to do this? imperatively after updating the state?
+	$: if (score > $highScore) {
+		console.log(`score`, score);
+		$highScore = score;
+		if (browser) localStorage.setItem('highScore', score + ''); // TODO use helper on store instead
+	}
+
 	const tick = () => {
 		if (!game || !$state || !$events || $status !== 'initial') return;
 		// TODO maybe serialize input state as param instead of `game`?
 		$state = updateGameState($state, game);
+
 		for (const event of $events) {
-			switch (event.type) {
-				case 'damage_snake': {
-					game.end('failure');
-					game.start();
+			switch (event.name) {
+				case 'eat_apple': {
+					score++;
 					break;
 				}
-				case 'win_stage': {
-					game.end('success');
+				case 'snake_collide_self':
+				case 'snake_collide_bounds': {
+					game.end('failure');
+					game.start();
+					score = 0; // TODO BLOCK should this be on some other event or hook?
 					break;
 				}
 			}
 		}
+		// TODO immutable? move this elsewhere? like `afterTick`?
+		// maybe this should be `onTick` and the SnakeGame's `tick` function does this work?
+		if ($events.length) $events.length = 0;
+
+		$currentTickDuration = Math.max(
+			$tickDurationMin,
+			Math.min(
+				$tickDurationMax,
+				Math.round($baseTickDuration! * $tickDurationDecay ** (1 + score)),
+			),
+		);
+
 		// TODO after updating game, if it's reset we need to increment runCount,
 		// so we probably want an events/effects/output system
 	};
@@ -90,17 +123,20 @@
 />
 
 <div class="ClasssicSnake">
-	<SnakeGame bind:this={game} toInitialState={() => initGameState(toDefaultGameState())} {tick} />
+	<SnakeGame
+		bind:this={game}
+		toInitialState={() => initGameState(toDefaultGameState())}
+		{tick}
+		onReset={() => {
+			$currentTickDuration = $baseTickDuration;
+		}}
+	/>
 	{#if game}
 		<DomRenderer {game}>
 			<Instructions {game} slot="instructions" />
 		</DomRenderer>
-		<Ticker {clock} tickDuration={game.currentTickDuration} {tick} />
-		{#if score !== undefined && winningScore != null}
-			<StageProgress {score} {winningScore} />
-		{:else}
-			<Score {game} />
-		{/if}
+		<Ticker {clock} tickDuration={currentTickDuration} {tick} />
+		<Score {score} />
 		<div class="controls padded-md">
 			<button title="[1] next turn" class="icon-button" on:click={tick}>⏩</button>
 			<ClockControls {clock} />

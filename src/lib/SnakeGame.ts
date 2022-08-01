@@ -1,16 +1,13 @@
 import type {Writable} from 'svelte/store';
 
-import type {Direction} from '$lib/Entity';
+import type {Direction, Entity} from '$lib/Entity';
 
 // TODO try to delete, only need it because `SnakeGame.svelte` can't be imported by TS modules
 
 export interface ISnakeGame {
 	events: Writable<SnakeGameEvent[]>;
-	baseTickDuration: Writable<number>;
-	currentTickDuration: Writable<number>;
 	snakeMovementDirection: Writable<Direction>;
 	movementCommandQueue: Writable<Direction[]>;
-	highScore: Writable<number>;
 	runCount: Writable<number>;
 	emit: (event: SnakeGameEvent) => void;
 	reset: () => void;
@@ -18,12 +15,21 @@ export interface ISnakeGame {
 	setMovementCommand: (movementCommand: Direction) => void;
 }
 
-export type SnakeGameEvent = SnakeGameWinEvent | SnakeGameFailEvent;
+export type SnakeGameEvent =
+	| SnakeGameSnakeCollideBoundsEvent
+	| SnakeGameSnakeCollideSelfEvent
+	| SnakeGameEatAppleEvent;
 
-export interface SnakeGameWinEvent {
-	type: 'win_stage';
+export interface SnakeGameSnakeCollideBoundsEvent {
+	name: 'snake_collide_bounds';
 }
 
-export interface SnakeGameFailEvent {
-	type: 'damage_snake';
+export interface SnakeGameSnakeCollideSelfEvent {
+	name: 'snake_collide_self';
+	segment: Entity;
+}
+
+export interface SnakeGameEatAppleEvent {
+	name: 'eat_apple';
+	apple: Entity;
 }

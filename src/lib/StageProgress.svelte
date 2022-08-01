@@ -1,5 +1,3 @@
-<svelte:options immutable={false} />
-
 <script lang="ts">
 	export let score: number;
 	export let winningScore: number;

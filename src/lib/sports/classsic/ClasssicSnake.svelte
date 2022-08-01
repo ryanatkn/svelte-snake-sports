@@ -41,13 +41,11 @@
 	let score = 0;
 	const highScore = writable<number>((browser && Number(localStorage.getItem('highScore'))) || 0);
 
-	const TICK_DURATION_MIN = 17;
-	const TICK_DURATION_MAX = 2000;
 	const tickDurationDecay = writable(0.97);
 	const baseTickDuration = writable(Math.round(1000 / 6)); // the starting tick duration, may be modified by gameplay
 	const currentTickDuration = writable($baseTickDuration);
-	const tickDurationMin = writable(TICK_DURATION_MIN);
-	const tickDurationMax = writable(TICK_DURATION_MAX);
+	const tickDurationMin = writable(17);
+	const tickDurationMax = writable(2000);
 
 	// TODO is there a better place to do this? imperatively after updating the state?
 	$: if (score > $highScore) {
@@ -175,7 +173,13 @@
 				>{#if showSettings}stash settings{:else}show settings{/if}</button
 			>
 			{#if showSettings}
-				<Settings {game} />
+				<Settings
+					{game}
+					{baseTickDuration}
+					{tickDurationMin}
+					{tickDurationMax}
+					{tickDurationDecay}
+				/>
 			{/if}
 		</section>
 	{/if}

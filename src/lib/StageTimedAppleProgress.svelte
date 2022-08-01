@@ -1,9 +1,11 @@
 <script lang="ts">
 	export let applesEaten: number;
 	export let applesToWin: number;
-	export let timer: number;
+	export let currentTime: number;
+	export let bestTime: number | null;
 
-	$: timerSeconds = Math.floor(timer / 1000);
+	$: currentTimeSeconds = Math.floor(currentTime / 1000);
+	$: bestTimeSeconds = bestTime !== null ? Math.floor(bestTime / 1000) : null;
 </script>
 
 <div class="progress">
@@ -12,7 +14,10 @@
 		<div class="apple" />
 	</div>
 
-	<div class="timer" title="elapsed time in seconds">{timerSeconds}s</div>
+	<div class="time" title="current elapsed time in seconds">{currentTimeSeconds}s</div>
+	{#if bestTimeSeconds !== null}
+		<div class="time" title="best elapsed time in seconds">best: {bestTimeSeconds}s</div>
+	{/if}
 </div>
 
 <style>
@@ -32,7 +37,7 @@
 		margin-left: var(--spacing_xl);
 	}
 
-	.timer {
-		margin-left: var(--spacing_xl7);
+	.time {
+		margin-left: var(--spacing_xl5);
 	}
 </style>

@@ -40,13 +40,19 @@
 
 	const baseTickDuration = writable(Math.round(1000 / 6)); // the starting tick duration, may be modified by gameplay
 	const currentTickDuration = writable($baseTickDuration);
+	const tickDurationDecay = writable(0.5);
+	const tickDurationMin = writable(17);
+	const tickDurationMax = writable(2000);
 
 	// TODO BLOCK how does this game work? do we have a fixed amount of time? then it's not really slow & steady ...
 	let applesEaten = 0;
+	let applesEatenSinceCollision = 0;
 	const APPLES_EATEN_TO_WIN = 50;
 
-	let timer = 0;
-	$: timer += $clock.dt;
+	let currentTime = 0;
+	$: currentTime += $clock.dt;
+
+	let bestTime: number | null = null; // TODO BLOCK localstorage
 
 	const tick = () => {
 		if (!game || !$state || !$events || $status !== 'initial') return;
@@ -64,6 +70,8 @@
 			switch (event.name) {
 				case 'eat_apple': {
 					applesEaten++;
+					applesEatenSinceCollision++;
+					$currentTickDuration *= $tickDurationDecay ** (1 / applesEatenSinceCollision ** 1.7);
 					break;
 				}
 				case 'snake_collide_self':
@@ -75,6 +83,7 @@
 					// but KEEP your apple count. We could also make it reduce the tick duration,
 					// and not entirely reset it, but that's less important.
 					$currentTickDuration = $baseTickDuration; // TODO BLOCK doesn't work as intended because currentTickDuration is fully recalulated, not incrementally
+					applesEatenSinceCollision = 0;
 					break;
 				}
 			}
@@ -125,7 +134,7 @@
 		{tick}
 		onReset={() => {
 			$currentTickDuration = $baseTickDuration;
-			timer = 0;
+			currentTime = 0;
 		}}
 	/>
 	{#if game}
@@ -135,7 +144,12 @@
 			{/if}
 		</DomRenderer>
 		<Ticker {clock} tickDuration={currentTickDuration} {tick} />
-		<StageTimedAppleProgress {timer} {applesEaten} applesToWin={APPLES_EATEN_TO_WIN} />
+		<StageTimedAppleProgress
+			{applesEaten}
+			applesToWin={APPLES_EATEN_TO_WIN}
+			{currentTime}
+			{bestTime}
+		/>
 		<div class="controls padded-md">
 			<button title="[1] next turn" class="icon-button" on:click={tick}>⏩</button>
 			<ClockControls {clock} />
@@ -172,7 +186,13 @@
 				>{#if showSettings}stash settings{:else}show settings{/if}</button
 			>
 			{#if showSettings}
-				<Settings {game} />
+				<Settings
+					{game}
+					{baseTickDuration}
+					{tickDurationMin}
+					{tickDurationMax}
+					{tickDurationDecay}
+				/>
 			{/if}
 		</section>
 	{/if}

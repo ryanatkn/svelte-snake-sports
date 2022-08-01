@@ -1,11 +1,17 @@
 <svelte:options immutable={false} />
 
 <script lang="ts">
+	import type {Writable} from 'svelte/store';
+
 	import type SnakeGame from '$lib/SnakeGame.svelte';
 
 	export let game: SnakeGame;
+	export let baseTickDuration: Writable<number>;
+	export let tickDurationDecay: Writable<number>;
+	export let tickDurationMin: Writable<number>;
+	export let tickDurationMax: Writable<number>;
 
-	$: ({state, baseTickDuration, tickDurationDecay, tickDurationMin, tickDurationMax} = game);
+	$: ({state} = game);
 	$: ({mapWidth, mapHeight, winningScore} = $state);
 
 	// TODO api?

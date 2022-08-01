@@ -11,7 +11,7 @@
 	export let game: SnakeGame;
 
 	$: ({state, snakeMovementDirection} = game);
-	$: ({mapWidth, mapHeight, apples, snakeSegments, score} = $state);
+	$: ({mapWidth, mapHeight, apples, snakeSegments} = $state);
 
 	$: mapHeightPx = mapHeight * ENTITY_DEFAULT_HEIGHT;
 	$: mapWidthPx = mapWidth * ENTITY_DEFAULT_WIDTH;
@@ -35,9 +35,7 @@
 		</div>
 		<!-- TODO render the queued movement -->
 	</div>
-	{#if score === 0}
-		<slot name="instructions" />
-	{/if}
+	<slot />
 </div>
 
 <style>

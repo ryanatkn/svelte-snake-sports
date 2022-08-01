@@ -126,7 +126,9 @@
 	/>
 	{#if game}
 		<DomRenderer {game}>
-			<Instructions {game} slot="instructions" />
+			{#if applesEaten === 0}
+				<Instructions {game} />
+			{/if}
 		</DomRenderer>
 		<Ticker {clock} tickDuration={currentTickDuration} {tick} />
 		<StageProgress score={applesEaten} winningScore={APPLES_EATEN_TO_WIN} />

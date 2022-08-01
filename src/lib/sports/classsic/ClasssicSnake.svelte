@@ -133,7 +133,9 @@
 	/>
 	{#if game}
 		<DomRenderer {game}>
-			<Instructions {game} slot="instructions" />
+			{#if score === 0}
+				<Instructions {game} />
+			{/if}
 		</DomRenderer>
 		<Ticker {clock} tickDuration={currentTickDuration} {tick} />
 		<Score {score} />

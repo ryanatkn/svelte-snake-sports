@@ -171,9 +171,6 @@
 				</div>
 			{/if}
 		</div>
-		<div class="centered">
-			<audio src="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls />
-		</div>
 		<section class="markup column-sm">
 			<div>
 				<strong>to queue a move</strong>: arrow keys, <code>wasd</code>, <code>hjkl</code>
@@ -187,6 +184,9 @@
 			<div>
 				<strong>take one turn</strong>: <code>1</code>
 			</div>
+		</section>
+		<section class="centered">
+			<audio src="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls />
 		</section>
 		<section class="centered">
 			<button on:click={() => (showSettings = !showSettings)}

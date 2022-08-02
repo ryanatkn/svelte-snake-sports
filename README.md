@@ -79,4 +79,6 @@ by Alexander Nakarada
 ([CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/),
 [serpentsoundstudios.com](https://www.serpentsoundstudios.com/))
 
-## [🐦](https://wikipedia.org/wiki/Free_and_open-source_software)
+## license [🐦](https://wikipedia.org/wiki/Free_and_open-source_software)
+
+public domain ⚘ [The Unlicense](license)

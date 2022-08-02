@@ -3,9 +3,10 @@
 	import {base} from '$app/paths';
 
 	import ClasssicSnake from '$lib/sports/classsic/ClasssicSnake.svelte';
-
-	console.log(`base`, base);
+	import TitleImage from '$lib/TitleImage.svelte';
 </script>
+
+<TitleImage alt="logo for svelte snake sports: classsic" src="{base}/assets/classsic.webp" />
 
 <ClasssicSnake />
 
@@ -29,16 +30,8 @@
 	<!-- </div> -->
 </footer>
 
-<div class="centered column">
-	<img alt="logo for svelte snake sports: classsic" src="{base}/assets/classsic.webp" />
-</div>
-
 <style>
 	.markup {
 		text-align: center;
-	}
-	img {
-		margin-bottom: var(--spacing_xl7);
-		border-radius: 160px;
 	}
 </style>

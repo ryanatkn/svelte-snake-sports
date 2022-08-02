@@ -88,7 +88,10 @@ export const updateGameState = (state: SnakeGameState, game: ISnakeGame): SnakeG
 	updateInput(game);
 
 	// Update entities
-	moveSnake(state, get(game.snakeMovementDirection)); // TODO avoid `get` -- probably with serialized inputs
+	const movementDirection = get(game.movementDirection); // TODO avoid `get` -- probably with serialized inputs
+	if (movementDirection) {
+		moveSnake(state, movementDirection);
+	}
 
 	// Check for collision events and handle all possible game state changes.
 	checkSnakeOutOfBounds(state, game);
@@ -106,7 +109,7 @@ function updateInput(game: ISnakeGame): void {
 	game.movementCommandQueue.update(($v) => {
 		if (!$v.length) return $v;
 		$v = $v.slice(); // eslint-disable-line no-param-reassign
-		game.snakeMovementDirection.set($v.shift()!);
+		game.movementDirection.set($v.shift()!);
 		return $v;
 	});
 }
@@ -114,12 +117,12 @@ function updateInput(game: ISnakeGame): void {
 /**
  * Moves the snake in the given direction.
  */
-function moveSnake({snakeSegments}: SnakeGameState, snakeMovementDirection: Direction): void {
+function moveSnake({snakeSegments}: SnakeGameState, movementDirection: Direction): void {
 	const head = snakeSegments[0];
 
 	// Move the head first, because our algorithm reads the previous positions
 	// of the preceding segments to move them to, so this works.
-	head.moveDir(snakeMovementDirection);
+	head.moveDir(movementDirection);
 
 	// Make the body follow the head
 	for (let i = 1; i < snakeSegments.length; i++) {

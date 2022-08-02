@@ -6,7 +6,7 @@ import type {Direction, Entity} from '$lib/Entity';
 
 export interface ISnakeGame {
 	events: Writable<SnakeGameEvent[]>;
-	snakeMovementDirection: Writable<Direction>;
+	movementDirection: Writable<Direction | null>;
 	movementCommandQueue: Writable<Direction[]>;
 	runCount: Writable<number>;
 	emit: (event: SnakeGameEvent) => void;

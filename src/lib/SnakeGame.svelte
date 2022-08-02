@@ -10,6 +10,7 @@
 
 	export let toInitialState: () => SnakeGameState;
 	export let toInitialEvents: () => SnakeGameEvent[] = () => [];
+	export let toInitialMovementDirection: () => Direction | null = () => 'up';
 	export let shouldTick = (): boolean => true;
 	export let tick: () => void; // TODO maybe rename to `onTick` or `onTurn`?
 	export let onReset: () => void = noop;
@@ -20,7 +21,7 @@
 	// TODO BLOCK should these two be hoisted? "tick duration" seems like an external concern, right?
 	// given that `Ticker` is external, seems so?
 
-	export const snakeMovementDirection = writable<Direction>('up');
+	export const movementDirection = writable<Direction | null>(toInitialMovementDirection());
 	export const movementCommandQueue = writable<Direction[]>([]); // TODO should this be a generic command queue, not just movement?
 	export const runCount = writable(0);
 	export const status = writable<'initial' | 'success' | 'failure'>('initial');
@@ -34,7 +35,7 @@
 	export const reset = (): void => {
 		$events = [];
 		$tickCount = 0;
-		$snakeMovementDirection = 'up';
+		$movementDirection = toInitialMovementDirection();
 		$movementCommandQueue = [];
 		$runCount++;
 		$state = toInitialState();

@@ -10,7 +10,7 @@
 
 	export let game: SnakeGame;
 
-	$: ({state, snakeMovementDirection} = game);
+	$: ({state, movementDirection} = game);
 	$: ({mapWidth, mapHeight, apples, snakeSegments} = $state);
 
 	$: mapHeightPx = mapHeight * ENTITY_DEFAULT_HEIGHT;
@@ -28,7 +28,7 @@
 		{#each apples as a (a.id)}
 			<Entity entity={a} classes="apple" />
 		{/each}
-		<div class="snake moving-{$snakeMovementDirection}">
+		<div class="snake moving-{$movementDirection}">
 			{#each snakeSegments as s (s.id)}
 				<Entity entity={s} />
 			{/each}

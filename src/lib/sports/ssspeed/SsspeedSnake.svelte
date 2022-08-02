@@ -25,6 +25,9 @@
 
 	const clock = setClock(createClock({running: browser}));
 
+	// TODO BLOCK probably change the behavior where if you collide with something,
+	// your current movement is stopped until you press a direction
+
 	let game: SnakeGame | undefined;
 	$: console.log(`game`, game);
 
@@ -61,13 +64,6 @@
 		// TODO maybe serialize input state as param instead of `game`?
 		$state = updateGameState($state, game);
 
-		// TODO BLOCK is this right? or do we not want to emit this event?
-		// maybe we set `game.status` and other values directly?
-		// victory` -- `{score: number} | {time: number} | {turns: number} | null`
-		if (applesEaten > 50) {
-			// TODO BLOCK or should we detect when time runs out? number of turns?
-		}
-
 		for (const event of $events) {
 			switch (event.name) {
 				case 'eat_apple': {
@@ -86,10 +82,19 @@
 					// and not entirely reset it, but that's less important.
 					$currentTickDuration = $baseTickDuration; // TODO BLOCK doesn't work as intended because currentTickDuration is fully recalulated, not incrementally
 					applesEatenSinceCollision = 0;
+					game.movementDirection.set('');
 					break;
 				}
 			}
 		}
+
+		// TODO BLOCK is this right? or do we not want to emit this event?
+		// maybe we set `game.status` and other values directly?
+		// victory` -- `{score: number} | {time: number} | {turns: number} | null`
+		if (applesEaten > 50) {
+			// TODO BLOCK or should we detect when time runs out? number of turns?
+		}
+
 		// TODO immutable? move this elsewhere? like `afterTick`?
 		// maybe this should be `onTick` and the SnakeGame's `tick` function does this work?
 		if ($events.length) $events.length = 0;
@@ -133,6 +138,7 @@
 	<SnakeGame
 		bind:this={game}
 		toInitialState={() => initGameState(toDefaultGameState())}
+		toInitialMovementDirection={() => null}
 		{tick}
 		onReset={() => {
 			$currentTickDuration = $baseTickDuration;

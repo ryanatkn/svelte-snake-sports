@@ -3,9 +3,12 @@
 	import {base} from '$app/paths';
 
 	import SsspeedSnake from '$lib/sports/ssspeed/SsspeedSnake.svelte';
+	import TitleImage from '$lib/TitleImage.svelte';
 
 	console.log(`base`, base);
 </script>
+
+<TitleImage alt="logo for svelte snake sports: ssspeed" src="{base}/assets/ssspeed.webp" />
 
 <SsspeedSnake />
 
@@ -29,16 +32,8 @@
 	<!-- </div> -->
 </footer>
 
-<div class="centered column">
-	<img alt="logo for svelte snake sports: ssspeed" src="{base}/assets/ssspeed.webp" />
-</div>
-
 <style>
 	.markup {
 		text-align: center;
-	}
-	img {
-		margin-bottom: var(--spacing_xl7);
-		border-radius: 160px;
 	}
 </style>

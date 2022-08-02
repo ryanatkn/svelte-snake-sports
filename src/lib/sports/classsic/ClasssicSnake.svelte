@@ -132,7 +132,7 @@
 	{#if game}
 		<DomRenderer {game}>
 			{#if score === 0}
-				<Instructions {game} />
+				<Instructions {highScore} />
 			{/if}
 		</DomRenderer>
 		<Ticker {clock} tickDuration={currentTickDuration} {tick} />

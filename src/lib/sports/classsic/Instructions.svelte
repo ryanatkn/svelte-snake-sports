@@ -1,11 +1,8 @@
 <script lang="ts">
 	import {fade} from 'svelte/transition';
+	import type {Writable} from 'svelte/store';
 
-	import type SnakeGame from '$lib/SnakeGame.svelte';
-
-	export let game: SnakeGame;
-
-	$: ({highScore} = game);
+	export let highScore: Writable<number>;
 </script>
 
 <div class="Instructions" transition:fade|local>

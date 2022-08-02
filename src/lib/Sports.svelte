@@ -13,10 +13,10 @@
 		</a>
 	</li>
 	<li>
-		<a href="{base}/slow-and-steady" title="slow and steady snake sports">
+		<a href="{base}/ssspeed" title="ssspeed snake sports">
 			<img
-				alt="logo for svelte snake sports: slow and steady"
-				src="{base}/assets/slow-and-steady.webp"
+				alt="logo for svelte snake sports: ssspeed"
+				src="{base}/assets/ssspeed.webp"
 				class="clickable-box"
 			/>
 		</a>

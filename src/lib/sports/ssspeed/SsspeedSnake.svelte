@@ -21,7 +21,7 @@
 	import MovementCommandQueue from '$lib/MovementCommandQueue.svelte';
 	import Hotkeys from '$lib/Hotkeys.svelte';
 	import StageTimedAppleProgress from '$lib/StageTimedAppleProgress.svelte';
-	import Instructions from '$lib/sports/slow-and-steady/Instructions.svelte';
+	import Instructions from '$lib/sports/ssspeed/Instructions.svelte';
 
 	const clock = setClock(createClock({running: browser}));
 
@@ -129,7 +129,7 @@
 	}}
 />
 
-<div class="SlowAndSteadySnake">
+<div class="SsspeedSnake">
 	<SnakeGame
 		bind:this={game}
 		toInitialState={() => initGameState(toDefaultGameState())}
@@ -167,7 +167,6 @@
 		</div>
 		<div class="centered">
 			<audio src="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls />
-			<Stats {game} />
 		</div>
 		<section class="markup column-sm">
 			<div>
@@ -188,6 +187,7 @@
 				>{#if showSettings}stash settings{:else}show settings{/if}</button
 			>
 			{#if showSettings}
+				<Stats {game} />
 				<Settings
 					{game}
 					{baseTickDuration}
@@ -201,7 +201,7 @@
 </div>
 
 <style>
-	.SlowAndSteadySnake {
+	.SsspeedSnake {
 		display: flex;
 		justify-content: center;
 		padding-top: var(--spacing_xl3);

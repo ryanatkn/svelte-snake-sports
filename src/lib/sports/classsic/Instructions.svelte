@@ -10,7 +10,7 @@
 	<p style:position="relative" style:left="{-15}px">eat many apples!</p>
 	{#if $highScore}
 		<p>
-			besst is {$highScore} apple{$highScore === 1 ? '' : 's'}!
+			besst is {$highScore} apple{$highScore === 1 ? '' : 's'}{'!'.repeat(($highScore / 10) | 0)}
 		</p>
 	{/if}
 	<p style:position="relative" style:left="{55}px">don't bite yoursself :]</p>

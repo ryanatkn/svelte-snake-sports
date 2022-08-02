@@ -2,7 +2,7 @@
 	import {base} from '$app/paths';
 	import {randomItem} from '@feltcoop/felt/util/random.js';
 
-	const sports = ['/classsic', '/slow-and-steady'];
+	const sports = ['/classsic', '/ssspeed'];
 	$: randomSport = randomItem(sports);
 </script>
 

@@ -2,12 +2,12 @@
 	// import Breadcrumbs from '@feltcoop/felt/ui/Breadcrumbs.svelte';
 	import {base} from '$app/paths';
 
-	import SlowAndSteadySnake from '$lib/sports/slow-and-steady/SlowAndSteadySnake.svelte';
+	import SsspeedSnake from '$lib/sports/ssspeed/SsspeedSnake.svelte';
 
 	console.log(`base`, base);
 </script>
 
-<SlowAndSteadySnake />
+<SsspeedSnake />
 
 <footer class="centered column-sm">
 	<div class="padded-md">
@@ -30,10 +30,7 @@
 </footer>
 
 <div class="centered column">
-	<img
-		alt="logo for svelte snake sports: slow and steady"
-		src="{base}/assets/slow-and-steady.webp"
-	/>
+	<img alt="logo for svelte snake sports: ssspeed" src="{base}/assets/ssspeed.webp" />
 </div>
 
 <style>

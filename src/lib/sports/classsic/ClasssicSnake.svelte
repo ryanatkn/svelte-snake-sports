@@ -152,7 +152,6 @@
 		</div>
 		<div class="centered">
 			<audio src="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls />
-			<Stats {game} />
 		</div>
 		<section class="markup column-sm">
 			<div>
@@ -173,6 +172,7 @@
 				>{#if showSettings}stash settings{:else}show settings{/if}</button
 			>
 			{#if showSettings}
+				<Stats {game} />
 				<Settings
 					{game}
 					{baseTickDuration}

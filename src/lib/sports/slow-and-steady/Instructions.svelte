@@ -1,24 +1,19 @@
 <script lang="ts">
 	import {fade} from 'svelte/transition';
+	import type {Writable} from 'svelte/store';
 
-	import type SnakeGame from '$lib/SnakeGame.svelte';
-
-	export let game: SnakeGame;
-
-	// TODO show win condition info and high score
-	game;
-	// $: ({state} = game);
+	export let bestTime: Writable<number | null>;
+	export let applesToWin: number;
 </script>
 
 <div class="Instructions" transition:fade|local>
 	<p>move with arrow keys</p>
-	<p style:position="relative" style:left="{-15}px">eat apples!</p>
-	<!-- {#if highScore} -->
-	<p>
-		asap!!
-		<!-- besst is {$highScore} apple{$highScore === 1 ? '' : 's'}! -->
-	</p>
-	<!-- {/if} -->
+	<p style:position="relative" style:left="{-15}px">eat {applesToWin} apples asap!</p>
+	{#if $bestTime}
+		<p>
+			besst is {$bestTime}ms!
+		</p>
+	{/if}
 	<p style:position="relative" style:left="{55}px">don't bite yoursself :]</p>
 </div>
 

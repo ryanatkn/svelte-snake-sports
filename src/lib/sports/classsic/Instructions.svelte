@@ -7,8 +7,8 @@
 
 <div class="Instructions" transition:fade|local>
 	<p>move with arrow keys</p>
-	<p style:position="relative" style:left="{-15}px">eat apples!</p>
-	{#if highScore}
+	<p style:position="relative" style:left="{-15}px">eat many apples!</p>
+	{#if $highScore}
 		<p>
 			besst is {$highScore} apple{$highScore === 1 ? '' : 's'}!
 		</p>

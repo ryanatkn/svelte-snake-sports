@@ -52,7 +52,9 @@
 	let currentTime = 0;
 	$: currentTime += $clock.dt;
 
-	let bestTime: number | null = null; // TODO BLOCK localstorage
+	const bestTime = writable<number | null>(
+		(browser && Number(localStorage.getItem('bestTime'))) || null,
+	);
 
 	const tick = () => {
 		if (!game || !$state || !$events || $status !== 'initial') return;
@@ -140,7 +142,7 @@
 	{#if game}
 		<DomRenderer {game}>
 			{#if applesEaten === 0}
-				<Instructions {game} />
+				<Instructions {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
 			{/if}
 		</DomRenderer>
 		<Ticker {clock} tickDuration={currentTickDuration} {tick} />

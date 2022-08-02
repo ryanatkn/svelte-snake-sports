@@ -1,11 +1,13 @@
 <script lang="ts">
+	import type {Writable} from 'svelte/store';
+
 	export let applesEaten: number;
 	export let applesToWin: number;
 	export let currentTime: number;
-	export let bestTime: number | null;
+	export let bestTime: Writable<number | null>;
 
 	$: currentTimeSeconds = Math.floor(currentTime / 1000);
-	$: bestTimeSeconds = bestTime !== null ? Math.floor(bestTime / 1000) : null;
+	$: bestTimeSeconds = $bestTime !== null ? Math.floor($bestTime / 1000) : null;
 </script>
 
 <div class="progress">

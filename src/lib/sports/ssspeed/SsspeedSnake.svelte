@@ -23,10 +23,11 @@
 	import StageTimedAppleProgress from '$lib/StageTimedAppleProgress.svelte';
 	import Instructions from '$lib/sports/ssspeed/Instructions.svelte';
 
-	const clock = setClock(createClock({running: browser}));
+	// TODO BLOCK CONTINUE!!
+	// show reset button
+	// show high scores
 
-	// TODO BLOCK probably change the behavior where if you collide with something,
-	// your current movement is stopped until you press a direction
+	const clock = setClock(createClock({running: browser}));
 
 	let game: SnakeGame | undefined;
 	$: console.log(`game`, game);
@@ -82,7 +83,7 @@
 					// and not entirely reset it, but that's less important.
 					$currentTickDuration = $baseTickDuration; // TODO BLOCK doesn't work as intended because currentTickDuration is fully recalulated, not incrementally
 					applesEatenSinceCollision = 0;
-					game.movementDirection.set('');
+					game.movementDirection.set(null);
 					break;
 				}
 			}

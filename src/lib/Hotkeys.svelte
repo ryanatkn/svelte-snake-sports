@@ -8,7 +8,7 @@
 
 <svelte:window
 	on:keydown={(e) => {
-		if (!isEditable(e) && onKeydown(e.key, e.shiftKey, e.ctrlKey)) {
+		if (!isEditable(e.target) && onKeydown(e.key, e.shiftKey, e.ctrlKey)) {
 			swallow(e);
 		}
 	}}

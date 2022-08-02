@@ -24,6 +24,11 @@
 	const onMapWidthInput = (e: any) => ($state = {...$state, mapWidth: Number(e.target.value) | 0});
 	const onMapHeightInput = (e: any) =>
 		($state = {...$state, mapHeight: Number(e.target.value) | 0});
+
+	const MAP_MIN_WIDTH = 2;
+	const MAP_MAX_WIDTH = 100;
+	const MAP_MIN_HEIGHT = 2;
+	const MAP_MAX_HEIGHT = 100;
 </script>
 
 <form class="Settings">
@@ -67,20 +72,32 @@
 				type="range"
 				value={mapWidth}
 				on:input={onMapWidthInput}
-				min={2}
-				max={100}
+				min={MAP_MIN_WIDTH}
+				max={MAP_MAX_WIDTH}
 				step={1}
-			/><input type="number" value={mapWidth} on:input={onMapWidthInput} /></label
+			/><input
+				type="number"
+				value={mapWidth}
+				on:input={onMapWidthInput}
+				min={MAP_MIN_WIDTH}
+				max={MAP_MAX_WIDTH}
+			/></label
 		>
 		<label
 			><strong>mapHeight</strong><input
 				type="range"
 				value={mapHeight}
 				on:input={onMapHeightInput}
-				min={2}
-				max={100}
+				min={MAP_MIN_HEIGHT}
+				max={MAP_MAX_HEIGHT}
 				step={1}
-			/><input type="number" value={mapHeight} on:input={onMapHeightInput} /></label
+			/><input
+				type="number"
+				value={mapHeight}
+				on:input={onMapHeightInput}
+				min={MAP_MIN_HEIGHT}
+				max={MAP_MAX_HEIGHT}
+			/></label
 		>
 	</section>
 	<section>

@@ -8,7 +8,7 @@
 
 <div class="Instructions" transition:fade|local>
 	<p>move with arrow keys</p>
-	<p style:position="relative" style:left="{-15}px">eat {applesToWin} apples asap!</p>
+	<p style:position="relative" style:left="{-15}px">eat {applesToWin} apples! asap!!</p>
 	{#if $bestTime}
 		<p>
 			besst is {$bestTime}ms!

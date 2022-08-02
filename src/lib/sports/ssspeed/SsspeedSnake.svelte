@@ -26,6 +26,9 @@
 	// TODO BLOCK CONTINUE!!
 	// show reset button
 	// show high scores
+	// fix settings types
+	// fix settings dimensions to persist on reset
+	// responsive rendering
 
 	const clock = setClock(createClock({running: browser}));
 

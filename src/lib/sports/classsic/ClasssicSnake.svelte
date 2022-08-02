@@ -172,7 +172,7 @@
 				>{#if showSettings}stash settings{:else}show settings{/if}</button
 			>
 			{#if showSettings}
-				<Stats {game} />
+				<Stats {game} tickDuration={currentTickDuration} />
 				<Settings
 					{game}
 					{baseTickDuration}

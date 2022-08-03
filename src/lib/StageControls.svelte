@@ -17,8 +17,8 @@
 
 <div class="controls">
 	<button title="[r] restart game" class="icon-button" on:click={reset}>⏮</button>
-	<button title="[1] next turn" class="icon-button" on:click={tick}>⏩</button>
 	<ClockControls {clock} />
+	<button title="[1] next turn" class="icon-button" on:click={tick}>⏩</button>
 	<DirectionalControls
 		selectedDirection={currentCommand}
 		select={(d) => enqueueMovementCommand(d)}

@@ -42,7 +42,6 @@
 	const tickDurationMin = writable(17);
 	const tickDurationMax = writable(2000);
 
-	// TODO BLOCK how does this game work? do we have a fixed amount of time? then it's not really slow & steady ...
 	let applesEaten = 0;
 	let applesEatenSinceCollision = 0;
 	const APPLES_EATEN_TO_WIN = 50;
@@ -89,10 +88,6 @@
 		// maybe this should be `onTick` and the SnakeGame's `tick` function does this work?
 		if ($events.length) $events.length = 0;
 	};
-
-	// TODO BLOCK `tickDurationDecay` belongs on the game state here, should be like 0.85 or something --
-	// does that mean `tickDuration` belongs on it as well? Probably so? Then the decay should be nullable,
-	// and `tickDurationMax` and `tickDurationMin` should be there too
 </script>
 
 <div class="SsspeedSnake">

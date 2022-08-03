@@ -78,9 +78,6 @@
 				Math.round($baseTickDuration! * $tickDurationDecay ** (1 + score)),
 			),
 		);
-
-		// TODO after updating game, if it's reset we need to increment runCount,
-		// so we probably want an events/effects/output system
 	};
 </script>
 

@@ -11,6 +11,7 @@
 	export let toInitialEvents: () => SnakeGameEvent[] = () => [];
 	export let toInitialMovementDirection: () => Direction | null = () => 'up';
 	export let shouldTick = (): boolean => true;
+	export let shouldStart = (): boolean => true;
 	export let tick: () => void; // TODO maybe rename to `onTick` or `onTurn`?
 	export let onReset: () => void = noop;
 
@@ -48,10 +49,11 @@
 	export const end = (outcomeStatus: 'success' | 'failure'): void => {
 		$status = outcomeStatus;
 	};
-	export const start = (): void => {
-		if ($status === 'initial') return;
+	export const start = (): boolean => {
+		if ($status === 'initial' || !shouldStart()) return false;
 		$status = 'initial';
 		reset();
+		return true;
 	};
 
 	const MOVEMENT_COMMAND_QUEUE_SIZE = 4; // how many inputs a player can queue up at once

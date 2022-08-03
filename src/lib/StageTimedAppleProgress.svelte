@@ -11,12 +11,11 @@
 </script>
 
 <div class="progress">
+	<div class="time" title="current elapsed time in seconds">{currentTimeSeconds}s</div>
 	<div class="count" title="progress towards goal">
-		<div>{applesEaten} / {applesToWin}</div>
+		<div>{applesEaten}/{applesToWin}</div>
 		<div class="apple" />
 	</div>
-
-	<div class="time" title="current elapsed time in seconds">{currentTimeSeconds}s</div>
 	{#if bestTimeSeconds !== null}
 		<div class="time" title="best elapsed time in seconds">best: {bestTimeSeconds}s</div>
 	{/if}
@@ -40,6 +39,6 @@
 	}
 
 	.time {
-		margin-left: var(--spacing_xl5);
+		margin-right: var(--spacing_xl3);
 	}
 </style>

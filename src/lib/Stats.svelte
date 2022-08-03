@@ -21,7 +21,7 @@
 	</li>
 	{#if $tickDuration}
 		<li>
-			<div class="value">{$tickDuration}</div>
+			<div class="value">{Math.round($tickDuration)}</div>
 			ms per tick
 		</li>
 		<li>

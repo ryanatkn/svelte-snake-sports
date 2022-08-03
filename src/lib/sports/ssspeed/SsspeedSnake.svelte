@@ -1,9 +1,6 @@
 <svelte:options immutable={false} />
 
 <script lang="ts">
-	// This version is a port of the original React project:
-	// https://ryanatkn.github.io/snake-game
-	// See `$lib/sports/simple/SimpleSnake.svelte` for the same thing but simplified.
 	import {browser} from '$app/env';
 	import {base} from '$app/paths';
 	import {writable} from 'svelte/store';
@@ -16,10 +13,7 @@
 	import {toDefaultGameState} from '$lib/SnakeGameState';
 	import {initGameState, updateGameState} from '$lib/mutableSnakeGame';
 	import Ticker from '$lib/Ticker.svelte';
-	import ClockControls from '$lib/ClockControls.svelte';
-	import DirectionalControls from '$lib/DirectionalControls.svelte';
-	import MovementCommandQueue from '$lib/MovementCommandQueue.svelte';
-	import Hotkeys from '$lib/Hotkeys.svelte';
+	import StageControls from '$lib/StageControls.svelte';
 	import StageTimedAppleProgress from '$lib/StageTimedAppleProgress.svelte';
 	import Instructions from '$lib/sports/ssspeed/Instructions.svelte';
 
@@ -40,12 +34,9 @@
 
 	$: state = game?.state;
 	$: events = game?.events;
-	$: movementCommandQueue = game?.movementCommandQueue;
-	$: currentCommand = $movementCommandQueue?.[0];
 	$: status = game?.status;
 
-	// TODO BLOCK do these need to be stores?
-
+	// TODO maybe these shouldn't be stores?
 	const baseTickDuration = writable(Math.round(1000 / 6)); // the starting tick duration, may be modified by gameplay
 	const currentTickDuration = writable($baseTickDuration);
 	const tickDurationDecay = writable(0.5);
@@ -110,35 +101,6 @@
 	// and `tickDurationMax` and `tickDurationMin` should be there too
 </script>
 
-<Hotkeys
-	onKeydown={(key, _shiftKey, ctrlKey) => {
-		switch (key) {
-			case '`': {
-				if (!ctrlKey) {
-					clock.toggle();
-					return true;
-				} else {
-					return false;
-				}
-			}
-			case '1': {
-				tick();
-				return true;
-			}
-			case '2': {
-				tick();
-				tick();
-				return true;
-			}
-			case '3': {
-				for (let i = 0; i < 10; i++) tick();
-				return true;
-			}
-		}
-		return false;
-	}}
-/>
-
 <div class="SsspeedSnake">
 	<SnakeGame
 		bind:this={game}
@@ -163,19 +125,7 @@
 			{currentTime}
 			{bestTime}
 		/>
-		<div class="controls padded-md">
-			<button title="[1] next turn" class="icon-button" on:click={tick}>⏩</button>
-			<ClockControls {clock} />
-			<DirectionalControls
-				selectedDirection={currentCommand}
-				select={(d) => game?.enqueueMovementCommand(d)}
-			/>
-			{#if movementCommandQueue}
-				<div class="padded-md">
-					<MovementCommandQueue {movementCommandQueue} />
-				</div>
-			{/if}
-		</div>
+		<StageControls {clock} {tick} {game} />
 		<section class="markup column-sm">
 			<div>
 				<strong>to queue a move</strong>: arrow keys, <code>wasd</code>, <code>hjkl</code>
@@ -219,13 +169,7 @@
 		flex-direction: column;
 		align-items: center;
 	}
-	.controls {
-		display: flex;
-	}
 	section {
 		padding-top: var(--spacing_xl5);
-	}
-	.icon-button {
-		font-size: var(--font_size_xl5);
 	}
 </style>

@@ -5,7 +5,6 @@
 	import {noop} from '@feltcoop/felt/util/function.js';
 	import type {Direction} from '$lib/Entity';
 	import type {SnakeGameState} from '$lib/SnakeGameState';
-	import Hotkeys from '$lib/Hotkeys.svelte';
 	import type {SnakeGameEvent} from '$lib/SnakeGame';
 
 	export let toInitialState: () => SnakeGameState;
@@ -75,56 +74,3 @@
 		$movementCommandQueue = [movementCommand];
 	};
 </script>
-
-<Hotkeys
-	onKeydown={(key, shiftKey, ctrlKey) => {
-		switch (key) {
-			case 'ArrowUp':
-			case 'w':
-			case 'k':
-				if ($status !== 'initial') start(); // TODO BLOCK maybe emit event? should this be called on any key?
-				// TODO BLOCK should it bail if the event doesn't change the status? `if ($status === 'initial') return;`
-				if (ctrlKey || shiftKey) {
-					setMovementCommand('up');
-					tick();
-				} else {
-					enqueueMovementCommand('up');
-				}
-				return true;
-			case 'ArrowDown':
-			case 's':
-			case 'j':
-				if ($status !== 'initial') start(); // TODO BLOCK maybe emit event?
-				if (ctrlKey || shiftKey) {
-					setMovementCommand('down');
-					tick();
-				} else {
-					enqueueMovementCommand('down');
-				}
-				return true;
-			case 'ArrowLeft':
-			case 'a':
-			case 'h':
-				if ($status !== 'initial') start(); // TODO BLOCK maybe emit event?
-				if (ctrlKey || shiftKey) {
-					setMovementCommand('left');
-					tick();
-				} else {
-					enqueueMovementCommand('left');
-				}
-				return true;
-			case 'ArrowRight':
-			case 'd':
-			case 'l':
-				if ($status !== 'initial') start(); // TODO BLOCK maybe emit event?
-				if (ctrlKey || shiftKey) {
-					setMovementCommand('right');
-					tick();
-				} else {
-					enqueueMovementCommand('right');
-				}
-				return true;
-		}
-		return false;
-	}}
-/>

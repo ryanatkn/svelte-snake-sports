@@ -10,6 +10,10 @@
 - [ssspeed](https://ryanatkn.github.io/snake-game/ssspeed) — eat apples asap —
   [$lib/sports/SsspeedSnake.svelte](/src/lib/sports/ssspeed/SsspeedSnake.svelte)
 
+[<img src="/src/static/assets/classsic.webp" align="right" width="192" height="192">](https://ryanatkn.github.io/snake-game/classsic)
+
+[<img src="/src/static/assets/ssspeed.webp" align="right" width="192" height="192">](https://ryanatkn.github.io/snake-game/ssspeed)
+
 ## what
 
 In 2016 I wrote a tiny [`snake-game`](https://ryanatkn.github.io/snake-game)

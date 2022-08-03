@@ -27,7 +27,6 @@
 	const clock = setClock(createClock({running: browser}));
 
 	let game: SnakeGame | undefined;
-	$: console.log(`game`, game);
 
 	let showSettings = false;
 

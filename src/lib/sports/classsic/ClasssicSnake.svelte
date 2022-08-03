@@ -23,7 +23,6 @@
 	const clock = setClock(createClock({running: browser}));
 
 	let game: SnakeGame | undefined;
-	$: console.log(`game`, game);
 
 	let showSettings = false;
 
@@ -43,7 +42,6 @@
 
 	// TODO is there a better place to do this? imperatively after updating the state?
 	$: if (score > $highScore) {
-		console.log(`score`, score);
 		$highScore = score;
 		if (browser) localStorage.setItem('highScore', score + ''); // TODO use helper on store instead
 	}

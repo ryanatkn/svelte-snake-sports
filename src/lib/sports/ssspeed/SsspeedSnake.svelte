@@ -14,15 +14,18 @@
 	import {initGameState, updateGameState} from '$lib/mutableSnakeGame';
 	import Ticker from '$lib/Ticker.svelte';
 	import StageControls from '$lib/StageControls.svelte';
-	import StageTimedAppleProgress from '$lib/StageTimedAppleProgress.svelte';
+	import StageTimedAppleProgress from '$lib/TimedScores.svelte';
 	import Instructions from '$lib/sports/ssspeed/Instructions.svelte';
 
 	// TODO BLOCK CONTINUE!!
 	// show high scores
+	// don't start the clock until you're moving
 	// add win state for ssspeed (show an explosive flourish of tada and colored snake emoji)
 	// add death state for classsic (flash the head red or something)
-	// fix settings dimensions to persist on reset (or disable for now?)
-	// responsive rendering
+
+	// TODO after merging:
+	// fix settings dimensions to persist on reset
+	// responsive rendering and set pixel size of play area
 
 	const clock = setClock(createClock({running: browser}));
 
@@ -43,17 +46,20 @@
 
 	let applesEaten = 0;
 	let applesEatenSinceCollision = 0;
-	const APPLES_EATEN_TO_WIN = 50;
+	const APPLES_EATEN_TO_WIN = 1;
 
 	let currentTime = 0;
-	$: currentTime += $clock.dt;
+	$: if ($status === 'playing') currentTime += $clock.dt;
 
 	const bestTime = writable<number | null>(
-		(browser && Number(localStorage.getItem('bestTime'))) || null,
+		(browser && Number(localStorage.getItem('ssspeed_high_score'))) || null,
 	);
 
-	const tick = () => {
-		if (!game || !$state || !$events || $status !== 'initial') return;
+	const tick = (): boolean => {
+		if (!game || !$state || !$events || $status !== 'playing') {
+			return false;
+		}
+
 		// TODO maybe serialize input state as param instead of `game`?
 		$state = updateGameState($state, game);
 
@@ -76,16 +82,21 @@
 			}
 		}
 
-		// TODO BLOCK is this right? or do we not want to emit this event?
-		// maybe we set `game.status` and other values directly?
-		// victory` -- `{score: number} | {time: number} | {turns: number} | null`
-		if (applesEaten > 50) {
-			// TODO BLOCK or should we detect when time runs out? number of turns?
+		if (applesEaten >= APPLES_EATEN_TO_WIN) {
+			game.end('success');
+			// TODO maybe an event instead? maybe like classsic,
+			// don't set the high score immediately like this, wait til it's over
+			if (!$bestTime || currentTime < $bestTime) {
+				$bestTime = currentTime;
+				if (browser) localStorage.setItem('ssspeed_high_score', $bestTime + ''); // TODO use helper on store instead
+			}
 		}
 
 		// TODO immutable? move this elsewhere? like `afterTick`?
 		// maybe this should be `onTick` and the SnakeGame's `tick` function does this work?
 		if ($events.length) $events.length = 0;
+
+		return true;
 	};
 </script>
 
@@ -93,7 +104,6 @@
 	<SnakeGame
 		bind:this={game}
 		toInitialState={() => initGameState(toDefaultGameState())}
-		toInitialMovementDirection={() => null}
 		{tick}
 		onReset={() => {
 			$currentTickDuration = $baseTickDuration;

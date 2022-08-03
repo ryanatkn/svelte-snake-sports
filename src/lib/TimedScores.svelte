@@ -13,14 +13,14 @@
 </script>
 
 <div class="progress">
-	<div class="time" title="current elapsed time in seconds">{currentTimeSeconds}s</div>
+	<div class="time" title="current elapsed time">{currentTimeSeconds}s</div>
 	<div class="count">
 		<Score title="progress towards goal">
 			<div>{applesEaten}/{applesToWin}</div>
 		</Score>
 	</div>
 	{#if bestTimeSeconds !== null}
-		<div class="time" title="best elapsed time in seconds">best: {bestTimeSeconds}s</div>
+		<div class="time" title="best time">{bestTimeSeconds}s</div>
 	{/if}
 </div>
 

@@ -32,14 +32,11 @@
 
 <Hotkeys
 	onKeydown={(key, shiftKey, ctrlKey) => {
+		if (ctrlKey) return false;
 		switch (key) {
 			case '`': {
-				if (!ctrlKey) {
-					clock.toggle();
-					return true;
-				} else {
-					return false;
-				}
+				clock.toggle();
+				return true;
 			}
 			case '1': {
 				tick();
@@ -63,7 +60,7 @@
 			case 'k':
 			case 'W':
 			case 'K': {
-				if ($status !== 'initial') if (!start()) return false;
+				if ($status !== 'playing') if (!start()) return false;
 				if (shiftKey) {
 					setMovementCommand('up');
 					tick();
@@ -77,7 +74,7 @@
 			case 'j':
 			case 'S':
 			case 'J': {
-				if ($status !== 'initial') if (!start()) return false;
+				if ($status !== 'playing') if (!start()) return false;
 				if (shiftKey) {
 					setMovementCommand('down');
 					tick();
@@ -91,7 +88,7 @@
 			case 'h':
 			case 'A':
 			case 'H': {
-				if ($status !== 'initial') if (!start()) return false;
+				if ($status !== 'playing') if (!start()) return false;
 				if (shiftKey) {
 					setMovementCommand('left');
 					tick();
@@ -105,7 +102,7 @@
 			case 'l':
 			case 'D':
 			case 'L': {
-				if ($status !== 'initial') if (!start()) return false;
+				if ($status !== 'playing') if (!start()) return false;
 				if (shiftKey) {
 					setMovementCommand('right');
 					tick();

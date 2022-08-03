@@ -9,27 +9,21 @@
 
 	export let toInitialState: () => SnakeGameState;
 	export let toInitialEvents: () => SnakeGameEvent[] = () => [];
-	export let toInitialMovementDirection: () => Direction | null = () => 'up';
-	export let shouldTick = (): boolean => true;
+	export let toInitialMovementDirection: () => Direction | null = () => null;
 	export let shouldStart = (): boolean => true;
-	export let tick: () => void; // TODO maybe rename to `onTick` or `onTurn`?
+	export let tick: () => boolean;
 	export let onReset: () => void = noop;
 
 	export const state = writable(toInitialState());
 	export const events = writable(toInitialEvents());
 	export const tickCount = writable(0); // the starting tick duration, may be modified by gameplay
-	// TODO BLOCK should these two be hoisted? "tick duration" seems like an external concern, right?
-	// given that `Ticker` is external, seems so?
-
 	export const movementDirection = writable<Direction | null>(toInitialMovementDirection());
 	export const movementCommandQueue = writable<Direction[]>([]); // TODO should this be a generic command queue, not just movement?
 	export const runCount = writable(0);
-	export const status = writable<'initial' | 'success' | 'failure'>('initial');
+	export const status = writable<'initial' | 'playing' | 'success' | 'failure'>('initial');
 
 	export const nextTick = (): void => {
-		if (!shouldTick()) return;
-		tick();
-		$tickCount++;
+		if (tick()) $tickCount++;
 	};
 
 	export const reset = (): void => {
@@ -50,9 +44,8 @@
 		$status = outcomeStatus;
 	};
 	export const start = (): boolean => {
-		if ($status === 'initial' || !shouldStart()) return false;
-		$status = 'initial';
-		reset();
+		if ($status === 'playing' || !shouldStart()) return false;
+		$status = 'playing';
 		return true;
 	};
 

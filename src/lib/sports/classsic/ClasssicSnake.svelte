@@ -30,8 +30,13 @@
 	$: events = game?.events;
 	$: status = game?.status;
 
+	// TODO better way to do this? event or callbacks?
+	$: if ($status === 'initial') $status = 'playing';
+
 	let score = 0;
-	const highScore = writable<number>((browser && Number(localStorage.getItem('highScore'))) || 0);
+	const highScore = writable<number>(
+		(browser && Number(localStorage.getItem('classsic_high_score'))) || 0,
+	);
 
 	// TODO maybe these shouldn't be stores?
 	const tickDurationDecay = writable(0.97);
@@ -43,11 +48,13 @@
 	// TODO is there a better place to do this? imperatively after updating the state?
 	$: if (score > $highScore) {
 		$highScore = score;
-		if (browser) localStorage.setItem('highScore', score + ''); // TODO use helper on store instead
+		if (browser) localStorage.setItem('classsic_high_score', score + ''); // TODO use helper on store instead
 	}
 
-	const tick = () => {
-		if (!game || !$state || !$events || $status !== 'initial') return;
+	const tick = (): boolean => {
+		if (!game || !$state || !$events || $status !== 'playing') {
+			return false;
+		}
 		// TODO maybe serialize input state as param instead of `game`?
 		$state = updateGameState($state, game);
 
@@ -60,6 +67,7 @@
 				case 'snake_collide_self':
 				case 'snake_collide_bounds': {
 					game.end('failure');
+					game.reset();
 					game.start();
 					break;
 				}
@@ -76,6 +84,8 @@
 				Math.round($baseTickDuration! * $tickDurationDecay ** (1 + score)),
 			),
 		);
+
+		return true;
 	};
 </script>
 
@@ -83,6 +93,7 @@
 	<SnakeGame
 		bind:this={game}
 		toInitialState={() => initGameState(toDefaultGameState())}
+		toInitialMovementDirection={() => 'up'}
 		{tick}
 		onReset={() => {
 			score = 0;

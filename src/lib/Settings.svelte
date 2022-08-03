@@ -11,24 +11,27 @@
 	export let tickDurationMin: Writable<number>;
 	export let tickDurationMax: Writable<number>;
 
-	$: ({state} = game);
-	$: ({mapWidth, mapHeight} = $state);
+	game; // TODO remove when the rest is implemented
+
+	// $: ({state} = game);
+	// $: ({mapWidth, mapHeight} = $state);
 
 	// TODO api?
 	const clearLocalStorage = () => {
-		localStorage.removeItem('highScore');
-		localStorage.removeItem('stats');
+		localStorage.removeItem('classsic_high_score');
+		localStorage.removeItem('ssspeed_high_score');
 		window.location = window.location;
 	};
 
-	const onMapWidthInput = (e: any) => ($state = {...$state, mapWidth: Number(e.target.value) | 0});
-	const onMapHeightInput = (e: any) =>
-		($state = {...$state, mapHeight: Number(e.target.value) | 0});
+	// const MAP_MIN_WIDTH = 2; // tiles
+	// const MAP_MAX_WIDTH = 100; // tiles
+	// const MAP_MIN_HEIGHT = 2; // tiles
+	// const MAP_MAX_HEIGHT = 100; // tiles
 
-	const MAP_MIN_WIDTH = 2; // tiles
-	const MAP_MAX_WIDTH = 100; // tiles
-	const MAP_MIN_HEIGHT = 2; // tiles
-	const MAP_MAX_HEIGHT = 100; // tiles
+	// const onMapWidthInput = (e: any) => ($state = {...$state, mapWidth: Number(e.target.value) | 0});
+	// const onMapHeightInput = (e: any) =>
+	// 	($state = {...$state, mapHeight: Number(e.target.value) | 0});
+
 	const TICK_DURATION_MIN = 5; // ms
 	const TICK_DURATION_MAX = 2000; // ms
 </script>
@@ -68,8 +71,8 @@
 				max={TICK_DURATION_MAX}
 			/><input type="number" bind:value={$tickDurationMax} /></label
 		>
-		<!-- TODO how to make these work? need to update state -->
-		<label
+		<!-- TODO implement these along with total pixel width/height -->
+		<!-- <label
 			><strong>mapWidth</strong><input
 				type="range"
 				value={mapWidth}
@@ -101,17 +104,18 @@
 				max={MAP_MAX_HEIGHT}
 			/></label
 		>
-	</section>
-	<section>
-		<button
-			type="button"
-			on:click={() => {
-				// eslint-disable-next-line no-alert
-				if (confirm('clear all saved data?')) {
-					clearLocalStorage();
-				}
-			}}>reset saved data</button
-		>
+	</section> -->
+		<section>
+			<button
+				type="button"
+				on:click={() => {
+					// eslint-disable-next-line no-alert
+					if (confirm('clear all saved data?')) {
+						clearLocalStorage();
+					}
+				}}>reset saved data</button
+			>
+		</section>
 	</section>
 </form>
 

@@ -1,10 +1,9 @@
 <script lang="ts">
-	export let score: number;
 	export let title = 'score';
 </script>
 
 <div class="score" {title}>
-	<div class="value">{score}</div>
+	<div class="value"><slot /></div>
 	<div class="apple" />
 </div>
 

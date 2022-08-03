@@ -96,9 +96,9 @@
 			{/if}
 		</DomRenderer>
 		<div class="scores">
-			<Score {score} title="apples eaten this try" />
+			<Score title="apples eaten this try">{score}</Score>
 			{#if $highScore !== score}
-				<Score score={$highScore} title="the most apples you've ever eaten" />
+				<Score title="the most apples you've ever eaten">{$highScore}</Score>
 			{/if}
 		</div>
 		<Ticker {clock} tickDuration={currentTickDuration} {tick} />

@@ -21,7 +21,7 @@
 	// show high scores
 	// add win state for ssspeed (show an explosive flourish of tada and colored snake emoji)
 	// add death state for classsic (flash the head red or something)
-	// fix settings dimensions to persist on reset
+	// fix settings dimensions to persist on reset (or disable for now?)
 	// responsive rendering
 
 	const clock = setClock(createClock({running: browser}));

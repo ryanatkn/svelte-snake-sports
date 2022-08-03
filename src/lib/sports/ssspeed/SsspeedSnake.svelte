@@ -19,7 +19,7 @@
 
 	// TODO BLOCK CONTINUE!!
 	// add win state for ssspeed (show an explosive flourish of tada and colored snake emoji)
-	// add death state for classsic (flash the head red or something)
+	// add death state for classsic if you have >0 apples (flash the head red or something)
 
 	// TODO after merging:
 	// fix settings dimensions to persist on reset

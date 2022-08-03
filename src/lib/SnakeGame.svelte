@@ -22,6 +22,8 @@
 	export const runCount = writable(0);
 	export const status = writable<'initial' | 'playing' | 'success' | 'failure'>('initial');
 
+	// TODO I'm not sure about *any* of these methods.
+
 	export const nextTick = (): void => {
 		if (tick()) $tickCount++;
 	};

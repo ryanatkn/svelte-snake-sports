@@ -63,7 +63,6 @@
 				case 'snake_collide_bounds': {
 					game.end('failure');
 					game.start();
-					score = 0; // TODO BLOCK should this be on some other event or hook?
 					break;
 				}
 			}
@@ -91,6 +90,7 @@
 		toInitialState={() => initGameState(toDefaultGameState())}
 		{tick}
 		onReset={() => {
+			score = 0;
 			$currentTickDuration = $baseTickDuration;
 		}}
 	/>

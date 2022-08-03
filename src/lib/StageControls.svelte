@@ -10,11 +10,13 @@
 	export let tick: () => void;
 	export let game: SnakeGame;
 
-	$: ({movementCommandQueue, enqueueMovementCommand, status, setMovementCommand, start} = game);
+	$: ({movementCommandQueue, enqueueMovementCommand, status, setMovementCommand, start, reset} =
+		game);
 	$: currentCommand = $movementCommandQueue?.[0];
 </script>
 
 <div class="controls">
+	<button title="[r] restart game" class="icon-button" on:click={reset}>⏮</button>
 	<button title="[1] next turn" class="icon-button" on:click={tick}>⏩</button>
 	<ClockControls {clock} />
 	<DirectionalControls
@@ -116,9 +118,7 @@
 <style>
 	.controls {
 		display: flex;
+		align-items: center;
 		padding: var(--spacing_md);
-	}
-	.icon-button {
-		font-size: var(--font_size_xl3);
 	}
 </style>

@@ -18,10 +18,9 @@
 	import Instructions from '$lib/sports/ssspeed/Instructions.svelte';
 
 	// TODO BLOCK CONTINUE!!
-	// show reset button
 	// show high scores
 	// add win state for ssspeed (show an explosive flourish of tada and colored snake emoji)
-	// fix settings types
+	// add death state for classsic (flash the head red or something)
 	// fix settings dimensions to persist on reset
 	// responsive rendering
 
@@ -70,13 +69,8 @@
 				}
 				case 'snake_collide_self':
 				case 'snake_collide_bounds': {
-					// TODO BLOCK ok so at this point, what happens?
-					// We want to freeze the simulation, and show the status of the snake as damaged,
-					// but unlike ClasssicSnake, we want to allow pressing a key to immediately continue on
-					// as if nothing happened, EXCEPT it should reset the tick duration to the initial value,
-					// but KEEP your apple count. We could also make it reduce the tick duration,
-					// and not entirely reset it, but that's less important.
-					$currentTickDuration = $baseTickDuration; // TODO BLOCK doesn't work as intended because currentTickDuration is fully recalulated, not incrementally
+					// TODO maybe display some damaged status?
+					$currentTickDuration = $baseTickDuration;
 					applesEatenSinceCollision = 0;
 					game.movementDirection.set(null);
 					break;
@@ -110,6 +104,8 @@
 		onReset={() => {
 			$currentTickDuration = $baseTickDuration;
 			currentTime = 0;
+			applesEaten = 0;
+			applesEatenSinceCollision = 0;
 		}}
 	/>
 	{#if game}

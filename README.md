@@ -5,6 +5,13 @@
 deployed:
 [ryanatkn.github.io/svelte-snake-sports](https://ryanatkn.github.io/svelte-snake-sports)
 
+## sports
+
+- [classsic](https://ryanatkn.github.io/snake-game/classsic) — eat many apples —
+  [$lib/sports/ClasssicSnake.svelte](/src/lib/sports/classsic/ClasssicSnake.svelte)
+- [ssspeed](https://ryanatkn.github.io/snake-game/ssspeed) — eat apples asap —
+  [$lib/sports/SsspeedSnake.svelte](/src/lib/sports/ssspeed/SsspeedSnake.svelte)
+
 ## what
 
 In 2016 I wrote a tiny [`snake-game`](https://ryanatkn.github.io/snake-game)

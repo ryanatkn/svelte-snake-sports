@@ -1,14 +1,15 @@
 <script lang="ts">
 	export let score: number;
+	export let title = 'score';
 </script>
 
-<div class="Score">
+<div class="score" {title}>
 	<div class="value">{score}</div>
 	<div class="apple" />
 </div>
 
 <style>
-	.Score {
+	.score {
 		display: flex;
 		padding: var(--spacing_xl);
 		align-items: center;

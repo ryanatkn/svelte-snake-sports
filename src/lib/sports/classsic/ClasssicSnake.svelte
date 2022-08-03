@@ -95,8 +95,13 @@
 				<Instructions {highScore} />
 			{/if}
 		</DomRenderer>
+		<div class="scores">
+			<Score {score} title="apples eaten this try" />
+			{#if $highScore !== score}
+				<Score score={$highScore} title="the most apples you've ever eaten" />
+			{/if}
+		</div>
 		<Ticker {clock} tickDuration={currentTickDuration} {tick} />
-		<Score {score} />
 		<StageControls {clock} {tick} {game} />
 		<section class="markup column-sm">
 			<div>
@@ -143,5 +148,8 @@
 	}
 	section {
 		padding-top: var(--spacing_xl5);
+	}
+	.scores {
+		display: flex;
 	}
 </style>

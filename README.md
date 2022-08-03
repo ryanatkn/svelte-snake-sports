@@ -1,9 +1,7 @@
 # svelte 🐍 snake 🐍 sports
 
-> games of snake in svelte
-
-deployed:
-[ryanatkn.github.io/svelte-snake-sports](https://ryanatkn.github.io/svelte-snake-sports)
+> games of snake in svelte —
+> [ryanatkn.github.io/svelte-snake-sports](https://ryanatkn.github.io/svelte-snake-sports)
 
 ## sports
 

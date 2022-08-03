@@ -20,7 +20,7 @@
 	// TODO BLOCK CONTINUE!!
 	// show reset button
 	// show high scores
-	// add win state for ssspeed (show an explosive flourish of tada emoji)
+	// add win state for ssspeed (show an explosive flourish of tada and colored snake emoji)
 	// fix settings types
 	// fix settings dimensions to persist on reset
 	// responsive rendering

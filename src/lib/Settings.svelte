@@ -25,10 +25,12 @@
 	const onMapHeightInput = (e: any) =>
 		($state = {...$state, mapHeight: Number(e.target.value) | 0});
 
-	const MAP_MIN_WIDTH = 2;
-	const MAP_MAX_WIDTH = 100;
-	const MAP_MIN_HEIGHT = 2;
-	const MAP_MAX_HEIGHT = 100;
+	const MAP_MIN_WIDTH = 2; // tiles
+	const MAP_MAX_WIDTH = 100; // tiles
+	const MAP_MIN_HEIGHT = 2; // tiles
+	const MAP_MAX_HEIGHT = 100; // tiles
+	const TICK_DURATION_MIN = 5; // ms
+	const TICK_DURATION_MAX = 2000; // ms
 </script>
 
 <form class="Settings">
@@ -54,16 +56,16 @@
 			><strong>tickDurationMin</strong><input
 				type="range"
 				bind:value={$tickDurationMin}
-				min={game.TICK_DURATION_MIN}
-				max={game.TICK_DURATION_MAX}
+				min={TICK_DURATION_MIN}
+				max={TICK_DURATION_MAX}
 			/><input type="number" bind:value={$tickDurationMin} /></label
 		>
 		<label
 			><strong>tickDurationMax</strong><input
 				type="range"
 				bind:value={$tickDurationMax}
-				min={game.TICK_DURATION_MIN}
-				max={game.TICK_DURATION_MAX}
+				min={TICK_DURATION_MIN}
+				max={TICK_DURATION_MAX}
 			/><input type="number" bind:value={$tickDurationMax} /></label
 		>
 		<!-- TODO how to make these work? need to update state -->

@@ -8,12 +8,8 @@
 [classsic](https://ryanatkn.github.io/snake-game/classsic) — eat many apples —
 [$lib/sports/ClasssicSnake.svelte](/src/lib/sports/classsic/ClasssicSnake.svelte)
 
-[<img src="/src/static/assets/classsic.webp" width="420" height="420">](https://ryanatkn.github.io/snake-game/classsic)
-
 [ssspeed](https://ryanatkn.github.io/snake-game/ssspeed) — eat apples asap —
 [$lib/sports/SsspeedSnake.svelte](/src/lib/sports/ssspeed/SsspeedSnake.svelte)
-
-[<img src="/src/static/assets/ssspeed.webp" width="420" height="420">](https://ryanatkn.github.io/snake-game/ssspeed)
 
 ## what
 

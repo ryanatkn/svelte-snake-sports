@@ -18,8 +18,6 @@
 	import Instructions from '$lib/sports/ssspeed/Instructions.svelte';
 
 	// TODO BLOCK CONTINUE!!
-	// show high scores
-	// don't start the clock until you're moving
 	// add win state for ssspeed (show an explosive flourish of tada and colored snake emoji)
 	// add death state for classsic (flash the head red or something)
 
@@ -46,7 +44,7 @@
 
 	let applesEaten = 0;
 	let applesEatenSinceCollision = 0;
-	const APPLES_EATEN_TO_WIN = 1;
+	const APPLES_EATEN_TO_WIN = 50;
 
 	let currentTime = 0;
 	$: if ($status === 'playing') currentTime += $clock.dt;
@@ -87,7 +85,7 @@
 			// TODO maybe an event instead? maybe like classsic,
 			// don't set the high score immediately like this, wait til it's over
 			if (!$bestTime || currentTime < $bestTime) {
-				$bestTime = currentTime;
+				$bestTime = Math.round(currentTime);
 				if (browser) localStorage.setItem('ssspeed_high_score', $bestTime + ''); // TODO use helper on store instead
 			}
 		}

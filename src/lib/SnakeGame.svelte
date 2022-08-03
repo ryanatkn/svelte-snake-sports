@@ -27,6 +27,7 @@
 	};
 
 	export const reset = (): void => {
+		$status = 'initial';
 		$events = [];
 		$tickCount = 0;
 		$movementDirection = toInitialMovementDirection();
@@ -44,7 +45,9 @@
 		$status = outcomeStatus;
 	};
 	export const start = (): boolean => {
-		if ($status === 'playing' || !shouldStart()) return false;
+		if ($status === 'playing' || !shouldStart()) {
+			return false;
+		}
 		$status = 'playing';
 		return true;
 	};

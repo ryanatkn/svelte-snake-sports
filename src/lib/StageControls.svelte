@@ -31,7 +31,7 @@
 </div>
 
 <Hotkeys
-	onKeydown={(key, _shiftKey, ctrlKey) => {
+	onKeydown={(key, shiftKey, ctrlKey) => {
 		switch (key) {
 			case '`': {
 				if (!ctrlKey) {
@@ -54,19 +54,17 @@
 				for (let i = 0; i < 10; i++) tick();
 				return true;
 			}
-		}
-		return false;
-	}}
-/>
-
-<Hotkeys
-	onKeydown={(key, shiftKey, ctrlKey) => {
-		switch (key) {
+			case 'r': {
+				reset();
+				return true;
+			}
 			case 'ArrowUp':
 			case 'w':
-			case 'k': {
+			case 'k':
+			case 'W':
+			case 'K': {
 				if ($status !== 'initial') if (!start()) return false;
-				if (ctrlKey || shiftKey) {
+				if (shiftKey) {
 					setMovementCommand('up');
 					tick();
 				} else {
@@ -76,9 +74,11 @@
 			}
 			case 'ArrowDown':
 			case 's':
-			case 'j': {
+			case 'j':
+			case 'S':
+			case 'J': {
 				if ($status !== 'initial') if (!start()) return false;
-				if (ctrlKey || shiftKey) {
+				if (shiftKey) {
 					setMovementCommand('down');
 					tick();
 				} else {
@@ -88,9 +88,11 @@
 			}
 			case 'ArrowLeft':
 			case 'a':
-			case 'h': {
+			case 'h':
+			case 'A':
+			case 'H': {
 				if ($status !== 'initial') if (!start()) return false;
-				if (ctrlKey || shiftKey) {
+				if (shiftKey) {
 					setMovementCommand('left');
 					tick();
 				} else {
@@ -100,9 +102,11 @@
 			}
 			case 'ArrowRight':
 			case 'd':
-			case 'l': {
+			case 'l':
+			case 'D':
+			case 'L': {
 				if ($status !== 'initial') if (!start()) return false;
-				if (ctrlKey || shiftKey) {
+				if (shiftKey) {
 					setMovementCommand('right');
 					tick();
 				} else {

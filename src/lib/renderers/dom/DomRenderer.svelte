@@ -18,9 +18,15 @@
 
 	$: entityWidth = $width / mapWidth; // TODO Math.floor?
 	$: entityHeight = $height / mapHeight;
+
+	$: console.log(`entityWidth, entityHeight`, entityWidth, entityHeight);
 </script>
 
-<div class="renderer">
+<div
+	class="renderer"
+	style:--entity_width="{entityWidth}px"
+	style:--entity_height="{entityHeight}px"
+>
 	<div class="layer">
 		<Tiles {mapWidth} {mapHeight} tileWidth={entityWidth} tileHeight={entityHeight} />
 		{#each apples as a (a.id)}
@@ -112,31 +118,30 @@
 		height: 29%;
 		background-color: rgba(0, 0, 0, 0.5);
 		border-radius: 15%;
-		/* TODO BLOCK need to calculate from --entity_size */
-		border: 4px solid rgba(255, 255, 255, 0.8);
+		border: calc((4 / 32) * var(--entity_width)) solid rgba(255, 255, 255, 0.8);
 	}
 	.snake.moving-up :global(.Entity:first-child::after) {
 		border-top-width: 0;
-		border-right-width: 2px;
+		border-right-width: calc((2 / 32) * var(--entity_width));
 	}
 	.snake.moving-right :global(.Entity:first-child::after) {
 		border-top-width: 0;
-		border-right-width: 2px;
+		border-right-width: calc((2 / 32) * var(--entity_width));
 		left: 19%;
 	}
 	.snake.moving-down :global(.Entity:first-child::after) {
 		border-bottom-width: 0;
-		border-left-width: 2px;
+		border-left-width: calc((2 / 32) * var(--entity_width));
 		left: 19%;
 	}
 	.snake.moving-left :global(.Entity:first-child::after) {
 		border-top-width: 0;
-		border-left-width: 2px;
+		border-left-width: calc((2 / 32) * var(--entity_width));
 	}
 	:global(.game-fail) .snake :global(.Entity:first-child::after) {
-		border-width: 4px;
+		border-width: calc((4 / 32) * var(--entity_width));
 	}
 	:global(.game-ready) .snake :global(.Entity:first-child::after) {
-		border-width: 3px;
+		border-width: calc((3 / 32) * var(--entity_width));
 	}
 </style>

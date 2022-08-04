@@ -13,8 +13,10 @@
 	export let rendererWidth: Writable<number>;
 	export let rendererHeight: Writable<number>;
 
-	$: ({state} = game);
-	$: ({mapWidth, mapHeight} = $state);
+	game; // TODO adjustable map height
+
+	// $: ({state} = game);
+	// $: ({mapWidth, mapHeight} = $state);
 
 	// TODO api?
 	const clearLocalStorage = () => {
@@ -23,14 +25,14 @@
 		window.location = window.location;
 	};
 
-	const MAP_MIN_WIDTH = 2; // tiles
-	const MAP_MAX_WIDTH = 100; // tiles
-	const MAP_MIN_HEIGHT = 2; // tiles
-	const MAP_MAX_HEIGHT = 100; // tiles
+	// const MAP_MIN_WIDTH = 2; // tiles
+	// const MAP_MAX_WIDTH = 100; // tiles
+	// const MAP_MIN_HEIGHT = 2; // tiles
+	// const MAP_MAX_HEIGHT = 100; // tiles
 
-	const onMapWidthInput = (e: any) => ($state = {...$state, mapWidth: Number(e.target.value) | 0});
-	const onMapHeightInput = (e: any) =>
-		($state = {...$state, mapHeight: Number(e.target.value) | 0});
+	// const onMapWidthInput = (e: any) => ($state = {...$state, mapWidth: Number(e.target.value) | 0});
+	// const onMapHeightInput = (e: any) =>
+	// 	($state = {...$state, mapHeight: Number(e.target.value) | 0});
 
 	const RENDERER_MIN_WIDTH = 10; // px
 	const RENDERER_MAX_WIDTH = 5000; // px
@@ -80,7 +82,7 @@
 			/><input type="number" bind:value={$tickDurationMax} /></label
 		>
 		<section>
-			<label
+			<!-- <label
 				><strong>mapWidth</strong><input
 					type="range"
 					value={mapWidth}
@@ -111,7 +113,7 @@
 					min={MAP_MIN_HEIGHT}
 					max={MAP_MAX_HEIGHT}
 				/></label
-			>
+			> -->
 			<label
 				><strong>rendererWidth</strong><input
 					type="range"

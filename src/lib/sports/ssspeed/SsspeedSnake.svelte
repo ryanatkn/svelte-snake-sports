@@ -129,7 +129,7 @@
 		<StageControls {clock} {tick} {game} />
 		<section class="markup column-sm">
 			<div><strong>to queue a move</strong>: arrow keys, <code>wasd</code>, <code>hjkl</code></div>
-			<div><strong>to move and end turn</strong>: <code>ctrl</code> or <code>shift</code></div>
+			<div><strong>to move and end turn</strong>: <code>shift</code></div>
 			<div><strong>toggle clock</strong>: <code>Backtick `</code></div>
 			<div><strong>take one turn</strong>: <code>1</code></div>
 			<div><strong>restart</strong>: <code>r</code></div>

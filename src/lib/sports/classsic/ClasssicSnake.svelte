@@ -134,7 +134,7 @@
 				<strong>to queue a move</strong>: arrow keys, <code>wasd</code>, <code>hjkl</code>
 			</div>
 			<div>
-				<strong>to move and end turn</strong>: <code>ctrl</code> or <code>shift</code>
+				<strong>to move and end turn</strong>: <code>shift</code>
 			</div>
 			<div>
 				<strong>toggle clock</strong>: <code>Backtick `</code>

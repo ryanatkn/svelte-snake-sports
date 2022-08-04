@@ -11,7 +11,7 @@
   [$lib/sports/ClasssicSnake.svelte](/src/lib/sports/classsic/ClasssicSnake.svelte)
 - [ssspeed](https://ryanatkn.github.io/svelte-snake-sports/ssspeed) — eat apples asap —
   [$lib/sports/SsspeedSnake.svelte](/src/lib/sports/ssspeed/SsspeedSnake.svelte)
-- more to come!
+- more to come! including a library so you can make your own sports
 
 (it's not mobile friendly yet, should be soonish)
 

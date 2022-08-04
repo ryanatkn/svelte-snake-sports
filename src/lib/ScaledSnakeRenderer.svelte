@@ -1,11 +1,9 @@
 <script lang="ts">
 	import ScaledContent from '$lib/ScaledContent.svelte';
-	import {getDimensions} from '$lib/dimensions';
+	import {getDimensions} from '$lib/Dimensions.svelte';
 
 	const dimensions = getDimensions();
-	// TODO also this is wonky because it doesn't account for scrollbars,
-	// using window dimensions instead of clientWidth/Height of an element
-	const PADDING = 30; // TODO hacky just to get it working, shouldn't be needed
+	const PADDING = 32; // TODO hacky just to get it working, shouldn't be needed
 	$: availableWidth = $dimensions.width - PADDING;
 	$: availableHeight = $dimensions.height - PADDING;
 	const maxRenderedWidth = 512;

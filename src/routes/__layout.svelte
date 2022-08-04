@@ -4,8 +4,7 @@
 	import {writable} from 'svelte/store';
 
 	import '$lib/style.css';
-	import {setDimensions} from '$lib/dimensions';
-	import Dimensions from '$lib/Dimensions.svelte';
+	import Dimensions, {setDimensions} from '$lib/Dimensions.svelte';
 
 	const dimensions = setDimensions(writable({width: 0, height: 0}));
 </script>

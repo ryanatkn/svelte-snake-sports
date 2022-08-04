@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type {Writable} from 'svelte/store';
-
-	import {fade} from 'svelte/transition';
+	import {scale} from 'svelte/transition';
 
 	export let applesEaten: number;
 	export let highestApplesEaten: Writable<number>;
@@ -9,7 +8,7 @@
 	$: newHighScore = applesEaten === $highestApplesEaten;
 </script>
 
-<div class="instructions" transition:fade|local>
+<div class="instructions" transition:scale|local>
 	<div>
 		you ate <strong>{applesEaten}</strong> apple{#if applesEaten !== 1}s{/if} :O
 	</div>

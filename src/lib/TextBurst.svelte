@@ -32,12 +32,12 @@
 	<div class="burst">
 		{#each {length: count} as _}<div
 				class="burst-item"
-				style:--target_x={randomInt(-xRadius, xRadius) + 'px'}
-				style:--target_y={randomInt(-yRadius, yRadius) + 'px'}
+				style:--target_x="{randomInt(-xRadius, xRadius)}px"
+				style:--target_y="{randomInt(-yRadius, yRadius)}px"
 				style:--scale={randomInt(scaleMin, scaleMax)}
-				style:--start_rotation={randomInt(startRotationMin, startRotationMax) + 'deg'}
-				style:--end_rotation={randomInt(endRotationMin, endRotationMax) + 'deg'}
-				style:--hue_rotation={randomInt(hueRotationMin, hueRotationMax) + 'deg'}
+				style:--start_rotation="{randomInt(startRotationMin, startRotationMax)}deg"
+				style:--end_rotation="{randomInt(endRotationMin, endRotationMax)}deg"
+				style:--hue_rotation="{randomInt(hueRotationMin, hueRotationMax)}deg"
 			>
 				{randomItem(items)}
 			</div>{/each}

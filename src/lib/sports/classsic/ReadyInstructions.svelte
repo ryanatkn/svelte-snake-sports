@@ -1,11 +1,11 @@
 <script lang="ts">
-	import {fade} from 'svelte/transition';
+	import {scale} from 'svelte/transition';
 	import type {Writable} from 'svelte/store';
 
 	export let highestApplesEaten: Writable<number>;
 </script>
 
-<div class="instructions" transition:fade|local>
+<div class="instructions" transition:scale|local>
 	<div>move with arrow keys</div>
 	<div style:position="relative" style:left="{-15}px">eat many apples!</div>
 	{#if $highestApplesEaten}<div>

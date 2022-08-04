@@ -42,7 +42,7 @@
 
 	let applesEaten = 0;
 	let applesEatenSinceCollision = 0;
-	const APPLES_EATEN_TO_WIN = 50;
+	const APPLES_EATEN_TO_WIN = 66; // sixty six applessssssssssss
 
 	let currentTime = 0;
 	$: if ($status === 'playing') currentTime += $clock.dt;

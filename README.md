@@ -16,7 +16,7 @@
 caveats:
 
 - it's not mobile friendly yet, should be soonish
-- some of the code is still very rough from the port
+- some of the code is still very rough from the port, I just tried to ship gameplay asap
 
 ## what
 

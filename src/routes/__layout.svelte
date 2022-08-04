@@ -1,16 +1,13 @@
 <script lang="ts">
 	import '@feltcoop/felt/ui/style.css';
 	import {base} from '$app/paths';
-	import {browser} from '$app/env';
 	import {writable} from 'svelte/store';
 
 	import '$lib/style.css';
 	import {setDimensions} from '$lib/dimensions';
+	import Dimensions from '$lib/Dimensions.svelte';
 
-	const dimensions = writable({
-		width: browser ? window.innerWidth : 1,
-		height: browser ? window.innerHeight : 1,
-	});
+	const dimensions = writable({width: 0, height: 0});
 	setDimensions(dimensions);
 </script>
 
@@ -19,8 +16,6 @@
 	<link rel="icon" href="{base}/favicon.png" />
 </svelte:head>
 
-<svelte:window
-	on:resize={() => ($dimensions = {width: window.innerWidth, height: window.innerHeight})}
-/>
+<Dimensions {dimensions} />
 
 <slot />

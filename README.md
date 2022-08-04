@@ -3,12 +3,15 @@
 > games of snake in svelte —
 > [ryanatkn.github.io/svelte-snake-sports](https://ryanatkn.github.io/svelte-snake-sports)
 
+> intro video: <https://www.youtube.com/watch?v=ciei8H6IOWk>
+
 ## sports
 
 - [classsic](https://ryanatkn.github.io/svelte-snake-sports/classsic) — eat many apples —
   [$lib/sports/ClasssicSnake.svelte](/src/lib/sports/classsic/ClasssicSnake.svelte)
 - [ssspeed](https://ryanatkn.github.io/svelte-snake-sports/ssspeed) — eat apples asap —
   [$lib/sports/SsspeedSnake.svelte](/src/lib/sports/ssspeed/SsspeedSnake.svelte)
+- more to come!
 
 ## what
 

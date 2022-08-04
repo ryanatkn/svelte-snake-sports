@@ -76,7 +76,7 @@
 	}
 	:global(.game-fail) .snake :global(.Entity:first-child) {
 		background-color: rgb(204, 136, 136);
-		border-radius: 5px;
+		border-radius: 15%;
 	}
 	:global(.game-win) .snake.moving-up :global(.Entity:first-child) {
 		border-top-left-radius: 100%;
@@ -93,7 +93,7 @@
 
 	/* tail */
 	.snake :global(.Entity:last-child) {
-		border-radius: 10px;
+		border-radius: 30%;
 		background-color: #87c997;
 	}
 	:global(.game-fail) .snake :global(.Entity:last-child) {
@@ -111,7 +111,7 @@
 		width: 9px;
 		height: 9px;
 		background-color: rgba(0, 0, 0, 0.5);
-		border-radius: 5px;
+		border-radius: 15%;
 		border: 4px solid rgba(255, 255, 255, 0.8);
 	}
 	.snake.moving-up :global(.Entity:first-child::after) {

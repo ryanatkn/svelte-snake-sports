@@ -178,8 +178,6 @@ function eatApple(state: SnakeGameState, game: ISnakeGame, apple: Entity): void 
 
 	game.emit({name: 'eat_apple', apple});
 
-	// TODO BLOCK does this stuff all happen conditionally by the impl?
-
 	// Remove the apple.
 	apples.splice(apples.indexOf(apple), 1);
 

@@ -54,6 +54,9 @@
 	.snake :global(.Entity) {
 		background-color: #9da;
 	}
+	:global(.game-fail) .snake :global(.Entity) {
+		background-color: rgb(221, 156, 153);
+	}
 
 	/* head */
 	.snake :global(.Entity:first-child) {
@@ -71,15 +74,34 @@
 	.snake.moving-left :global(.Entity:first-child) {
 		border-bottom-left-radius: 50%;
 	}
+	:global(.game-fail) .snake :global(.Entity:first-child) {
+		background-color: rgb(204, 136, 136);
+		border-radius: 5px;
+	}
+	:global(.game-win) .snake.moving-up :global(.Entity:first-child) {
+		border-top-left-radius: 100%;
+	}
+	:global(.game-win) .snake.moving-right :global(.Entity:first-child) {
+		border-bottom-right-radius: 100%;
+	}
+	:global(.game-win) .snake.moving-down :global(.Entity:first-child) {
+		border-bottom-right-radius: 100%;
+	}
+	:global(.game-win) .snake.moving-left :global(.Entity:first-child) {
+		border-bottom-left-radius: 100%;
+	}
 
 	/* tail */
 	.snake :global(.Entity:last-child) {
 		border-radius: 10px;
 		background-color: #87c997;
 	}
+	:global(.game-fail) .snake :global(.Entity:last-child) {
+		background-color: #c9878f;
+	}
 
 	/* eye */
-	.snake :global(.Entity:first-child:after) {
+	.snake :global(.Entity:first-child::after) {
 		content: '';
 		display: block;
 		position: absolute;
@@ -92,22 +114,28 @@
 		border-radius: 5px;
 		border: 4px solid rgba(255, 255, 255, 0.8);
 	}
-	.snake.moving-up :global(.Entity:first-child:after) {
+	.snake.moving-up :global(.Entity:first-child::after) {
 		border-top-width: 0;
 		border-right-width: 2px;
 	}
-	.snake.moving-right :global(.Entity:first-child:after) {
+	.snake.moving-right :global(.Entity:first-child::after) {
 		border-top-width: 0;
 		border-right-width: 2px;
 		left: 6px;
 	}
-	.snake.moving-down :global(.Entity:first-child:after) {
+	.snake.moving-down :global(.Entity:first-child::after) {
 		border-bottom-width: 0;
 		border-left-width: 2px;
 		left: 6px;
 	}
-	.snake.moving-left :global(.Entity:first-child:after) {
+	.snake.moving-left :global(.Entity:first-child::after) {
 		border-top-width: 0;
 		border-left-width: 2px;
+	}
+	:global(.game-fail) .snake :global(.Entity:first-child::after) {
+		border-width: 4px;
+	}
+	:global(.game-ready) .snake :global(.Entity:first-child::after) {
+		border-width: 3px;
 	}
 </style>

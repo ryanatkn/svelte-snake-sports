@@ -19,10 +19,6 @@
 	import WinInstructions from '$lib/sports/ssspeed/WinInstructions.svelte';
 	import TextBurst from '$lib/TextBurst.svelte';
 
-	// TODO BLOCK CONTINUE!!
-	// add win state for ssspeed (show an explosive flourish of tada and colored snake emoji)
-	// add death state for classsic if you have >0 apples (flash the head red or something)
-
 	// TODO after merging:
 	// fix settings dimensions to persist on reset
 	// responsive rendering and set pixel size of play area
@@ -46,7 +42,7 @@
 
 	let applesEaten = 0;
 	let applesEatenSinceCollision = 0;
-	const APPLES_EATEN_TO_WIN = 1;
+	const APPLES_EATEN_TO_WIN = 50;
 
 	let currentTime = 0;
 	$: if ($status === 'playing') currentTime += $clock.dt;
@@ -100,7 +96,7 @@
 	};
 </script>
 
-<div class="SsspeedSnake">
+<div class="SsspeedSnake" class:game-win={$status === 'win'} class:game-ready={$status === 'ready'}>
 	<SnakeGame
 		bind:this={game}
 		toInitialState={() => initGameState(toDefaultGameState())}

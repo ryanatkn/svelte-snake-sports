@@ -52,7 +52,7 @@ form label:last-child {
 	width: 30px;
 	height: 30px;
 }
-.apple:after {
+.apple::after {
 	content: '';
 	display: block;
 	position: absolute;

@@ -95,7 +95,11 @@
 	};
 </script>
 
-<div class="ClasssicSnake">
+<div
+	class="ClasssicSnake"
+	class:game-fail={$status === 'fail'}
+	class:game-ready={$status === 'ready'}
+>
 	<SnakeGame
 		bind:this={game}
 		toInitialState={() => initGameState(toDefaultGameState())}

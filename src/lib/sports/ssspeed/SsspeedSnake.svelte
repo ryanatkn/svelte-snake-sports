@@ -18,6 +18,7 @@
 	import ReadyInstructions from '$lib/sports/ssspeed/ReadyInstructions.svelte';
 	import WinInstructions from '$lib/sports/ssspeed/WinInstructions.svelte';
 	import TextBurst from '$lib/TextBurst.svelte';
+	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
 
 	// TODO after merging:
 	// fix settings dimensions to persist on reset
@@ -109,16 +110,20 @@
 		}}
 	/>
 	{#if game}
-		<DomRenderer {game}>
-			{#if applesEaten === 0}
-				<ReadyInstructions {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
-			{:else if $status === 'win'}
-				<WinInstructions time={currentTime} {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
-				<div class="text-burst-wrapper">
-					<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} />
-				</div>
-			{/if}
-		</DomRenderer>
+		<div style:width={512} style:height={512}>
+			<ScaledSnakeRenderer>
+				<DomRenderer {game}>
+					{#if applesEaten === 0}
+						<ReadyInstructions {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
+					{:else if $status === 'win'}
+						<WinInstructions time={currentTime} {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
+						<div class="text-burst-wrapper">
+							<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} />
+						</div>
+					{/if}
+				</DomRenderer>
+			</ScaledSnakeRenderer>
+		</div>
 		<Ticker {clock} tickDuration={currentTickDuration} {tick} />
 		<StageTimedAppleProgress
 			{applesEaten}

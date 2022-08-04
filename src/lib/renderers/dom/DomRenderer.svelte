@@ -8,19 +8,15 @@
 	// TODO maybe rename this module to `SnameGameDomRenderer` or just `Renderer`?
 
 	export let game: SnakeGame;
-	export let width = 512;
-	export let height = 512;
 
 	$: ({state, movementDirection} = game);
-	$: ({mapWidth, mapHeight, apples, snakeSegments} = $state);
+	$: ({apples, snakeSegments, mapWidth, mapHeight} = $state);
 
-	$: entityWidth = width / mapWidth;
-	$: entityHeight = height / mapHeight;
-	$: mapWidthPx = mapWidth * entityWidth;
-	$: mapHeightPx = mapHeight * entityHeight;
+	const entityWidth = 32;
+	const entityHeight = 32;
 </script>
 
-<div class="renderer" style:width="{mapWidthPx}px" style:height="{mapHeightPx}px">
+<div class="renderer">
 	<div class="layer">
 		<Tiles {mapWidth} {mapHeight} tileWidth={entityWidth} tileHeight={entityHeight} />
 		{#each apples as a (a.id)}
@@ -38,8 +34,10 @@
 
 <style>
 	.renderer {
+		width: 100%;
+		height: 100%;
 		position: relative;
-		display: block;
+		display: flex;
 	}
 
 	.layer {

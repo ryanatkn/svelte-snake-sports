@@ -7,8 +7,6 @@ export interface EntityState {
 	y: number;
 	prevX?: number; // TODO maybe store a variable-length history instead of these
 	prevY?: number; // TODO maybe store a variable-length history instead of these
-	width?: number;
-	height?: number;
 }
 
 // TODO separate implementation?

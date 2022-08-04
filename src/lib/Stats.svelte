@@ -1,27 +1,34 @@
 <script lang="ts">
+	import type {Writable} from 'svelte/store';
+
 	import Fps from '$lib/Fps.svelte';
 	import type {ISnakeGame} from '$lib/SnakeGame';
 
 	export let game: ISnakeGame;
+	export let tickDuration: Writable<number> | undefined = undefined;
 
-	$: ({runCount, highScore, currentTickDuration} = game);
+	$: ({runCount} = game);
 
 	let fps: number;
+
+	$: framesPerTick = fps && $tickDuration && Math.floor($tickDuration / (1000 / fps));
 </script>
 
 <ul class="Stats">
 	<li>
-		<div class="value">{$highScore}</div>
-		besst
-	</li>
-	<li>
 		<div class="value">{$runCount}</div>
 		lives
 	</li>
-	<li>
-		<div class="value">{$currentTickDuration}</div>
-		ms
-	</li>
+	{#if $tickDuration}
+		<li>
+			<div class="value">{Math.round($tickDuration)}</div>
+			ms per tick
+		</li>
+		<li>
+			<div class="value">{framesPerTick ?? '??'}</div>
+			frames per tick
+		</li>
+	{/if}
 	<li>
 		<div class="value">{fps ?? '??'}</div>
 		fps

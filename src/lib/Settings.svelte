@@ -1,19 +1,39 @@
 <svelte:options immutable={false} />
 
 <script lang="ts">
+	import type {Writable} from 'svelte/store';
+
 	import type SnakeGame from '$lib/SnakeGame.svelte';
 
 	export let game: SnakeGame;
+	export let baseTickDuration: Writable<number>;
+	export let tickDurationDecay: Writable<number>;
+	export let tickDurationMin: Writable<number>;
+	export let tickDurationMax: Writable<number>;
 
-	$: ({state, baseTickDuration, tickDurationDecay, tickDurationMin, tickDurationMax} = game);
-	$: ({mapWidth, mapHeight} = $state);
+	game; // TODO remove when the rest is implemented
+
+	// $: ({state} = game);
+	// $: ({mapWidth, mapHeight} = $state);
 
 	// TODO api?
 	const clearLocalStorage = () => {
-		localStorage.removeItem('highScore');
-		localStorage.removeItem('stats');
+		localStorage.removeItem('classsic_high_score');
+		localStorage.removeItem('ssspeed_high_score');
 		window.location = window.location;
 	};
+
+	// const MAP_MIN_WIDTH = 2; // tiles
+	// const MAP_MAX_WIDTH = 100; // tiles
+	// const MAP_MIN_HEIGHT = 2; // tiles
+	// const MAP_MAX_HEIGHT = 100; // tiles
+
+	// const onMapWidthInput = (e: any) => ($state = {...$state, mapWidth: Number(e.target.value) | 0});
+	// const onMapHeightInput = (e: any) =>
+	// 	($state = {...$state, mapHeight: Number(e.target.value) | 0});
+
+	const TICK_DURATION_MIN = 5; // ms
+	const TICK_DURATION_MAX = 2000; // ms
 </script>
 
 <form class="Settings">
@@ -39,44 +59,63 @@
 			><strong>tickDurationMin</strong><input
 				type="range"
 				bind:value={$tickDurationMin}
-				min={game.TICK_DURATION_MIN}
-				max={game.TICK_DURATION_MAX}
+				min={TICK_DURATION_MIN}
+				max={TICK_DURATION_MAX}
 			/><input type="number" bind:value={$tickDurationMin} /></label
 		>
 		<label
 			><strong>tickDurationMax</strong><input
 				type="range"
 				bind:value={$tickDurationMax}
-				min={game.TICK_DURATION_MIN}
-				max={game.TICK_DURATION_MAX}
+				min={TICK_DURATION_MIN}
+				max={TICK_DURATION_MAX}
 			/><input type="number" bind:value={$tickDurationMax} /></label
 		>
-		<!-- TODO how to make these work? need to update state -->
-		<label class="TODO"
-			><strong>mapWidth</strong><input type="range" bind:value={mapWidth} min={2} max={100} /><input
+		<!-- TODO implement these along with total pixel width/height -->
+		<!-- <label
+			><strong>mapWidth</strong><input
+				type="range"
+				value={mapWidth}
+				on:input={onMapWidthInput}
+				min={MAP_MIN_WIDTH}
+				max={MAP_MAX_WIDTH}
+				step={1}
+			/><input
 				type="number"
-				bind:value={mapWidth}
+				value={mapWidth}
+				on:input={onMapWidthInput}
+				min={MAP_MIN_WIDTH}
+				max={MAP_MAX_WIDTH}
 			/></label
 		>
-		<label class="TODO"
+		<label
 			><strong>mapHeight</strong><input
 				type="range"
-				bind:value={mapHeight}
-				min={2}
-				max={100}
-			/><input type="number" bind:value={mapHeight} /></label
+				value={mapHeight}
+				on:input={onMapHeightInput}
+				min={MAP_MIN_HEIGHT}
+				max={MAP_MAX_HEIGHT}
+				step={1}
+			/><input
+				type="number"
+				value={mapHeight}
+				on:input={onMapHeightInput}
+				min={MAP_MIN_HEIGHT}
+				max={MAP_MAX_HEIGHT}
+			/></label
 		>
-	</section>
-	<section>
-		<button
-			type="button"
-			on:click={() => {
-				// eslint-disable-next-line no-alert
-				if (confirm('clear all saved data?')) {
-					clearLocalStorage();
-				}
-			}}>reset saved data</button
-		>
+	</section> -->
+		<section>
+			<button
+				type="button"
+				on:click={() => {
+					// eslint-disable-next-line no-alert
+					if (confirm('clear all saved data?')) {
+						clearLocalStorage();
+					}
+				}}>reset saved data</button
+			>
+		</section>
 	</section>
 </form>
 
@@ -92,8 +131,5 @@
 		align-items: flex-start;
 		justify-content: center;
 		flex-wrap: wrap;
-	}
-	.TODO {
-		display: none;
 	}
 </style>

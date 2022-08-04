@@ -41,4 +41,60 @@ form label:last-child {
 	line-height: 1;
 	padding-left: var(--spacing_sm);
 	padding-right: var(--spacing_sm);
+	font-size: var(--font_size_xl3);
+}
+
+.apple {
+	position: relative;
+	background-color: #c89;
+	border-radius: 17px 14px 14px 12px;
+	animation: pop-in 0.66s ease-in-out;
+	width: 30px;
+	height: 30px;
+}
+.apple::after {
+	content: '';
+	display: block;
+	position: absolute;
+	left: 13px;
+	top: -3px;
+	width: 3px;
+	height: 7px;
+	background-color: rgb(122, 100, 100);
+	border-radius: 4px;
+}
+
+@keyframes pop-in {
+	from {
+		transform: scale(0);
+	}
+	to {
+		transform: scale(1);
+	}
+}
+
+.clickable-box {
+	transition: border-radius 0.09s ease-out;
+	border-radius: 20%;
+}
+.clickable-box:hover {
+	border-radius: 16%;
+}
+.clickable-box:active {
+	border-radius: 18%;
+}
+
+.instructions {
+	position: absolute;
+	top: 208px;
+	left: 250px;
+	font-size: var(--font_size_lg);
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+.instructions > * {
+	padding: 0 var(--spacing_xs);
+	background-color: #fffd;
+	border-bottom: 3px solid #c896;
 }

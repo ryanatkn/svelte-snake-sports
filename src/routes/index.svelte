@@ -3,7 +3,7 @@
 
 	import Header from '$lib/Header.svelte';
 	import Sss from '$lib/Sss.svelte';
-	// import ClasssicSnake from '$lib/sports/classsic/ClasssicSnake.svelte';
+	import Sports from '$lib/Sports.svelte';
 
 	let ssses: Array<{icon: string}> | undefined;
 
@@ -19,13 +19,7 @@
 		<Header />
 	</section>
 	<section>
-		<menu>
-			<li>
-				<a href="{base}/classsic" title="classssic snake sports"
-					><span class="snake-1">🐍</span>classsic<span class="snake-2">🐍</span></a
-				>
-			</li>
-		</menu>
+		<Sports />
 	</section>
 	<div class="markup">
 		<section>
@@ -33,7 +27,6 @@
 			<audio src="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls bind:this={song} />
 		</section>
 	</div>
-	<!-- <ClasssicSnake /> -->
 	<Sss bind:ssses {song} />
 </main>
 
@@ -42,33 +35,13 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		margin: 0 auto;
+		margin: 0 auto 1000px;
 	}
 	.markup {
 		align-items: center;
 		text-align: center;
 	}
-	menu {
-		font-size: var(--font_size_xl5);
-	}
-	menu a {
-		font-weight: 300;
-	}
 
-	li {
-		list-style: none;
-	}
-	a {
-		flex-wrap: wrap;
-		align-items: center;
-		justify-content: center;
-	}
-	.snake-1 {
-		transform: rotate(4deg);
-	}
-	.snake-2 {
-		transform: rotate(23deg);
-	}
 	section {
 		margin: var(--spacing_xl);
 	}

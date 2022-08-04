@@ -15,20 +15,10 @@ interface Position {
  * Sets up the initial state for a game.
  */
 export const initGameState = (state: SnakeGameState): SnakeGameState => {
-	const {mapWidth, mapHeight} = state;
 	console.log('[SnakeGame] init');
 	// TODO  single state JSON object instead? update(state, controller) => nextState
 
-	state.score = 0;
-
-	// Create the tiles.
-	const nextTiles: Entity[] = [];
-	for (let x = 0; x < mapWidth; x++) {
-		for (let y = 0; y < mapHeight; y++) {
-			nextTiles.push(new Entity({x, y}));
-		}
-	}
-	state.tiles = nextTiles;
+	// TODO make this all customizable
 
 	// Create some apples, but preserve current identities if convenient.
 	state.apples = [new Entity({x: 1, y: 3}), new Entity({x: 7, y: 2}), new Entity({x: 5, y: 9})];
@@ -39,7 +29,6 @@ export const initGameState = (state: SnakeGameState): SnakeGameState => {
 		new Entity({x: 4, y: 5}),
 		new Entity({x: 5, y: 5}),
 		new Entity({x: 5, y: 6}),
-		new Entity({x: 5, y: 7}),
 	];
 
 	return state;
@@ -84,13 +73,6 @@ const getRandomLocation = ({mapWidth, mapHeight}: SnakeGameState): Position => (
 });
 
 /**
- * Sets the current score for the game, saving the best ever back to local storage.
- */
-const setScore = (state: SnakeGameState, value: number): void => {
-	state.score = value;
-};
-
-/**
  * Mutates the game by executing one full turn and handles all state changes that result.
  * The game may be in a temporarily illegal state at any time during this function,
  * like snake segments on top of other segments,
@@ -106,12 +88,15 @@ export const updateGameState = (state: SnakeGameState, game: ISnakeGame): SnakeG
 	updateInput(game);
 
 	// Update entities
-	moveSnake(state, get(game.snakeMovementDirection)); // TODO avoid `get` -- probably with serialized inputs
+	const movementDirection = get(game.movementDirection); // TODO avoid `get` -- probably with serialized inputs
+	if (movementDirection) {
+		moveSnake(state, movementDirection);
+	}
 
 	// Check for collision events and handle all possible game state changes.
 	checkSnakeOutOfBounds(state, game);
 	checkSnakeEatSelf(state, game);
-	checkSnakeEatApple(state);
+	checkSnakeEatApple(state, game);
 
 	return state;
 };
@@ -124,7 +109,7 @@ function updateInput(game: ISnakeGame): void {
 	game.movementCommandQueue.update(($v) => {
 		if (!$v.length) return $v;
 		$v = $v.slice(); // eslint-disable-line no-param-reassign
-		game.snakeMovementDirection.set($v.shift()!);
+		game.movementDirection.set($v.shift()!);
 		return $v;
 	});
 }
@@ -132,12 +117,12 @@ function updateInput(game: ISnakeGame): void {
 /**
  * Moves the snake in the given direction.
  */
-function moveSnake({snakeSegments}: SnakeGameState, snakeMovementDirection: Direction): void {
+function moveSnake({snakeSegments}: SnakeGameState, movementDirection: Direction): void {
 	const head = snakeSegments[0];
 
 	// Move the head first, because our algorithm reads the previous positions
 	// of the preceding segments to move them to, so this works.
-	head.moveDir(snakeMovementDirection);
+	head.moveDir(movementDirection);
 
 	// Make the body follow the head
 	for (let i = 1; i < snakeSegments.length; i++) {
@@ -154,16 +139,8 @@ function moveSnake({snakeSegments}: SnakeGameState, snakeMovementDirection: Dire
 function checkSnakeOutOfBounds(state: SnakeGameState, game: ISnakeGame): void {
 	const {snakeSegments, mapWidth, mapHeight} = state;
 	if (snakeSegments[0].isOutOfBounds(mapWidth, mapHeight)) {
-		destroySnake(state, game);
+		game.emit({name: 'snake_collide_bounds'});
 	}
-}
-
-/**
- * As the quickest possible thing, just reset the game state when the player dies.
- */
-function destroySnake(state: SnakeGameState, game: ISnakeGame): void {
-	initGameState(state);
-	game.events.update(($v) => $v.concat({type: 'fail'}));
 }
 
 /**
@@ -172,9 +149,10 @@ function destroySnake(state: SnakeGameState, game: ISnakeGame): void {
 function checkSnakeEatSelf(state: SnakeGameState, game: ISnakeGame): void {
 	const {snakeSegments} = state;
 	const snakeHead = snakeSegments[0];
-	for (const segment of snakeSegments) {
-		if (segment !== snakeHead && segment.isCollidingWith(snakeHead)) {
-			return destroySnake(state, game);
+	for (let i = 1; i < snakeSegments.length; i++) {
+		const segment = snakeSegments[i];
+		if (segment.isCollidingWith(snakeHead)) {
+			game.emit({name: 'snake_collide_self', segment});
 		}
 	}
 }
@@ -182,12 +160,12 @@ function checkSnakeEatSelf(state: SnakeGameState, game: ISnakeGame): void {
 /**
  * Check if the snake eats an apple. If so, update the game state to handle it.
  */
-function checkSnakeEatApple(state: SnakeGameState): void {
+function checkSnakeEatApple(state: SnakeGameState, game: ISnakeGame): void {
 	const {snakeSegments, apples} = state;
 	const snakeHead = snakeSegments[0];
 	for (const apple of apples) {
 		if (snakeHead.isCollidingWith(apple)) {
-			return eatApple(state, apple);
+			return eatApple(state, game, apple);
 		}
 	}
 }
@@ -195,22 +173,21 @@ function checkSnakeEatApple(state: SnakeGameState): void {
 /**
  * Has the snake eat an apple, removing the apple and growing the snake.
  */
-function eatApple(state: SnakeGameState, apple: Entity): void {
-	const {score, apples, snakeSegments} = state;
+function eatApple(state: SnakeGameState, game: ISnakeGame, apple: Entity): void {
+	const {apples, snakeSegments} = state;
 
-	// Increase the score!
-	setScore(state, score + 1);
+	game.emit({name: 'eat_apple', apple});
 
 	// Remove the apple.
 	apples.splice(apples.indexOf(apple), 1);
 
 	// Create a new end tail segment that looks like the current end of the snake.
-	const endTailSegment = snakeSegments.at(-1)!;
-	const newEndTailSegment = endTailSegment.clone();
+	const prevEndSegment = snakeSegments.at(-1)!;
+	const nextEndSegment = prevEndSegment.clone();
 
 	// Position the new end tail segment at the previous position of the current end of the snake.
-	newEndTailSegment.moveTo(endTailSegment.prevX, endTailSegment.prevY);
-	snakeSegments.push(newEndTailSegment);
+	nextEndSegment.moveTo(prevEndSegment.prevX, prevEndSegment.prevY);
+	snakeSegments.push(nextEndSegment);
 	spawnApple(state);
 }
 

@@ -1,60 +1,58 @@
 <svelte:options immutable={false} />
 
 <script lang="ts">
-	import {browser} from '$app/env';
-	import type {Direction} from '$lib/Entity';
 	import {writable} from 'svelte/store';
+	import {noop} from '@feltcoop/felt/util/function.js';
+	import type {Direction} from '$lib/Entity';
 	import type {SnakeGameState} from '$lib/SnakeGameState';
-	import Hotkeys from '$lib/Hotkeys.svelte';
 	import type {SnakeGameEvent} from '$lib/SnakeGame';
 
-	export const TICK_DURATION_MIN = 17;
-	export const TICK_DURATION_MAX = 2000;
+	export let toInitialState: () => SnakeGameState;
+	export let toInitialEvents: () => SnakeGameEvent[] = () => [];
+	export let toInitialMovementDirection: () => Direction | null = () => null;
+	export let shouldStart = (): boolean => true;
+	export let tick: () => boolean;
+	export let onReset: () => void = noop;
 
-	export let initialState: SnakeGameState;
-	export let initialEvents: SnakeGameEvent[] = [];
-	export let tick: () => void;
-
-	export const state = writable(initialState);
-	export const events = writable(initialEvents);
-	export const baseTickDuration = writable(Math.round(1000 / 6)); // the starting tick duration, may be modified by gameplay
-	export const currentTickDuration = writable($baseTickDuration);
-	export const snakeMovementDirection = writable<Direction>('up');
+	export const state = writable(toInitialState());
+	export const events = writable(toInitialEvents());
+	export const tickCount = writable(0); // the starting tick duration, may be modified by gameplay
+	export const movementDirection = writable<Direction | null>(toInitialMovementDirection());
 	export const movementCommandQueue = writable<Direction[]>([]); // TODO should this be a generic command queue, not just movement?
-	export const highScore = writable<number>(
-		(browser && Number(localStorage.getItem('highScore'))) || 0,
-	);
 	export const runCount = writable(0);
-	export const tickDurationDecay = writable(0.97);
-	export const tickDurationMin = writable(TICK_DURATION_MIN);
-	export const tickDurationMax = writable(TICK_DURATION_MAX);
+	export const status = writable<'ready' | 'playing' | 'win' | 'fail'>('ready');
 
-	export const reset = (): void => {
-		$events = [];
-		$currentTickDuration = $baseTickDuration;
-		$snakeMovementDirection = 'up';
-		$movementCommandQueue = [];
-		$runCount++;
+	// TODO I'm not sure about *any* of these -- might need to heavily refactor, add hooks, etc
+
+	export const nextTick = (): void => {
+		if (tick()) $tickCount++;
 	};
 
-	$: ({score} = $state);
+	export const reset = (): void => {
+		$status = 'ready';
+		$events = [];
+		$tickCount = 0;
+		$movementDirection = toInitialMovementDirection();
+		$movementCommandQueue = [];
+		$runCount++;
+		$state = toInitialState();
+		onReset();
+	};
 
-	$: console.log(`score`, score);
+	export const emit = (event: SnakeGameEvent): void => {
+		events.update(($v) => $v.concat(event));
+	};
 
-	// TODO seems a bit hacky to rely on score changes -- should probably recalculate this every tick
-	$: $currentTickDuration = decayTickDuration($baseTickDuration, score);
-	const decayTickDuration = (duration: number, score: number): number =>
-		Math.max(
-			$tickDurationMin,
-			Math.min($tickDurationMax, Math.round(duration * $tickDurationDecay ** (1 + score))),
-		);
-
-	// TODO is there a better place to do this? imperatively after updating the state?
-	$: if (score > $highScore) {
-		console.log(`score`, score);
-		$highScore = score;
-		if (browser) localStorage.setItem('highScore', score + ''); // TODO use helper on store instead
-	}
+	export const end = (outcomeStatus: 'win' | 'fail'): void => {
+		$status = outcomeStatus;
+	};
+	export const start = (): boolean => {
+		if ($status === 'playing' || !shouldStart()) {
+			return false;
+		}
+		$status = 'playing';
+		return true;
+	};
 
 	const MOVEMENT_COMMAND_QUEUE_SIZE = 4; // how many inputs a player can queue up at once
 
@@ -76,51 +74,3 @@
 		$movementCommandQueue = [movementCommand];
 	};
 </script>
-
-<Hotkeys
-	onKeydown={(key, shiftKey, ctrlKey) => {
-		switch (key) {
-			case 'ArrowUp':
-			case 'w':
-			case 'k':
-				if (ctrlKey || shiftKey) {
-					setMovementCommand('up');
-					tick();
-				} else {
-					enqueueMovementCommand('up');
-				}
-				return true;
-			case 'ArrowDown':
-			case 's':
-			case 'j':
-				if (ctrlKey || shiftKey) {
-					setMovementCommand('down');
-					tick();
-				} else {
-					enqueueMovementCommand('down');
-				}
-				return true;
-			case 'ArrowLeft':
-			case 'a':
-			case 'h':
-				if (ctrlKey || shiftKey) {
-					setMovementCommand('left');
-					tick();
-				} else {
-					enqueueMovementCommand('left');
-				}
-				return true;
-			case 'ArrowRight':
-			case 'd':
-			case 'l':
-				if (ctrlKey || shiftKey) {
-					setMovementCommand('right');
-					tick();
-				} else {
-					enqueueMovementCommand('right');
-				}
-				return true;
-		}
-		return false;
-	}}
-/>

@@ -15,7 +15,7 @@
 
 		if (tickTimer >= $tickDuration) {
 			tick?.();
-			tickTimer -= $tickDuration;
+			tickTimer = 0;
 		}
 	};
 </script>

@@ -4,6 +4,8 @@
 
 	export let dimensions: Writable<Dimensions>;
 
+	// This measures an onscreen element instead of window.innerWidth/Height
+	// to account for scrollbars on some OSes.
 	let clientWidth = 0;
 	let clientHeight = 0;
 

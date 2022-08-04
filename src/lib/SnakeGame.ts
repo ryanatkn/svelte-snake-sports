@@ -2,7 +2,8 @@ import type {Writable} from 'svelte/store';
 
 import type {Direction, Entity} from '$lib/Entity';
 
-// TODO try to delete, only need it because `SnakeGame.svelte` can't be imported by TS modules
+// TODO try to delete, only need it because
+// `SnakeGame.svelte` types in `context="module"` can't be imported by TS modules
 
 export interface ISnakeGame {
 	events: Writable<SnakeGameEvent[]>;

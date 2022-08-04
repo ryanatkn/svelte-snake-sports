@@ -20,6 +20,7 @@
 	import StageControls from '$lib/StageControls.svelte';
 	import ReadyInstructions from '$lib/sports/classsic/ReadyInstructions.svelte';
 	import FailInstructions from '$lib/sports/classsic/FailInstructions.svelte';
+	import TextBurst from '$lib/TextBurst.svelte';
 
 	const clock = setClock(createClock({running: browser}));
 
@@ -111,6 +112,9 @@
 				<ReadyInstructions {highestApplesEaten} />
 			{:else if $status === 'fail'}
 				<FailInstructions {applesEaten} {highestApplesEaten} />
+				<div class="text-burst-wrapper">
+					<TextBurst count={50} items={['🐍', '💥', '🦴', '🦴']} hueRotationMax={0} />
+				</div>
 			{/if}
 		</DomRenderer>
 		<div class="scores">
@@ -169,5 +173,12 @@
 	}
 	.scores {
 		display: flex;
+	}
+	.text-burst-wrapper {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		width: 0;
+		height: 0;
 	}
 </style>

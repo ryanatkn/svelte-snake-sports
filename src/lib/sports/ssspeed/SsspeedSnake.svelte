@@ -17,6 +17,7 @@
 	import StageTimedAppleProgress from '$lib/TimedScores.svelte';
 	import ReadyInstructions from '$lib/sports/ssspeed/ReadyInstructions.svelte';
 	import WinInstructions from '$lib/sports/ssspeed/WinInstructions.svelte';
+	import TextBurst from '$lib/TextBurst.svelte';
 
 	// TODO BLOCK CONTINUE!!
 	// add win state for ssspeed (show an explosive flourish of tada and colored snake emoji)
@@ -117,6 +118,9 @@
 				<ReadyInstructions {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
 			{:else if $status === 'win'}
 				<WinInstructions time={currentTime} {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
+				<div class="text-burst-wrapper">
+					<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} />
+				</div>
 			{/if}
 		</DomRenderer>
 		<Ticker {clock} tickDuration={currentTickDuration} {tick} />
@@ -164,5 +168,12 @@
 	}
 	section {
 		padding-top: var(--spacing_xl5);
+	}
+	.text-burst-wrapper {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		width: 0;
+		height: 0;
 	}
 </style>

@@ -6,7 +6,7 @@
 
 <footer class="centered column-sm">
 	<div class="padded-md">
-		<a href="https://github.com/ryanatkn/svelte-snake-sports">ssources on GitHub</a>
+		<a href="https://github.com/ryanatkn/svelte-snake-sports">ssources & creditss on GitHub</a>
 	</div>
 	<div class="padded-md markup">
 		<p>

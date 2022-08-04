@@ -18,7 +18,7 @@
 		</p>
 	</div>
 	<div class="padded-md">
-		<a href="/">go back home</a>
+		<a href="{base}/">go back home</a>
 	</div>
 	<!-- TODO why is this not working? latest sveltekit problem with Felt? -->
 	<!-- <div class="padded-xl"> -->

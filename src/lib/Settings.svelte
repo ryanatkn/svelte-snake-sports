@@ -10,11 +10,11 @@
 	export let tickDurationDecay: Writable<number>;
 	export let tickDurationMin: Writable<number>;
 	export let tickDurationMax: Writable<number>;
+	export let rendererWidth: Writable<number>;
+	export let rendererHeight: Writable<number>;
 
-	game; // TODO remove when the rest is implemented
-
-	// $: ({state} = game);
-	// $: ({mapWidth, mapHeight} = $state);
+	$: ({state} = game);
+	$: ({mapWidth, mapHeight} = $state);
 
 	// TODO api?
 	const clearLocalStorage = () => {
@@ -23,14 +23,22 @@
 		window.location = window.location;
 	};
 
-	// const MAP_MIN_WIDTH = 2; // tiles
-	// const MAP_MAX_WIDTH = 100; // tiles
-	// const MAP_MIN_HEIGHT = 2; // tiles
-	// const MAP_MAX_HEIGHT = 100; // tiles
+	const MAP_MIN_WIDTH = 2; // tiles
+	const MAP_MAX_WIDTH = 100; // tiles
+	const MAP_MIN_HEIGHT = 2; // tiles
+	const MAP_MAX_HEIGHT = 100; // tiles
 
-	// const onMapWidthInput = (e: any) => ($state = {...$state, mapWidth: Number(e.target.value) | 0});
-	// const onMapHeightInput = (e: any) =>
-	// 	($state = {...$state, mapHeight: Number(e.target.value) | 0});
+	const onMapWidthInput = (e: any) => ($state = {...$state, mapWidth: Number(e.target.value) | 0});
+	const onMapHeightInput = (e: any) =>
+		($state = {...$state, mapHeight: Number(e.target.value) | 0});
+
+	const RENDERER_MIN_WIDTH = 10; // px
+	const RENDERER_MAX_WIDTH = 5000; // px
+	const RENDERER_MIN_HEIGHT = 10; // px
+	const RENDERER_MAX_HEIGHT = 5000; // px
+
+	const onRendererWidthInput = (e: any) => ($rendererWidth = Number(e.target.value) | 0);
+	const onRendererHeightInput = (e: any) => ($rendererHeight = Number(e.target.value) | 0);
 
 	const TICK_DURATION_MIN = 5; // ms
 	const TICK_DURATION_MAX = 2000; // ms
@@ -71,40 +79,72 @@
 				max={TICK_DURATION_MAX}
 			/><input type="number" bind:value={$tickDurationMax} /></label
 		>
-		<!-- TODO implement these along with total pixel width/height -->
-		<!-- <label
-			><strong>mapWidth</strong><input
-				type="range"
-				value={mapWidth}
-				on:input={onMapWidthInput}
-				min={MAP_MIN_WIDTH}
-				max={MAP_MAX_WIDTH}
-				step={1}
-			/><input
-				type="number"
-				value={mapWidth}
-				on:input={onMapWidthInput}
-				min={MAP_MIN_WIDTH}
-				max={MAP_MAX_WIDTH}
-			/></label
-		>
-		<label
-			><strong>mapHeight</strong><input
-				type="range"
-				value={mapHeight}
-				on:input={onMapHeightInput}
-				min={MAP_MIN_HEIGHT}
-				max={MAP_MAX_HEIGHT}
-				step={1}
-			/><input
-				type="number"
-				value={mapHeight}
-				on:input={onMapHeightInput}
-				min={MAP_MIN_HEIGHT}
-				max={MAP_MAX_HEIGHT}
-			/></label
-		>
-	</section> -->
+		<section>
+			<label
+				><strong>mapWidth</strong><input
+					type="range"
+					value={mapWidth}
+					on:input={onMapWidthInput}
+					min={MAP_MIN_WIDTH}
+					max={MAP_MAX_WIDTH}
+					step={1}
+				/><input
+					type="number"
+					value={mapWidth}
+					on:input={onMapWidthInput}
+					min={MAP_MIN_WIDTH}
+					max={MAP_MAX_WIDTH}
+				/></label
+			>
+			<label
+				><strong>mapHeight</strong><input
+					type="range"
+					value={mapHeight}
+					on:input={onMapHeightInput}
+					min={MAP_MIN_HEIGHT}
+					max={MAP_MAX_HEIGHT}
+					step={1}
+				/><input
+					type="number"
+					value={mapHeight}
+					on:input={onMapHeightInput}
+					min={MAP_MIN_HEIGHT}
+					max={MAP_MAX_HEIGHT}
+				/></label
+			>
+			<label
+				><strong>rendererWidth</strong><input
+					type="range"
+					value={$rendererWidth}
+					on:input={onRendererWidthInput}
+					min={RENDERER_MIN_WIDTH}
+					max={RENDERER_MAX_WIDTH}
+					step={1}
+				/><input
+					type="number"
+					value={$rendererWidth}
+					on:input={onRendererWidthInput}
+					min={RENDERER_MIN_WIDTH}
+					max={RENDERER_MAX_WIDTH}
+				/></label
+			>
+			<label
+				><strong>rendererHeight</strong><input
+					type="range"
+					value={$rendererHeight}
+					on:input={onRendererHeightInput}
+					min={RENDERER_MIN_HEIGHT}
+					max={RENDERER_MAX_HEIGHT}
+					step={1}
+				/><input
+					type="number"
+					value={$rendererHeight}
+					on:input={onRendererHeightInput}
+					min={RENDERER_MIN_HEIGHT}
+					max={RENDERER_MAX_HEIGHT}
+				/></label
+			>
+		</section>
 		<section>
 			<button
 				type="button"

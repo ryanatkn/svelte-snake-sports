@@ -40,6 +40,8 @@
 	const tickDurationDecay = writable(0.5);
 	const tickDurationMin = writable(17);
 	const tickDurationMax = writable(2000);
+	const rendererWidth = writable(512);
+	const rendererHeight = writable(512);
 
 	let applesEaten = 0;
 	let applesEatenSinceCollision = 0;
@@ -110,20 +112,18 @@
 		}}
 	/>
 	{#if game}
-		<div style:width={512} style:height={512}>
-			<ScaledSnakeRenderer>
-				<DomRenderer {game}>
-					{#if applesEaten === 0}
-						<ReadyInstructions {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
-					{:else if $status === 'win'}
-						<WinInstructions time={currentTime} {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
-						<div class="text-burst-wrapper">
-							<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} />
-						</div>
-					{/if}
-				</DomRenderer>
-			</ScaledSnakeRenderer>
-		</div>
+		<ScaledSnakeRenderer {rendererWidth} {rendererHeight}>
+			<DomRenderer {game} width={rendererWidth} height={rendererHeight}>
+				{#if applesEaten === 0}
+					<ReadyInstructions {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
+				{:else if $status === 'win'}
+					<WinInstructions time={currentTime} {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
+					<div class="text-burst-wrapper">
+						<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} />
+					</div>
+				{/if}
+			</DomRenderer>
+		</ScaledSnakeRenderer>
 		<Ticker {clock} tickDuration={currentTickDuration} {tick} />
 		<StageTimedAppleProgress
 			{applesEaten}
@@ -154,6 +154,8 @@
 					{tickDurationMin}
 					{tickDurationMax}
 					{tickDurationDecay}
+					{rendererWidth}
+					{rendererHeight}
 				/>
 			{/if}
 		</section>

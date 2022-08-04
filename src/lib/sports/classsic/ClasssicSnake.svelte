@@ -47,6 +47,8 @@
 	const currentTickDuration = writable($baseTickDuration);
 	const tickDurationMin = writable(17);
 	const tickDurationMax = writable(2000);
+	const rendererWidth = writable(512);
+	const rendererHeight = writable(512);
 
 	// TODO is there a better place to do this? imperatively after updating the state?
 	$: if (applesEaten > $highestApplesEaten) {
@@ -112,8 +114,8 @@
 		}}
 	/>
 	{#if game}
-		<ScaledSnakeRenderer>
-			<DomRenderer {game}>
+		<ScaledSnakeRenderer {rendererWidth} {rendererHeight}>
+			<DomRenderer {game} width={rendererWidth} height={rendererHeight}>
 				{#if applesEaten === 0}
 					<ReadyInstructions {highestApplesEaten} />
 				{:else if $status === 'fail'}
@@ -163,6 +165,8 @@
 					{tickDurationMin}
 					{tickDurationMax}
 					{tickDurationDecay}
+					{rendererWidth}
+					{rendererHeight}
 				/>
 			{/if}
 		</section>

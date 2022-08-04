@@ -1,6 +1,8 @@
 <svelte:options immutable={false} />
 
 <script lang="ts">
+	import type {Writable} from 'svelte/store';
+
 	import Entity from '$lib/Entity.svelte';
 	import Tiles from '$lib/renderers/dom/Tiles.svelte';
 	import type SnakeGame from '$lib/SnakeGame.svelte';
@@ -8,12 +10,14 @@
 	// TODO maybe rename this module to `SnameGameDomRenderer` or just `Renderer`?
 
 	export let game: SnakeGame;
+	export let width: Writable<number>;
+	export let height: Writable<number>;
 
 	$: ({state, movementDirection} = game);
 	$: ({apples, snakeSegments, mapWidth, mapHeight} = $state);
 
-	const entityWidth = 32;
-	const entityHeight = 32;
+	$: entityWidth = $width / mapWidth; // TODO Math.floor?
+	$: entityHeight = $height / mapHeight;
 </script>
 
 <div class="renderer">

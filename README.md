@@ -13,6 +13,8 @@
   [$lib/sports/SsspeedSnake.svelte](/src/lib/sports/ssspeed/SsspeedSnake.svelte)
 - more to come!
 
+(it's not mobile friendly yet, should be soonish)
+
 ## what
 
 In 2016 I wrote a tiny [`snake-game`](https://ryanatkn.github.io/snake-game)

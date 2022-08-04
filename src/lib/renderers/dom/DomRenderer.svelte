@@ -3,7 +3,7 @@
 <script lang="ts">
 	import type {Writable} from 'svelte/store';
 
-	import Entity from '$lib/Entity.svelte';
+	import Entity from '$lib/renderers/dom/Entity.svelte';
 	import Tiles from '$lib/renderers/dom/Tiles.svelte';
 	import type SnakeGame from '$lib/SnakeGame.svelte';
 
@@ -24,11 +24,11 @@
 	<div class="layer">
 		<Tiles {mapWidth} {mapHeight} tileWidth={entityWidth} tileHeight={entityHeight} />
 		{#each apples as a (a.id)}
-			<Entity entity={a} classes="apple" width={entityWidth} height={entityHeight} />
+			<Entity x={a.x} y={a.y} classes="apple" width={entityWidth} height={entityHeight} />
 		{/each}
 		<div class="snake moving-{$movementDirection}">
 			{#each snakeSegments as s (s.id)}
-				<Entity entity={s} width={entityWidth} height={entityHeight} />
+				<Entity x={s.x} y={s.y} width={entityWidth} height={entityHeight} />
 			{/each}
 		</div>
 		<!-- TODO render the queued movement -->

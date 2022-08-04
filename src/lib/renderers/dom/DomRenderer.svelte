@@ -106,12 +106,13 @@
 		display: block;
 		position: absolute;
 		box-sizing: content-box;
-		left: 13px;
-		top: 3px;
-		width: 9px;
-		height: 9px;
+		left: 42%;
+		top: 10%;
+		width: 29%;
+		height: 29%;
 		background-color: rgba(0, 0, 0, 0.5);
 		border-radius: 15%;
+		/* TODO BLOCK need to calculate from --entity_size */
 		border: 4px solid rgba(255, 255, 255, 0.8);
 	}
 	.snake.moving-up :global(.Entity:first-child::after) {
@@ -121,12 +122,12 @@
 	.snake.moving-right :global(.Entity:first-child::after) {
 		border-top-width: 0;
 		border-right-width: 2px;
-		left: 6px;
+		left: 19%;
 	}
 	.snake.moving-down :global(.Entity:first-child::after) {
 		border-bottom-width: 0;
 		border-left-width: 2px;
-		left: 6px;
+		left: 19%;
 	}
 	.snake.moving-left :global(.Entity:first-child::after) {
 		border-top-width: 0;

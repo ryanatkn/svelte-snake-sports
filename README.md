@@ -3,7 +3,7 @@
 > games of snake in svelte —
 > [ryanatkn.github.io/svelte-snake-sports](https://ryanatkn.github.io/svelte-snake-sports)
 
-> intro video: <https://www.youtube.com/watch?v=ciei8H6IOWk>
+> intro video: [youtube.com/watch?v=ciei8H6IOWk](https://www.youtube.com/watch?v=ciei8H6IOWk)
 
 ## sports
 

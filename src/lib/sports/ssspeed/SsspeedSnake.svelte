@@ -45,7 +45,7 @@
 
 	let applesEaten = 0;
 	let applesEatenSinceCollision = 0;
-	const APPLES_EATEN_TO_WIN = 50;
+	const APPLES_EATEN_TO_WIN = 1;
 
 	let currentTime = 0;
 	$: if ($status === 'playing') currentTime += $clock.dt;
@@ -159,7 +159,6 @@
 	.SsspeedSnake {
 		display: flex;
 		justify-content: center;
-		padding-top: var(--spacing_xl3);
 		flex-direction: column;
 		align-items: center;
 	}

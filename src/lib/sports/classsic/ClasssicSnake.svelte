@@ -154,7 +154,6 @@
 	.ClasssicSnake {
 		display: flex;
 		justify-content: center;
-		padding-top: var(--spacing_xl3);
 		flex-direction: column;
 		align-items: center;
 	}

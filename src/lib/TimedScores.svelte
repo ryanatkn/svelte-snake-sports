@@ -10,6 +10,7 @@
 
 	$: currentTimeSeconds = Math.floor(currentTime / 1000);
 	$: bestTimeSeconds = $bestTime !== null ? Math.floor($bestTime / 1000) : null;
+	$: bestTimeMs = $bestTime !== null ? Math.round($bestTime) : null;
 </script>
 
 <div class="progress">
@@ -20,7 +21,7 @@
 		</Score>
 	</div>
 	{#if bestTimeSeconds !== null}
-		<div class="time" title="best time">{bestTimeSeconds}s</div>
+		<div class="time" title="best time is {bestTimeMs}ms">{bestTimeSeconds}s</div>
 	{/if}
 </div>
 

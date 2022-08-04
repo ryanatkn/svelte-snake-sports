@@ -11,8 +11,7 @@
 	.wrapper {
 		display: flex;
 		padding: var(--spacing_xl);
-		padding-bottom: 0;
-		max-width: 420px;
+		max-width: 400px;
 	}
 	img {
 		border-radius: 20%;

@@ -20,7 +20,7 @@
 	export const movementDirection = writable<Direction | null>(toInitialMovementDirection());
 	export const movementCommandQueue = writable<Direction[]>([]); // TODO should this be a generic command queue, not just movement?
 	export const runCount = writable(0);
-	export const status = writable<'initial' | 'playing' | 'success' | 'failure'>('initial');
+	export const status = writable<'ready' | 'playing' | 'win' | 'fail'>('ready');
 
 	// TODO I'm not sure about *any* of these -- might need to heavily refactor, add hooks, etc
 
@@ -29,7 +29,7 @@
 	};
 
 	export const reset = (): void => {
-		$status = 'initial';
+		$status = 'ready';
 		$events = [];
 		$tickCount = 0;
 		$movementDirection = toInitialMovementDirection();
@@ -43,7 +43,7 @@
 		events.update(($v) => $v.concat(event));
 	};
 
-	export const end = (outcomeStatus: 'success' | 'failure'): void => {
+	export const end = (outcomeStatus: 'win' | 'fail'): void => {
 		$status = outcomeStatus;
 	};
 	export const start = (): boolean => {

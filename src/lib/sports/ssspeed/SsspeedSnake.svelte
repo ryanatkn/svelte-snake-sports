@@ -15,7 +15,8 @@
 	import Ticker from '$lib/Ticker.svelte';
 	import StageControls from '$lib/StageControls.svelte';
 	import StageTimedAppleProgress from '$lib/TimedScores.svelte';
-	import Instructions from '$lib/sports/ssspeed/Instructions.svelte';
+	import ReadyInstructions from '$lib/sports/ssspeed/ReadyInstructions.svelte';
+	import WinInstructions from '$lib/sports/ssspeed/WinInstructions.svelte';
 
 	// TODO BLOCK CONTINUE!!
 	// add win state for ssspeed (show an explosive flourish of tada and colored snake emoji)
@@ -81,7 +82,7 @@
 		}
 
 		if (applesEaten >= APPLES_EATEN_TO_WIN) {
-			game.end('success');
+			game.end('win');
 			// TODO maybe an event instead? maybe like classsic,
 			// don't set the high score immediately like this, wait til it's over
 			if (!$bestTime || currentTime < $bestTime) {
@@ -113,7 +114,9 @@
 	{#if game}
 		<DomRenderer {game}>
 			{#if applesEaten === 0}
-				<Instructions {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
+				<ReadyInstructions {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
+			{:else if $status === 'win'}
+				<WinInstructions time={currentTime} {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
 			{/if}
 		</DomRenderer>
 		<Ticker {clock} tickDuration={currentTickDuration} {tick} />
@@ -125,18 +128,11 @@
 		/>
 		<StageControls {clock} {tick} {game} />
 		<section class="markup column-sm">
-			<div>
-				<strong>to queue a move</strong>: arrow keys, <code>wasd</code>, <code>hjkl</code>
-			</div>
-			<div>
-				<strong>to move and end turn</strong>: <code>ctrl</code> or <code>shift</code>
-			</div>
-			<div>
-				<strong>toggle clock</strong>: <code>Backtick `</code>
-			</div>
-			<div>
-				<strong>take one turn</strong>: <code>1</code>
-			</div>
+			<div><strong>to queue a move</strong>: arrow keys, <code>wasd</code>, <code>hjkl</code></div>
+			<div><strong>to move and end turn</strong>: <code>ctrl</code> or <code>shift</code></div>
+			<div><strong>toggle clock</strong>: <code>Backtick `</code></div>
+			<div><strong>take one turn</strong>: <code>1</code></div>
+			<div><strong>restart</strong>: <code>r</code></div>
 		</section>
 		<section class="centered">
 			<audio src="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls />

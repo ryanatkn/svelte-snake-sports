@@ -60,7 +60,9 @@
 			case 'k':
 			case 'W':
 			case 'K': {
-				if ($status === 'initial' && !start()) return false;
+				if ($status === 'win' || $status === 'fail' || ($status === 'ready' && !start())) {
+					return false;
+				}
 				if (shiftKey) {
 					setMovementCommand('up');
 					tick();
@@ -74,7 +76,9 @@
 			case 'j':
 			case 'S':
 			case 'J': {
-				if ($status === 'initial' && !start()) return false;
+				if ($status === 'win' || $status === 'fail' || ($status === 'ready' && !start())) {
+					return false;
+				}
 				if (shiftKey) {
 					setMovementCommand('down');
 					tick();
@@ -88,7 +92,9 @@
 			case 'h':
 			case 'A':
 			case 'H': {
-				if ($status === 'initial' && !start()) return false;
+				if ($status === 'win' || $status === 'fail' || ($status === 'ready' && !start())) {
+					return false;
+				}
 				if (shiftKey) {
 					setMovementCommand('left');
 					tick();
@@ -102,7 +108,9 @@
 			case 'l':
 			case 'D':
 			case 'L': {
-				if ($status === 'initial' && !start()) return false;
+				if ($status === 'win' || $status === 'fail' || ($status === 'ready' && !start())) {
+					return false;
+				}
 				if (shiftKey) {
 					setMovementCommand('right');
 					tick();

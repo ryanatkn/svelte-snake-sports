@@ -83,3 +83,18 @@ form label:last-child {
 .clickable-box:active {
 	border-radius: 18%;
 }
+
+.instructions {
+	position: absolute;
+	top: 208px;
+	left: 250px;
+	font-size: var(--font_size_lg);
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+.instructions > * {
+	padding: 0 var(--spacing_xs);
+	background-color: #fffd;
+	border-bottom: 3px solid #c896;
+}

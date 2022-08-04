@@ -18,7 +18,7 @@
 	import {initGameState, updateGameState} from '$lib/mutableSnakeGame';
 	import Ticker from '$lib/Ticker.svelte';
 	import StageControls from '$lib/StageControls.svelte';
-	import Instructions from '$lib/sports/classsic/Instructions.svelte';
+	import ReadyInstructions from '$lib/sports/classsic/ReadyInstructions.svelte';
 
 	const clock = setClock(createClock({running: browser}));
 
@@ -31,7 +31,7 @@
 	$: status = game?.status;
 
 	// TODO better way to do this? event or callbacks?
-	$: if ($status === 'initial') $status = 'playing';
+	$: if ($status === 'ready') $status = 'playing';
 
 	let score = 0;
 	const highScore = writable<number>(
@@ -66,7 +66,7 @@
 				}
 				case 'snake_collide_self':
 				case 'snake_collide_bounds': {
-					game.end('failure');
+					game.end('fail');
 					game.reset();
 					game.start();
 					break;
@@ -103,7 +103,7 @@
 	{#if game}
 		<DomRenderer {game}>
 			{#if score === 0}
-				<Instructions {highScore} />
+				<ReadyInstructions {highScore} />
 			{/if}
 		</DomRenderer>
 		<div class="scores">
@@ -126,6 +126,7 @@
 			</div>
 			<div>
 				<strong>take one turn</strong>: <code>1</code>
+				<strong>restart</strong>: <code>r</code>
 			</div>
 		</section>
 		<section class="centered">

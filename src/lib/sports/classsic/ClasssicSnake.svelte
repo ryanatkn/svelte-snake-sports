@@ -19,6 +19,7 @@
 	import Ticker from '$lib/Ticker.svelte';
 	import StageControls from '$lib/StageControls.svelte';
 	import ReadyInstructions from '$lib/sports/classsic/ReadyInstructions.svelte';
+	import FailInstructions from '$lib/sports/classsic/FailInstructions.svelte';
 
 	const clock = setClock(createClock({running: browser}));
 
@@ -33,8 +34,8 @@
 	// TODO better way to do this? event or callbacks?
 	$: if ($status === 'ready') $status = 'playing';
 
-	let score = 0;
-	const highScore = writable<number>(
+	let applesEaten = 0;
+	const highestApplesEaten = writable<number>(
 		(browser && Number(localStorage.getItem('classsic_high_score'))) || 0,
 	);
 
@@ -46,9 +47,9 @@
 	const tickDurationMax = writable(2000);
 
 	// TODO is there a better place to do this? imperatively after updating the state?
-	$: if (score > $highScore) {
-		$highScore = score;
-		if (browser) localStorage.setItem('classsic_high_score', score + ''); // TODO use helper on store instead
+	$: if (applesEaten > $highestApplesEaten) {
+		$highestApplesEaten = applesEaten;
+		if (browser) localStorage.setItem('classsic_high_score', applesEaten + ''); // TODO use helper on store instead
 	}
 
 	const tick = (): boolean => {
@@ -61,14 +62,18 @@
 		for (const event of $events) {
 			switch (event.name) {
 				case 'eat_apple': {
-					score++;
+					applesEaten++;
 					break;
 				}
 				case 'snake_collide_self':
 				case 'snake_collide_bounds': {
 					game.end('fail');
-					game.reset();
-					game.start();
+					if (applesEaten === 0) {
+						game.reset();
+						game.start();
+					} else {
+						// TODO show instructions
+					}
 					break;
 				}
 			}
@@ -81,7 +86,7 @@
 			$tickDurationMin,
 			Math.min(
 				$tickDurationMax,
-				Math.round($baseTickDuration! * $tickDurationDecay ** (1 + score)),
+				Math.round($baseTickDuration! * $tickDurationDecay ** (1 + applesEaten)),
 			),
 		);
 
@@ -96,20 +101,22 @@
 		toInitialMovementDirection={() => 'up'}
 		{tick}
 		onReset={() => {
-			score = 0;
+			applesEaten = 0;
 			$currentTickDuration = $baseTickDuration;
 		}}
 	/>
 	{#if game}
 		<DomRenderer {game}>
-			{#if score === 0}
-				<ReadyInstructions {highScore} />
+			{#if applesEaten === 0}
+				<ReadyInstructions {highestApplesEaten} />
+			{:else if $status === 'fail'}
+				<FailInstructions {applesEaten} {highestApplesEaten} />
 			{/if}
 		</DomRenderer>
 		<div class="scores">
-			<Score title="apples eaten this try">{score}</Score>
-			{#if $highScore !== score}
-				<Score title="the most apples you've ever eaten">{$highScore}</Score>
+			<Score title="apples eaten this try">{applesEaten}</Score>
+			{#if $highestApplesEaten !== applesEaten}
+				<Score title="the most apples you've ever eaten">{$highestApplesEaten}</Score>
 			{/if}
 		</div>
 		<Ticker {clock} tickDuration={currentTickDuration} {tick} />

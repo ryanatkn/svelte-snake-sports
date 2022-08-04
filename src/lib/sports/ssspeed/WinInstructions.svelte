@@ -23,6 +23,6 @@
 		{#if newHighScore}<strong>a new high score!!</strong>{:else}besst is {roundedBestTime}ms!{/if}
 	</div>
 	<div style:position="relative" style:left="{-25}px">
-		press <code>r</code> to go again {#if newHighScore}:D{:else}:)){/if}
+		presss <code>r</code> to go again {#if newHighScore}:D{:else}:)){/if}
 	</div>
 </div>

@@ -7,8 +7,7 @@
 	import {setDimensions} from '$lib/dimensions';
 	import Dimensions from '$lib/Dimensions.svelte';
 
-	const dimensions = writable({width: 0, height: 0});
-	setDimensions(dimensions);
+	const dimensions = setDimensions(writable({width: 0, height: 0}));
 </script>
 
 <svelte:head>

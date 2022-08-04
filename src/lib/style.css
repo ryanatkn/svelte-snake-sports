@@ -86,8 +86,8 @@ form label:last-child {
 
 .instructions {
 	position: absolute;
-	top: 208px;
-	left: 250px;
+	top: 40%;
+	left: 50%;
 	font-size: var(--font_size_lg);
 	display: flex;
 	flex-direction: column;
@@ -97,4 +97,5 @@ form label:last-child {
 	padding: 0 var(--spacing_xs);
 	background-color: #fffd;
 	border-bottom: 3px solid #c896;
+	white-space: nowrap;
 }

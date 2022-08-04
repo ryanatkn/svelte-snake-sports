@@ -29,7 +29,7 @@ This project started as
 of the React version to my current Svelte patterns (with some experiments and hacks)
 and it's growing from there.
 
-This project plans to make many distinct versions of Snake in Svelte that are
+This project plans to make many distinct versions of Snake that are
 interesting in terms of gameplay, game design, and/or technical implementation with Svelte.
 If we're lucky, it'll be simple enough for beginners to follow along
 and deep enough to hold the interest of more advanced students like myself.
@@ -39,7 +39,7 @@ and deep enough to hold the interest of more advanced students like myself.
 > and given that I wish not wake eldritch npm horrors,
 > I am not going to try to run the code, and I advise you not to try,
 > so much so that I won't even directly link the repo
-> (though it's trivially inferred; also it's archived)
+> (though it's trivially inferred; also it's archived/readonly)
 
 on the web:
 [ryanatkn.github.io/svelte-snake-sports](https://ryanatkn.github.io/svelte-snake-sports)

@@ -1,35 +1,44 @@
 <svelte:options immutable={false} />
 
 <script lang="ts">
-	import Entity from '$lib/Entity.svelte';
+	import type {Writable} from 'svelte/store';
+
+	import Entity from '$lib/renderers/dom/Entity.svelte';
 	import Tiles from '$lib/renderers/dom/Tiles.svelte';
 	import type SnakeGame from '$lib/SnakeGame.svelte';
 
 	// TODO maybe rename this module to `SnameGameDomRenderer` or just `Renderer`?
 
 	export let game: SnakeGame;
+	export let width: Writable<number>;
+	export let height: Writable<number>;
 
 	$: ({state, movementDirection} = game);
 	$: ({apples, snakeSegments, mapWidth, mapHeight} = $state);
 
-	const entityWidth = 32;
-	const entityHeight = 32;
+	$: entityWidth = $width / mapWidth; // TODO Math.floor?
+	$: entityHeight = $height / mapHeight;
+
+	$: console.log(`entityWidth, entityHeight`, entityWidth, entityHeight);
 </script>
 
-<div class="renderer">
+<div
+	class="renderer"
+	style:--entity_width="{entityWidth}px"
+	style:--entity_height="{entityHeight}px"
+>
 	<div class="layer">
 		<Tiles {mapWidth} {mapHeight} tileWidth={entityWidth} tileHeight={entityHeight} />
 		{#each apples as a (a.id)}
-			<Entity entity={a} classes="apple" width={entityWidth} height={entityHeight} />
+			<Entity x={a.x} y={a.y} classes="apple" width={entityWidth} height={entityHeight} />
 		{/each}
 		<div class="snake moving-{$movementDirection}">
 			{#each snakeSegments as s (s.id)}
-				<Entity entity={s} width={entityWidth} height={entityHeight} />
+				<Entity x={s.x} y={s.y} width={entityWidth} height={entityHeight} />
 			{/each}
 		</div>
 		<!-- TODO render the queued movement -->
 	</div>
-	<slot />
 </div>
 
 <style>
@@ -72,7 +81,7 @@
 	}
 	:global(.game-fail) .snake :global(.Entity:first-child) {
 		background-color: rgb(204, 136, 136);
-		border-radius: 5px;
+		border-radius: 15%;
 	}
 	:global(.game-win) .snake.moving-up :global(.Entity:first-child) {
 		border-top-left-radius: 100%;
@@ -89,7 +98,7 @@
 
 	/* tail */
 	.snake :global(.Entity:last-child) {
-		border-radius: 10px;
+		border-radius: 30%;
 		background-color: #87c997;
 	}
 	:global(.game-fail) .snake :global(.Entity:last-child) {
@@ -102,36 +111,36 @@
 		display: block;
 		position: absolute;
 		box-sizing: content-box;
-		left: 13px;
-		top: 3px;
-		width: 9px;
-		height: 9px;
+		left: 42%;
+		top: 10%;
+		width: 29%;
+		height: 29%;
 		background-color: rgba(0, 0, 0, 0.5);
-		border-radius: 5px;
-		border: 4px solid rgba(255, 255, 255, 0.8);
+		border-radius: 15%;
+		border: calc((4 / 32) * var(--entity_width)) solid rgba(255, 255, 255, 0.8);
 	}
 	.snake.moving-up :global(.Entity:first-child::after) {
 		border-top-width: 0;
-		border-right-width: 2px;
+		border-right-width: calc((2 / 32) * var(--entity_width));
 	}
 	.snake.moving-right :global(.Entity:first-child::after) {
 		border-top-width: 0;
-		border-right-width: 2px;
-		left: 6px;
+		border-right-width: calc((2 / 32) * var(--entity_width));
+		left: 19%;
 	}
 	.snake.moving-down :global(.Entity:first-child::after) {
 		border-bottom-width: 0;
-		border-left-width: 2px;
-		left: 6px;
+		border-left-width: calc((2 / 32) * var(--entity_width));
+		left: 19%;
 	}
 	.snake.moving-left :global(.Entity:first-child::after) {
 		border-top-width: 0;
-		border-left-width: 2px;
+		border-left-width: calc((2 / 32) * var(--entity_width));
 	}
 	:global(.game-fail) .snake :global(.Entity:first-child::after) {
-		border-width: 4px;
+		border-width: calc((4 / 32) * var(--entity_width));
 	}
 	:global(.game-ready) .snake :global(.Entity:first-child::after) {
-		border-width: 3px;
+		border-width: calc((3 / 32) * var(--entity_width));
 	}
 </style>

@@ -9,6 +9,7 @@
 	import {writable} from 'svelte/store';
 
 	import SnakeGame from '$lib/SnakeGame.svelte';
+	import Gamespace from '$lib/Gamespace.svelte';
 	import DomRenderer from '$lib/renderers/dom/DomRenderer.svelte';
 	import {createClock, setClock} from '$lib/clock';
 	import Settings from '$lib/Settings.svelte';
@@ -47,6 +48,8 @@
 	const currentTickDuration = writable($baseTickDuration);
 	const tickDurationMin = writable(17);
 	const tickDurationMax = writable(2000);
+	const rendererWidth = writable(512);
+	const rendererHeight = writable(512);
 
 	// TODO is there a better place to do this? imperatively after updating the state?
 	$: if (applesEaten > $highestApplesEaten) {
@@ -112,19 +115,19 @@
 		}}
 	/>
 	{#if game}
-		<ScaledSnakeRenderer>
-			<DomRenderer {game}>
-				{#if applesEaten === 0}
-					<ReadyInstructions {highestApplesEaten} />
-				{:else if $status === 'fail'}
-					<FailInstructions {applesEaten} {highestApplesEaten} />
-					<div class="text-burst-wrapper">
-						<TextBurst count={50} items={['🐍', '💥', '🦴', '🦴']} hueRotationMax={0} />
-					</div>
-				{/if}
-			</DomRenderer>
-		</ScaledSnakeRenderer>
-		<!-- </div> -->
+		<Gamespace>
+			<ScaledSnakeRenderer {rendererWidth} {rendererHeight}>
+				<DomRenderer {game} width={rendererWidth} height={rendererHeight} />
+			</ScaledSnakeRenderer>
+			{#if applesEaten === 0}
+				<ReadyInstructions {highestApplesEaten} />
+			{:else if $status === 'fail'}
+				<FailInstructions {applesEaten} {highestApplesEaten} />
+				<div class="text-burst-wrapper">
+					<TextBurst count={50} items={['🐍', '💥', '🦴', '🦴']} hueRotationMax={0} />
+				</div>
+			{/if}
+		</Gamespace>
 		<div class="scores">
 			<Score title="apples eaten this try">{applesEaten}</Score>
 			{#if $highestApplesEaten !== applesEaten}
@@ -163,6 +166,8 @@
 					{tickDurationMin}
 					{tickDurationMax}
 					{tickDurationDecay}
+					{rendererWidth}
+					{rendererHeight}
 				/>
 			{/if}
 		</section>

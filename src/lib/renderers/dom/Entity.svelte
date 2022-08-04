@@ -1,15 +1,10 @@
-<svelte:options immutable={false} />
-
 <script lang="ts">
-	import type {Entity} from '$lib/Entity';
-
-	export let entity: Entity;
+	export let x: number;
+	export let y: number;
 	export let width: number;
 	export let height: number;
-	// TODO is a hack just to get apples working, haven't been doing this pattern much
+	// TODO is a hack just to get apples working, I haven't been using this pattern recently
 	export let classes = 'plain';
-
-	$: ({x, y} = entity);
 
 	$: positionX = x * width;
 	$: positionY = y * height;
@@ -30,6 +25,6 @@
 	}
 	/* TODO hacky */
 	.plain {
-		border-radius: 5px;
+		border-radius: 15%;
 	}
 </style>

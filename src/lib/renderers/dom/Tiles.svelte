@@ -5,6 +5,7 @@
 	export let tileHeight: number;
 </script>
 
+<!-- TODO do this with a repeating background on a single element instead of this madness -->
 {#each {length: mapWidth} as _, x (x)}
 	{#each {length: mapHeight} as _, y (x + ':' + y)}
 		<div
@@ -20,6 +21,6 @@
 	.tile {
 		position: absolute;
 		background-color: #f7f1f1;
-		border-radius: 5px;
+		border-radius: 15%;
 	}
 </style>

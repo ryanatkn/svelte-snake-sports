@@ -1,21 +1,24 @@
 <script lang="ts">
+	import type {Writable} from 'svelte/store';
+
 	import ScaledContent from '$lib/ScaledContent.svelte';
 	import {getDimensions} from '$lib/Dimensions.svelte';
+
+	export let rendererWidth: Writable<number>;
+	export let rendererHeight: Writable<number>;
 
 	const dimensions = getDimensions();
 	const PADDING = 32; // TODO hacky just to get it working, shouldn't be needed
 	$: availableWidth = $dimensions.width - PADDING;
 	$: availableHeight = $dimensions.height - PADDING;
-	const maxRenderedWidth = 512;
-	const maxRenderedHeight = 512;
-	$: renderedSize = Math.min(availableWidth, availableHeight, maxRenderedWidth, maxRenderedHeight);
+	$: screenSize = Math.min(availableWidth, availableHeight, $rendererWidth, $rendererHeight);
 </script>
 
 <ScaledContent
-	renderedWidth={renderedSize}
-	renderedHeight={renderedSize}
-	naturalWidth={512}
-	naturalHeight={512}
+	screenWidth={screenSize}
+	screenHeight={screenSize}
+	naturalWidth={$rendererWidth}
+	naturalHeight={$rendererHeight}
 >
 	<slot />
 </ScaledContent>

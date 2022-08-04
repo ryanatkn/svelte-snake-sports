@@ -1,5 +1,5 @@
 <script lang="ts">
-	import {fade} from 'svelte/transition';
+	import {scale} from 'svelte/transition';
 	import type {Writable} from 'svelte/store';
 
 	export let time: number;
@@ -16,7 +16,7 @@
 	$: newHighScore = roundedTime === roundedBestTime;
 </script>
 
-<div class="instructions" transition:fade|local>
+<div class="instructions" transition:scale|local>
 	<div>you ate all {applesToWin} apples :O</div>
 	<div style:position="relative" style:left="{55}px">in <strong>{roundedTime}ms</strong>!</div>
 	<div style:position="relative" style:left="{25}px">

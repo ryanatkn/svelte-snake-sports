@@ -1,17 +1,17 @@
 <script lang="ts">
 	// name of this component?
 
-	export let renderedWidth: number;
-	export let renderedHeight: number;
+	export let screenWidth: number;
+	export let screenHeight: number;
 	export let naturalWidth: number;
 	export let naturalHeight: number;
 
-	$: xScale = Math.min(1, renderedWidth / naturalWidth);
-	$: yScale = Math.min(1, renderedHeight / naturalHeight);
+	$: xScale = Math.min(1, screenWidth / naturalWidth);
+	$: yScale = Math.min(1, screenHeight / naturalHeight);
 	$: scale = Math.min(xScale, yScale);
 </script>
 
-<div class="scaled-content" style:width="{renderedWidth}px" style:height="{renderedHeight}px">
+<div class="scaled-content" style:width="{screenWidth}px" style:height="{screenHeight}px">
 	<div style={`transform: scale3d(${scale}, ${scale}, 1);`}>
 		<div style={`width: ${naturalWidth}px; height: ${naturalHeight}px;`}>
 			<slot />

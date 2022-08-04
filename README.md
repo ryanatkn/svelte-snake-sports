@@ -15,7 +15,7 @@
 
 caveats:
 
-- it's not mobile friendly yet, should be soonish
+- it's responsive to smaller screens but doesn't have good mobile controls yet
 - some of the code is still very rough from the port, I just tried to ship gameplay asap
 
 ## what

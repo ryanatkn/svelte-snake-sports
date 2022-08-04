@@ -3,34 +3,32 @@
 <script lang="ts">
 	import Entity from '$lib/Entity.svelte';
 	import Tiles from '$lib/renderers/dom/Tiles.svelte';
-	import {ENTITY_DEFAULT_HEIGHT, ENTITY_DEFAULT_WIDTH} from '$lib/Entity';
 	import type SnakeGame from '$lib/SnakeGame.svelte';
 
 	// TODO maybe rename this module to `SnameGameDomRenderer` or just `Renderer`?
 
 	export let game: SnakeGame;
+	export let width = 512;
+	export let height = 512;
 
 	$: ({state, movementDirection} = game);
 	$: ({mapWidth, mapHeight, apples, snakeSegments} = $state);
 
-	$: mapHeightPx = mapHeight * ENTITY_DEFAULT_HEIGHT;
-	$: mapWidthPx = mapWidth * ENTITY_DEFAULT_WIDTH;
+	$: entityWidth = width / mapWidth;
+	$: entityHeight = height / mapHeight;
+	$: mapWidthPx = mapWidth * entityWidth;
+	$: mapHeightPx = mapHeight * entityHeight;
 </script>
 
 <div class="renderer" style:width="{mapWidthPx}px" style:height="{mapHeightPx}px">
 	<div class="layer">
-		<Tiles
-			{mapWidth}
-			{mapHeight}
-			tileWidth={ENTITY_DEFAULT_WIDTH}
-			tileHeight={ENTITY_DEFAULT_HEIGHT}
-		/>
+		<Tiles {mapWidth} {mapHeight} tileWidth={entityWidth} tileHeight={entityHeight} />
 		{#each apples as a (a.id)}
-			<Entity entity={a} classes="apple" />
+			<Entity entity={a} classes="apple" width={entityWidth} height={entityHeight} />
 		{/each}
 		<div class="snake moving-{$movementDirection}">
 			{#each snakeSegments as s (s.id)}
-				<Entity entity={s} />
+				<Entity entity={s} width={entityWidth} height={entityHeight} />
 			{/each}
 		</div>
 		<!-- TODO render the queued movement -->

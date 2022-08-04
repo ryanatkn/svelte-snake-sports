@@ -6,6 +6,7 @@
 	import {writable} from 'svelte/store';
 
 	import SnakeGame from '$lib/SnakeGame.svelte';
+	import Gamespace from '$lib/Gamespace.svelte';
 	import DomRenderer from '$lib/renderers/dom/DomRenderer.svelte';
 	import {createClock, setClock} from '$lib/clock';
 	import Settings from '$lib/Settings.svelte';
@@ -112,18 +113,19 @@
 		}}
 	/>
 	{#if game}
-		<ScaledSnakeRenderer {rendererWidth} {rendererHeight}>
-			<DomRenderer {game} width={rendererWidth} height={rendererHeight}>
-				{#if applesEaten === 0}
-					<ReadyInstructions {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
-				{:else if $status === 'win'}
-					<WinInstructions time={currentTime} {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
-					<div class="text-burst-wrapper">
-						<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} />
-					</div>
-				{/if}
-			</DomRenderer>
-		</ScaledSnakeRenderer>
+		<Gamespace>
+			<ScaledSnakeRenderer {rendererWidth} {rendererHeight}>
+				<DomRenderer {game} width={rendererWidth} height={rendererHeight} />
+			</ScaledSnakeRenderer>
+			{#if applesEaten === 0}
+				<ReadyInstructions {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
+			{:else if $status === 'win'}
+				<WinInstructions time={currentTime} {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
+				<div class="text-burst-wrapper">
+					<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} />
+				</div>
+			{/if}
+		</Gamespace>
 		<Ticker {clock} tickDuration={currentTickDuration} {tick} />
 		<StageTimedAppleProgress
 			{applesEaten}

@@ -39,7 +39,6 @@
 		</div>
 		<!-- TODO render the queued movement -->
 	</div>
-	<slot />
 </div>
 
 <style>

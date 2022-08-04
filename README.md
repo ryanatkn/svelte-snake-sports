@@ -13,7 +13,10 @@
   [$lib/sports/SsspeedSnake.svelte](/src/lib/sports/ssspeed/SsspeedSnake.svelte)
 - more to come! including a library so you can make your own sports
 
-(it's not mobile friendly yet, should be soonish)
+caveats:
+
+- it's not mobile friendly yet, should be soonish
+- some of the code is still very rough from the port
 
 ## what
 

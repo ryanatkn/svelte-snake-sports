@@ -1,8 +1,5 @@
 let _id = 0;
 
-export const ENTITY_DEFAULT_WIDTH = 32; // width in pixels of one entity (also assumed to be one tile)
-export const ENTITY_DEFAULT_HEIGHT = 32; // height in pixels of one entity (also assumed to be one tile)
-
 export type Direction = 'left' | 'right' | 'up' | 'down';
 
 export interface EntityState {
@@ -10,8 +7,6 @@ export interface EntityState {
 	y: number;
 	prevX?: number; // TODO maybe store a variable-length history instead of these
 	prevY?: number; // TODO maybe store a variable-length history instead of these
-	width?: number;
-	height?: number;
 }
 
 // TODO separate implementation?
@@ -28,25 +23,19 @@ export class Entity {
 	y!: number;
 	prevX!: number;
 	prevY!: number;
-	width!: number;
-	height!: number;
 
-	loadState({x, y, prevX, prevY, width, height}: EntityState): void {
+	loadState({x, y, prevX, prevY}: EntityState): void {
 		this.x = x;
 		this.y = y;
 		this.prevX = prevX ?? x;
 		this.prevY = prevY ?? y;
-		this.width = width ?? ENTITY_DEFAULT_WIDTH;
-		this.height = height ?? ENTITY_DEFAULT_HEIGHT;
 	}
 
 	getState(): EntityState {
-		const {x, y, prevX, prevY, width, height} = this;
+		const {x, y, prevX, prevY} = this;
 		const state: EntityState = {x, y};
 		if (prevX !== state.x) state.prevX = prevX;
 		if (prevY !== state.y) state.prevY = prevY;
-		if (width !== ENTITY_DEFAULT_WIDTH) state.width = width;
-		if (height !== ENTITY_DEFAULT_WIDTH) state.height = height;
 		return state;
 	}
 

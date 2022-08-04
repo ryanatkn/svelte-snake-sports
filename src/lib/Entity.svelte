@@ -4,10 +4,12 @@
 	import type {Entity} from '$lib/Entity';
 
 	export let entity: Entity;
+	export let width: number;
+	export let height: number;
 	// TODO is a hack just to get apples working, haven't been doing this pattern much
 	export let classes = 'plain';
 
-	$: ({width, height, x, y} = entity);
+	$: ({x, y} = entity);
 
 	$: positionX = x * width;
 	$: positionY = y * height;

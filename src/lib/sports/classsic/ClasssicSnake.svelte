@@ -21,6 +21,7 @@
 	import ReadyInstructions from '$lib/sports/classsic/ReadyInstructions.svelte';
 	import FailInstructions from '$lib/sports/classsic/FailInstructions.svelte';
 	import TextBurst from '$lib/TextBurst.svelte';
+	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
 
 	const clock = setClock(createClock({running: browser}));
 
@@ -111,16 +112,19 @@
 		}}
 	/>
 	{#if game}
-		<DomRenderer {game}>
-			{#if applesEaten === 0}
-				<ReadyInstructions {highestApplesEaten} />
-			{:else if $status === 'fail'}
-				<FailInstructions {applesEaten} {highestApplesEaten} />
-				<div class="text-burst-wrapper">
-					<TextBurst count={50} items={['🐍', '💥', '🦴', '🦴']} hueRotationMax={0} />
-				</div>
-			{/if}
-		</DomRenderer>
+		<ScaledSnakeRenderer>
+			<DomRenderer {game}>
+				{#if applesEaten === 0}
+					<ReadyInstructions {highestApplesEaten} />
+				{:else if $status === 'fail'}
+					<FailInstructions {applesEaten} {highestApplesEaten} />
+					<div class="text-burst-wrapper">
+						<TextBurst count={50} items={['🐍', '💥', '🦴', '🦴']} hueRotationMax={0} />
+					</div>
+				{/if}
+			</DomRenderer>
+		</ScaledSnakeRenderer>
+		<!-- </div> -->
 		<div class="scores">
 			<Score title="apples eaten this try">{applesEaten}</Score>
 			{#if $highestApplesEaten !== applesEaten}
@@ -134,7 +138,7 @@
 				<strong>to queue a move</strong>: arrow keys, <code>wasd</code>, <code>hjkl</code>
 			</div>
 			<div>
-				<strong>to move and end turn</strong>: <code>ctrl</code> or <code>shift</code>
+				<strong>to move and end turn</strong>: <code>shift</code>
 			</div>
 			<div>
 				<strong>toggle clock</strong>: <code>Backtick `</code>

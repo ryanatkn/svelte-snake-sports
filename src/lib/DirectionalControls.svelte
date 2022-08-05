@@ -5,6 +5,7 @@
 	export let select: (direction: Direction) => void;
 </script>
 
+<!-- TODO create a hotkey system so we can generate the instructions -->
 <div class="directional-controls">
 	<button
 		title="queue move left [a, h, left arrow] [end turn with shift or ctrl]"

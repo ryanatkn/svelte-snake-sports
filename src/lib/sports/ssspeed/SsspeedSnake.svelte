@@ -12,7 +12,7 @@
 	import Settings from '$lib/Settings.svelte';
 	import Stats from '$lib/Stats.svelte';
 	import {toDefaultGameState} from '$lib/SnakeGameState';
-	import {initGameState, updateGameState} from '$lib/mutableSnakeGame';
+	import {initGameState, updateGameState} from '$lib/mutableSnakeGameState';
 	import Ticker from '$lib/Ticker.svelte';
 	import StageControls from '$lib/StageControls.svelte';
 	import StageTimedAppleProgress from '$lib/TimedScores.svelte';

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import {isEditable, swallow} from '@feltcoop/felt/util/dom.js';
 
-	// TODO maybe a mapping like {['ctrl+s,s,b']: () => {...}}
+	// TODO maybe a hotkey definition API like {'ctrl+s,s,b': () => {...}}
 
 	export let onKeydown: (key: string, shiftKey: boolean, ctrlKey: boolean) => boolean;
 	export let enabled = true;

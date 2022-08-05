@@ -1,5 +1,3 @@
-<svelte:options immutable={false} />
-
 <script lang="ts">
 	import type {Writable} from 'svelte/store';
 

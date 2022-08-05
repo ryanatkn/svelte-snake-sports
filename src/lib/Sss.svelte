@@ -1,5 +1,4 @@
 <script lang="ts">
-	import {unwrap} from '@feltcoop/felt';
 	import {randomItem} from '@feltcoop/felt/util/random.js';
 	import {plural} from '@feltcoop/felt/util/string.js';
 	import {onDestroy} from 'svelte';
@@ -21,10 +20,7 @@
 		fontSize: number;
 	}
 
-	const items: Sss[] = unwrap({
-		ok: true,
-		value: [{icon: '🐍'}],
-	});
+	const items: Sss[] = [{icon: '🐍'}];
 
 	export let ssses = [items[0]];
 	export let song: HTMLAudioElement | undefined;

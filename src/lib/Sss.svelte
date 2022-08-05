@@ -5,8 +5,21 @@
 	import {onDestroy} from 'svelte';
 	import {scale} from 'svelte/transition';
 
-	import type {LayoutItem, Sss} from '$lib/layoutItem';
 	import Positioned from '$lib/Positioned.svelte';
+
+	interface Sss {
+		icon: string;
+	}
+	interface LayoutItem {
+		index: number;
+		x: number;
+		y: number;
+		scale: number;
+		row: number;
+		column: number;
+		sss: Sss;
+		fontSize: number;
+	}
 
 	const items: Sss[] = unwrap({
 		ok: true,

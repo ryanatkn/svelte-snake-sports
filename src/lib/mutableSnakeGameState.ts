@@ -1,5 +1,11 @@
-import {randomInt} from '@feltcoop/felt/util/random.js';
-import {Entity, type Direction} from '$lib/Entity';
+import {randomInt, randomItem} from '@feltcoop/felt/util/random.js';
+import {
+	directions,
+	Entity,
+	horizontalDirections,
+	verticalDirections,
+	type Direction,
+} from '$lib/Entity';
 import type {SnakeGameState} from '$lib/SnakeGameState';
 import {get} from 'svelte/store';
 import type {ISnakeGame} from '$lib/SnakeGame';
@@ -21,15 +27,10 @@ export const initGameState = (state: SnakeGameState): SnakeGameState => {
 	// TODO make this all customizable
 
 	// Create some apples, but preserve current identities if convenient.
-	state.apples = [new Entity({x: 1, y: 3}), new Entity({x: 7, y: 2}), new Entity({x: 5, y: 9})];
+	state.apples = [new Entity(1, 3), new Entity(7, 2), new Entity(5, 9)];
 
 	// Create the initial snake.
-	state.snakeSegments = [
-		new Entity({x: 4, y: 4}),
-		new Entity({x: 4, y: 5}),
-		new Entity({x: 5, y: 5}),
-		new Entity({x: 5, y: 6}),
-	];
+	state.snakeSegments = [new Entity(4, 4), new Entity(4, 5), new Entity(5, 5), new Entity(5, 6)];
 
 	return state;
 };
@@ -39,6 +40,7 @@ export const initGameState = (state: SnakeGameState): SnakeGameState => {
  * This would be more generic if the game handled entities generically,
  * but because of the small scope of this project I chose to a more explicit,
  * less flexible data structure.
+ * It also could be much faster if we cached things by position.
  */
 const findEntityAt = (state: SnakeGameState, x: number, y: number): Entity | void => {
 	for (const a of state.apples) {
@@ -53,21 +55,108 @@ const findEntityAt = (state: SnakeGameState, x: number, y: number): Entity | voi
 	}
 };
 
+// TODO BLOCK might need to maintain a list of the available spots and choose from that list,
+// and return undefined if there's none available.
 /**
  * Returns {x, y} for a random empty tile on the game map.
  */
-const getRandomEmptyLocation = (state: SnakeGameState): Position => {
+export const getRandomEmptyPosition = (state: SnakeGameState): Position => {
 	let position;
 	while (!position || findEntityAt(state, position.x, position.y)) {
-		position = getRandomLocation(state);
+		position = getRandomPosition(state);
 	}
 	return position;
 };
 
 /**
+ * Returns a random direction, up/down/left/right.
+ */
+export const getRandomDirection = (): Direction => randomItem(directions);
+
+export const getRandomTangent = (from: Direction): Direction =>
+	randomItem(from === 'up' || from === 'down' ? horizontalDirections : verticalDirections);
+
+export const toOppositeDirection = (from: Direction): Direction =>
+	from === 'up' ? 'down' : from === 'down' ? 'up' : from === 'left' ? 'right' : 'left';
+
+/**
+ * Given a direction, makes a random turn.
+ * So if you're heading up or down, it'll choose left or right,
+ * and if you're going left or right, it'll choose up or down.
+ */
+export const getRandomTurn = (current: Direction): Direction =>
+	randomItem(isVerticalDirection(current) ? horizontalDirections : verticalDirections);
+
+export const isVerticalDirection = (direction: Direction): boolean =>
+	direction === 'left' || direction === 'right';
+
+export const isHorizontalDirection = (direction: Direction): boolean =>
+	direction === 'up' || direction === 'down';
+
+// This mutates `state.apples` if it can place the desired shape,
+// but this is a hacky strategy and probably over-optimized.
+// Also, the strategy this uses is to pick a random spot and try to place the shape,
+// which is hacky and will fail a lot when many tiles are filled.
+// A possible improvement would be to track empty tiles and allow querying for shapes.
+export const spawnRandomShape6a = (state: SnakeGameState): Position[] | undefined => {
+	// First find a random spot.
+	const position1 = getRandomEmptyPosition(state);
+	if (!position1) return;
+
+	// Then choose a random direction.
+	const direction1 = getRandomDirection();
+	const position2 = getPositionFrom(state, position1, direction1);
+	if (!position2) return;
+
+	// Then choose a direction tangential to `direction1`.
+	const direction2 = getRandomTangent(direction1);
+	const position3 = getPositionFrom(state, position2, direction2);
+	if (!position3) return;
+
+	// Then move the same as `direction1`.
+	const position4 = getPositionFrom(state, position3, direction1);
+	if (!position4) return;
+
+	// Then move the opposite of `direction2`.
+	const position5 = getPositionFrom(state, position4, toOppositeDirection(direction2));
+	if (!position5) return;
+
+	// TODO BLOCK this may be unnecessary to get the desired gameplay; if so, change from 6a to 5a
+	// Then move the same as `direction1` one last time.
+	const position6 = getPositionFrom(state, position5, direction1);
+	if (!position6) return;
+
+	return [position1, position2, position3, position4, position5, position6];
+};
+
+export const getPositionFrom = (
+	state: SnakeGameState,
+	position: Position,
+	direction: Direction,
+): Position | undefined => {
+	const x = moveX(position.x, direction);
+	const y = moveY(position.y, direction);
+
+	// Ensure x and y are in bounds.
+	if (x < 0 || x >= state.mapWidth || y < 0 || y >= state.mapHeight) return;
+
+	// Ensure x and y are empty.
+	const existingEntity = findEntityAt(state, x, y);
+	if (existingEntity) return;
+
+	return {x, y};
+};
+
+export const moveX = (x: number, direction: Direction): number =>
+	direction === 'left' ? x - 1 : direction === 'right' ? x + 1 : x;
+
+export const moveY = (y: number, direction: Direction): number =>
+	direction === 'up' ? y - 1 : direction === 'down' ? y + 1 : y;
+
+/**
  * Gets a random position on the game map.
  */
-const getRandomLocation = ({mapWidth, mapHeight}: SnakeGameState): Position => ({
+const getRandomPosition = ({mapWidth, mapHeight}: SnakeGameState): Position => ({
 	x: randomInt(0, mapWidth - 1),
 	y: randomInt(0, mapHeight - 1),
 });
@@ -188,13 +277,15 @@ function eatApple(state: SnakeGameState, game: ISnakeGame, apple: Entity): void 
 	// Position the new end tail segment at the previous position of the current end of the snake.
 	nextEndSegment.moveTo(prevEndSegment.prevX, prevEndSegment.prevY);
 	snakeSegments.push(nextEndSegment);
-	spawnApple(state);
+
+	game.helpers.spawnApples(state, game);
 }
 
 /**
  * Creates an apple on a random empty square.
  */
-function spawnApple(state: SnakeGameState): void {
-	const apple = new Entity(getRandomEmptyLocation(state));
+export const spawnApples = (state: SnakeGameState, _game: ISnakeGame): void => {
+	const position = getRandomEmptyPosition(state);
+	const apple = new Entity(position.x, position.y);
 	state.apples.push(apple);
-}
+};

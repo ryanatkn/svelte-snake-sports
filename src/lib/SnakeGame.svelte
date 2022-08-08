@@ -1,11 +1,12 @@
-<svelte:options immutable={false} />
+<svelte:options immutable={false} accessors />
 
 <script lang="ts">
 	import {writable} from 'svelte/store';
 	import {noop} from '@feltcoop/felt/util/function.js';
 	import type {Direction} from '$lib/Entity';
+	import {spawnApples} from '$lib/mutableSnakeGameState';
 	import type {SnakeGameState} from '$lib/SnakeGameState';
-	import type {SnakeGameEvent} from '$lib/SnakeGame';
+	import type {SnakeGameEvent, SnakeGameHelpers} from '$lib/SnakeGame';
 
 	export let toInitialState: () => SnakeGameState;
 	export let toInitialEvents: () => SnakeGameEvent[] = () => [];
@@ -13,6 +14,11 @@
 	export let shouldStart = (): boolean => true;
 	export let tick: () => boolean;
 	export let onReset: () => void = noop;
+	// TODO BLOCK maybe we should go with a simpler design? export each helper separately?
+	// the downside of that is each game impl would have to redeclare all of them to support composition from parents.
+	// Instead if we have a single `helpers` object, it could be extended/composed from a single declaration at each level.
+	// TODO BLOCK this is causing type errors because `undefined` is a valid value for it because it's a prop
+	export let helpers: SnakeGameHelpers = {spawnApples};
 
 	export const state = writable(toInitialState());
 	export const events = writable(toInitialEvents());

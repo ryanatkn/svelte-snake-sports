@@ -15,7 +15,7 @@
 	import Settings from '$lib/Settings.svelte';
 	import Score from '$lib/Score.svelte';
 	import Stats from '$lib/Stats.svelte';
-	import {toDefaultGameState} from '$lib/SnakeGameState';
+	import {toDefaultGameState, type SnakeGameState} from '$lib/SnakeGameState';
 	import {initGameState, updateGameState} from '$lib/mutableSnakeGameState';
 	import Ticker from '$lib/Ticker.svelte';
 	import StageControls from '$lib/StageControls.svelte';
@@ -23,10 +23,14 @@
 	import FailInstructions from '$lib/sports/classsic/FailInstructions.svelte';
 	import TextBurst from '$lib/TextBurst.svelte';
 	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
+	import type {SnakeGameHelpers} from '$lib/SnakeGame';
+
+	export let game: SnakeGame | undefined = undefined;
+	// TODO BLOCK these two are kinda the same sort of thing, and should probably follow the same pattern
+	export let helpers: SnakeGameHelpers | undefined = undefined;
+	export let toInitialState = (): SnakeGameState => initGameState(toDefaultGameState());
 
 	const clock = setClock(createClock({running: browser}));
-
-	let game: SnakeGame | undefined;
 
 	let showSettings = false;
 
@@ -106,13 +110,14 @@
 >
 	<SnakeGame
 		bind:this={game}
-		toInitialState={() => initGameState(toDefaultGameState())}
+		{toInitialState}
 		toInitialMovementDirection={() => 'up'}
 		{tick}
 		onReset={() => {
 			applesEaten = 0;
 			$currentTickDuration = $baseTickDuration;
 		}}
+		{helpers}
 	/>
 	{#if game}
 		<Gamespace>

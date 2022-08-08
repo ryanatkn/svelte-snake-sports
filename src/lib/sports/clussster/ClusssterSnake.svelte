@@ -84,7 +84,6 @@
 				case 'eat_apple': {
 					ateApple = true;
 					applesEaten++;
-					console.log(`applesEaten22`, applesEaten);
 					if (applesEaten === CLUSTER_COUNT) {
 						clustersEaten++;
 						applesEaten = 0;
@@ -117,7 +116,6 @@
 			),
 		);
 
-		console.log(`applesEaten`, applesEaten);
 		// Are we eating a cluster but then stopped?
 		// If so despawn the current apples and spawn a new cluster.
 		if (applesEaten && !ateApple) {

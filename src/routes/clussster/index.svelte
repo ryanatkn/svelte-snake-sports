@@ -4,8 +4,6 @@
 	import ClusssterSnake from '$lib/sports/clussster/ClusssterSnake.svelte';
 	import TitleImage from '$lib/TitleImage.svelte';
 	import Footer from '$lib/Footer.svelte';
-
-	console.log(`base`, base);
 </script>
 
 <TitleImage alt="logo for svelte snake sports: clussster" src="{base}/assets/clussster.webp" />

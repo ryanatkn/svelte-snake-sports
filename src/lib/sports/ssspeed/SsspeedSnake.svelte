@@ -1,4 +1,9 @@
+<!-- TODO refactor so this isn't needed -->
 <svelte:options immutable={false} />
+
+<script lang="ts" context="module">
+	export const SSSPEED_HIGH_SCORE_KEY = 'ssspeed_high_score';
+</script>
 
 <script lang="ts">
 	import {browser} from '$app/env';
@@ -20,6 +25,7 @@
 	import WinInstructions from '$lib/sports/ssspeed/WinInstructions.svelte';
 	import TextBurst from '$lib/TextBurst.svelte';
 	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
+	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
 
 	// TODO after merging:
 	// fix settings dimensions to persist on reset
@@ -55,7 +61,7 @@
 	$: if ($status === 'playing') currentTime += $clock.dt;
 
 	const bestTime = writable<number | null>(
-		(browser && Number(localStorage.getItem('ssspeed_high_score'))) || null,
+		(browser && Number(localStorage.getItem(SSSPEED_HIGH_SCORE_KEY))) || null,
 	);
 
 	const tick = (): boolean => {
@@ -91,7 +97,7 @@
 			// don't set the high score immediately like this, wait til it's over
 			if (!$bestTime || currentTime < $bestTime) {
 				$bestTime = Math.round(currentTime);
-				if (browser) localStorage.setItem('ssspeed_high_score', $bestTime + ''); // TODO use helper on store instead
+				if (browser) localStorage.setItem(SSSPEED_HIGH_SCORE_KEY, $bestTime + ''); // TODO use helper on store instead
 			}
 		}
 
@@ -137,12 +143,8 @@
 			{bestTime}
 		/>
 		<StageControls {clock} {tick} {game} />
-		<section class="markup column-sm">
-			<div><strong>to queue a move</strong>: arrow keys, <code>wasd</code>, <code>hjkl</code></div>
-			<div><strong>to move and end turn</strong>: <code>shift</code></div>
-			<div><strong>toggle clock</strong>: <code>Backtick `</code></div>
-			<div><strong>take one turn</strong>: <code>1</code></div>
-			<div><strong>restart</strong>: <code>r</code></div>
+		<section>
+			<ControlsInstructions />
 		</section>
 		<section class="centered">
 			<audio src="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls />

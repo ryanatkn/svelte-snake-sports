@@ -1,4 +1,9 @@
+<!-- TODO refactor so this isn't needed -->
 <svelte:options immutable={false} />
+
+<script lang="ts" context="module">
+	export const CLASSSIC_HIGH_SCORE_KEY = 'classsic_high_score';
+</script>
 
 <script lang="ts">
 	// This version is a port of the original React project:
@@ -24,6 +29,7 @@
 	import TextBurst from '$lib/TextBurst.svelte';
 	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
 	import type {SnakeGameHelpers} from '$lib/SnakeGame';
+	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
 
 	export let game: SnakeGame | undefined = undefined;
 	// TODO BLOCK these two are kinda the same sort of thing, and should probably follow the same pattern
@@ -43,7 +49,7 @@
 
 	let applesEaten = 0;
 	const highestApplesEaten = writable<number>(
-		(browser && Number(localStorage.getItem('classsic_high_score'))) || 0,
+		(browser && Number(localStorage.getItem(CLASSSIC_HIGH_SCORE_KEY))) || 0,
 	);
 
 	// TODO BLOCK refactor with the other impls
@@ -61,7 +67,7 @@
 	// TODO is there a better place to do this? imperatively after updating the state?
 	$: if (applesEaten > $highestApplesEaten) {
 		$highestApplesEaten = applesEaten;
-		if (browser) localStorage.setItem('classsic_high_score', applesEaten + ''); // TODO use helper on store instead
+		if (browser) localStorage.setItem(CLASSSIC_HIGH_SCORE_KEY, applesEaten + ''); // TODO use helper on store instead
 	}
 
 	const tick = (): boolean => {
@@ -144,12 +150,8 @@
 		</div>
 		<Ticker {clock} tickDuration={currentTickDuration} {tick} />
 		<StageControls {clock} {tick} {game} />
-		<section class="markup column-sm">
-			<div><strong>to queue a move</strong>: arrow keys, <code>wasd</code>, <code>hjkl</code></div>
-			<div><strong>to move and end turn</strong>: <code>shift</code></div>
-			<div><strong>toggle clock</strong>: <code>Backtick `</code></div>
-			<div><strong>take one turn</strong>: <code>1</code></div>
-			<div><strong>restart</strong>: <code>r</code></div>
+		<section>
+			<ControlsInstructions />
 		</section>
 		<section class="centered">
 			<audio src="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls />

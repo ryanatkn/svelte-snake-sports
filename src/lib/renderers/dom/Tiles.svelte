@@ -5,7 +5,8 @@
 	export let tileHeight: number;
 </script>
 
-<!-- TODO do this with a repeating background on a single element instead of this madness -->
+<!-- this is inefficient with current usage -- a single element with a repeating bg would be better --
+	but we'll probably do more with individual tile rendering so it's fine for now -->
 {#each {length: mapWidth} as _, x (x)}
 	{#each {length: mapHeight} as _, y (x + ':' + y)}
 		<div

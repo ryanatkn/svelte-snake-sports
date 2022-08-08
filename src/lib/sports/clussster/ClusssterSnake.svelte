@@ -1,4 +1,9 @@
+<!-- TODO refactor so this isn't needed -->
 <svelte:options immutable={false} />
+
+<script lang="ts" context="module">
+	export const CLUSSSTER_HIGH_SCORE_KEY = 'clussster_high_score';
+</script>
 
 <script lang="ts">
 	// This version is a port of the original React project:
@@ -19,11 +24,12 @@
 	import {initGameState, spawnRandomShape6a, updateGameState} from '$lib/mutableSnakeGameState';
 	import Ticker from '$lib/Ticker.svelte';
 	import StageControls from '$lib/StageControls.svelte';
-	import ReadyInstructions from '$lib/sports/classsic/ReadyInstructions.svelte';
-	import FailInstructions from '$lib/sports/classsic/FailInstructions.svelte';
+	import ReadyInstructions from '$lib/sports/clussster/ReadyInstructions.svelte';
+	import FailInstructions from '$lib/sports/clussster/FailInstructions.svelte';
 	import TextBurst from '$lib/TextBurst.svelte';
 	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
 	import {Entity} from '$lib/Entity';
+	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
 
 	export let game: SnakeGame | undefined = undefined;
 
@@ -38,9 +44,12 @@
 	// TODO better way to do this? event or callbacks?
 	$: if ($status === 'ready') $status = 'playing';
 
+	const CLUSTER_COUNT = 6; // hardcoding to a particular shape
+
 	let applesEaten = 0;
-	const highestApplesEaten = writable<number>(
-		(browser && Number(localStorage.getItem('classsic_high_score'))) || 0,
+	let clustersEaten = 0;
+	const highestClustersEaten = writable<number>(
+		(browser && Number(localStorage.getItem(CLUSSSTER_HIGH_SCORE_KEY))) || 0,
 	);
 
 	// TODO BLOCK refactor with the other impls
@@ -56,9 +65,9 @@
 	const rendererHeight = writable(512);
 
 	// TODO is there a better place to do this? imperatively after updating the state?
-	$: if (applesEaten > $highestApplesEaten) {
-		$highestApplesEaten = applesEaten;
-		if (browser) localStorage.setItem('classsic_high_score', applesEaten + ''); // TODO use helper on store instead
+	$: if (clustersEaten > $highestClustersEaten) {
+		$highestClustersEaten = clustersEaten;
+		if (browser) localStorage.setItem(CLUSSSTER_HIGH_SCORE_KEY, clustersEaten + ''); // TODO use helper on store instead
 	}
 
 	const tick = (): boolean => {
@@ -68,16 +77,24 @@
 		// TODO maybe serialize input state as param instead of `game`?
 		$state = updateGameState($state, game);
 
+		let ateApple = false;
+
 		for (const event of $events) {
 			switch (event.name) {
 				case 'eat_apple': {
+					ateApple = true;
 					applesEaten++;
+					console.log(`applesEaten22`, applesEaten);
+					if (applesEaten === CLUSTER_COUNT) {
+						clustersEaten++;
+						applesEaten = 0;
+					}
 					break;
 				}
 				case 'snake_collide_self':
 				case 'snake_collide_bounds': {
 					game.end('fail');
-					if (applesEaten === 0) {
+					if (clustersEaten === 0) {
 						game.reset();
 						game.start();
 					} else {
@@ -87,6 +104,7 @@
 				}
 			}
 		}
+
 		// TODO immutable? move this elsewhere? like `afterTick`?
 		// maybe this should be `onTick` and the SnakeGame's `tick` function does this work?
 		if ($events.length) $events.length = 0;
@@ -95,9 +113,18 @@
 			$tickDurationMin,
 			Math.min(
 				$tickDurationMax,
-				Math.round($baseTickDuration! * $tickDurationDecay ** (1 + applesEaten)),
+				Math.round($baseTickDuration! * $tickDurationDecay ** (1 + clustersEaten * CLUSTER_COUNT)),
 			),
 		);
+
+		console.log(`applesEaten`, applesEaten);
+		// Are we eating a cluster but then stopped?
+		// If so despawn the current apples and spawn a new cluster.
+		if (applesEaten && !ateApple) {
+			applesEaten = 0;
+			$state.apples.length = 0;
+			game.helpers!.spawnApples($state, game);
+		}
 
 		return true;
 	};
@@ -116,6 +143,7 @@
 		{tick}
 		onReset={() => {
 			applesEaten = 0;
+			clustersEaten = 0;
 			$currentTickDuration = $baseTickDuration;
 		}}
 		toInitialState={() => {
@@ -134,8 +162,6 @@
 		}}
 		helpers={{
 			spawnApples: (state, game) => {
-				// TODO BLOCK maybe `helpers` should be passed as a prop instead of being on the game?
-				console.log(state, game);
 				if (state.apples.length) return;
 				let attempt = 0;
 				while (attempt < MAX_SPAWN_ATTEMPTS) {
@@ -161,29 +187,25 @@
 			<ScaledSnakeRenderer {rendererWidth} {rendererHeight}>
 				<DomRenderer {game} width={rendererWidth} height={rendererHeight} />
 			</ScaledSnakeRenderer>
-			{#if applesEaten === 0}
-				<ReadyInstructions {highestApplesEaten} />
+			{#if clustersEaten === 0}
+				<ReadyInstructions {highestClustersEaten} />
 			{:else if $status === 'fail'}
-				<FailInstructions {applesEaten} {highestApplesEaten} />
+				<FailInstructions {clustersEaten} {highestClustersEaten} />
 				<div class="text-burst-wrapper">
-					<TextBurst count={50} items={['🐍', '💥', '🦴', '🦴']} hueRotationMax={0} />
+					<TextBurst count={50} items={['🐍', '💥', '🦴', '🦴', '🍎']} hueRotationMax={0} />
 				</div>
 			{/if}
 		</Gamespace>
 		<div class="scores">
-			<Score title="apples eaten this try">{applesEaten}</Score>
-			{#if $highestApplesEaten !== applesEaten}
-				<Score title="the most apples you've ever eaten">{$highestApplesEaten}</Score>
+			<Score title="apples eaten this try">{clustersEaten}</Score>
+			{#if $highestClustersEaten !== clustersEaten}
+				<Score title="the most apples you've ever eaten">{$highestClustersEaten}</Score>
 			{/if}
 		</div>
 		<Ticker {clock} tickDuration={currentTickDuration} {tick} />
 		<StageControls {clock} {tick} {game} />
-		<section class="markup column-sm">
-			<div><strong>to queue a move</strong>: arrow keys, <code>wasd</code>, <code>hjkl</code></div>
-			<div><strong>to move and end turn</strong>: <code>shift</code></div>
-			<div><strong>toggle clock</strong>: <code>Backtick `</code></div>
-			<div><strong>take one turn</strong>: <code>1</code></div>
-			<div><strong>restart</strong>: <code>r</code></div>
+		<section>
+			<ControlsInstructions />
 		</section>
 		<section class="centered">
 			<audio src="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls />

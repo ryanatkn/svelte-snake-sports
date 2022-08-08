@@ -15,20 +15,17 @@
 	import Settings from '$lib/Settings.svelte';
 	import Score from '$lib/Score.svelte';
 	import Stats from '$lib/Stats.svelte';
-	import {toDefaultGameState, type SnakeGameState} from '$lib/SnakeGameState';
-	import {initGameState, updateGameState} from '$lib/mutableSnakeGameState';
+	import {toDefaultGameState} from '$lib/SnakeGameState';
+	import {initGameState, spawnRandomShape6a, updateGameState} from '$lib/mutableSnakeGameState';
 	import Ticker from '$lib/Ticker.svelte';
 	import StageControls from '$lib/StageControls.svelte';
 	import ReadyInstructions from '$lib/sports/classsic/ReadyInstructions.svelte';
 	import FailInstructions from '$lib/sports/classsic/FailInstructions.svelte';
 	import TextBurst from '$lib/TextBurst.svelte';
 	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
-	import type {SnakeGameHelpers} from '$lib/SnakeGame';
+	import {Entity} from '$lib/Entity';
 
 	export let game: SnakeGame | undefined = undefined;
-	// TODO BLOCK these two are kinda the same sort of thing, and should probably follow the same pattern
-	export let helpers: SnakeGameHelpers | undefined = undefined;
-	export let toInitialState = (): SnakeGameState => initGameState(toDefaultGameState());
 
 	const clock = setClock(createClock({running: browser}));
 
@@ -49,7 +46,7 @@
 	// TODO BLOCK refactor with the other impls
 	// TODO maybe these shouldn't be stores? or maybe the tick logic should be extracted to a single store/object?
 	export const tickDurationDecay = writable(0.97);
-	export const baseTickDuration = writable(Math.round(1000 / 6)); // the starting tick duration, may be modified by gameplay
+	export const baseTickDuration = writable(Math.round(1000 / 2)); // the starting tick duration, may be modified by gameplay
 	export const currentTickDuration = writable($baseTickDuration);
 	export const tickDurationMin = writable(17);
 	export const tickDurationMax = writable(2000);
@@ -104,6 +101,8 @@
 
 		return true;
 	};
+
+	const MAX_SPAWN_ATTEMPTS = 30; // TODO where does this belong?
 </script>
 
 <div
@@ -113,14 +112,49 @@
 >
 	<SnakeGame
 		bind:this={game}
-		{toInitialState}
 		toInitialMovementDirection={() => 'up'}
 		{tick}
 		onReset={() => {
 			applesEaten = 0;
 			$currentTickDuration = $baseTickDuration;
 		}}
-		{helpers}
+		toInitialState={() => {
+			const state = initGameState(toDefaultGameState());
+			// spawn the apples
+			state.apples.length = 0;
+			state.apples = [
+				new Entity(4, 3),
+				new Entity(4, 2),
+				new Entity(5, 2),
+				new Entity(5, 1),
+				new Entity(4, 1),
+				new Entity(3, 1),
+			];
+			return state;
+		}}
+		helpers={{
+			spawnApples: (state, game) => {
+				// TODO BLOCK maybe `helpers` should be passed as a prop instead of being on the game?
+				console.log(state, game);
+				if (state.apples.length) return;
+				let attempt = 0;
+				while (attempt < MAX_SPAWN_ATTEMPTS) {
+					attempt++;
+					const spawned = spawnRandomShape6a(state);
+					if (!spawned) continue;
+					for (const position of spawned) {
+						state.apples.push(new Entity(position.x, position.y));
+					}
+					return;
+				}
+				// Failed to place it, so end the game successfully --
+				// this isn't good but it's the least worst easiest option I can think of right now.
+				// A better design may be to query for possible locations
+				// rather than blindly attempting to place shapes,
+				// but that seems really hard, too hard for the stage this project is at.
+				game.end('win');
+			},
+		}}
 	/>
 	{#if game}
 		<Gamespace>

@@ -24,9 +24,9 @@
 		</a>
 	</li>
 	<li>
-		<a href="{base}/sssmooth" title="svelte snake sports: sssmooth">
+		<a href="{base}/clussster" title="svelte snake sports: clussster">
 			<img
-				alt="logo for svelte snake sports: sssmooth"
+				alt="logo for svelte snake sports: clussster"
 				src="{base}/favicon.png"
 				class="clickable-box"
 			/>

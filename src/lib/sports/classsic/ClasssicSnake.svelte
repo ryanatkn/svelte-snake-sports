@@ -49,7 +49,7 @@
 		(browser && Number(localStorage.getItem(CLASSSIC_HIGH_SCORE_KEY))) || 0,
 	);
 
-	// TODO BLOCK refactor with the other impls
+	// TODO refactor with the other impls
 	// TODO maybe these shouldn't be stores? or maybe the tick logic should be extracted to a single store/object?
 	export const tickDurationDecay = writable(0.97);
 	export const baseTickDuration = writable(Math.round(1000 / 6)); // the starting tick duration, may be modified by gameplay

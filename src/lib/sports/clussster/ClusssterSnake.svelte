@@ -52,7 +52,7 @@
 		(browser && Number(localStorage.getItem(CLUSSSTER_HIGH_SCORE_KEY))) || 0,
 	);
 
-	// TODO BLOCK refactor with the other impls
+	// TODO refactor with the other impls
 	// TODO maybe these shouldn't be stores? or maybe the tick logic should be extracted to a single store/object?
 	export const tickDurationDecay = writable(0.97);
 	export const baseTickDuration = writable(Math.round(1000 / 2)); // the starting tick duration, may be modified by gameplay
@@ -172,7 +172,7 @@
 				}
 				return;
 			}
-			// Failed to place it, so end the game successfully --
+			// Failed to place the cluster, so end the game successfully --
 			// this isn't good but it's the least worst easiest option I can think of right now.
 			// A better design may be to query for possible locations
 			// rather than blindly attempting to place shapes,
@@ -191,6 +191,12 @@
 				<FailInstructions {clustersEaten} {highestClustersEaten} />
 				<div class="text-burst-wrapper">
 					<TextBurst count={50} items={['🍎', '💥', '🦴', '🦴']} hueRotationMax={0} />
+				</div>
+			{:else if $status === 'win'}
+				<!-- This is unlikely to happen, is just a fallback -->
+				<FailInstructions {clustersEaten} {highestClustersEaten} />
+				<div class="text-burst-wrapper">
+					<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} />
 				</div>
 			{/if}
 		</Gamespace>

@@ -36,11 +36,8 @@ export const initGameState = (state: SnakeGameState): SnakeGameState => {
 };
 
 /**
- * Finds the first entity at the given location. Ignores tile entities.
- * This would be more generic if the game handled entities generically,
- * but because of the small scope of this project I chose to a more explicit,
- * less flexible data structure.
- * It also could be much faster if we cached things by position.
+ * Finds the first entity at the given location.
+ * Could be much more efficient if we cached things by position.
  */
 const findEntityAt = (state: SnakeGameState, x: number, y: number): Entity | void => {
 	for (const a of state.apples) {
@@ -55,17 +52,26 @@ const findEntityAt = (state: SnakeGameState, x: number, y: number): Entity | voi
 	}
 };
 
-// TODO BLOCK might need to maintain a list of the available spots and choose from that list,
-// and return undefined if there's none available.
+// TODO problem with this strategy is twofold:
+// 1: it's inefficient to randomly look for an empty spot
+// 2: it can fail when the map has few empty spots
+// Maybe change to maintain a list of the available spots and choose randomly from that list.
 /**
  * Returns {x, y} for a random empty tile on the game map.
  */
-export const getRandomEmptyPosition = (state: SnakeGameState): Position => {
-	let position;
-	while (!position || findEntityAt(state, position.x, position.y)) {
-		position = getRandomPosition(state);
+export const getRandomEmptyPosition = (
+	state: SnakeGameState,
+	maxAttempts = 50,
+): Position | undefined => {
+	let attempts = 0;
+	while (attempts < maxAttempts) {
+		attempts++;
+		const position = getRandomPosition(state);
+		if (!findEntityAt(state, position.x, position.y)) {
+			return position;
+		}
 	}
-	return position;
+	return;
 };
 
 /**
@@ -288,6 +294,7 @@ function eatApple(state: SnakeGameState, game: ISnakeGame, apple: Entity): void 
  */
 export const spawnApples = (state: SnakeGameState, _game: ISnakeGame): void => {
 	const position = getRandomEmptyPosition(state);
+	if (!position) return;
 	const apple = new Entity(position.x, position.y);
 	state.apples.push(apple);
 };

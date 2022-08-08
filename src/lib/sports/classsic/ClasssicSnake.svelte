@@ -46,12 +46,15 @@
 		(browser && Number(localStorage.getItem('classsic_high_score'))) || 0,
 	);
 
-	// TODO maybe these shouldn't be stores?
-	const tickDurationDecay = writable(0.97);
-	const baseTickDuration = writable(Math.round(1000 / 6)); // the starting tick duration, may be modified by gameplay
-	const currentTickDuration = writable($baseTickDuration);
-	const tickDurationMin = writable(17);
-	const tickDurationMax = writable(2000);
+	// TODO BLOCK refactor with the other impls
+	// TODO maybe these shouldn't be stores? or maybe the tick logic should be extracted to a single store/object?
+	export const tickDurationDecay = writable(0.97);
+	export const baseTickDuration = writable(Math.round(1000 / 6)); // the starting tick duration, may be modified by gameplay
+	export const currentTickDuration = writable($baseTickDuration);
+	export const tickDurationMin = writable(17);
+	export const tickDurationMax = writable(2000);
+
+	// TODO belongs elsewhere
 	const rendererWidth = writable(512);
 	const rendererHeight = writable(512);
 

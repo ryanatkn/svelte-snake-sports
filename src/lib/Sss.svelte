@@ -134,12 +134,6 @@
 </script>
 
 <button
-	on:click={reset}
-	disabled={!layoutItems.length}
-	title="do snake magic to {layoutItems.length} snake{plural(layoutItems.length)}"
-	>{layoutItems.length}</button
->
-<button
 	class="sss"
 	on:mousedown={onMousedown}
 	on:mouseup={onMouseup}
@@ -151,6 +145,12 @@
 >
 	sss
 </button>
+<button
+	on:click={reset}
+	disabled={!layoutItems.length}
+	title="do snake magic to {layoutItems.length} snake{plural(layoutItems.length)}"
+	>{layoutItems.length}</button
+>
 <div class="snakes" bind:clientWidth>
 	{#each layoutItems as item, i (item.sss)}
 		<Positioned
@@ -173,7 +173,9 @@
 	.snakes {
 		position: relative;
 		width: 100%;
+		margin-bottom: 1000px;
 	}
+
 	.sss {
 		font-size: var(--font_size_xl5);
 		font-weight: 300;

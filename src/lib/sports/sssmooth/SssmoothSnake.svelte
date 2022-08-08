@@ -1,8 +1,9 @@
 <script lang="ts">
 	import ClasssicSnake from '$lib/sports/classsic/ClasssicSnake.svelte';
-	import {spawnRandomShape6a} from '$lib/mutableSnakeGameState';
+	import {initGameState, spawnRandomShape6a} from '$lib/mutableSnakeGameState';
 	import type SnakeGame from '$lib/SnakeGame.svelte';
 	import {Entity} from '$lib/Entity';
+	import {toDefaultGameState} from '$lib/SnakeGameState';
 
 	// TODO name? Sshapes? Pianissst? Sssmoooth?
 
@@ -19,6 +20,27 @@
 </script>
 
 <ClasssicSnake
+	initialBaseTickDuration={1000 / 2}
+	toInitialState={() => {
+		const state = initGameState(toDefaultGameState());
+		// spawn the apples
+		state.apples.length = 0;
+		state.apples = [
+			new Entity(6, 2),
+			new Entity(7, 2),
+			new Entity(7, 3),
+			new Entity(8, 3),
+			new Entity(8, 2),
+			new Entity(8, 1),
+		];
+
+		// slow down the speed
+		// TODO BLOCK composition is really busted and weird, so `initialBaseTickDuration` above is just a hack
+		// if (!baseTickDuration) throw Error('TODO');
+		// $baseTickDuration = 1000 / 2;
+
+		return state;
+	}}
 	helpers={{
 		spawnApples: (state, game) => {
 			// TODO BLOCK maybe `helpers` should be passed as a prop instead of being on the game?

@@ -35,12 +35,15 @@
 	$: events = game?.events;
 	$: status = game?.status;
 
-	// TODO maybe these shouldn't be stores?
+	// TODO BLOCK refactor with the other impls
+	// TODO maybe these shouldn't be stores? or maybe the tick logic should be extracted to a single store/object?
 	const baseTickDuration = writable(Math.round(1000 / 6)); // the starting tick duration, may be modified by gameplay
 	const currentTickDuration = writable($baseTickDuration);
 	const tickDurationDecay = writable(0.5);
 	const tickDurationMin = writable(17);
 	const tickDurationMax = writable(2000);
+
+	// TODO BLOCK belongs elsewhere
 	const rendererWidth = writable(512);
 	const rendererHeight = writable(512);
 

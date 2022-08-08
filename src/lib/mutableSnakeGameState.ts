@@ -98,9 +98,10 @@ export const isHorizontalDirection = (direction: Direction): boolean =>
 // Also, the strategy this uses is to pick a random spot and try to place the shape,
 // which is hacky and will fail a lot when many tiles are filled.
 // A possible improvement would be to track empty tiles and allow querying for shapes.
-export const spawnRandomShape6a = (state: SnakeGameState): Position[] | undefined => {
-	// First find a random spot.
-	const position1 = getRandomEmptyPosition(state);
+export const spawnRandomShape6a = (
+	state: SnakeGameState,
+	position1 = getRandomEmptyPosition(state),
+): Position[] | undefined => {
 	if (!position1) return;
 
 	// Then choose a random direction.
@@ -114,16 +115,17 @@ export const spawnRandomShape6a = (state: SnakeGameState): Position[] | undefine
 	if (!position3) return;
 
 	// Then move the same as `direction1`.
-	const position4 = getPositionFrom(state, position3, direction1);
+	const direction3 = direction1;
+	const position4 = getPositionFrom(state, position3, direction3);
 	if (!position4) return;
 
 	// Then move the opposite of `direction2`.
-	const position5 = getPositionFrom(state, position4, toOppositeDirection(direction2));
+	const direction4 = toOppositeDirection(direction2);
+	const position5 = getPositionFrom(state, position4, direction4);
 	if (!position5) return;
 
-	// TODO BLOCK this may be unnecessary to get the desired gameplay; if so, change from 6a to 5a
 	// Then move the same as `direction1` one last time.
-	const position6 = getPositionFrom(state, position5, direction1);
+	const position6 = getPositionFrom(state, position5, direction4);
 	if (!position6) return;
 
 	return [position1, position2, position3, position4, position5, position6];

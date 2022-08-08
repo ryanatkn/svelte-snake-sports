@@ -1,5 +1,6 @@
 <script lang="ts">
 	import {base} from '$app/paths';
+	import {page} from '$app/stores';
 
 	// import Breadcrumbs from '@feltcoop/felt/ui/Breadcrumbs.svelte';
 </script>
@@ -17,9 +18,11 @@
 			<a href="https://www.serpentsoundstudios.com/">serpentsoundstudios.com</a>
 		</p>
 	</div>
-	<div class="padded-md">
-		<a href="{base}/">go back home</a>
-	</div>
+	{#if $page.url.pathname !== '/'}
+		<div class="padded-md">
+			<a href="{base}/">go back home</a>
+		</div>
+	{/if}
 	<!-- TODO why is this not working? latest sveltekit problem with Felt? -->
 	<!-- <div class="padded-xl"> -->
 	<!-- <Breadcrumbs basePath={base}>🐍</Breadcrumbs> -->

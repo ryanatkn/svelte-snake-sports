@@ -17,7 +17,7 @@
 	import Settings from '$lib/Settings.svelte';
 	import Stats from '$lib/Stats.svelte';
 	import {toDefaultGameState} from '$lib/SnakeGameState';
-	import {initGameState, updateGameState} from '$lib/mutableSnakeGameState';
+	import {initGameState, spawnApples, updateGameState} from '$lib/mutableSnakeGameState';
 	import Ticker from '$lib/Ticker.svelte';
 	import StageControls from '$lib/StageControls.svelte';
 	import StageTimedAppleProgress from '$lib/TimedScores.svelte';
@@ -55,7 +55,7 @@
 
 	let applesEaten = 0;
 	let applesEatenSinceCollision = 0;
-	const APPLES_EATEN_TO_WIN = 66; // sixxty sixxxxx applesss
+	const APPLES_EATEN_TO_WIN = 66; // sixxty six applesss
 
 	let currentTime = 0;
 	$: if ($status === 'playing') currentTime += $clock.dt;
@@ -119,6 +119,11 @@
 			currentTime = 0;
 			applesEaten = 0;
 			applesEatenSinceCollision = 0;
+		}}
+		spawnApples={(state, game) => {
+			if (state.apples.length + applesEaten + 1 < APPLES_EATEN_TO_WIN) {
+				return spawnApples(state, game);
+			}
 		}}
 	/>
 	{#if game}

@@ -160,26 +160,24 @@
 			];
 			return state;
 		}}
-		helpers={{
-			spawnApples: (state, game) => {
-				if (state.apples.length) return;
-				let attempt = 0;
-				while (attempt < MAX_SPAWN_ATTEMPTS) {
-					attempt++;
-					const spawned = spawnRandomShape6a(state);
-					if (!spawned) continue;
-					for (const position of spawned) {
-						state.apples.push(new Entity(position.x, position.y));
-					}
-					return;
+		spawnApples={(state, game) => {
+			if (state.apples.length) return;
+			let attempt = 0;
+			while (attempt < MAX_SPAWN_ATTEMPTS) {
+				attempt++;
+				const spawned = spawnRandomShape6a(state);
+				if (!spawned) continue;
+				for (const position of spawned) {
+					state.apples.push(new Entity(position.x, position.y));
 				}
-				// Failed to place it, so end the game successfully --
-				// this isn't good but it's the least worst easiest option I can think of right now.
-				// A better design may be to query for possible locations
-				// rather than blindly attempting to place shapes,
-				// but that seems really hard, too hard for the stage this project is at.
-				game.end('win');
-			},
+				return;
+			}
+			// Failed to place it, so end the game successfully --
+			// this isn't good but it's the least worst easiest option I can think of right now.
+			// A better design may be to query for possible locations
+			// rather than blindly attempting to place shapes,
+			// but that seems really hard, too hard for the stage this project is at.
+			game.end('win');
 		}}
 	/>
 	{#if game}
@@ -192,7 +190,7 @@
 			{:else if $status === 'fail'}
 				<FailInstructions {clustersEaten} {highestClustersEaten} />
 				<div class="text-burst-wrapper">
-					<TextBurst count={50} items={['🐍', '💥', '🦴', '🦴', '🍎']} hueRotationMax={0} />
+					<TextBurst count={50} items={['🍎', '💥', '🦴', '🦴']} hueRotationMax={0} />
 				</div>
 			{/if}
 		</Gamespace>

@@ -16,7 +16,7 @@ export interface ISnakeGame {
 	enqueueMovementCommand: (movementCommand: Direction) => void;
 	setMovementCommand: (movementCommand: Direction) => void;
 	end: (outcomeStatus: 'win' | 'fail') => void;
-	helpers: SnakeGameHelpers | undefined; // TODO BLOCK this type is a hack, shouldn't be undefined, see `SnakeGame.svelte` for why
+	helpers: SnakeGameHelpers;
 }
 
 export type SnakeGameEvent =
@@ -39,6 +39,5 @@ export interface SnakeGameEatAppleEvent {
 }
 
 export interface SnakeGameHelpers {
-	// toInitialState: () => SnakeGameState;
 	spawnApples: typeof spawnApples;
 }

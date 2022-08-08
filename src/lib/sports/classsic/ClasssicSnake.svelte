@@ -28,12 +28,9 @@
 	import FailInstructions from '$lib/sports/classsic/FailInstructions.svelte';
 	import TextBurst from '$lib/TextBurst.svelte';
 	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
-	import type {SnakeGameHelpers} from '$lib/SnakeGame';
 	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
 
 	export let game: SnakeGame | undefined = undefined;
-	// TODO BLOCK these two are kinda the same sort of thing, and should probably follow the same pattern
-	export let helpers: SnakeGameHelpers | undefined = undefined;
 	export let toInitialState = (): SnakeGameState => initGameState(toDefaultGameState());
 
 	const clock = setClock(createClock({running: browser}));
@@ -126,7 +123,6 @@
 			applesEaten = 0;
 			$currentTickDuration = $baseTickDuration;
 		}}
-		{helpers}
 	/>
 	{#if game}
 		<Gamespace>

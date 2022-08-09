@@ -116,8 +116,8 @@
 			),
 		);
 
-		// Are we eating a cluster but then stopped?
-		// If so despawn the current apples and spawn a new cluster.
+		// Are we eating a bunch but then stopped?
+		// If so despawn the current apples and spawn a new bunch.
 		if (applesEaten && !ateApple) {
 			applesEaten = 0;
 			$state.apples.length = 0;
@@ -170,7 +170,7 @@
 				}
 				return;
 			}
-			// Failed to place the cluster, so end the game successfully --
+			// Failed to place the bunch, so end the game successfully --
 			// this isn't good but it's the least worst easiest option I can think of right now.
 			// A better design may be to query for possible locations
 			// rather than blindly attempting to place shapes,

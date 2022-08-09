@@ -10,7 +10,7 @@
 
 <div class="instructions" transition:scale|local>
 	<div>
-		you ate <strong>{bunchesEaten}</strong> cluster{#if bunchesEaten !== 1}s{/if}
+		you ate <strong>{bunchesEaten}</strong> bunch{#if bunchesEaten !== 1}s{/if}
 		{#if bunchesEaten < 7}:o{:else}:O{/if}
 	</div>
 	<div style:position="relative" style:left="{25}px">

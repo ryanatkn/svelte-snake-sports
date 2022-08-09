@@ -102,7 +102,7 @@ generated images by [DALL-E](https://wikipedia.org/wiki/DALL-E):
   - font is [Georgia Bold](<https://wikipedia.org/wiki/Georgia_(typeface)>)
 - [ssspeed](/src/static/assets/ssspeed.webp):
   macro photography of a cute cartoon snake eating a red apple on lush green moss in a 3d video game
-  - font is [Gabriola](<https://en.wikipedia.org/wiki/Gabriola_(typeface)>)
+  - font is [Gabriola](<https://wikipedia.org/wiki/Gabriola_(typeface)>)
 - [buncheses](/src/static/assets/buncheses.webp):
   macro photography of an adorable green cartoon snake with huge cute eyes next to a pile of red apples on lush green moss, realistic 3d video game, digital art, vibrant, artstation
   - font is [Indie Flower](https://fonts.google.com/betterspecimen/Indie+Flower)

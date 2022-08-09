@@ -1,5 +1,4 @@
 <script lang="ts">
-	import {unwrap} from '@feltcoop/felt';
 	import {randomItem} from '@feltcoop/felt/util/random.js';
 	import {plural} from '@feltcoop/felt/util/string.js';
 	import {onDestroy} from 'svelte';
@@ -21,10 +20,7 @@
 		fontSize: number;
 	}
 
-	const items: Sss[] = unwrap({
-		ok: true,
-		value: [{icon: '🐍'}],
-	});
+	const items: Sss[] = [{icon: '🐍'}];
 
 	export let ssses = [items[0]];
 	export let song: HTMLAudioElement | undefined;
@@ -138,12 +134,6 @@
 </script>
 
 <button
-	on:click={reset}
-	disabled={!layoutItems.length}
-	title="do snake magic to {layoutItems.length} snake{plural(layoutItems.length)}"
-	>{layoutItems.length}</button
->
-<button
 	class="sss"
 	on:mousedown={onMousedown}
 	on:mouseup={onMouseup}
@@ -155,6 +145,12 @@
 >
 	sss
 </button>
+<button
+	on:click={reset}
+	disabled={!layoutItems.length}
+	title="do snake magic to {layoutItems.length} snake{plural(layoutItems.length)}"
+	>{layoutItems.length}</button
+>
 <div class="snakes" bind:clientWidth>
 	{#each layoutItems as item, i (item.sss)}
 		<Positioned
@@ -177,7 +173,9 @@
 	.snakes {
 		position: relative;
 		width: 100%;
+		margin-bottom: 1000px;
 	}
+
 	.sss {
 		font-size: var(--font_size_xl5);
 		font-weight: 300;

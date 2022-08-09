@@ -2,6 +2,9 @@
 	import type {Writable} from 'svelte/store';
 
 	import type SnakeGame from '$lib/SnakeGame.svelte';
+	import {CLASSSIC_HIGH_SCORE_KEY} from '$lib/sports/classsic/ClasssicSnake.svelte';
+	import {SSSPEED_HIGH_SCORE_KEY} from '$lib/sports/ssspeed/SsspeedSnake.svelte';
+	import {BUNCHESES_HIGH_SCORE_KEY} from '$lib/sports/buncheses/BunchesesSnake.svelte';
 
 	export let game: SnakeGame;
 	export let baseTickDuration: Writable<number>;
@@ -18,8 +21,9 @@
 
 	// TODO api?
 	const clearLocalStorage = () => {
-		localStorage.removeItem('classsic_high_score');
-		localStorage.removeItem('ssspeed_high_score');
+		localStorage.removeItem(CLASSSIC_HIGH_SCORE_KEY);
+		localStorage.removeItem(SSSPEED_HIGH_SCORE_KEY);
+		localStorage.removeItem(BUNCHESES_HIGH_SCORE_KEY);
 		window.location = window.location;
 	};
 
@@ -45,6 +49,17 @@
 </script>
 
 <form class="Settings">
+	<section>
+		<button
+			type="button"
+			on:click={() => {
+				// eslint-disable-next-line no-alert
+				if (confirm('clear all saved data?')) {
+					clearLocalStorage();
+				}
+			}}>reset saved data</button
+		>
+	</section>
 	<section>
 		<label
 			><strong>baseTickDuration</strong><input
@@ -143,17 +158,6 @@
 					min={RENDERER_MIN_HEIGHT}
 					max={RENDERER_MAX_HEIGHT}
 				/></label
-			>
-		</section>
-		<section>
-			<button
-				type="button"
-				on:click={() => {
-					// eslint-disable-next-line no-alert
-					if (confirm('clear all saved data?')) {
-						clearLocalStorage();
-					}
-				}}>reset saved data</button
 			>
 		</section>
 	</section>

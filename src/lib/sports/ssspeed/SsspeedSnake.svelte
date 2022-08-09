@@ -1,4 +1,9 @@
+<!-- TODO refactor so this isn't needed -->
 <svelte:options immutable={false} />
+
+<script lang="ts" context="module">
+	export const SSSPEED_HIGH_SCORE_KEY = 'ssspeed_high_score';
+</script>
 
 <script lang="ts">
 	import {browser} from '$app/env';
@@ -12,7 +17,7 @@
 	import Settings from '$lib/Settings.svelte';
 	import Stats from '$lib/Stats.svelte';
 	import {toDefaultGameState} from '$lib/SnakeGameState';
-	import {initGameState, updateGameState} from '$lib/mutableSnakeGameState';
+	import {initGameState, spawnApples, updateGameState} from '$lib/mutableSnakeGameState';
 	import Ticker from '$lib/Ticker.svelte';
 	import StageControls from '$lib/StageControls.svelte';
 	import StageTimedAppleProgress from '$lib/TimedScores.svelte';
@@ -20,6 +25,7 @@
 	import WinInstructions from '$lib/sports/ssspeed/WinInstructions.svelte';
 	import TextBurst from '$lib/TextBurst.svelte';
 	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
+	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
 
 	// TODO after merging:
 	// fix settings dimensions to persist on reset
@@ -35,24 +41,27 @@
 	$: events = game?.events;
 	$: status = game?.status;
 
-	// TODO maybe these shouldn't be stores?
+	// TODO refactor with the other impls
+	// TODO maybe these shouldn't be stores? or maybe the tick logic should be extracted to a single store/object?
 	const baseTickDuration = writable(Math.round(1000 / 6)); // the starting tick duration, may be modified by gameplay
 	const currentTickDuration = writable($baseTickDuration);
 	const tickDurationDecay = writable(0.5);
 	const tickDurationMin = writable(17);
 	const tickDurationMax = writable(2000);
+
+	// TODO belongs elsewhere
 	const rendererWidth = writable(512);
 	const rendererHeight = writable(512);
 
 	let applesEaten = 0;
 	let applesEatenSinceCollision = 0;
-	const APPLES_EATEN_TO_WIN = 66; // sixxty sixxxxx applesss
+	const APPLES_EATEN_TO_WIN = 66; // sixxty six applesss
 
 	let currentTime = 0;
 	$: if ($status === 'playing') currentTime += $clock.dt;
 
 	const bestTime = writable<number | null>(
-		(browser && Number(localStorage.getItem('ssspeed_high_score'))) || null,
+		(browser && Number(localStorage.getItem(SSSPEED_HIGH_SCORE_KEY))) || null,
 	);
 
 	const tick = (): boolean => {
@@ -88,7 +97,7 @@
 			// don't set the high score immediately like this, wait til it's over
 			if (!$bestTime || currentTime < $bestTime) {
 				$bestTime = Math.round(currentTime);
-				if (browser) localStorage.setItem('ssspeed_high_score', $bestTime + ''); // TODO use helper on store instead
+				if (browser) localStorage.setItem(SSSPEED_HIGH_SCORE_KEY, $bestTime + ''); // TODO use helper on store instead
 			}
 		}
 
@@ -110,6 +119,11 @@
 			currentTime = 0;
 			applesEaten = 0;
 			applesEatenSinceCollision = 0;
+		}}
+		spawnApples={(state, game) => {
+			if (state.apples.length + applesEaten + 1 < APPLES_EATEN_TO_WIN) {
+				return spawnApples(state, game);
+			}
 		}}
 	/>
 	{#if game}
@@ -134,12 +148,8 @@
 			{bestTime}
 		/>
 		<StageControls {clock} {tick} {game} />
-		<section class="markup column-sm">
-			<div><strong>to queue a move</strong>: arrow keys, <code>wasd</code>, <code>hjkl</code></div>
-			<div><strong>to move and end turn</strong>: <code>shift</code></div>
-			<div><strong>toggle clock</strong>: <code>Backtick `</code></div>
-			<div><strong>take one turn</strong>: <code>1</code></div>
-			<div><strong>restart</strong>: <code>r</code></div>
+		<section>
+			<ControlsInstructions />
 		</section>
 		<section class="centered">
 			<audio src="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls />

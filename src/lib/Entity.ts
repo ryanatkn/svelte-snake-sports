@@ -1,46 +1,19 @@
 let _id = 0;
 
 export type Direction = 'left' | 'right' | 'up' | 'down';
-
-export interface EntityState {
-	x: number;
-	y: number;
-	prevX?: number; // TODO maybe store a variable-length history instead of these
-	prevY?: number; // TODO maybe store a variable-length history instead of these
-}
+export const directions: Direction[] = ['left', 'right', 'up', 'down'];
+export const verticalDirections: Direction[] = ['up', 'down'];
+export const horizontalDirections: Direction[] = ['left', 'right'];
 
 // TODO separate implementation?
 
 export class Entity {
-	constructor(state: EntityState) {
-		this.loadState(state);
-	}
+	constructor(public x: number, public y: number, public prevX = x, public prevY = y) {}
 
 	id = _id++;
 
-	// these get initialized by the constructor with `loadState`
-	x!: number;
-	y!: number;
-	prevX!: number;
-	prevY!: number;
-
-	loadState({x, y, prevX, prevY}: EntityState): void {
-		this.x = x;
-		this.y = y;
-		this.prevX = prevX ?? x;
-		this.prevY = prevY ?? y;
-	}
-
-	getState(): EntityState {
-		const {x, y, prevX, prevY} = this;
-		const state: EntityState = {x, y};
-		if (prevX !== state.x) state.prevX = prevX;
-		if (prevY !== state.y) state.prevY = prevY;
-		return state;
-	}
-
 	clone(): Entity {
-		return new Entity(this.getState());
+		return new Entity(this.x, this.y, this.prevX, this.prevY);
 	}
 
 	moveTo(x: number, y: number): void {

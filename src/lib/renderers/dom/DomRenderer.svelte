@@ -1,9 +1,11 @@
+<!-- TODO refactor so this isn't needed -->
 <svelte:options immutable={false} />
 
 <script lang="ts">
 	import type {Writable} from 'svelte/store';
 
 	import Entity from '$lib/renderers/dom/Entity.svelte';
+	import Apple from '$lib/renderers/dom/Apple.svelte';
 	import Tiles from '$lib/renderers/dom/Tiles.svelte';
 	import type SnakeGame from '$lib/SnakeGame.svelte';
 
@@ -18,8 +20,6 @@
 
 	$: entityWidth = $width / mapWidth; // TODO Math.floor?
 	$: entityHeight = $height / mapHeight;
-
-	$: console.log(`entityWidth, entityHeight`, entityWidth, entityHeight);
 </script>
 
 <div
@@ -30,7 +30,7 @@
 	<div class="layer">
 		<Tiles {mapWidth} {mapHeight} tileWidth={entityWidth} tileHeight={entityHeight} />
 		{#each apples as a (a.id)}
-			<Entity x={a.x} y={a.y} classes="apple" width={entityWidth} height={entityHeight} />
+			<Apple x={a.x} y={a.y} classes="apple" width={entityWidth} height={entityHeight} />
 		{/each}
 		<div class="snake moving-{$movementDirection}">
 			{#each snakeSegments as s (s.id)}

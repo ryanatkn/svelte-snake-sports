@@ -2,7 +2,7 @@
 <svelte:options immutable={false} />
 
 <script lang="ts" context="module">
-	export const CLASSSIC_HIGH_SCORE_KEY = 'classsic_high_score';
+	export const BUNCHESES_HIGH_SCORE_KEY = 'buncheses_high_score';
 </script>
 
 <script lang="ts">
@@ -20,18 +20,18 @@
 	import Settings from '$lib/Settings.svelte';
 	import Score from '$lib/Score.svelte';
 	import Stats from '$lib/Stats.svelte';
-	import {toDefaultGameState, type SnakeGameState} from '$lib/SnakeGameState';
-	import {initGameState, updateGameState} from '$lib/mutableSnakeGameState';
+	import {toDefaultGameState} from '$lib/SnakeGameState';
+	import {initGameState, spawnRandomShape6a, updateGameState} from '$lib/mutableSnakeGameState';
 	import Ticker from '$lib/Ticker.svelte';
 	import StageControls from '$lib/StageControls.svelte';
-	import ReadyInstructions from '$lib/sports/classsic/ReadyInstructions.svelte';
-	import FailInstructions from '$lib/sports/classsic/FailInstructions.svelte';
+	import ReadyInstructions from '$lib/sports/buncheses/ReadyInstructions.svelte';
+	import FailInstructions from '$lib/sports/buncheses/FailInstructions.svelte';
 	import TextBurst from '$lib/TextBurst.svelte';
 	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
+	import {Entity} from '$lib/Entity';
 	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
 
 	export let game: SnakeGame | undefined = undefined;
-	export let toInitialState = (): SnakeGameState => initGameState(toDefaultGameState());
 
 	const clock = setClock(createClock({running: browser}));
 
@@ -44,15 +44,18 @@
 	// TODO better way to do this? event or callbacks?
 	$: if ($status === 'ready') $status = 'playing';
 
+	const CLUSTER_COUNT = 6; // hardcoding to a particular shape
+
 	let applesEaten = 0;
-	const highestApplesEaten = writable<number>(
-		(browser && Number(localStorage.getItem(CLASSSIC_HIGH_SCORE_KEY))) || 0,
+	let bunchesEaten = 0;
+	const highestClustersEaten = writable<number>(
+		(browser && Number(localStorage.getItem(BUNCHESES_HIGH_SCORE_KEY))) || 0,
 	);
 
 	// TODO refactor with the other impls
 	// TODO maybe these shouldn't be stores? or maybe the tick logic should be extracted to a single store/object?
 	export const tickDurationDecay = writable(0.97);
-	export const baseTickDuration = writable(Math.round(1000 / 6)); // the starting tick duration, may be modified by gameplay
+	export const baseTickDuration = writable(Math.round(1000 / 2)); // the starting tick duration, may be modified by gameplay
 	export const currentTickDuration = writable($baseTickDuration);
 	export const tickDurationMin = writable(17);
 	export const tickDurationMax = writable(2000);
@@ -62,9 +65,9 @@
 	const rendererHeight = writable(512);
 
 	// TODO is there a better place to do this? imperatively after updating the state?
-	$: if (applesEaten > $highestApplesEaten) {
-		$highestApplesEaten = applesEaten;
-		if (browser) localStorage.setItem(CLASSSIC_HIGH_SCORE_KEY, applesEaten + ''); // TODO use helper on store instead
+	$: if (bunchesEaten > $highestClustersEaten) {
+		$highestClustersEaten = bunchesEaten;
+		if (browser) localStorage.setItem(BUNCHESES_HIGH_SCORE_KEY, bunchesEaten + ''); // TODO use helper on store instead
 	}
 
 	const tick = (): boolean => {
@@ -74,16 +77,23 @@
 		// TODO maybe serialize input state as param instead of `game`?
 		$state = updateGameState($state, game);
 
+		let ateApple = false;
+
 		for (const event of $events) {
 			switch (event.name) {
 				case 'eat_apple': {
+					ateApple = true;
 					applesEaten++;
+					if (applesEaten === CLUSTER_COUNT) {
+						bunchesEaten++;
+						applesEaten = 0;
+					}
 					break;
 				}
 				case 'snake_collide_self':
 				case 'snake_collide_bounds': {
 					game.end('fail');
-					if (applesEaten === 0) {
+					if (bunchesEaten === 0) {
 						game.reset();
 						game.start();
 					} else {
@@ -93,6 +103,7 @@
 				}
 			}
 		}
+
 		// TODO immutable? move this elsewhere? like `afterTick`?
 		// maybe this should be `onTick` and the SnakeGame's `tick` function does this work?
 		if ($events.length) $events.length = 0;
@@ -101,12 +112,22 @@
 			$tickDurationMin,
 			Math.min(
 				$tickDurationMax,
-				Math.round($baseTickDuration! * $tickDurationDecay ** (1 + applesEaten)),
+				Math.round($baseTickDuration! * $tickDurationDecay ** (1 + bunchesEaten * CLUSTER_COUNT)),
 			),
 		);
 
+		// Are we eating a cluster but then stopped?
+		// If so despawn the current apples and spawn a new cluster.
+		if (applesEaten && !ateApple) {
+			applesEaten = 0;
+			$state.apples.length = 0;
+			game.helpers!.spawnApples($state, game);
+		}
+
 		return true;
 	};
+
+	const MAX_SPAWN_ATTEMPTS = 30; // TODO where does this belong?
 </script>
 
 <div
@@ -116,12 +137,45 @@
 >
 	<SnakeGame
 		bind:this={game}
-		{toInitialState}
 		toInitialMovementDirection={() => 'up'}
 		{tick}
 		onReset={() => {
 			applesEaten = 0;
+			bunchesEaten = 0;
 			$currentTickDuration = $baseTickDuration;
+		}}
+		toInitialState={() => {
+			const state = initGameState(toDefaultGameState());
+			// spawn the apples
+			state.apples.length = 0;
+			state.apples = [
+				new Entity(4, 3),
+				new Entity(4, 2),
+				new Entity(5, 2),
+				new Entity(5, 1),
+				new Entity(4, 1),
+				new Entity(3, 1),
+			];
+			return state;
+		}}
+		spawnApples={(state, game) => {
+			if (state.apples.length) return;
+			let attempt = 0;
+			while (attempt < MAX_SPAWN_ATTEMPTS) {
+				attempt++;
+				const spawned = spawnRandomShape6a(state);
+				if (!spawned) continue;
+				for (const position of spawned) {
+					state.apples.push(new Entity(position.x, position.y));
+				}
+				return;
+			}
+			// Failed to place the cluster, so end the game successfully --
+			// this isn't good but it's the least worst easiest option I can think of right now.
+			// A better design may be to query for possible locations
+			// rather than blindly attempting to place shapes,
+			// but that seems really hard, too hard for the stage this project is at.
+			game.end('win');
 		}}
 	/>
 	{#if game}
@@ -129,19 +183,25 @@
 			<ScaledSnakeRenderer {rendererWidth} {rendererHeight}>
 				<DomRenderer {game} width={rendererWidth} height={rendererHeight} />
 			</ScaledSnakeRenderer>
-			{#if applesEaten === 0}
-				<ReadyInstructions {highestApplesEaten} />
+			{#if bunchesEaten === 0}
+				<ReadyInstructions {highestClustersEaten} />
 			{:else if $status === 'fail'}
-				<FailInstructions {applesEaten} {highestApplesEaten} />
+				<FailInstructions {bunchesEaten} {highestClustersEaten} />
 				<div class="text-burst-wrapper">
-					<TextBurst count={50} items={['🐍', '💥', '🦴', '🦴']} hueRotationMax={0} />
+					<TextBurst count={50} items={['🍎', '💥', '🦴', '🦴']} hueRotationMax={0} />
+				</div>
+			{:else if $status === 'win'}
+				<!-- This is unlikely to happen, is just a fallback -->
+				<FailInstructions {bunchesEaten} {highestClustersEaten} />
+				<div class="text-burst-wrapper">
+					<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} />
 				</div>
 			{/if}
 		</Gamespace>
 		<div class="scores">
-			<Score title="apples eaten this try">{applesEaten}</Score>
-			{#if $highestApplesEaten !== applesEaten}
-				<Score title="the most apples you've ever eaten">{$highestApplesEaten}</Score>
+			<Score title="apples eaten this try">{bunchesEaten}</Score>
+			{#if $highestClustersEaten !== bunchesEaten}
+				<Score title="the most apples you've ever eaten">{$highestClustersEaten}</Score>
 			{/if}
 		</div>
 		<Ticker {clock} tickDuration={currentTickDuration} {tick} />

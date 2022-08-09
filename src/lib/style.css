@@ -48,7 +48,6 @@ form label:last-child {
 	position: relative;
 	background-color: #c89;
 	border-radius: 17px 14px 14px 12px;
-	animation: pop-in 0.66s ease-in-out;
 	width: 30px;
 	height: 30px;
 }
@@ -62,15 +61,6 @@ form label:last-child {
 	height: 7px;
 	background-color: rgb(122, 100, 100);
 	border-radius: 4px;
-}
-
-@keyframes pop-in {
-	from {
-		transform: scale(0);
-	}
-	to {
-		transform: scale(1);
-	}
 }
 
 .clickable-box {

@@ -2,7 +2,7 @@
 <svelte:options immutable={false} />
 
 <script lang="ts" context="module">
-	export const CLUSSSTER_HIGH_SCORE_KEY = 'clussster_high_score';
+	export const BUNCHESES_HIGH_SCORE_KEY = 'buncheses_high_score';
 </script>
 
 <script lang="ts">
@@ -24,8 +24,8 @@
 	import {initGameState, spawnRandomShape6a, updateGameState} from '$lib/mutableSnakeGameState';
 	import Ticker from '$lib/Ticker.svelte';
 	import StageControls from '$lib/StageControls.svelte';
-	import ReadyInstructions from '$lib/sports/clussster/ReadyInstructions.svelte';
-	import FailInstructions from '$lib/sports/clussster/FailInstructions.svelte';
+	import ReadyInstructions from '$lib/sports/buncheses/ReadyInstructions.svelte';
+	import FailInstructions from '$lib/sports/buncheses/FailInstructions.svelte';
 	import TextBurst from '$lib/TextBurst.svelte';
 	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
 	import {Entity} from '$lib/Entity';
@@ -47,9 +47,9 @@
 	const CLUSTER_COUNT = 6; // hardcoding to a particular shape
 
 	let applesEaten = 0;
-	let clustersEaten = 0;
+	let bunchesEaten = 0;
 	const highestClustersEaten = writable<number>(
-		(browser && Number(localStorage.getItem(CLUSSSTER_HIGH_SCORE_KEY))) || 0,
+		(browser && Number(localStorage.getItem(BUNCHESES_HIGH_SCORE_KEY))) || 0,
 	);
 
 	// TODO refactor with the other impls
@@ -65,9 +65,9 @@
 	const rendererHeight = writable(512);
 
 	// TODO is there a better place to do this? imperatively after updating the state?
-	$: if (clustersEaten > $highestClustersEaten) {
-		$highestClustersEaten = clustersEaten;
-		if (browser) localStorage.setItem(CLUSSSTER_HIGH_SCORE_KEY, clustersEaten + ''); // TODO use helper on store instead
+	$: if (bunchesEaten > $highestClustersEaten) {
+		$highestClustersEaten = bunchesEaten;
+		if (browser) localStorage.setItem(BUNCHESES_HIGH_SCORE_KEY, bunchesEaten + ''); // TODO use helper on store instead
 	}
 
 	const tick = (): boolean => {
@@ -85,7 +85,7 @@
 					ateApple = true;
 					applesEaten++;
 					if (applesEaten === CLUSTER_COUNT) {
-						clustersEaten++;
+						bunchesEaten++;
 						applesEaten = 0;
 					}
 					break;
@@ -93,7 +93,7 @@
 				case 'snake_collide_self':
 				case 'snake_collide_bounds': {
 					game.end('fail');
-					if (clustersEaten === 0) {
+					if (bunchesEaten === 0) {
 						game.reset();
 						game.start();
 					} else {
@@ -112,7 +112,7 @@
 			$tickDurationMin,
 			Math.min(
 				$tickDurationMax,
-				Math.round($baseTickDuration! * $tickDurationDecay ** (1 + clustersEaten * CLUSTER_COUNT)),
+				Math.round($baseTickDuration! * $tickDurationDecay ** (1 + bunchesEaten * CLUSTER_COUNT)),
 			),
 		);
 
@@ -141,7 +141,7 @@
 		{tick}
 		onReset={() => {
 			applesEaten = 0;
-			clustersEaten = 0;
+			bunchesEaten = 0;
 			$currentTickDuration = $baseTickDuration;
 		}}
 		toInitialState={() => {
@@ -183,24 +183,24 @@
 			<ScaledSnakeRenderer {rendererWidth} {rendererHeight}>
 				<DomRenderer {game} width={rendererWidth} height={rendererHeight} />
 			</ScaledSnakeRenderer>
-			{#if clustersEaten === 0}
+			{#if bunchesEaten === 0}
 				<ReadyInstructions {highestClustersEaten} />
 			{:else if $status === 'fail'}
-				<FailInstructions {clustersEaten} {highestClustersEaten} />
+				<FailInstructions {bunchesEaten} {highestClustersEaten} />
 				<div class="text-burst-wrapper">
 					<TextBurst count={50} items={['🍎', '💥', '🦴', '🦴']} hueRotationMax={0} />
 				</div>
 			{:else if $status === 'win'}
 				<!-- This is unlikely to happen, is just a fallback -->
-				<FailInstructions {clustersEaten} {highestClustersEaten} />
+				<FailInstructions {bunchesEaten} {highestClustersEaten} />
 				<div class="text-burst-wrapper">
 					<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} />
 				</div>
 			{/if}
 		</Gamespace>
 		<div class="scores">
-			<Score title="apples eaten this try">{clustersEaten}</Score>
-			{#if $highestClustersEaten !== clustersEaten}
+			<Score title="apples eaten this try">{bunchesEaten}</Score>
+			{#if $highestClustersEaten !== bunchesEaten}
 				<Score title="the most apples you've ever eaten">{$highestClustersEaten}</Score>
 			{/if}
 		</div>

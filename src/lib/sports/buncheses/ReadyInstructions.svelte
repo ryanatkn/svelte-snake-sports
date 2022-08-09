@@ -7,7 +7,7 @@
 
 <div class="instructions" transition:scale|local>
 	<div>move with arrow keys</div>
-	<div style:position="relative" style:left="{-15}px">eat whole apple clusters!</div>
+	<div style:position="relative" style:left="{-15}px">eat whole bunches of apples!</div>
 	{#if $highestClustersEaten}<div>
 			besst is {$highestClustersEaten} clusster{$highestClustersEaten === 1 ? '' : 's'}{'!'.repeat(
 				($highestClustersEaten / 10) | 0,

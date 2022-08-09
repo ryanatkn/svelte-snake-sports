@@ -1,7 +1,5 @@
 <script lang="ts">
 	import {base} from '$app/paths';
-
-	// TODO BLOCK image
 </script>
 
 <menu>
@@ -24,10 +22,10 @@
 		</a>
 	</li>
 	<li>
-		<a href="{base}/clussster" title="svelte snake sports: clussster">
+		<a href="{base}/buncheses" title="svelte snake sports: buncheses">
 			<img
-				alt="logo for svelte snake sports: clussster"
-				src="{base}/favicon.png"
+				alt="logo for svelte snake sports: buncheses"
+				src="{base}/assets/buncheses.webp"
 				class="clickable-box"
 			/>
 		</a>
@@ -38,6 +36,9 @@
 	li {
 		list-style: none;
 		margin-bottom: var(--spacing_xl5);
+	}
+	li:last-child {
+		margin-bottom: 0;
 	}
 	a {
 		flex-wrap: wrap;

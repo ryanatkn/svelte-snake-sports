@@ -4,7 +4,7 @@
 	import type SnakeGame from '$lib/SnakeGame.svelte';
 	import {CLASSSIC_HIGH_SCORE_KEY} from '$lib/sports/classsic/ClasssicSnake.svelte';
 	import {SSSPEED_HIGH_SCORE_KEY} from '$lib/sports/ssspeed/SsspeedSnake.svelte';
-	import {CLUSSSTER_HIGH_SCORE_KEY} from '$lib/sports/clussster/ClusssterSnake.svelte';
+	import {BUNCHESES_HIGH_SCORE_KEY} from '$lib/sports/buncheses/BunchesesSnake.svelte';
 
 	export let game: SnakeGame;
 	export let baseTickDuration: Writable<number>;
@@ -23,7 +23,7 @@
 	const clearLocalStorage = () => {
 		localStorage.removeItem(CLASSSIC_HIGH_SCORE_KEY);
 		localStorage.removeItem(SSSPEED_HIGH_SCORE_KEY);
-		localStorage.removeItem(CLUSSSTER_HIGH_SCORE_KEY);
+		localStorage.removeItem(BUNCHESES_HIGH_SCORE_KEY);
 		window.location = window.location;
 	};
 

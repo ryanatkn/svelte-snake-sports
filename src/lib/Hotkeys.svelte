@@ -13,7 +13,7 @@
 </script>
 
 <svelte:window
-	on:keydown={(e) => {
+	on:keydown|capture={(e) => {
 		if (enabled && !isEditable(e.target) && onKeydown(e.key, e.shiftKey, e.ctrlKey, e.altKey)) {
 			swallow(e);
 		}

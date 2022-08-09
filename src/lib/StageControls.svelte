@@ -31,8 +31,8 @@
 </div>
 
 <Hotkeys
-	onKeydown={(key, shiftKey, ctrlKey) => {
-		if (ctrlKey) return false;
+	onKeydown={(key, shiftKey, ctrlKey, altKey) => {
+		if (ctrlKey || altKey) return false;
 		switch (key) {
 			case '`': {
 				clock.toggle();

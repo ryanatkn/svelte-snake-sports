@@ -17,6 +17,7 @@ caveats:
 
 - it's responsive to smaller screens but doesn't have good mobile controls yet
 - some of the code is still very rough from the port, I just tried to ship gameplay asap
+- some of the code has experimental patterns that I wouldn't recommend
 
 ## what
 

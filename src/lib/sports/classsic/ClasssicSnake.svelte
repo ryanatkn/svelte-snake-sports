@@ -134,7 +134,7 @@
 			{:else if $status === 'fail'}
 				<FailInstructions {applesEaten} {highestApplesEaten} />
 				<div class="text-burst-wrapper">
-					<TextBurst count={50} items={['🐍', '💥', '🦴', '🦴']} hueRotationMax={0} />
+					<TextBurst count={50} items={['🐍', '💥', '🦴', '🦴']} />
 				</div>
 			{/if}
 		</Gamespace>
@@ -186,6 +186,7 @@
 		display: flex;
 	}
 	.text-burst-wrapper {
+		font-size: var(--font_size_xl5);
 		position: absolute;
 		left: 50%;
 		top: 50%;

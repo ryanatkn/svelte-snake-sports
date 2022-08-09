@@ -136,7 +136,7 @@
 			{:else if $status === 'win'}
 				<WinInstructions time={currentTime} {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
 				<div class="text-burst-wrapper">
-					<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} />
+					<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} hueRotationMax={360} />
 				</div>
 			{/if}
 		</Gamespace>
@@ -185,6 +185,7 @@
 		padding-top: var(--spacing_xl5);
 	}
 	.text-burst-wrapper {
+		font-size: var(--font_size_xl5);
 		position: absolute;
 		left: 50%;
 		top: 50%;

@@ -188,13 +188,13 @@
 			{:else if $status === 'fail'}
 				<FailInstructions {bunchesEaten} {highestClustersEaten} />
 				<div class="text-burst-wrapper">
-					<TextBurst count={50} items={['🍎', '💥', '🦴', '🦴']} hueRotationMax={0} />
+					<TextBurst count={50} items={['🍎', '💥', '🦴', '🦴']} />
 				</div>
 			{:else if $status === 'win'}
 				<!-- This is unlikely to happen, is just a fallback -->
 				<FailInstructions {bunchesEaten} {highestClustersEaten} />
 				<div class="text-burst-wrapper">
-					<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} />
+					<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} hueRotationMax={360} />
 				</div>
 			{/if}
 		</Gamespace>
@@ -246,6 +246,7 @@
 		display: flex;
 	}
 	.text-burst-wrapper {
+		font-size: var(--font_size_xl5);
 		position: absolute;
 		left: 50%;
 		top: 50%;

@@ -20,7 +20,7 @@
 	import {initGameState, spawnApples, updateGameState} from '$lib/mutableSnakeGameState';
 	import Ticker from '$lib/Ticker.svelte';
 	import StageControls from '$lib/StageControls.svelte';
-	import StageTimedAppleProgress from '$lib/TimedScores.svelte';
+	import TimedScores from '$lib/TimedScores.svelte';
 	import ReadyInstructions from '$lib/sports/ssspeed/ReadyInstructions.svelte';
 	import WinInstructions from '$lib/sports/ssspeed/WinInstructions.svelte';
 	import TextBurst from '$lib/TextBurst.svelte';
@@ -141,12 +141,7 @@
 			{/if}
 		</Gamespace>
 		<Ticker {clock} tickDuration={currentTickDuration} {tick} />
-		<StageTimedAppleProgress
-			{applesEaten}
-			applesToWin={APPLES_EATEN_TO_WIN}
-			{currentTime}
-			{bestTime}
-		/>
+		<TimedScores {applesEaten} applesToWin={APPLES_EATEN_TO_WIN} {currentTime} {bestTime} />
 		<StageControls {clock} {tick} {game} />
 		<section>
 			<ControlsInstructions />

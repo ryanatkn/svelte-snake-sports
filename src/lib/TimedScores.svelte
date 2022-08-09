@@ -16,7 +16,7 @@
 <div class="progress">
 	<div class="time" title="current elapsed time">{currentTimeSeconds}s</div>
 	<div class="count">
-		<Score title="progress towards goal">
+		<Score title="progress towards goal" textBurstKey={applesEaten}>
 			<div>{applesEaten}/{applesToWin}</div>
 		</Score>
 	</div>

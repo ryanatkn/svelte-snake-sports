@@ -139,7 +139,7 @@
 			{/if}
 		</Gamespace>
 		<div class="scores">
-			<Score title="apples eaten this try">{applesEaten}</Score>
+			<Score title="apples eaten this try" textBurstKey={applesEaten}>{applesEaten}</Score>
 			{#if $highestApplesEaten !== applesEaten}
 				<Score title="the most apples you've ever eaten">{$highestApplesEaten}</Score>
 			{/if}

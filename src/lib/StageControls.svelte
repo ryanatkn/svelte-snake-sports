@@ -5,6 +5,7 @@
 	import MovementCommandQueue from '$lib/MovementCommandQueue.svelte';
 	import Hotkeys from '$lib/Hotkeys.svelte';
 	import type SnakeGame from '$lib/SnakeGame.svelte';
+	import {askToClearLocalStorage} from '$lib/storage';
 
 	export let clock: Clock;
 	export let tick: () => void;
@@ -45,6 +46,10 @@
 			case '2': {
 				tick();
 				tick();
+				return true;
+			}
+			case '0': {
+				askToClearLocalStorage();
 				return true;
 			}
 			case '3': {

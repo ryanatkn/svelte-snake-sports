@@ -12,7 +12,7 @@
 
 <div class="score" {title}>
 	<div class="value" class:bounce={$bounce}><slot /></div>
-	{#if textBurstItems && progressKey}
+	{#if textBurstItems && progressKey !== undefined}
 		{#key progressKey}
 			<div class="text-burst-wrapper">
 				<TextBurst count={15} items={textBurstItems} xRadius={100} yRadius={100} />

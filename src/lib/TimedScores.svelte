@@ -16,7 +16,7 @@
 <div class="progress">
 	<div class="time" title="current elapsed time">{currentTimeSeconds}s</div>
 	<div class="count">
-		<Score title="progress towards goal" textBurstKey={applesEaten}>
+		<Score title="progress towards goal" progressKey={applesEaten === 0 ? undefined : applesEaten}>
 			<div>{applesEaten}/{applesToWin}</div>
 		</Score>
 	</div>
@@ -40,5 +40,6 @@
 
 	.time {
 		padding: var(--spacing_xl);
+		font-weight: 600;
 	}
 </style>

@@ -1,21 +1,25 @@
 <script lang="ts">
 	import TextBurst from '$lib/TextBurst.svelte';
+	import {bouncey} from '$lib/bouncey';
 
 	export let title = 'score';
 	export let textBurstItems: string[] | null = ['🍎', '🍏'];
-	export let textBurstKey: any = undefined;
+	export let progressKey: any = undefined;
+
+	const bounce = bouncey();
+	$: bounce.updateKey(progressKey);
 </script>
 
 <div class="score" {title}>
-	<div class="value"><slot /></div>
-	{#if textBurstItems && textBurstKey}
-		{#key textBurstKey}
+	<div class="value" class:bounce={$bounce}><slot /></div>
+	{#if textBurstItems && progressKey}
+		{#key progressKey}
 			<div class="text-burst-wrapper">
 				<TextBurst count={15} items={textBurstItems} xRadius={100} yRadius={100} />
 			</div>
 		{/key}
 	{/if}
-	<div class="apple" />
+	<div class="apple" class:bounce={$bounce} />
 </div>
 
 <style>
@@ -26,8 +30,9 @@
 	}
 
 	.value {
-		padding: 0 var(--spacing_lg);
+		padding: 0 var(--spacing_md);
 		font-size: var(--font_size_xl3);
+		font-weight: 600;
 	}
 
 	.text-burst-wrapper {

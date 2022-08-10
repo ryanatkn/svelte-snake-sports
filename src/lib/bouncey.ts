@@ -6,6 +6,10 @@ export interface Bouncey {
 	updateKey: (key: any) => void;
 }
 
+// TODO this is more generic than being a bounce animation,
+// it debounces toggling to the `true` state through a frame of `false`,
+// useful for restarting CSS animations -- what's a good name for it?
+
 export const bouncey = (): Bouncey => {
 	const bounce = writable(false);
 	let lastKey: any;

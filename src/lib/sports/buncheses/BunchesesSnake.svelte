@@ -1,10 +1,6 @@
 <!-- TODO refactor so this isn't needed -->
 <svelte:options immutable={false} />
 
-<script lang="ts" context="module">
-	export const BUNCHESES_HIGH_SCORE_KEY = 'buncheses_high_score';
-</script>
-
 <script lang="ts">
 	// This version is a port of the original React project:
 	// https://ryanatkn.github.io/snake-game
@@ -30,6 +26,7 @@
 	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
 	import {Entity} from '$lib/Entity';
 	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
+	import {BUNCHESES_HIGH_SCORE_KEY} from '$lib/storage';
 
 	export let game: SnakeGame | undefined = undefined;
 

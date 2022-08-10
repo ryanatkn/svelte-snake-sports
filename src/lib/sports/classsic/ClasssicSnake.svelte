@@ -1,10 +1,6 @@
 <!-- TODO refactor so this isn't needed -->
 <svelte:options immutable={false} />
 
-<script lang="ts" context="module">
-	export const CLASSSIC_HIGH_SCORE_KEY = 'classsic_high_score';
-</script>
-
 <script lang="ts">
 	// This version is a port of the original React project:
 	// https://ryanatkn.github.io/snake-game
@@ -29,6 +25,7 @@
 	import TextBurst from '$lib/TextBurst.svelte';
 	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
 	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
+	import {CLASSSIC_HIGH_SCORE_KEY} from '$lib/storage';
 
 	export let game: SnakeGame | undefined = undefined;
 	export let toInitialState = (): SnakeGameState => initGameState(toDefaultGameState());

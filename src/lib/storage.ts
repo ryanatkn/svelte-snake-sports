@@ -1,8 +1,8 @@
 import {browser} from '$app/env';
 
-import {CLASSSIC_HIGH_SCORE_KEY} from '$lib/sports/classsic/ClasssicSnake.svelte';
-import {SSSPEED_HIGH_SCORE_KEY} from '$lib/sports/ssspeed/SsspeedSnake.svelte';
-import {BUNCHESES_HIGH_SCORE_KEY} from '$lib/sports/buncheses/BunchesesSnake.svelte';
+export const CLASSSIC_HIGH_SCORE_KEY = 'classsic_high_score';
+export const SSSPEED_HIGH_SCORE_KEY = 'ssspeed_high_score';
+export const BUNCHESES_HIGH_SCORE_KEY = 'buncheses_high_score';
 
 export const clearLocalStorage = (): void => {
 	if (!browser) return;

@@ -1,10 +1,6 @@
 <!-- TODO refactor so this isn't needed -->
 <svelte:options immutable={false} />
 
-<script lang="ts" context="module">
-	export const SSSPEED_HIGH_SCORE_KEY = 'ssspeed_high_score';
-</script>
-
 <script lang="ts">
 	import {browser} from '$app/env';
 	import {base} from '$app/paths';
@@ -26,6 +22,7 @@
 	import TextBurst from '$lib/TextBurst.svelte';
 	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
 	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
+	import {SSSPEED_HIGH_SCORE_KEY} from '$lib/storage';
 
 	// TODO after merging:
 	// fix settings dimensions to persist on reset

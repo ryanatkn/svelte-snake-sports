@@ -11,6 +11,8 @@
   [$lib/sports/ClasssicSnake.svelte](/src/lib/sports/classsic/ClasssicSnake.svelte)
 - [ssspeed](https://ryanatkn.github.io/svelte-snake-sports/ssspeed) — eat apples asap —
   [$lib/sports/SsspeedSnake.svelte](/src/lib/sports/ssspeed/SsspeedSnake.svelte)
+- [buncheses](https://ryanatkn.github.io/svelte-snake-sports/buncheses) — eat many whole bunches of apples —
+  [$lib/sports/BunchesesSnake.svelte](/src/lib/sports/buncheses/BunchesesSnake.svelte)
 - more to come! including a library so you can make your own sports
 
 caveats:

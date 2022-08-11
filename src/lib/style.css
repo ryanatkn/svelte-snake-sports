@@ -13,6 +13,7 @@
 	--dim_green: hsl(111, 46%, 40%);
 	--dim_red: hsl(353, 56%, 37%);
 	--bright_red: hsl(353, 78%, 44%);
+	--blue_to_brown_hue_rotation: 200;
 }
 
 body {

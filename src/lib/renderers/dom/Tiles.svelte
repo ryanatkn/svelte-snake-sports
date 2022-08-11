@@ -21,7 +21,7 @@
 <style>
 	.tile {
 		position: absolute;
-		background-color: #f7f1f1;
+		background-color: var(--medium_brown);
 		border-radius: 15%;
 	}
 </style>

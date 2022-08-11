@@ -4,7 +4,8 @@
 
 	// TODO BLOCK set transition duration for snake to half or 61.8% of the tick duration
 
-	const sports = ['/classsic', '/ssspeed'];
+	// TODO BLOCK source of truth this
+	const sports = ['/classsic', '/ssspeed', '/buncheses'];
 	$: randomSport = randomItem(sports);
 </script>
 

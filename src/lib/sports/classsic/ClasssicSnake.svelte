@@ -17,7 +17,7 @@
 	import Score from '$lib/Score.svelte';
 	import Stats from '$lib/Stats.svelte';
 	import {toDefaultGameState, type SnakeGameState} from '$lib/SnakeGameState';
-	import {initGameState, updateGameState} from '$lib/mutableSnakeGameState';
+	import {initGameState, updateGameState} from '$lib/updateSnakeGameState';
 	import Ticker from '$lib/Ticker.svelte';
 	import StageControls from '$lib/StageControls.svelte';
 	import ReadyInstructions from '$lib/sports/classsic/ReadyInstructions.svelte';

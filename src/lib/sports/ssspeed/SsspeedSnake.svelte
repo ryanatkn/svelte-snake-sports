@@ -13,7 +13,7 @@
 	import Settings from '$lib/Settings.svelte';
 	import Stats from '$lib/Stats.svelte';
 	import {toDefaultGameState} from '$lib/SnakeGameState';
-	import {initGameState, spawnApples, updateGameState} from '$lib/mutableSnakeGameState';
+	import {initGameState, spawnApples, updateGameState} from '$lib/updateSnakeGameState';
 	import Ticker from '$lib/Ticker.svelte';
 	import StageControls from '$lib/StageControls.svelte';
 	import TimedScores from '$lib/TimedScores.svelte';

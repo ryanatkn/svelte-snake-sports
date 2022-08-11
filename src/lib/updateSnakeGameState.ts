@@ -201,7 +201,7 @@ export const updateGameState = (state: SnakeGameState, game: ISnakeGame): SnakeG
 /**
  * Update the snake's movement direction with the next input direction, if any.
  */
-function updateInput(game: ISnakeGame): void {
+const updateInput = (game: ISnakeGame): void => {
 	// TODO this is always called first in update, so maybe it's a totally separate process, we only send serialized inputs here, then `.reset()` below gets converted
 	game.movementCommandQueue.update(($v) => {
 		if (!$v.length) return $v;
@@ -209,12 +209,12 @@ function updateInput(game: ISnakeGame): void {
 		game.movementDirection.set($v.shift()!);
 		return $v;
 	});
-}
+};
 
 /**
  * Moves the snake in the given direction.
  */
-function moveSnake({snakeSegments}: SnakeGameState, movementDirection: Direction): void {
+const moveSnake = ({snakeSegments}: SnakeGameState, movementDirection: Direction): void => {
 	const head = snakeSegments[0];
 
 	// Move the head first, because our algorithm reads the previous positions
@@ -227,23 +227,23 @@ function moveSnake({snakeSegments}: SnakeGameState, movementDirection: Direction
 		const currSegment = snakeSegments[i];
 		currSegment.moveTo(prevSegment.prevX, prevSegment.prevY);
 	}
-}
+};
 
 /**
  * We only need to check the head of the snake to see if the whole thing is in bounds
  * because of the game's movement rules.
  */
-function checkSnakeOutOfBounds(state: SnakeGameState, game: ISnakeGame): void {
+const checkSnakeOutOfBounds = (state: SnakeGameState, game: ISnakeGame): void => {
 	const {snakeSegments, mapWidth, mapHeight} = state;
 	if (snakeSegments[0].isOutOfBounds(mapWidth, mapHeight)) {
 		game.emit({name: 'snake_collide_bounds'});
 	}
-}
+};
 
 /**
  * Checks if the snake eats itself. If so, destroy it.
  */
-function checkSnakeEatSelf(state: SnakeGameState, game: ISnakeGame): void {
+const checkSnakeEatSelf = (state: SnakeGameState, game: ISnakeGame): void => {
 	const {snakeSegments} = state;
 	const snakeHead = snakeSegments[0];
 	for (let i = 1; i < snakeSegments.length; i++) {
@@ -252,12 +252,12 @@ function checkSnakeEatSelf(state: SnakeGameState, game: ISnakeGame): void {
 			game.emit({name: 'snake_collide_self', segment});
 		}
 	}
-}
+};
 
 /**
  * Check if the snake eats an apple. If so, update the game state to handle it.
  */
-function checkSnakeEatApple(state: SnakeGameState, game: ISnakeGame): void {
+const checkSnakeEatApple = (state: SnakeGameState, game: ISnakeGame): void => {
 	const {snakeSegments, apples} = state;
 	const snakeHead = snakeSegments[0];
 	for (const apple of apples) {
@@ -265,12 +265,12 @@ function checkSnakeEatApple(state: SnakeGameState, game: ISnakeGame): void {
 			return eatApple(state, game, apple);
 		}
 	}
-}
+};
 
 /**
  * Has the snake eat an apple, removing the apple and growing the snake.
  */
-function eatApple(state: SnakeGameState, game: ISnakeGame, apple: Entity): void {
+const eatApple = (state: SnakeGameState, game: ISnakeGame, apple: Entity): void => {
 	const {apples, snakeSegments} = state;
 
 	game.emit({name: 'eat_apple', apple});
@@ -287,7 +287,7 @@ function eatApple(state: SnakeGameState, game: ISnakeGame, apple: Entity): void 
 	snakeSegments.push(nextEndSegment);
 
 	game.helpers.spawnApples(state, game);
-}
+};
 
 /**
  * Creates an apple on a random empty square.

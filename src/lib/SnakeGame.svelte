@@ -6,7 +6,7 @@
 	import type {Direction} from '$lib/Entity';
 	import type {SnakeGameState} from '$lib/SnakeGameState';
 	import type {SnakeGameEvent, SnakeGameHelpers} from '$lib/SnakeGame';
-	import {spawnApples as _spawnApples} from '$lib/mutableSnakeGameState';
+	import {spawnApples as _spawnApples} from '$lib/updateSnakeGameState';
 
 	export let toInitialState: () => SnakeGameState;
 	export let toInitialEvents: () => SnakeGameEvent[] = () => [];

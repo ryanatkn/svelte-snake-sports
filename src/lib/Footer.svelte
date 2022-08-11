@@ -22,7 +22,7 @@
 		</p>
 		{#if $page.url.pathname !== '/'}
 			<p>
-				<a href="{base}/">go back home</a>
+				<a href="{base}/">go back 🐍 home</a>
 			</p>
 		{/if}
 	</div>

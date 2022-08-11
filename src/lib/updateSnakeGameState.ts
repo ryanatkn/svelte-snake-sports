@@ -1,4 +1,6 @@
 import {randomInt, randomItem} from '@feltcoop/felt/util/random.js';
+import {Logger} from '@feltcoop/felt/util/log.js';
+
 import {
 	directions,
 	Entity,
@@ -9,6 +11,8 @@ import {
 import type {SnakeGameState} from '$lib/SnakeGameState';
 import {get} from 'svelte/store';
 import type {ISnakeGame} from '$lib/SnakeGame';
+
+const log = new Logger('[updateSnakeGameState]');
 
 // TODO refactor this -- into what? a component?
 
@@ -51,8 +55,6 @@ export const updateSnakeGameState = (state: SnakeGameState, game: ISnakeGame): S
 
 	// TODO `game.finishUpdate`?
 
-	console.log(`updated nextState`, nextState);
-
 	return nextState;
 };
 
@@ -65,7 +67,7 @@ export const validateState = (state: SnakeGameState): void => {
  * Sets up the initial state for a game.
  */
 export const initGameState = (state: SnakeGameState): SnakeGameState => {
-	console.log('[SnakeGame] init');
+	log.info('initGameState');
 	// TODO  single state JSON object instead? update(state, controller) => nextState
 
 	// TODO make this all customizable
@@ -264,7 +266,6 @@ const checkSnakeEatSelf = (state: SnakeGameState, game: ISnakeGame): void => {
 	for (let i = 1; i < snakeSegments.length; i++) {
 		const segment = snakeSegments[i];
 		if (segment.isCollidingWith(snakeHead)) {
-			console.log(`segment colliding`, segment);
 			game.emit({name: 'snake_collide_self', segment});
 		}
 	}

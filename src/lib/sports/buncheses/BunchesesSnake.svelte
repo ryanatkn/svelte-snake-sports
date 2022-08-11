@@ -75,7 +75,6 @@
 		}
 		// TODO maybe serialize input state as param instead of `game`?
 		$state = updateSnakeGameState($state, game);
-		console.log(`$state`, $state, $events);
 
 		let ateApple = false;
 

@@ -32,7 +32,6 @@
 	export const status = writable<'ready' | 'playing' | 'win' | 'fail'>('ready');
 
 	export const beginUpdate = (state: SnakeGameState): SnakeGameState => {
-		console.log(`beginUpdate state`, state);
 		$events = [];
 		prevState = state;
 		return {...state};
@@ -50,8 +49,6 @@
 	};
 
 	export const reset = (): void => {
-		console.log(`reset`);
-		// debugger;
 		$status = 'ready';
 		$events = [];
 		$tickCount = 0;

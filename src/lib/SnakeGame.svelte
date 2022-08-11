@@ -1,5 +1,3 @@
-<svelte:options accessors />
-
 <script lang="ts">
 	import {writable} from 'svelte/store';
 	import {noop} from '@feltcoop/felt/util/function.js';
@@ -16,9 +14,7 @@
 	export let onReset: () => void = noop;
 	export let spawnApples: typeof _spawnApples | undefined = undefined;
 
-	// this prop gets set externally during ``
-	// (made possible by the Svelte option `accessors` above)
-	// TODO BLOCK technically we don't need this given the `beginUpdate` API
+	// this prop gets set by `beginUpdate`, but it's exposed for binding externally
 	export let prevState: SnakeGameState | undefined = undefined;
 	prevState; // TODO eslint borked
 

@@ -7,7 +7,7 @@
 </script>
 
 <div class="instructions" transition:scale|local>
-	<div>move with arrow keys</div>
+	<div>see instructions below</div>
 	<div style:position="relative" style:left="{-15}px">eat {applesToWin} apples to win! asap!!</div>
 	{#if $bestTime}<div style:position="relative" style:left="{25}px">
 			besst is <strong>{$bestTime}ms</strong>!

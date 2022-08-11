@@ -96,7 +96,7 @@
 	/* tail */
 	.snake :global(.Entity:last-child) {
 		border-radius: 30%;
-		background-color: var(--dim_green);
+		background-color: var(--bright_green);
 	}
 	:global(.game-fail) .snake :global(.Entity:last-child) {
 		background-color: var(--bright_red);

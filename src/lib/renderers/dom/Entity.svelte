@@ -7,7 +7,7 @@
 	export let classes = 'plain';
 
 	// TODO BLOCK
-	const transition_duration = 500;
+	const transition_duration = 100;
 
 	$: positionX = x * width;
 	$: positionY = y * height;

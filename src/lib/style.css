@@ -20,6 +20,13 @@
 	--blue_to_brown_hue_rotation: 200;
 }
 
+/* TODO remove this after upgrading Felt */
+input,
+textarea,
+select {
+	color: var(--text_color);
+}
+
 body {
 	display: flex;
 	flex-direction: column;

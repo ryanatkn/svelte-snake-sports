@@ -54,15 +54,15 @@
 	/* TODO fix these global styles to not be global, is a relic of the port */
 
 	.snake :global(.Entity) {
-		background-color: #9da;
+		background-color: var(--dim_green);
 	}
 	:global(.game-fail) .snake :global(.Entity) {
-		background-color: rgb(221, 156, 153);
+		background-color: var(--dim_red);
 	}
 
 	/* head */
 	.snake :global(.Entity:first-child) {
-		background-color: #8c9;
+		background-color: var(--bright_green);
 	}
 	.snake.moving-up :global(.Entity:first-child) {
 		border-top-left-radius: 50%;
@@ -77,7 +77,7 @@
 		border-bottom-left-radius: 50%;
 	}
 	:global(.game-fail) .snake :global(.Entity:first-child) {
-		background-color: rgb(204, 136, 136);
+		background-color: var(--bright_red);
 		border-radius: 15%;
 	}
 	:global(.game-win) .snake.moving-up :global(.Entity:first-child) {
@@ -96,10 +96,10 @@
 	/* tail */
 	.snake :global(.Entity:last-child) {
 		border-radius: 30%;
-		background-color: #87c997;
+		background-color: var(--bright_green);
 	}
 	:global(.game-fail) .snake :global(.Entity:last-child) {
-		background-color: #c9878f;
+		background-color: var(--bright_red);
 	}
 
 	/* eye */

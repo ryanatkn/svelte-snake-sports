@@ -1,35 +1,21 @@
 <script lang="ts">
 	import {base} from '$app/paths';
+
+	import {sports} from '$lib/sports';
 </script>
 
 <menu>
-	<li>
-		<a href="{base}/classsic" title="svelte snake sports: classssic">
-			<img
-				alt="logo for svelte snake sports: classsic"
-				src="{base}/assets/classsic.webp"
-				class="clickable-box"
-			/>
-		</a>
-	</li>
-	<li>
-		<a href="{base}/ssspeed" title="svelte snake sports: ssspeed">
-			<img
-				alt="logo for svelte snake sports: ssspeed"
-				src="{base}/assets/ssspeed.webp"
-				class="clickable-box"
-			/>
-		</a>
-	</li>
-	<li>
-		<a href="{base}/buncheses" title="svelte snake sports: buncheses">
-			<img
-				alt="logo for svelte snake sports: buncheses"
-				src="{base}/assets/buncheses.webp"
-				class="clickable-box"
-			/>
-		</a>
-	</li>
+	{#each sports as sport (sport)}
+		<li>
+			<a href="{base}{sport.slug}" title="svelte snake sports: {sport.name}">
+				<img
+					alt="logo for svelte snake sports: {sport.name}"
+					src="{base}/assets{sport.slug}.webp"
+					class="clickable-box"
+				/>
+			</a>
+		</li>
+	{/each}
 </menu>
 
 <style>

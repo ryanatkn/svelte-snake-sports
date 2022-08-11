@@ -29,6 +29,7 @@
 	import {Entity} from '$lib/Entity';
 	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
 	import {BUNCHESES_HIGH_SCORE_KEY} from '$lib/storage';
+	import {setCurrentTickDuration} from '$lib/SnakeGame';
 
 	export let game: SnakeGame | undefined = undefined;
 
@@ -55,7 +56,7 @@
 	// TODO maybe these shouldn't be stores? or maybe the tick logic should be extracted to a single store/object?
 	export const tickDurationDecay = writable(0.97);
 	export const baseTickDuration = writable(Math.round(1000 / 2)); // the starting tick duration, may be modified by gameplay
-	export const currentTickDuration = writable($baseTickDuration);
+	export const currentTickDuration = setCurrentTickDuration(writable($baseTickDuration));
 	export const tickDurationMin = writable(17);
 	export const tickDurationMax = writable(2000);
 

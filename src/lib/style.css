@@ -1,17 +1,37 @@
 /* global stylesheet imported by `src/routes/__layout.svelte */
 
-/*
-
 :root {
-  --some_stylish_property: 100%;
+	--active_color: var(--bright_green);
+	--link_color: var(--bright_green);
+	--text_color: #fff;
+	--text_color_light: #fed;
+	--button_text_color: #000;
+	--panel_color_dark: var(--dark_brown);
+
+	/* specific to this project, consider upstreaming */
+	--bg: var(--dim_brown);
+	--dark_brown: hsl(15, 50%, 2%);
+	--dim_brown: hsl(30, 50%, 13%);
+	--medium_brown: hsl(30, 25%, 27%);
+	--bright_green: hsl(116, 80%, 41%);
+	--dim_green: hsl(111, 46%, 40%);
+	--dim_red: hsl(353, 56%, 37%);
+	--bright_red: hsl(353, 78%, 44%);
+	--blue_to_brown_hue_rotation: 200;
 }
 
-*/
+/* TODO remove this after upgrading Felt */
+input,
+textarea,
+select {
+	color: var(--text_color);
+}
 
 body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	background: var(--dim_brown);
 }
 
 footer {
@@ -46,7 +66,7 @@ form label:last-child {
 
 .apple {
 	position: relative;
-	background-color: #c89;
+	background-color: var(--bright_red);
 	border-radius: 17px 14px 14px 12px;
 	width: 30px;
 	height: 30px;
@@ -59,23 +79,28 @@ form label:last-child {
 	top: -3px;
 	width: 3px;
 	height: 7px;
-	background-color: rgb(122, 100, 100);
+	background-color: var(--dim_brown);
 	border-radius: 4px;
 }
 
 .clickable-box {
-	transition: border-radius 0.09s ease-out;
+	transition: border-radius 0.09s ease-out, transform 0.13s ease;
 	border-radius: 20%;
 }
 .clickable-box:hover {
 	border-radius: 16%;
+	transform: scale3d(1.03, 1.03, 1.03);
 }
 .clickable-box:active {
 	border-radius: 18%;
+	/* this was a typo, fun but maybe obnoxious or too jarring:
+	transform: scale3d(1.97, 1.97, 1.97); */
+	transform: scale3d(0.94, 0.94, 0.94);
 }
 
 .instructions {
 	position: absolute;
+	opacity: 0.75;
 	top: 40%;
 	left: 50%;
 	font-size: var(--font_size_lg);
@@ -85,8 +110,8 @@ form label:last-child {
 }
 .instructions > * {
 	padding: 0 var(--spacing_xs);
-	background-color: #fffd;
-	border-bottom: 3px solid #c896;
+	background-color: var(--bg);
+	border-bottom: 3px solid var(--dim_red);
 	white-space: nowrap;
 }
 

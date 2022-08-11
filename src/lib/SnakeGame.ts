@@ -1,4 +1,5 @@
 import type {Writable} from 'svelte/store';
+import {setContext, getContext} from 'svelte';
 
 import type {Direction, Entity} from '$lib/Entity';
 import type {spawnApples} from '$lib/updateSnakeGameState';
@@ -44,3 +45,10 @@ export interface SnakeGameEatAppleEvent {
 export interface SnakeGameHelpers {
 	spawnApples: typeof spawnApples;
 }
+
+export const CURRENT_TICK_DURATION_KEY = Symbol('currentTickDuration');
+export const setCurrentTickDuration = (d: Writable<number>): Writable<number> =>
+	setContext(CURRENT_TICK_DURATION_KEY, d);
+// Handles the `undefined` case. Assert! if the API requires it.
+export const getCurrentTickDuration = (): Writable<number> | undefined =>
+	getContext(CURRENT_TICK_DURATION_KEY);

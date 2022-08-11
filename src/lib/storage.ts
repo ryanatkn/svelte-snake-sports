@@ -15,7 +15,7 @@ export const clearLocalStorage = (): void => {
 export const askToClearLocalStorage = (): void => {
 	if (!browser) return;
 	// eslint-disable-next-line no-alert
-	if (confirm('clear all saved data?')) {
+	if (confirm('permanently delete all saved data?')) {
 		clearLocalStorage();
 	}
 };

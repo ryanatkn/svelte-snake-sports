@@ -40,7 +40,9 @@
 
 <form class="Settings">
 	<section>
-		<button type="button" on:click={askToClearLocalStorage}>reset saved data</button>
+		<button type="button" title="[0] clear local storage" on:click={askToClearLocalStorage}
+			>reset saved data</button
+		>
 	</section>
 	<section>
 		<label

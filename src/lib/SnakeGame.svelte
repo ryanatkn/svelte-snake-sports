@@ -1,4 +1,4 @@
-<svelte:options immutable={false} />
+<svelte:options accessors />
 
 <script lang="ts">
 	import {writable} from 'svelte/store';
@@ -16,6 +16,12 @@
 	export let onReset: () => void = noop;
 	export let spawnApples: typeof _spawnApples | undefined = undefined;
 
+	// this prop gets set externally during ``
+	// (made possible by the Svelte option `accessors` above)
+	// TODO BLOCK technically we don't need this given the `beginUpdate` API
+	export let prevState: SnakeGameState | undefined = undefined;
+	prevState; // TODO eslint borked
+
 	export const state = writable(toInitialState());
 	export const events = writable(toInitialEvents());
 	export const helpers: SnakeGameHelpers = {
@@ -26,6 +32,13 @@
 	export const movementCommandQueue = writable<Direction[]>([]); // TODO should this be a generic command queue, not just movement?
 	export const runCount = writable(0);
 	export const status = writable<'ready' | 'playing' | 'win' | 'fail'>('ready');
+
+	export const beginUpdate = (state: SnakeGameState): SnakeGameState => {
+		console.log(`beginUpdate state`, state);
+		$events = [];
+		prevState = state;
+		return {...state};
+	};
 
 	// TODO this is super hacky -- the problem is that when Svelte props have a default value,
 	// their external type is `T | undefined`,
@@ -39,6 +52,8 @@
 	};
 
 	export const reset = (): void => {
+		console.log(`reset`);
+		// debugger;
 		$status = 'ready';
 		$events = [];
 		$tickCount = 0;
@@ -46,11 +61,12 @@
 		$movementCommandQueue = [];
 		$runCount++;
 		$state = toInitialState();
+		prevState = undefined;
 		onReset();
 	};
 
 	export const emit = (event: SnakeGameEvent): void => {
-		events.update(($v) => $v.concat(event));
+		$events.push(event); // mutate during updates
 	};
 
 	export const end = (outcomeStatus: 'win' | 'fail'): void => {
@@ -72,7 +88,7 @@
 	 */
 	export const enqueueMovementCommand = (movementCommand: Direction): void => {
 		movementCommandQueue.update(($v) => {
-			const $updated = [...$v, movementCommand];
+			const $updated = $v.concat(movementCommand);
 			while ($updated.length > MOVEMENT_COMMAND_QUEUE_SIZE) {
 				$updated.shift();
 			}

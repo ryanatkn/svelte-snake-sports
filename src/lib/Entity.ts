@@ -8,26 +8,32 @@ export const horizontalDirections: Direction[] = ['left', 'right'];
 // TODO separate implementation?
 
 export class Entity {
-	constructor(public x: number, public y: number, public prevX = x, public prevY = y) {}
+	constructor(
+		public x: number,
+		public y: number,
+		public prevX = x,
+		public prevY = y,
+		public id = _id++,
+	) {}
 
-	id = _id++;
-
-	clone(): Entity {
-		return new Entity(this.x, this.y, this.prevX, this.prevY);
+	clone(id = false): Entity {
+		return new Entity(this.x, this.y, this.prevX, this.prevY, id ? this.id : undefined);
 	}
 
-	moveTo(x: number, y: number): void {
+	moveTo(x: number, y: number): Entity {
 		this.prevX = this.x;
 		this.prevY = this.y;
 		this.x = x;
 		this.y = y;
+		return this;
 	}
 
-	moveBy(x: number, y: number): void {
+	moveBy(x: number, y: number): Entity {
 		this.moveTo(this.x + x, this.y + y);
+		return this;
 	}
 
-	moveDir(dir: Direction): void {
+	moveDir(dir: Direction): Entity {
 		switch (dir) {
 			case 'left':
 				return this.moveBy(-1, 0);

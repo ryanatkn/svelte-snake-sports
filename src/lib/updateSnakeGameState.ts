@@ -233,18 +233,14 @@ const updateInput = (game: ISnakeGame): void => {
 const moveSnake = (state: SnakeGameState, game: ISnakeGame, movementDirection: Direction): void => {
 	const snakeSegments = toSnakeSegments(state, game);
 
-	// TODO BLOCK maybe to `toEntity(head, game)` and then
-	// it could store all of the entities it clones each round
-	// and avoid multiple clones of the same entity
-
 	// Move the head first, because our algorithm reads the previous positions
 	// of the preceding segments to move them to, so this works.
-	snakeSegments[0] = snakeSegments[0].clone(true).moveDir(movementDirection);
+	snakeSegments[0] = toSnakeSegment(state, game, 0).moveDir(movementDirection);
 
 	// Make the body follow the head
 	for (let i = 1; i < snakeSegments.length; i++) {
 		const {prevX, prevY} = snakeSegments[i - 1];
-		snakeSegments[i] = snakeSegments[i].clone(true).moveTo(prevX, prevY);
+		snakeSegments[i] = toSnakeSegment(state, game, i).moveTo(prevX, prevY);
 	}
 };
 
@@ -327,3 +323,7 @@ export const toSnakeSegments = (state: SnakeGameState, game: ISnakeGame): Entity
 	state.snakeSegments === game.prevState?.snakeSegments
 		? (state.snakeSegments = state.snakeSegments.slice())
 		: state.snakeSegments;
+export const toSnakeSegment = (state: SnakeGameState, game: ISnakeGame, index: number): Entity =>
+	state.snakeSegments[index] === game.prevState?.snakeSegments[index]
+		? (state.snakeSegments[index] = state.snakeSegments[index].clone(true))
+		: state.snakeSegments[index];

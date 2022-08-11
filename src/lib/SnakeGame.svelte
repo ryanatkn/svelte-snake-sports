@@ -1,3 +1,5 @@
+<svelte:options accessors />
+
 <script lang="ts">
 	import {writable} from 'svelte/store';
 	import {noop} from '@feltcoop/felt/util/function.js';

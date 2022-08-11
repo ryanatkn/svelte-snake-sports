@@ -1,4 +1,6 @@
 <script lang="ts">
+	import {getCurrentTickDuration} from '$lib/SnakeGame';
+
 	export let x: number;
 	export let y: number;
 	export let width: number;
@@ -6,8 +8,21 @@
 	// TODO is a hack just to get apples working, I haven't been using this pattern recently
 	export let classes = 'plain';
 
-	// TODO BLOCK
-	const transition_duration = 100;
+	// the higher this constant, the looser the movement feels,
+	// which can make it feel like difficult sludge.
+	// however a higher constant, to a point, makes the animation smoother.
+	const MOVEMENT_PCT_OF_TICK = 1 / 4;
+	const DEFAULT_TICK_DURATION = 100;
+
+	const currentTickDuration = getCurrentTickDuration();
+	// this is why I use the `--snake_case` CSS var naming convention,
+	// to have the same identifiers in JS match the CSS ones,
+	// and it'll be a heck of a day with Svelte supports shorthand CSS custom properties :))
+	$: transition_duration =
+		$currentTickDuration === undefined
+			? DEFAULT_TICK_DURATION
+			: $currentTickDuration * MOVEMENT_PCT_OF_TICK;
+	$: console.log(`transition_duration`, transition_duration);
 
 	$: positionX = x * width;
 	$: positionY = y * height;
@@ -26,7 +41,7 @@
 	.Entity {
 		display: block;
 		position: absolute;
-		/* TODO BLOCK make duration half of the tick  */
+		/* TODO play with different easings  */
 		transition: transform calc(var(--transition_duration) * 1ms) ease-in-out;
 	}
 	/* TODO hacky */

@@ -20,6 +20,7 @@
 	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
 	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
 	import {SSSPEED_HIGH_SCORE_KEY} from '$lib/storage';
+	import {setCurrentTickDuration} from '$lib/SnakeGame';
 
 	// TODO after merging:
 	// fix settings dimensions to persist on reset
@@ -37,11 +38,11 @@
 
 	// TODO refactor with the other impls
 	// TODO maybe these shouldn't be stores? or maybe the tick logic should be extracted to a single store/object?
-	const baseTickDuration = writable(Math.round(1000 / 6)); // the starting tick duration, may be modified by gameplay
-	const currentTickDuration = writable($baseTickDuration);
-	const tickDurationDecay = writable(0.5);
-	const tickDurationMin = writable(17);
-	const tickDurationMax = writable(2000);
+	export const baseTickDuration = writable(Math.round(1000 / 6)); // the starting tick duration, may be modified by gameplay
+	export const currentTickDuration = setCurrentTickDuration(writable($baseTickDuration));
+	export const tickDurationDecay = writable(0.5);
+	export const tickDurationMin = writable(17);
+	export const tickDurationMax = writable(2000);
 
 	// TODO belongs elsewhere
 	const rendererWidth = writable(512);

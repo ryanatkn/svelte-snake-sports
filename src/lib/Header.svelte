@@ -2,6 +2,8 @@
 	import {base} from '$app/paths';
 	import {randomItem} from '@feltcoop/felt/util/random.js';
 
+	// TODO BLOCK set transition duration for snake to half or 61.8% of the tick duration
+
 	const sports = ['/classsic', '/ssspeed'];
 	$: randomSport = randomItem(sports);
 </script>
@@ -30,6 +32,7 @@
 		flex-wrap: wrap;
 		justify-content: center;
 		align-items: center;
+		text-shadow: 2px 2px var(--dark_brown), -1px -1px var(--bright_green);
 	}
 	@media (max-width: 550px) {
 		h1 {
@@ -40,9 +43,6 @@
 		h1 {
 			font-size: var(--font_size_xl);
 		}
-	}
-	a {
-		font-weight: 300;
 	}
 	.snake {
 		padding: 0 var(--spacing_sm);

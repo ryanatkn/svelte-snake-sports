@@ -4,9 +4,13 @@
 	--active_color: var(--green);
 	--link_color: var(--green);
 	--text_color: #fff;
+	--text_color_light: #fed;
+	--button_text_color: #000;
+	--panel_color_dark: var(--dark_brown);
 
 	/* specific to this project, consider upstreaming */
 	--bg: var(--dim_brown);
+	--dark_brown: hsl(15, 50%, 2%);
 	--dim_brown: hsl(30, 50%, 13%);
 	--medium_brown: hsl(30, 25%, 27%);
 	--bright_green: hsl(116, 80%, 41%);

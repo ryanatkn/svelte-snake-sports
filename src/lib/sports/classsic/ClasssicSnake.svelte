@@ -23,7 +23,7 @@
 	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
 	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
 	import {CLASSSIC_HIGH_SCORE_KEY} from '$lib/storage';
-	import {setCurrentTickDuration} from '$lib/SnakeGame';
+	import {setCurrentTickDuration, setRendererWidth, setRendererHeight} from '$lib/SnakeGame';
 
 	export let game: SnakeGame | undefined = undefined;
 	export let toInitialState = (): SnakeGameState => initGameState(toDefaultGameState());
@@ -51,10 +51,9 @@
 	export const currentTickDuration = setCurrentTickDuration(writable($baseTickDuration));
 	export const tickDurationMin = writable(17);
 	export const tickDurationMax = writable(2000);
-
 	// TODO belongs elsewhere
-	const rendererWidth = writable(512);
-	const rendererHeight = writable(512);
+	export const rendererWidth = setRendererWidth(writable(512));
+	export const rendererHeight = setRendererHeight(writable(512));
 
 	// TODO is there a better place to do this? imperatively after updating the state?
 	$: if (applesEaten > $highestApplesEaten) {

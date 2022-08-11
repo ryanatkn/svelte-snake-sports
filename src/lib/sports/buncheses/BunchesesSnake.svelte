@@ -29,7 +29,7 @@
 	import {Entity} from '$lib/Entity';
 	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
 	import {BUNCHESES_HIGH_SCORE_KEY} from '$lib/storage';
-	import {setCurrentTickDuration} from '$lib/SnakeGame';
+	import {setCurrentTickDuration, setRendererWidth, setRendererHeight} from '$lib/SnakeGame';
 
 	export let game: SnakeGame | undefined = undefined;
 
@@ -59,10 +59,9 @@
 	export const currentTickDuration = setCurrentTickDuration(writable($baseTickDuration));
 	export const tickDurationMin = writable(17);
 	export const tickDurationMax = writable(2000);
-
 	// TODO belongs elsewhere
-	const rendererWidth = writable(512);
-	const rendererHeight = writable(512);
+	export const rendererWidth = setRendererWidth(writable(512));
+	export const rendererHeight = setRendererHeight(writable(512));
 
 	// TODO is there a better place to do this? imperatively after updating the state?
 	$: if (bunchesEaten > $highestClustersEaten) {

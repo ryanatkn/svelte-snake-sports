@@ -1,6 +1,3 @@
-<!-- TODO refactor so this isn't needed -->
-<svelte:options immutable={false} />
-
 <script lang="ts">
 	import {browser} from '$app/env';
 	import {base} from '$app/paths';
@@ -13,7 +10,7 @@
 	import Settings from '$lib/Settings.svelte';
 	import Stats from '$lib/Stats.svelte';
 	import {toDefaultGameState} from '$lib/SnakeGameState';
-	import {initGameState, spawnApples, updateGameState} from '$lib/mutableSnakeGameState';
+	import {initGameState, spawnApples, updateSnakeGameState} from '$lib/updateSnakeGameState';
 	import Ticker from '$lib/Ticker.svelte';
 	import StageControls from '$lib/StageControls.svelte';
 	import TimedScores from '$lib/TimedScores.svelte';
@@ -67,7 +64,7 @@
 		}
 
 		// TODO maybe serialize input state as param instead of `game`?
-		$state = updateGameState($state, game);
+		$state = updateSnakeGameState($state, game);
 
 		for (const event of $events) {
 			switch (event.name) {
@@ -97,10 +94,6 @@
 				if (browser) localStorage.setItem(SSSPEED_HIGH_SCORE_KEY, $bestTime + ''); // TODO use helper on store instead
 			}
 		}
-
-		// TODO immutable? move this elsewhere? like `afterTick`?
-		// maybe this should be `onTick` and the SnakeGame's `tick` function does this work?
-		if ($events.length) $events.length = 0;
 
 		return true;
 	};

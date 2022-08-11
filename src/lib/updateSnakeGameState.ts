@@ -1,4 +1,6 @@
 import {randomInt, randomItem} from '@feltcoop/felt/util/random.js';
+import {Logger} from '@feltcoop/felt/util/log.js';
+
 import {
 	directions,
 	Entity,
@@ -10,6 +12,8 @@ import type {SnakeGameState} from '$lib/SnakeGameState';
 import {get} from 'svelte/store';
 import type {ISnakeGame} from '$lib/SnakeGame';
 
+const log = new Logger('[updateSnakeGameState]');
+
 // TODO refactor this -- into what? a component?
 
 interface Position {
@@ -18,15 +22,58 @@ interface Position {
 }
 
 /**
+ * Updates the game by executing one full turn and handles all state changes that result.
+ * The top-level state object always gets cloned,
+ * and individual property values are cloned as necessary.
+ * The game may be in a temporarily illegal state at any time during this function,
+ * like snake segments on top of other segments,
+ * but it is expected to be in a fully valid state before and after the function.
+ * Any potentially illegal states need to be checked and reconciled before the function ends.
+ */
+export const updateSnakeGameState = (state: SnakeGameState, game: ISnakeGame): SnakeGameState => {
+	// TODO  need to have input/output from one state to the next, still using mutating functions so we can user Immer or not
+
+	validateState(state);
+
+	// TODO performance.now()
+
+	const nextState = game.beginUpdate(state);
+
+	// Updates state like `game.snake.movementDirection` based on user input
+	updateInput(game);
+
+	// Update entities
+	const movementDirection = get(game.movementDirection); // TODO avoid `get` -- probably with serialized inputs
+	if (movementDirection) {
+		moveSnake(nextState, game, movementDirection);
+	}
+
+	// Check for collision events and handle all possible game state changes.
+	checkSnakeOutOfBounds(nextState, game);
+	checkSnakeEatSelf(nextState, game);
+	checkSnakeEatApple(nextState, game);
+
+	// TODO `game.finishUpdate`?
+
+	return nextState;
+};
+
+// quick n hacky, maybe use zod
+export const validateState = (state: SnakeGameState): void => {
+	if (!state.snakeSegments.length) throw Error(`state.snakeSegments cannot be empty`);
+};
+
+/**
  * Sets up the initial state for a game.
  */
 export const initGameState = (state: SnakeGameState): SnakeGameState => {
-	console.log('[SnakeGame] init');
+	log.info('initGameState');
 	// TODO  single state JSON object instead? update(state, controller) => nextState
 
 	// TODO make this all customizable
 
-	// Create some apples, but preserve current identities if convenient.
+	// TODO but preserve current identities if convenient
+	// Create some apples.
 	state.apples = [new Entity(1, 3), new Entity(7, 2), new Entity(5, 9)];
 
 	// Create the initial snake.
@@ -170,80 +217,50 @@ const getRandomPosition = ({mapWidth, mapHeight}: SnakeGameState): Position => (
 });
 
 /**
- * Mutates the game by executing one full turn and handles all state changes that result.
- * The game may be in a temporarily illegal state at any time during this function,
- * like snake segments on top of other segments,
- * but it is expected to be in a fully valid state before and after the function.
- * Any potentially illegal states need to be checked and reconciled before the function ends.
- */
-export const updateGameState = (state: SnakeGameState, game: ISnakeGame): SnakeGameState => {
-	// TODO  need to have input/output from one state to the next, still using mutating functions so we can user Immer or not
-
-	// TODO performance.now()
-
-	// Updates state like `game.snake.movementDirection` based on user input
-	updateInput(game);
-
-	// Update entities
-	const movementDirection = get(game.movementDirection); // TODO avoid `get` -- probably with serialized inputs
-	if (movementDirection) {
-		moveSnake(state, movementDirection);
-	}
-
-	// Check for collision events and handle all possible game state changes.
-	checkSnakeOutOfBounds(state, game);
-	checkSnakeEatSelf(state, game);
-	checkSnakeEatApple(state, game);
-
-	return state;
-};
-
-/**
  * Update the snake's movement direction with the next input direction, if any.
  */
-function updateInput(game: ISnakeGame): void {
+const updateInput = (game: ISnakeGame): void => {
 	// TODO this is always called first in update, so maybe it's a totally separate process, we only send serialized inputs here, then `.reset()` below gets converted
 	game.movementCommandQueue.update(($v) => {
 		if (!$v.length) return $v;
-		$v = $v.slice(); // eslint-disable-line no-param-reassign
-		game.movementDirection.set($v.shift()!);
-		return $v;
+		const $next = $v.slice();
+		game.movementDirection.set($next.shift()!);
+		return $next;
 	});
-}
+};
 
 /**
  * Moves the snake in the given direction.
  */
-function moveSnake({snakeSegments}: SnakeGameState, movementDirection: Direction): void {
-	const head = snakeSegments[0];
+const moveSnake = (state: SnakeGameState, game: ISnakeGame, movementDirection: Direction): void => {
+	const snakeSegments = toSnakeSegments(state, game);
 
 	// Move the head first, because our algorithm reads the previous positions
 	// of the preceding segments to move them to, so this works.
-	head.moveDir(movementDirection);
+	snakeSegments[0] = toSnakeSegment(state, game, 0).moveDir(movementDirection);
 
 	// Make the body follow the head
 	for (let i = 1; i < snakeSegments.length; i++) {
-		const prevSegment = snakeSegments[i - 1];
-		const currSegment = snakeSegments[i];
-		currSegment.moveTo(prevSegment.prevX, prevSegment.prevY);
+		const {prevX, prevY} = snakeSegments[i - 1];
+		snakeSegments[i] = toSnakeSegment(state, game, i).moveTo(prevX, prevY);
 	}
-}
+};
 
 /**
  * We only need to check the head of the snake to see if the whole thing is in bounds
  * because of the game's movement rules.
  */
-function checkSnakeOutOfBounds(state: SnakeGameState, game: ISnakeGame): void {
+const checkSnakeOutOfBounds = (state: SnakeGameState, game: ISnakeGame): void => {
 	const {snakeSegments, mapWidth, mapHeight} = state;
 	if (snakeSegments[0].isOutOfBounds(mapWidth, mapHeight)) {
 		game.emit({name: 'snake_collide_bounds'});
 	}
-}
+};
 
 /**
  * Checks if the snake eats itself. If so, destroy it.
  */
-function checkSnakeEatSelf(state: SnakeGameState, game: ISnakeGame): void {
+const checkSnakeEatSelf = (state: SnakeGameState, game: ISnakeGame): void => {
 	const {snakeSegments} = state;
 	const snakeHead = snakeSegments[0];
 	for (let i = 1; i < snakeSegments.length; i++) {
@@ -252,12 +269,12 @@ function checkSnakeEatSelf(state: SnakeGameState, game: ISnakeGame): void {
 			game.emit({name: 'snake_collide_self', segment});
 		}
 	}
-}
+};
 
 /**
  * Check if the snake eats an apple. If so, update the game state to handle it.
  */
-function checkSnakeEatApple(state: SnakeGameState, game: ISnakeGame): void {
+const checkSnakeEatApple = (state: SnakeGameState, game: ISnakeGame): void => {
 	const {snakeSegments, apples} = state;
 	const snakeHead = snakeSegments[0];
 	for (const apple of apples) {
@@ -265,13 +282,14 @@ function checkSnakeEatApple(state: SnakeGameState, game: ISnakeGame): void {
 			return eatApple(state, game, apple);
 		}
 	}
-}
+};
 
 /**
  * Has the snake eat an apple, removing the apple and growing the snake.
  */
-function eatApple(state: SnakeGameState, game: ISnakeGame, apple: Entity): void {
-	const {apples, snakeSegments} = state;
+const eatApple = (state: SnakeGameState, game: ISnakeGame, apple: Entity): void => {
+	const apples = toApples(state, game);
+	const snakeSegments = toSnakeSegments(state, game);
 
 	game.emit({name: 'eat_apple', apple});
 
@@ -287,14 +305,26 @@ function eatApple(state: SnakeGameState, game: ISnakeGame, apple: Entity): void 
 	snakeSegments.push(nextEndSegment);
 
 	game.helpers.spawnApples(state, game);
-}
+};
 
 /**
  * Creates an apple on a random empty square.
  */
-export const spawnApples = (state: SnakeGameState, _game: ISnakeGame): void => {
+export const spawnApples = (state: SnakeGameState, game: ISnakeGame): void => {
 	const position = getRandomEmptyPosition(state);
 	if (!position) return;
 	const apple = new Entity(position.x, position.y);
-	state.apples.push(apple);
+	toApples(state, game).push(apple);
 };
+
+// TODO make a single generic function for this? `lazyClone`? need a shallow clone fn
+export const toApples = (state: SnakeGameState, game: ISnakeGame): Entity[] =>
+	state.apples === game.prevState?.apples ? (state.apples = state.apples.slice()) : state.apples;
+export const toSnakeSegments = (state: SnakeGameState, game: ISnakeGame): Entity[] =>
+	state.snakeSegments === game.prevState?.snakeSegments
+		? (state.snakeSegments = state.snakeSegments.slice())
+		: state.snakeSegments;
+export const toSnakeSegment = (state: SnakeGameState, game: ISnakeGame, index: number): Entity =>
+	state.snakeSegments[index] === game.prevState?.snakeSegments[index]
+		? (state.snakeSegments[index] = state.snakeSegments[index].clone(true))
+		: state.snakeSegments[index];

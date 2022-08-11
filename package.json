@@ -35,7 +35,10 @@
   },
   "eslintConfig": {
     "root": true,
-    "extends": "@feltcoop"
+    "extends": "@feltcoop",
+    "rules": {
+      "no-console": 1
+    }
   },
   "prettier": {
     "useTabs": true,

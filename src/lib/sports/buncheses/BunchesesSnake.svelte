@@ -1,6 +1,3 @@
-<!-- TODO refactor so this isn't needed -->
-<svelte:options immutable={false} />
-
 <script lang="ts">
 	// This version is a port of the original React project:
 	// https://ryanatkn.github.io/snake-game
@@ -17,7 +14,12 @@
 	import Score from '$lib/Score.svelte';
 	import Stats from '$lib/Stats.svelte';
 	import {toDefaultGameState} from '$lib/SnakeGameState';
-	import {initGameState, spawnRandomShape6a, updateGameState} from '$lib/mutableSnakeGameState';
+	import {
+		initGameState,
+		spawnRandomShape6a,
+		toApples,
+		updateSnakeGameState,
+	} from '$lib/updateSnakeGameState';
 	import Ticker from '$lib/Ticker.svelte';
 	import StageControls from '$lib/StageControls.svelte';
 	import ReadyInstructions from '$lib/sports/buncheses/ReadyInstructions.svelte';
@@ -72,7 +74,7 @@
 			return false;
 		}
 		// TODO maybe serialize input state as param instead of `game`?
-		$state = updateGameState($state, game);
+		$state = updateSnakeGameState($state, game);
 
 		let ateApple = false;
 
@@ -100,10 +102,6 @@
 				}
 			}
 		}
-
-		// TODO immutable? move this elsewhere? like `afterTick`?
-		// maybe this should be `onTick` and the SnakeGame's `tick` function does this work?
-		if ($events.length) $events.length = 0;
 
 		$currentTickDuration = Math.max(
 			$tickDurationMin,
@@ -163,7 +161,7 @@
 				const spawned = spawnRandomShape6a(state);
 				if (!spawned) continue;
 				for (const position of spawned) {
-					state.apples.push(new Entity(position.x, position.y));
+					toApples(state, game).push(new Entity(position.x, position.y));
 				}
 				return;
 			}

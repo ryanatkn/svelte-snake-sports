@@ -2,8 +2,6 @@
 	import {base} from '$app/paths';
 	import {randomItem} from '@feltcoop/felt/util/random.js';
 
-	// TODO BLOCK set transition duration for snake to half or 61.8% of the tick duration
-
 	// TODO BLOCK source of truth this
 	const sports = ['/classsic', '/ssspeed', '/buncheses'];
 	$: randomSport = randomItem(sports);

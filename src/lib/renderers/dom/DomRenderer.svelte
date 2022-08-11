@@ -17,6 +17,8 @@
 
 	$: entityWidth = $width / mapWidth; // TODO Math.floor?
 	$: entityHeight = $height / mapHeight;
+
+	// TODO BLOCK set transition duration for snake to half or 61.8% of the tick duration
 </script>
 
 <div

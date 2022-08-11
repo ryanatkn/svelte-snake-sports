@@ -14,8 +14,6 @@
 	const rendererWidth = getRendererWidth();
 	const APPLE_SIZE = 16;
 
-	$: applesEaten = 54;
-
 	// TODO pull from a memoized object cache, using the same lazy cloning pattern -- you'd have to memoize by the several deps
 	$: apples = Array.from({length: applesEaten}, (_, i) => {
 		const pct = (i + 1) / applesToWin;

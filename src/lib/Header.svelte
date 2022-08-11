@@ -1,9 +1,8 @@
 <script lang="ts">
 	import {base} from '$app/paths';
 	import {randomItem} from '@feltcoop/felt/util/random.js';
+	import {sports} from '$lib/sports';
 
-	// TODO BLOCK source of truth this
-	const sports = ['/classsic', '/ssspeed', '/buncheses'];
 	$: randomSport = randomItem(sports);
 </script>
 
@@ -21,7 +20,7 @@
 			title="source code"
 			class="snake second-snake">🐍</a
 		>
-		<a href="{base}{randomSport}" title="play a random svelte snake sport!">sports</a>
+		<a href="{base}{randomSport.slug}" title="play a random svelte snake sport!">sports</a>
 	</h1>
 </header>
 

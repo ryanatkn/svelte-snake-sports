@@ -1,4 +1,6 @@
 <script lang="ts">
+	import {GR3i} from '@feltcoop/felt/util/maths.js';
+
 	import {getCurrentTickDuration} from '$lib/SnakeGame';
 
 	export let x: number;
@@ -11,7 +13,7 @@
 	// the higher this constant, the looser the movement feels,
 	// which can make it feel like difficult sludge.
 	// however a higher constant, to a point, makes the animation smoother.
-	const MOVEMENT_PCT_OF_TICK = 1 / 4;
+	const MOVEMENT_PCT_OF_TICK = GR3i;
 	const DEFAULT_TICK_DURATION = 100;
 
 	const currentTickDuration = getCurrentTickDuration();
@@ -22,7 +24,6 @@
 		$currentTickDuration === undefined
 			? DEFAULT_TICK_DURATION
 			: $currentTickDuration * MOVEMENT_PCT_OF_TICK;
-	$: console.log(`transition_duration`, transition_duration);
 
 	$: positionX = x * width;
 	$: positionY = y * height;

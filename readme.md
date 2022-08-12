@@ -5,27 +5,25 @@
 > and [SvelteKit](https://github.com/sveltejs/kit) —
 > [ryanatkn.github.io/svelte-snake-sports](https://ryanatkn.github.io/svelte-snake-sports)
 
-## videos
-
-- intro — [youtube.com/watch?v=ciei8H6IOWk](https://www.youtube.com/watch?v=ciei8H6IOWk)
-- [buncheses](https://ryanatkn.github.io/svelte-snake-sports/buncheses) —
-  [youtube.com/watch?v=EorynexNDJI](https://www.youtube.com/watch?v=EorynexNDJI)
+intro video — [youtube.com/watch?v=ciei8H6IOWk](https://www.youtube.com/watch?v=ciei8H6IOWk)
 
 ## sports
 
-- [classsic](https://ryanatkn.github.io/svelte-snake-sports/classsic) — eat many apples —
-  [$lib/sports/ClasssicSnake.svelte](/src/lib/sports/classsic/ClasssicSnake.svelte)
-- [ssspeed](https://ryanatkn.github.io/svelte-snake-sports/ssspeed) — eat apples asap —
-  [$lib/sports/SsspeedSnake.svelte](/src/lib/sports/ssspeed/SsspeedSnake.svelte)
-- [buncheses](https://ryanatkn.github.io/svelte-snake-sports/buncheses) — eat many whole bunches of apples —
-  [$lib/sports/BunchesesSnake.svelte](/src/lib/sports/buncheses/BunchesesSnake.svelte)
-- more to come! including a library so you can make your own sports
+| sport                                                                 | goal                             | source                                                                          | videos                                                 |
+| --------------------------------------------------------------------- | -------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| [classsic](https://ryanatkn.github.io/svelte-snake-sports/classsic)   | eat many apples                  | [sports/ClasssicSnake.svelte](/src/lib/sports/classsic/ClasssicSnake.svelte)    |                                                        |
+| [ssspeed](https://ryanatkn.github.io/svelte-snake-sports/ssspeed)     | eat apples asap                  | [sports/SsspeedSnake.svelte](/src/lib/sports/ssspeed/SsspeedSnake.svelte)       |                                                        |
+| [buncheses](https://ryanatkn.github.io/svelte-snake-sports/buncheses) | eat many whole bunches of apples | [sports/BunchesesSnake.svelte](/src/lib/sports/buncheses/BunchesesSnake.svelte) | [YouTube](https://www.youtube.com/watch?v=EorynexNDJI) |
 
 caveats:
 
 - it's responsive to smaller screens but doesn't have good mobile controls yet
 - some of the code is still very rough from the port, I just tried to ship gameplay asap
 - some of the code has experimental patterns that I wouldn't recommend
+
+plans:
+
+- publish a library
 
 ## what
 

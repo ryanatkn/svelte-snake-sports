@@ -7,8 +7,8 @@
 
 videos
 
-- intro: [youtube.com/watch?v=ciei8H6IOWk](https://www.youtube.com/watch?v=ciei8H6IOWk)
-- [buncheses](https://ryanatkn.github.io/svelte-snake-sports/buncheses):
+- intro — [youtube.com/watch?v=ciei8H6IOWk](https://www.youtube.com/watch?v=ciei8H6IOWk)
+- [buncheses](https://ryanatkn.github.io/svelte-snake-sports/buncheses) —
   [youtube.com/watch?v=EorynexNDJI](https://www.youtube.com/watch?v=EorynexNDJI)
 
 ## sports

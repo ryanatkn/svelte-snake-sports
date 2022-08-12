@@ -9,9 +9,7 @@
 	<div>full instructions below</div>
 	<div style:position="relative" style:left="{-15}px">eat whole bunches of apples!</div>
 	{#if $highestClustersEaten}<div>
-			besst is {$highestClustersEaten} clusster{$highestClustersEaten === 1 ? '' : 's'}{'!'.repeat(
-				($highestClustersEaten / 10) | 0,
-			)}
+			besst is {$highestClustersEaten} buncheses{'!'.repeat(($highestClustersEaten / 10) | 0)}
 		</div>{/if}
 	<div style:position="relative" style:left="{55}px">gotta eat em all</div>
 </div>

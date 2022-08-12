@@ -3,7 +3,7 @@
 :root {
 	--active_color: var(--bright_green);
 	--link_color: var(--bright_green);
-	--text_color: #fff;
+	--text_color: #ddd;
 	--text_color_light: #fed;
 	--button_text_color: #000;
 	--panel_color_dark: var(--dark_brown);

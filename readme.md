@@ -9,11 +9,11 @@ intro video — [youtube.com/watch?v=ciei8H6IOWk](https://www.youtube.com/watch?
 
 ## sports
 
-| sport                                                                 | goal                             | source                                                                          | videos                                                      |
-| --------------------------------------------------------------------- | -------------------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------- |
-| [classsic](https://ryanatkn.github.io/svelte-snake-sports/classsic)   | eat many apples                  | [sports/ClasssicSnake.svelte](/src/lib/sports/classsic/ClasssicSnake.svelte)    |                                                             |
-| [ssspeed](https://ryanatkn.github.io/svelte-snake-sports/ssspeed)     | eat apples asap                  | [sports/SsspeedSnake.svelte](/src/lib/sports/ssspeed/SsspeedSnake.svelte)       |                                                             |
-| [buncheses](https://ryanatkn.github.io/svelte-snake-sports/buncheses) | eat many whole bunches of apples | [sports/BunchesesSnake.svelte](/src/lib/sports/buncheses/BunchesesSnake.svelte) | [world record](https://www.youtube.com/watch?v=EorynexNDJI) |
+| sport                                                                 | goal                             | source                                                                          | videos                                                                   |
+| --------------------------------------------------------------------- | -------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| [classsic](https://ryanatkn.github.io/svelte-snake-sports/classsic)   | eat many apples                  | [sports/ClasssicSnake.svelte](/src/lib/sports/classsic/ClasssicSnake.svelte)    |                                                                          |
+| [ssspeed](https://ryanatkn.github.io/svelte-snake-sports/ssspeed)     | eat apples asap                  | [sports/SsspeedSnake.svelte](/src/lib/sports/ssspeed/SsspeedSnake.svelte)       |                                                                          |
+| [buncheses](https://ryanatkn.github.io/svelte-snake-sports/buncheses) | eat many whole bunches of apples | [sports/BunchesesSnake.svelte](/src/lib/sports/buncheses/BunchesesSnake.svelte) | [unconteseted world record](https://www.youtube.com/watch?v=EorynexNDJI) |
 
 caveats:
 

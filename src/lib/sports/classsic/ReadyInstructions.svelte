@@ -6,7 +6,7 @@
 </script>
 
 <div class="instructions" transition:scale|local>
-	<div>see instructions below</div>
+	<div>full instructions below</div>
 	<div style:position="relative" style:left="{-15}px">eat many apples!</div>
 	{#if $highestApplesEaten}<div>
 			besst is {$highestApplesEaten} apple{$highestApplesEaten === 1 ? '' : 's'}{'!'.repeat(

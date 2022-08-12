@@ -139,7 +139,6 @@
 	on:mouseup={onMouseup}
 	on:click={onClick}
 	on:mouseleave={onMouseleave}
-	on:mouseleave={onMouseleave}
 	on:keydown={onKeydown}
 	on:keyup={onKeyup}
 >

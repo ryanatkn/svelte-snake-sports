@@ -1,13 +1,19 @@
 <script lang="ts">
-	// Not sure how useful this component is --
-	// the point is to provide a wrapper element around for the scaled renderer
-	// and unscaled UI like the instructions.
+	import PauseInstructions from '$lib/PauseInstructions.svelte';
+	import {getClock} from '$lib/clock';
 
 	// Maybe we'll put an `InteractiveSurface` in here for the mouse/touch controls?
+
+	const clock = getClock();
+
+	$: ({running} = $clock);
 </script>
 
 <div class="gamespace">
 	<slot />
+	{#if !running}
+		<PauseInstructions />
+	{/if}
 </div>
 
 <style>

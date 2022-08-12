@@ -5,7 +5,10 @@
 > and [SvelteKit](https://github.com/sveltejs/kit) —
 > [ryanatkn.github.io/svelte-snake-sports](https://ryanatkn.github.io/svelte-snake-sports)
 
-> intro video: [youtube.com/watch?v=ciei8H6IOWk](https://www.youtube.com/watch?v=ciei8H6IOWk)
+videos
+
+- intro: [youtube.com/watch?v=ciei8H6IOWk](https://www.youtube.com/watch?v=ciei8H6IOWk)
+- buncheses: [youtube.com/watch?v=EorynexNDJI](https://www.youtube.com/watch?v=EorynexNDJI)
 
 ## sports
 

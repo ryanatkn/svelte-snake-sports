@@ -49,7 +49,7 @@
 
 	let applesEaten = 0;
 	let applesEatenSinceCollision = 0;
-	const APPLES_EATEN_TO_WIN = 1; // sixxty six applesss
+	const APPLES_EATEN_TO_WIN = 66; // sixxty six applesss
 
 	const restart = (): void => {
 		if (!game) return;

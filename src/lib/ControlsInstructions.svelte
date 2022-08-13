@@ -1,5 +1,4 @@
-<h2>instructions</h2>
-<blockquote>for game goal, see above</blockquote>
+<h2>controls</h2>
 <div><strong>queue a move</strong>: arrow keys, <code>wasd</code>, <code>hjkl</code></div>
 <div><strong>move and end turn</strong>: hold <code>shift</code> and move (esp. if ur bored)</div>
 <div><strong>toggle clock</strong>: <code>Backtick `</code></div>

@@ -6,7 +6,7 @@
 </script>
 
 <div class="instructions" transition:scale|local>
-	<div>full instructions below</div>
+	<div>keyboard controls below</div>
 	<div style:position="relative" style:left="{-15}px">eat whole bunches of apples!</div>
 	{#if $highestClustersEaten}<div>
 			besst is {$highestClustersEaten} buncheses{'!'.repeat(($highestClustersEaten / 10) | 0)}

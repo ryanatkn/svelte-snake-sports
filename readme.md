@@ -9,11 +9,18 @@ intro video — [youtube.com/watch?v=ciei8H6IOWk](https://www.youtube.com/watch?
 
 ## sports
 
-| 🐍                                                                                                                     | sport                                                                 | goal                             | source                                                                                         | videos                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | -------------------------------- | ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| <a href="https://ryanatkn.github.io/svelte-snake-sports/classsic"><img src="/src/static/assets/classsic.webp" /></a>   | [classsic](https://ryanatkn.github.io/svelte-snake-sports/classsic)   | eat many apples                  | [$lib/sports/classsic/ClasssicSnake.svelte](/src/lib/sports/classsic/ClasssicSnake.svelte)     |                                                                         |
-| <a href="https://ryanatkn.github.io/svelte-snake-sports/ssspeed"><img src="/src/static/assets/ssspeed.webp" /></a>     | [ssspeed](https://ryanatkn.github.io/svelte-snake-sports/ssspeed)     | eat apples asap                  | [$lib/sports/ssspeed/SsspeedSnake.svelte](/src/lib/sports/ssspeed/SsspeedSnake.svelte)         |                                                                         |
-| <a href="https://ryanatkn.github.io/svelte-snake-sports/buncheses"><img src="/src/static/assets/buncheses.webp" /></a> | [buncheses](https://ryanatkn.github.io/svelte-snake-sports/buncheses) | eat many whole bunches of apples | [$lib/sports/buncheses/BunchesesSnake.svelte](/src/lib/sports/buncheses/BunchesesSnake.svelte) | [uncontested world record](https://www.youtube.com/watch?v=EorynexNDJI) |
+See [contributing.md](contributing.md) to submit highscores.
+
+| 🐍                                                                                                                                                          | sport                                                                 | goal                             | highscores                                                                          |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | -------------------------------- | ----------------------------------------------------------------------------------- |
+| <a href="https://ryanatkn.github.io/svelte-snake-sports/classsic"><img src="/src/static/assets/classsic.webp" alt="logo for classsic" width="192" /></a>    | [classsic](https://ryanatkn.github.io/svelte-snake-sports/classsic)   | eat many apples                  |                                                                                     |
+| <a href="https://ryanatkn.github.io/svelte-snake-sports/ssspeed"><img src="/src/static/assets/ssspeed.webp" alt="logo for ssspeed" width="192" /></a>       | [ssspeed](https://ryanatkn.github.io/svelte-snake-sports/ssspeed)     | eat apples asap                  |                                                                                     |
+| <a href="https://ryanatkn.github.io/svelte-snake-sports/buncheses"><img src="/src/static/assets/buncheses.webp" alt="logo for buncheses" width="192" /></a> | [buncheses](https://ryanatkn.github.io/svelte-snake-sports/buncheses) | eat many whole bunches of apples | [@ryanatkn](https://www.youtube.com/watch?v=EorynexNDJI) (uncontested world record) |
+
+See [contributing.md](contributing.md) to submit highscores.
+
+Here's [the source code](https://github.com/ryanatkn/svelte-snake-sports/tree/main/src/lib/sports)
+for each sport.
 
 caveats:
 

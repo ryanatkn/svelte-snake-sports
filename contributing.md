@@ -1,7 +1,7 @@
 # contributing
 
 Thank you for your interest in contributing to Svelte Snake Sports!
-I'm still figuring this out and feedback is appreciated.
+I'm new at this and still figuring it, and feedback is appreciated.
 
 ## issues
 

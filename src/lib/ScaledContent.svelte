@@ -18,6 +18,9 @@
 
 	$: el && (scale, (rect = el.getBoundingClientRect()));
 
+	// TODO BLOCK hardcoded 512
+	$: renderer_scale = Math.min(worldWidth, worldHeight) / 512;
+
 	onMount(() => {
 		// TODO mutation observer?
 		rect = el.getBoundingClientRect();
@@ -28,6 +31,7 @@
 	class="scaled-content"
 	style:width="{screenWidth}px"
 	style:height="{screenHeight}px"
+	style:--renderer_scale={renderer_scale}
 	bind:this={el}
 >
 	<div style={`transform: scale3d(${scale}, ${scale}, 1);`}>

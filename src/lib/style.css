@@ -99,12 +99,12 @@ button.selected {
 	content: '';
 	display: block;
 	position: absolute;
-	left: 13px;
-	top: -3px;
-	width: 3px;
-	height: 7px;
+	left: calc(13px * var(--renderer_scale));
+	top: calc(-3px * var(--renderer_scale));
+	width: calc(3px * var(--renderer_scale));
+	height: calc(7px * var(--renderer_scale));
 	background-color: var(--dim_brown);
-	border-radius: 4px;
+	border-radius: calc(4px * var(--renderer_scale));
 }
 
 .clickable-box {

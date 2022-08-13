@@ -91,9 +91,10 @@ button.selected {
 .apple {
 	position: relative;
 	background-color: var(--bright_red);
-	border-radius: 17px 14px 14px 12px;
-	width: 30px;
-	height: 30px;
+	border-radius: calc(17px * var(--renderer_scale)) calc(14px * var(--renderer_scale))
+		calc(14px * var(--renderer_scale)) calc(12px * var(--renderer_scale));
+	width: calc(30px * var(--renderer_scale));
+	height: calc(30px * var(--renderer_scale));
 }
 .apple::after {
 	content: '';

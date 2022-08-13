@@ -109,7 +109,7 @@ button.selected {
 }
 .clickable-box:hover {
 	border-radius: 16%;
-	transform: scale3d(1.03, 1.03, 1.03);
+	transform: scale3d(1.03, 1.03, 1.03) skew(0.6deg);
 }
 .clickable-box:active {
 	border-radius: 18%;

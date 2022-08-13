@@ -13,12 +13,14 @@ are a good place to track bugs, problems, tasks, etc.
 [Pull requests on GitHub](https://github.com/ryanatkn/svelte-snake-sports/pulls)
 may include resolutions to issues and highscores submissions. (see below)
 Smaller changes and obvious improvements don't need an issue.
+I go through the PR workflow for most medium and larger changes -- here's
+[the PR history](https://github.com/ryanatkn/svelte-snake-sports/pulls?q=is%3Apr+is%3Aclosed).
 
 ## discussions
 
-If something isn't a issue or PR, post it over in
+If something isn't an issue or PR, post it over in
 [the discussions on GitHub](https://github.com/ryanatkn/svelte-snake-sports/discussions).
-Anything relevant is welcome here.
+Anything on topic is welcome here.
 
 ## highscores
 

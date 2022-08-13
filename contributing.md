@@ -14,9 +14,9 @@ are a good place to track bugs, problems, tasks, etc.
 may include resolutions to issues or highscores. (see below)
 Smaller changes and obvious improvements don't need an issue.
 
-## discussion
+## discussions
 
-If something isn't a PR or issue, post it over in
+If something isn't a issue or PR, post it over in
 [the discussions on GitHub](https://github.com/ryanatkn/svelte-snake-sports/discussions).
 Anything relevant is welcome here.
 

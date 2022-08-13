@@ -38,4 +38,4 @@ When this no longer scales on the readme,
 we'll create a JSON file and render the scoreboard to a webpage, probably.
 
 > currently the highscores are uncontested!
-> dare you try unseat my scores?
+> dare you try unseat me?

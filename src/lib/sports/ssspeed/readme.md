@@ -1,5 +1,7 @@
 # svelte snake sports: ssspeed
 
+> eat 66 apples asap
+
 - [SsspeedSnake.svelte](./SsspeedSnake.svelte)
 
 <a href="https://ryanatkn.github.io/svelte-snake-sports/ssspeed"><img src="/src/static/assets/ssspeed.webp" alt="logo for ssspeed" /></a>

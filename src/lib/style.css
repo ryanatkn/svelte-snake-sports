@@ -10,6 +10,7 @@
 
 	/* specific to this project, consider upstreaming */
 	--bg: var(--dim_brown);
+	--bg_y: 0px;
 	--dark_brown: hsl(15, 50%, 2%);
 	--dim_brown: hsl(30, 50%, 13%);
 	--medium_brown: hsl(30, 25%, 27%);
@@ -32,7 +33,12 @@ body {
 	flex-direction: column;
 	align-items: center;
 	/* TODO center dynamically */
-	background: radial-gradient(at 50% 600px, var(--dim_brown), var(--dim_brown), var(--dark_brown));
+	background: radial-gradient(
+		at 50% var(--bg_y),
+		var(--dim_brown),
+		var(--dim_brown),
+		var(--dark_brown)
+	);
 }
 
 footer {

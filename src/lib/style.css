@@ -7,13 +7,17 @@
 	--text_color_light: #fed;
 	--button_text_color: #000;
 	--panel_color_dark: var(--dark_brown);
+	--bg: var(--dim_brown);
+	--interactive_color_disabled: var(--gray_brown);
+	--interactive_color_hover: var(--dark_brown);
+	--interactive_color_active: var(--dark_brown);
 
 	/* specific to this project, consider upstreaming */
-	--bg: var(--dim_brown);
 	--bg_y: 0px;
 	--dark_brown: hsl(15, 50%, 2%);
 	--dim_brown: hsl(30, 50%, 13%);
 	--medium_brown: hsl(30, 25%, 27%);
+	--gray_brown: hsl(24, 3%, 39%);
 	--bright_green: hsl(116, 80%, 41%);
 	--dim_green: hsl(111, 46%, 40%);
 	--dim_red: hsl(353, 56%, 37%);
@@ -60,11 +64,6 @@ button {
 	/* TODO dark mode, move to style.css */
 	color: #ccc;
 	background-color: var(--dim_brown);
-}
-button:hover,
-button:focus {
-	/* TODO probably add an in-between for focus */
-	background-color: var(--dark_brown);
 }
 button.selected {
 	background-color: var(--medium_brown);

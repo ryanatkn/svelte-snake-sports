@@ -19,6 +19,9 @@ See [contributing.md](contributing.md) to submit highscores.
 
 See [contributing.md](contributing.md) to submit highscores.
 
+Here's [the source code](https://github.com/ryanatkn/svelte-snake-sports/tree/main/src/lib/sports)
+for each sport.
+
 caveats:
 
 - it's responsive to smaller screens but doesn't have good mobile controls yet

@@ -6,7 +6,7 @@ I'm new at this and still figuring it, and feedback is appreciated.
 ## issues
 
 [The issues on GitHub](https://github.com/ryanatkn/svelte-snake-sports/issues)
-are a good place to track bugs, problems, tasks, etc.
+are a good place to track bugs, problems, proposed enhancements, tasks, etc.
 
 ## PRs
 

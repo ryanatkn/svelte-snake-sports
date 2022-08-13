@@ -16,6 +16,8 @@
 	$: availableHeight = $dimensions.height - PADDING;
 	$: screenSize = Math.min(availableWidth, availableHeight, $rendererWidth, $rendererHeight);
 
+	$: maxHeight = $dimensions.height - top - 83; // TODO BLOCK the 83 is the height of the `.scores`
+
 	$: ({top, height} = rect);
 
 	$: bg_y = top + height / 2;

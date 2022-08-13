@@ -56,6 +56,20 @@ form label:last-child {
 	margin: 0;
 }
 
+button {
+	/* TODO dark mode, move to style.css */
+	color: #ccc;
+	background-color: var(--dim_brown);
+}
+button:hover,
+button:focus {
+	/* TODO probably add an in-between for focus */
+	background-color: var(--dark_brown);
+}
+button.selected {
+	background-color: var(--medium_brown);
+}
+
 .snake-1 {
 	filter: hue-rotate(120deg);
 }

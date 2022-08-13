@@ -22,16 +22,3 @@
 		style:left="60%">paused</button
 	>
 </div>
-
-<style>
-	button {
-		/* TODO dark mode, move to style.css */
-		color: #ccc;
-	}
-	button:hover {
-		background-color: var(--dark_brown);
-	}
-	button:focus {
-		background-color: var(--dim_brown);
-	}
-</style>

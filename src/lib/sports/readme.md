@@ -1,5 +1,5 @@
 # svelte snake sports
 
-- [classsic](./classsic)
-- [ssspeed](./ssspeed)
-- [buncheses](./buncheses)
+- [classsic](./classsic) - eat many apples
+- [ssspeed](./ssspeed) - eat 66 apples asap
+- [buncheses](./buncheses) - eat whole bunches of apples

@@ -10,6 +10,7 @@
 
 	/* specific to this project, consider upstreaming */
 	--bg: var(--dim_brown);
+	--bg_y: 0px;
 	--dark_brown: hsl(15, 50%, 2%);
 	--dim_brown: hsl(30, 50%, 13%);
 	--medium_brown: hsl(30, 25%, 27%);
@@ -17,7 +18,7 @@
 	--dim_green: hsl(111, 46%, 40%);
 	--dim_red: hsl(353, 56%, 37%);
 	--bright_red: hsl(353, 78%, 44%);
-	--blue_to_brown_hue_rotation: 200;
+	--blue_to_brown_hue_rotation: 215;
 }
 
 /* TODO remove this after upgrading Felt */
@@ -31,9 +32,12 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	/* TODO try to set bg position CSS var on the body in a component so we can 
-	get the radial gradient centered on the map */
-	background: radial-gradient(var(--dim_brown), var(--dim_brown), var(--dark_brown));
+	background: radial-gradient(
+		at 50% var(--bg_y),
+		var(--dim_brown),
+		var(--dim_brown),
+		var(--dark_brown)
+	);
 }
 
 footer {
@@ -50,6 +54,20 @@ form label {
 }
 form label:last-child {
 	margin: 0;
+}
+
+button {
+	/* TODO dark mode, move to style.css */
+	color: #ccc;
+	background-color: var(--dim_brown);
+}
+button:hover,
+button:focus {
+	/* TODO probably add an in-between for focus */
+	background-color: var(--dark_brown);
+}
+button.selected {
+	background-color: var(--medium_brown);
 }
 
 .snake-1 {
@@ -103,8 +121,8 @@ form label:last-child {
 .instructions {
 	position: absolute;
 	opacity: 0.75;
-	top: 40%;
-	left: 50%;
+	top: 70%;
+	left: 7%;
 	font-size: var(--font_size_lg);
 	display: flex;
 	flex-direction: column;

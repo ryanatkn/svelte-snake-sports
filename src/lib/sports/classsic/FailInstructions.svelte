@@ -2,8 +2,11 @@
 	import type {Writable} from 'svelte/store';
 	import {scale} from 'svelte/transition';
 
+	import RestartInstructions from '$lib/RestartInstructions.svelte';
+
 	export let applesEaten: number;
 	export let highestApplesEaten: Writable<number>;
+	export let restart: () => void;
 
 	$: newHighScore = applesEaten === $highestApplesEaten;
 </script>
@@ -16,7 +19,7 @@
 	<div style:position="relative" style:left="{25}px">
 		{#if newHighScore}<strong>a new high score!!</strong>{:else}besst is {$highestApplesEaten}!{/if}
 	</div>
-	<div style:position="relative" style:left="{-25}px">
-		presss <code>r</code> to go again {#if newHighScore}:D{:else}:)){/if}
-	</div>
+	<RestartInstructions {restart}>
+		{#if newHighScore}:D{:else}:)){/if}
+	</RestartInstructions>
 </div>

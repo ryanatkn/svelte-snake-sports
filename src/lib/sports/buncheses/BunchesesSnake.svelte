@@ -52,6 +52,12 @@
 		(browser && Number(localStorage.getItem(BUNCHESES_HIGH_SCORE_KEY))) || 0,
 	);
 
+	const restart = (): void => {
+		if (!game) return;
+		game.reset();
+		game.start();
+	};
+
 	// TODO refactor with the other impls
 	// TODO maybe these shouldn't be stores? or maybe the tick logic should be extracted to a single store/object?
 	export const tickDurationDecay = writable(0.97);
@@ -93,8 +99,7 @@
 				case 'snake_collide_bounds': {
 					game.end('fail');
 					if (bunchesEaten === 0) {
-						game.reset();
-						game.start();
+						restart();
 					} else {
 						// TODO show instructions
 					}
@@ -181,13 +186,13 @@
 			{#if bunchesEaten === 0}
 				<ReadyInstructions {highestClustersEaten} />
 			{:else if $status === 'fail'}
-				<FailInstructions {bunchesEaten} {highestClustersEaten} />
+				<FailInstructions {restart} {bunchesEaten} {highestClustersEaten} />
 				<div class="text-burst-wrapper">
 					<TextBurst count={50} items={['🍎', '💥', '🦴', '🦴']} />
 				</div>
 			{:else if $status === 'win'}
 				<!-- This is unlikely to happen, is just a fallback -->
-				<FailInstructions {bunchesEaten} {highestClustersEaten} />
+				<FailInstructions {restart} {bunchesEaten} {highestClustersEaten} />
 				<div class="text-burst-wrapper">
 					<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} hueRotationMax={360} />
 				</div>

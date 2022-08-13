@@ -1,8 +1,24 @@
 <script lang="ts">
 	import {scale} from 'svelte/transition';
+
+	import {getClock} from '$lib/clock';
+
+	const clock = getClock();
 </script>
 
 <div class="instructions" transition:scale|local>
-	<div style:position="relative" style:top="{-95}px" style:left="{-95}px">paused</div>
-	<div style:position="relative" style:top="{-75}px" style:left="{-75}px">paused</div>
+	<button
+		title="[Backtick `] unpause"
+		on:click={() => clock.resume()}
+		style:position="relative"
+		style:top="-110px"
+		style:left="100px">paused</button
+	>
+	<button
+		title="[Backtick `] unpause"
+		on:click={() => clock.resume()}
+		style:position="relative"
+		style:top="-90px"
+		style:left="60%">paused</button
+	>
 </div>

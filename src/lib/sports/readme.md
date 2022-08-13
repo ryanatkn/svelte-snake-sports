@@ -1,5 +1,5 @@
 # svelte snake sports
 
-- [classic](./classic)
+- [classsic](./classsic)
 - [ssspeed](./ssspeed)
 - [buncheses](./buncheses)

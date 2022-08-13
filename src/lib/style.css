@@ -62,8 +62,9 @@ form label:last-child {
 }
 
 button {
-	/* TODO dark mode, move to style.css */
+	/* TODO delete all of this when felt has dark mode */
 	color: #ccc;
+	border-radius: 3rem;
 	background-color: var(--dim_brown);
 }
 button.selected {

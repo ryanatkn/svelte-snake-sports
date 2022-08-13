@@ -11,7 +11,7 @@ are a good place to track bugs, problems, tasks, etc.
 ## PRs
 
 [Pull requests on GitHub](https://github.com/ryanatkn/svelte-snake-sports/pulls)
-may include resolutions to issues or highscores. (see below)
+may include resolutions to issues and highscores submissions. (see below)
 Smaller changes and obvious improvements don't need an issue.
 
 ## discussions

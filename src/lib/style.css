@@ -31,9 +31,8 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	/* TODO try to set bg position CSS var on the body in a component so we can 
-	get the radial gradient centered on the map */
-	background: radial-gradient(var(--dim_brown), var(--dim_brown), var(--dark_brown));
+	/* TODO center dynamically */
+	background: radial-gradient(at 50% 600px, var(--dim_brown), var(--dim_brown), var(--dark_brown));
 }
 
 footer {

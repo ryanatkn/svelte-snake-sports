@@ -107,8 +107,8 @@ form label:last-child {
 .instructions {
 	position: absolute;
 	opacity: 0.75;
-	top: 40%;
-	left: 50%;
+	top: 70%;
+	left: 7%;
 	font-size: var(--font_size_lg);
 	display: flex;
 	flex-direction: column;

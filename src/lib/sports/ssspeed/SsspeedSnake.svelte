@@ -49,7 +49,13 @@
 
 	let applesEaten = 0;
 	let applesEatenSinceCollision = 0;
-	const APPLES_EATEN_TO_WIN = 66; // sixxty six applesss
+	const APPLES_EATEN_TO_WIN = 1; // sixxty six applesss
+
+	const restart = (): void => {
+		if (!game) return;
+		game.reset();
+		game.start();
+	};
 
 	let currentTime = 0;
 	$: if ($status === 'playing') currentTime += $clock.dt;
@@ -124,7 +130,12 @@
 			{#if applesEaten === 0}
 				<ReadyInstructions {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
 			{:else if $status === 'win'}
-				<WinInstructions time={currentTime} {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
+				<WinInstructions
+					{restart}
+					time={currentTime}
+					{bestTime}
+					applesToWin={APPLES_EATEN_TO_WIN}
+				/>
 				<div class="text-burst-wrapper">
 					<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} hueRotationMax={360} />
 				</div>

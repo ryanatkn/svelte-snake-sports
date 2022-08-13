@@ -20,7 +20,7 @@
 		<p>
 			generated images by <a href="https://wikipedia.org/wiki/DALL-E">DALL-E</a>
 		</p>
-		{#if $page.url.pathname !== '/'}
+		{#if $page.url.pathname !== base + '/'}
 			<p>
 				<a href="{base}/" class="back-link"
 					>go back <div class="snake-3">🐍</div>

@@ -11,6 +11,7 @@
 	--interactive_color_disabled: var(--gray_brown);
 	--interactive_color_hover: var(--dark_brown);
 	--interactive_color_active: var(--dark_brown);
+	--panel_color: #0004;
 
 	/* specific to this project, consider upstreaming */
 	--bg_y: 0px;
@@ -74,6 +75,9 @@ button.selected {
 }
 .snake-2 {
 	filter: hue-rotate(240deg);
+}
+.snake-3 {
+	transform: rotate(165deg);
 }
 
 .icon-button {

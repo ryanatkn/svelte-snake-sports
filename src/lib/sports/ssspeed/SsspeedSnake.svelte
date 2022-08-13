@@ -144,7 +144,7 @@
 		<Ticker {clock} tickDuration={currentTickDuration} {tick} />
 		<TimedScores {applesEaten} applesToWin={APPLES_EATEN_TO_WIN} {currentTime} {bestTime} />
 		<StageControls {clock} {tick} {game} />
-		<section>
+		<section class="panel-inset" style:padding="var(--spacing_xl)">
 			<ControlsInstructions />
 		</section>
 		<section class="centered">

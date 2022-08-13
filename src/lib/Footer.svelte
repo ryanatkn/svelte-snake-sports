@@ -22,7 +22,10 @@
 		</p>
 		{#if $page.url.pathname !== '/'}
 			<p>
-				<a href="{base}/">go back 🐍 home</a>
+				<a href="{base}/" class="back-link"
+					>go back <div class="snake-3">🐍</div>
+					home</a
+				>
 			</p>
 		{/if}
 	</div>
@@ -35,5 +38,10 @@
 <style>
 	footer {
 		text-align: center;
+	}
+	.back-link {
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 </style>

@@ -209,7 +209,7 @@
 		</div>
 		<Ticker {clock} tickDuration={currentTickDuration} {tick} />
 		<StageControls {clock} {tick} {game} />
-		<section>
+		<section class="panel-inset" style:padding="var(--spacing_xl)">
 			<ControlsInstructions />
 		</section>
 		<section class="centered">

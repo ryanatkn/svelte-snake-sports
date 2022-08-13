@@ -1,1 +1,5 @@
-# click a sport in this directory to learn more
+# svelte snake sports
+
+- [classic](./classic)
+- [ssspeed](./ssspeed)
+- [buncheses](./buncheses)

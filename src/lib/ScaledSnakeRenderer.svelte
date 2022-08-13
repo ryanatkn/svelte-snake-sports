@@ -16,7 +16,14 @@
 	$: availableHeight = $dimensions.height - PADDING;
 	$: screenSize = Math.min(availableWidth, availableHeight, $rendererWidth, $rendererHeight);
 
-	$: maxHeight = $dimensions.height - top - 83; // TODO BLOCK the 83 is the height of the `.scores`
+	const uiPadding = 83; // TODO BLOCK the 83 is the height of the `.scores`
+
+	$: console.log(`availableHeight`, availableHeight);
+	$: maxHeight = $dimensions.height - top - uiPadding;
+	$: console.log(`maxHeight`, maxHeight);
+	$: maxSize = Math.min(availableWidth, maxHeight);
+	// TODO BLOCK circular?
+	$: maxSize, ($rendererWidth = maxSize), ($rendererHeight = maxSize);
 
 	$: ({top, height} = rect);
 

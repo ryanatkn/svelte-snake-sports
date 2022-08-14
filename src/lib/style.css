@@ -15,6 +15,7 @@
 
 	/* specific to this project, consider upstreaming */
 	--bg_y: 0px;
+	--darker_brown: hsl(15, 50%, 1%);
 	--dark_brown: hsl(15, 50%, 2%);
 	--dim_brown: hsl(30, 50%, 13%);
 	--medium_brown: hsl(30, 25%, 27%);
@@ -71,8 +72,9 @@ button {
 	/* TODO delete all of this when felt has dark mode */
 	color: #ccc;
 	border-radius: 3rem;
-	background-color: var(--dim_brown);
+	background: linear-gradient(var(--dim_brown), var(--dim_brown), var(--dark_brown));
 	box-shadow: none !important;
+	--border_color: var(--darker_brown);
 }
 button.selected {
 	background-color: var(--medium_brown);

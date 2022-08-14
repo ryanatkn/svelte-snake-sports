@@ -85,7 +85,13 @@ button {
 	--border_color: var(--darker_brown);
 }
 button.selected {
-	background-color: var(--medium_brown);
+	background: radial-gradient(
+		var(--rich_brown),
+		var(--rich_brown),
+		var(--rich_brown),
+		var(--dim_brown),
+		var(--rich_brown)
+	);
 }
 
 .snake-1 {

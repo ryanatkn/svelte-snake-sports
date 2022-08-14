@@ -66,8 +66,8 @@
 	export const tickDurationMin = writable(17);
 	export const tickDurationMax = writable(2000);
 	// TODO belongs elsewhere
-	export const rendererWidth = setRendererWidth(writable(512));
-	export const rendererHeight = setRendererHeight(writable(512));
+	export const rendererWidth = setRendererWidth(writable(0));
+	export const rendererHeight = setRendererHeight(writable(0));
 
 	// TODO is there a better place to do this? imperatively after updating the state?
 	$: if (bunchesEaten > $highestClustersEaten) {
@@ -180,7 +180,14 @@
 	/>
 	{#if game}
 		<Gamespace>
-			<ScaledSnakeRenderer {rendererWidth} {rendererHeight}>
+			<ScaledSnakeRenderer
+				rendererWidth={$rendererWidth}
+				rendererHeight={$rendererHeight}
+				updateRendererDimensions={(width, height) => {
+					$rendererWidth = width;
+					$rendererHeight = height;
+				}}
+			>
 				<DomRenderer {game} width={rendererWidth} height={rendererHeight} />
 			</ScaledSnakeRenderer>
 			{#if bunchesEaten === 0}

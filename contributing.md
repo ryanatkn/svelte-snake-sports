@@ -1,7 +1,9 @@
 # contributing
 
 Thank you for your interest in contributing to Svelte Snake Sports!
-I'm new at this and still figuring it, and feedback is appreciated.
+
+This project is free and open source software with a public domain license.
+The goal is to support creators and players in a fun game context.
 
 ## issues
 

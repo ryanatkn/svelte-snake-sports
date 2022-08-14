@@ -44,8 +44,8 @@
 	export const tickDurationMin = writable(17);
 	export const tickDurationMax = writable(2000);
 	// TODO belongs elsewhere
-	export const rendererWidth = setRendererWidth(writable(512));
-	export const rendererHeight = setRendererHeight(writable(512));
+	export const rendererWidth = setRendererWidth(writable(0));
+	export const rendererHeight = setRendererHeight(writable(0));
 
 	let applesEaten = 0;
 	let applesEatenSinceCollision = 0;
@@ -124,7 +124,16 @@
 	/>
 	{#if game}
 		<Gamespace>
-			<ScaledSnakeRenderer {rendererWidth} {rendererHeight}>
+			<!-- TODO `marginBottom={100}` is hardcoding the scores height -->
+			<ScaledSnakeRenderer
+				marginBottom={100}
+				rendererWidth={$rendererWidth}
+				rendererHeight={$rendererHeight}
+				updateRendererDimensions={(width, height) => {
+					$rendererWidth = width;
+					$rendererHeight = height;
+				}}
+			>
 				<DomRenderer {game} width={rendererWidth} height={rendererHeight} />
 			</ScaledSnakeRenderer>
 			{#if applesEaten === 0}

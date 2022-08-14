@@ -19,8 +19,9 @@
 	// TODO mutation observer?
 	$: el && (xScale, yScale, (rect = el.getBoundingClientRect()));
 
-	// TODO BLOCK hardcoded 512
-	$: renderer_scale = Math.min(worldWidth, worldHeight) / 512;
+	// TODO where does this belong? maybe rethink? It's what the original sizes were based around.
+	const BASE_SIZE = 512;
+	$: renderer_scale = Math.min(worldWidth, worldHeight) / BASE_SIZE;
 
 	onMount(() => {
 		// TODO mutation observer?

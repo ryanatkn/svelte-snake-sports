@@ -22,3 +22,10 @@
 		style:left="50px">paused</button
 	>
 </div>
+
+<style>
+	.instructions {
+		width: 0;
+		height: 0;
+	}
+</style>

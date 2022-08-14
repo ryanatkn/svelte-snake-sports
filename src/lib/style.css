@@ -17,6 +17,7 @@
 	--bg_y: 0px;
 	--darker_brown: hsl(15, 50%, 1%);
 	--dark_brown: hsl(15, 50%, 2%);
+	--dimmer_brown: hsl(30, 50%, 7%);
 	--dim_brown: hsl(30, 50%, 13%);
 	--rich_brown: hsl(30, 75%, 22%);
 	--brown_text_color: hsl(30, 85%, 72%);
@@ -78,24 +79,15 @@ button {
 	color: var(--brown_text_color_lightest);
 	border-radius: 3rem;
 	padding: var(--spacing_md) var(--spacing_xl);
-	background: radial-gradient(
-		var(--dim_brown),
-		var(--rich_brown),
-		var(--dim_brown),
-		var(--dark_brown),
-		var(--dark_brown)
-	);
+	background: radial-gradient(var(--dim_brown) 60%, var(--rich_brown) 60%, var(--rich_brown));
 	box-shadow: none !important;
 	--border_color: var(--darker_brown);
 }
+button:hover {
+	background: radial-gradient(var(--dimmer_brown) 60%, var(--dim_brown) 60%, var(--dim_brown));
+}
 button.selected {
-	background: radial-gradient(
-		var(--rich_brown),
-		var(--rich_brown),
-		var(--rich_brown),
-		var(--dim_brown),
-		var(--rich_brown)
-	);
+	background: radial-gradient(var(--rich_brown) 60%, var(--dark_brown) 60%, var(--dark_brown));
 }
 
 label.buttonlike {

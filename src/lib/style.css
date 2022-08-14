@@ -33,6 +33,10 @@ select {
 	color: var(--text_color);
 }
 
+html {
+	min-height: 100%; /* scales up the body bg to avoid weird rendering */
+}
+
 body {
 	display: flex;
 	flex-direction: column;

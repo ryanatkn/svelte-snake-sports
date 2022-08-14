@@ -13,6 +13,8 @@
 	// TODO default?
 	export let rect: DOMRect | undefined = undefined; // exposed for binding
 
+	let top: number;
+	let height: number;
 	$: top = rect?.top ?? 0;
 	$: height = rect?.height ?? 0;
 

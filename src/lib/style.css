@@ -72,6 +72,7 @@ button {
 	color: #ccc;
 	border-radius: 3rem;
 	background-color: var(--dim_brown);
+	box-shadow: none !important;
 }
 button.selected {
 	background-color: var(--medium_brown);

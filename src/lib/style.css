@@ -18,6 +18,7 @@
 	--darker_brown: hsl(15, 50%, 1%);
 	--dark_brown: hsl(15, 50%, 2%);
 	--dim_brown: hsl(30, 50%, 13%);
+	--rich_brown: hsl(30, 75%, 22%);
 	--medium_brown: hsl(30, 25%, 27%);
 	--gray_brown: hsl(24, 3%, 39%);
 	--bright_green: hsl(116, 80%, 41%);
@@ -72,7 +73,14 @@ button {
 	/* TODO delete all of this when felt has dark mode */
 	color: #ccc;
 	border-radius: 3rem;
-	background: linear-gradient(var(--dim_brown), var(--dim_brown), var(--dark_brown));
+	padding: var(--spacing_md) var(--spacing_xl);
+	background: radial-gradient(
+		var(--dim_brown),
+		var(--rich_brown),
+		var(--dim_brown),
+		var(--dark_brown),
+		var(--dark_brown)
+	);
 	box-shadow: none !important;
 	--border_color: var(--darker_brown);
 }
@@ -142,7 +150,7 @@ button.selected {
 	flex-direction: column;
 	align-items: flex-start;
 }
-.instructions > * {
+.instructions > *:not(button) {
 	padding: 0 var(--spacing_xs);
 	background-color: var(--bg);
 	border-bottom: 3px solid var(--dim_red);

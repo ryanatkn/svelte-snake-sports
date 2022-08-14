@@ -12,6 +12,8 @@
 	export let autoScaleRenderer: Writable<boolean>;
 	export let rendererWidth: Writable<number>;
 	export let rendererHeight: Writable<number>;
+	export let fixedAspectRatio: Writable<boolean>;
+	export let aspectRatio: Writable<number>;
 
 	$: ({state} = game);
 	$: ({mapWidth, mapHeight} = $state);
@@ -35,6 +37,12 @@
 
 	const TICK_DURATION_MIN = 5; // ms
 	const TICK_DURATION_MAX = 2000; // ms
+
+	const ASPECT_RATIO_MIN = 0.1;
+	const ASPECT_RATIO_MAX = 10;
+	const ASPECT_RATIO_STEP = 0.1;
+
+	const onAspectRatioInput = (e: any) => ($aspectRatio = Number(e.target.value) | 0);
 </script>
 
 <form class="Settings">
@@ -151,6 +159,30 @@
 					on:input={onRendererHeightInput}
 					min={RENDERER_MIN_HEIGHT}
 					max={RENDERER_MAX_HEIGHT}
+				/></label
+			>
+		</fieldset>
+		<fieldset>
+			<label class="buttonlike"
+				><input type="checkbox" bind:checked={$fixedAspectRatio} /> fixedAspectRatio</label
+			>
+			<label class:disabled={!$fixedAspectRatio}
+				><strong>aspectRatio</strong><input
+					type="range"
+					value={$aspectRatio}
+					disabled={!$fixedAspectRatio}
+					on:input={onAspectRatioInput}
+					min={ASPECT_RATIO_MIN}
+					max={ASPECT_RATIO_MAX}
+					step={ASPECT_RATIO_STEP}
+				/><input
+					type="number"
+					value={$aspectRatio}
+					disabled={!$fixedAspectRatio}
+					on:input={onAspectRatioInput}
+					min={ASPECT_RATIO_MIN}
+					max={ASPECT_RATIO_MAX}
+					step={ASPECT_RATIO_STEP}
 				/></label
 			>
 		</fieldset>

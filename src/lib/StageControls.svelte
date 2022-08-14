@@ -137,7 +137,4 @@
 		justify-content: center;
 		padding: var(--spacing_md);
 	}
-	.icon-button {
-		filter: hue-rotate(calc(var(--blue_to_brown_hue_rotation) * 1deg));
-	}
 </style>

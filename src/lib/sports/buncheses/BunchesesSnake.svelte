@@ -71,6 +71,8 @@
 	export const autoScaleRenderer = writable(true);
 	export const rendererWidth = setRendererWidth(writable(0));
 	export const rendererHeight = setRendererHeight(writable(0));
+	export const fixedAspectRatio = writable(true);
+	export const aspectRatio = writable(1);
 
 	// TODO is there a better place to do this? imperatively after updating the state?
 	$: if (bunchesEaten > $highestClustersEaten) {
@@ -187,6 +189,8 @@
 				autoScaleRenderer={$autoScaleRenderer}
 				rendererWidth={$rendererWidth}
 				rendererHeight={$rendererHeight}
+				fixedAspectRatio={$fixedAspectRatio}
+				aspectRatio={$aspectRatio}
 				updateRendererDimensions={(width, height) => {
 					$rendererWidth = width;
 					$rendererHeight = height;
@@ -243,6 +247,8 @@
 					{autoScaleRenderer}
 					{rendererWidth}
 					{rendererHeight}
+					{fixedAspectRatio}
+					{aspectRatio}
 				/>
 			{/if}
 		</section>

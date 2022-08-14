@@ -8,6 +8,8 @@
 	export let rendererWidth: number;
 	export let rendererHeight: number;
 	export let updateRendererDimensions: (width: number, height: number) => void;
+	export let fixedAspectRatio: boolean;
+	export let aspectRatio: number;
 	export let paddingX = 32;
 	export let paddingY = 32;
 	export let marginTop = 400; // TODO the 400 is the height of the `TitleImage`
@@ -26,6 +28,7 @@
 	$: screenHeight = Math.min(availableHeight, rendererHeight);
 	$: worldWidth = Math.max(0, autoScaleRenderer ? availableWidth : rendererWidth);
 	$: worldHeight = Math.max(0, autoScaleRenderer ? availableHeight : rendererHeight);
+	// TODO BLOCK set square screen dimensions with option
 
 	$: if (autoScaleRenderer) {
 		updateRendererDimensions(worldWidth, worldHeight);

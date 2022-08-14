@@ -31,8 +31,6 @@
 
 <div
 	class="Entity {classes}"
-	style:width="{width}px"
-	style:height="{height}px"
 	style:transform="translate3d({positionX}px, {positionY}px, 0)"
 	style:z-index={1000 + y}
 	style:--transition_duration={transition_duration}
@@ -44,6 +42,8 @@
 		position: absolute;
 		/* TODO play with different easings  */
 		transition: transform calc(var(--transition_duration) * 1ms) ease-in-out;
+		width: var(--entity_width);
+		height: var(--entity_height);
 	}
 	/* TODO hacky */
 	.plain {

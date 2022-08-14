@@ -25,7 +25,7 @@
 	style:--entity_height="{entityHeight}px"
 >
 	<div class="layer">
-		<Tiles {mapWidth} {mapHeight} tileWidth={entityWidth} tileHeight={entityHeight} />
+		<Tiles {mapWidth} {mapHeight} />
 		{#each apples as a (a.id)}
 			<Apple x={a.x} y={a.y} classes="apple" width={entityWidth} height={entityHeight} />
 		{/each}

@@ -29,13 +29,13 @@
 
 <div
 	class="scaled-content"
-	style:width="{screenWidth}px"
-	style:height="{screenHeight}px"
+	style:--screen_width={screenWidth}
+	style:--screen_height={screenHeight}
 	style:--renderer_scale={renderer_scale}
 	bind:this={el}
 >
 	<div style={`transform: scale3d(${scale}, ${scale}, 1);`}>
-		<div style={`width: ${worldWidth}px; height: ${worldHeight}px;`}>
+		<div class="world" style:--world_width={worldWidth} style:--world_height={worldHeight}>
 			<slot />
 		</div>
 	</div>
@@ -46,5 +46,11 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		width: calc(var(--screen_width) * 1px);
+		height: calc(var(--screen_height) * 1px);
+	}
+	.world {
+		width: calc(var(--world_width) * 1px);
+		height: calc(var(--world_height) * 1px);
 	}
 </style>

@@ -178,6 +178,9 @@ label.disabled {
 	border-bottom: 3px solid var(--dim_red);
 	white-space: nowrap;
 }
+.instructions strong {
+	font-weight: 900;
+}
 
 @keyframes bounce {
 	0% {

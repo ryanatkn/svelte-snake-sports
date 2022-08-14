@@ -50,7 +50,7 @@
 	export const rendererWidth = setRendererWidth(writable(0));
 	export const rendererHeight = setRendererHeight(writable(0));
 	export const fixedAspectRatio = writable(true);
-	export const aspectRatio = writable(1);
+	export const aspectRatio = writable(1.0);
 
 	let applesEaten = 0;
 	let applesEatenSinceCollision = 0;

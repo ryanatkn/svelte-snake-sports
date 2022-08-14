@@ -65,7 +65,7 @@
 	export const rendererWidth = setRendererWidth(writable(0));
 	export const rendererHeight = setRendererHeight(writable(0));
 	export const fixedAspectRatio = writable(true);
-	export const aspectRatio = writable(1);
+	export const aspectRatio = writable(1.0);
 
 	// TODO is there a better place to do this? imperatively after updating the state?
 	$: if (applesEaten > $highestApplesEaten) {

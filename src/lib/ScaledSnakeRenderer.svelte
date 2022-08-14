@@ -28,6 +28,11 @@
 	$: screenHeight = Math.min(availableHeight, rendererHeight);
 	$: worldWidth = Math.max(0, autoScaleRenderer ? availableWidth : rendererWidth);
 	$: worldHeight = Math.max(0, autoScaleRenderer ? availableHeight : rendererHeight);
+
+	$: finalAspectRatio = fixedAspectRatio ? aspectRatio : null;
+	if (finalAspectRatio !== null) {
+		console.log(`finalAspectRatio`, finalAspectRatio);
+	}
 	// TODO BLOCK set square screen dimensions with option
 
 	$: if (autoScaleRenderer) {

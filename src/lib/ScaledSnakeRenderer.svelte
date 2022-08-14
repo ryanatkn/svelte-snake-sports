@@ -9,7 +9,7 @@
 	export let updateRendererDimensions: (width: number, height: number) => void;
 	export let paddingX = 32;
 	export let paddingY = 32;
-	export let marginBottom = 83; // TODO BLOCK the 83 is the height of the `.scores`
+	export let marginBottom = 83; // TODO the 83 is the height of the `.scores`
 	// TODO default?
 	export let rect: DOMRect | undefined = undefined; // exposed for binding
 

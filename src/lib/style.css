@@ -94,6 +94,12 @@ button.selected {
 	);
 }
 
+label.buttonlike {
+	/* TODO remove after updating Felt */
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
 label.disabled {
 	/* TODO remove after updating Felt */
 	opacity: 0.6;
@@ -192,4 +198,10 @@ label.disabled {
 	to {
 		transform: scale3d(1, 1, 1);
 	}
+}
+
+/* TODO probably upstream to Felt */
+fieldset {
+	padding: var(--spacing_sm);
+	border: 0;
 }

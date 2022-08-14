@@ -95,6 +95,10 @@ button.selected {
 	box-shadow: 0 0 0 3px var(--darker_brown) inset !important;
 	background: var(--rich_brown);
 }
+button.inline {
+	/* tODO upstream */
+	margin: 0 var(--spacing_xs);
+}
 
 label.buttonlike {
 	/* TODO remove after updating Felt */

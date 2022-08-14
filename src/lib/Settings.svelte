@@ -39,7 +39,7 @@
 	const TICK_DURATION_MAX = 2000; // ms
 
 	const ASPECT_RATIO_MIN = 0.1;
-	const ASPECT_RATIO_MAX = 10;
+	const ASPECT_RATIO_MAX = 10.0;
 	const ASPECT_RATIO_STEP = 0.1;
 
 	const onAspectRatioInput = (e: any) => ($aspectRatio = Number(e.target.value) | 0);

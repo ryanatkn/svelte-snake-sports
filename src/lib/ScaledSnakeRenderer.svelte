@@ -20,17 +20,13 @@
 
 	const dimensions = getDimensions();
 	$: availableWidth = Math.max(0, $dimensions.width - paddingX);
-	$: availableHeight = Math.max(0, $dimensions.height - paddingY);
+	$: availableHeight = Math.max(0, $dimensions.height - paddingY - marginTop - marginBottom);
 	// TODO support more than a scaled square
 	$: screenSize = Math.min(availableWidth, availableHeight, rendererWidth, rendererHeight);
 
-	$: maxHeight = Math.max(0, $dimensions.height - marginTop - marginBottom);
-	$: maxSize = Math.max(
-		0,
-		autoScaleRenderer
-			? Math.min(availableWidth, maxHeight)
-			: Math.min(rendererWidth, rendererHeight),
-	);
+	$: maxWidth = Math.max(0, autoScaleRenderer ? availableWidth : rendererWidth);
+	$: maxHeight = Math.max(0, autoScaleRenderer ? availableHeight : rendererHeight);
+	$: maxSize = Math.min(maxWidth, maxHeight);
 	// TODO support more than a scaled square
 	$: worldWidth = maxSize;
 	$: worldHeight = maxSize;

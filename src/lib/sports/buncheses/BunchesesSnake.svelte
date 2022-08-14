@@ -180,7 +180,14 @@
 	/>
 	{#if game}
 		<Gamespace>
-			<ScaledSnakeRenderer {rendererWidth} {rendererHeight}>
+			<ScaledSnakeRenderer
+				rendererWidth={$rendererWidth}
+				rendererHeight={$rendererHeight}
+				updateRendererDimensions={(width, height) => {
+					$rendererWidth = width;
+					$rendererHeight = height;
+				}}
+			>
 				<DomRenderer {game} width={rendererWidth} height={rendererHeight} />
 			</ScaledSnakeRenderer>
 			{#if bunchesEaten === 0}

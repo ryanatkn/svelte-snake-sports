@@ -124,7 +124,16 @@
 	/>
 	{#if game}
 		<Gamespace>
-			<ScaledSnakeRenderer {rendererWidth} {rendererHeight}>
+			<!-- TODO `marginBottom={100}` is hardcoding the scores height -->
+			<ScaledSnakeRenderer
+				marginBottom={100}
+				rendererWidth={$rendererWidth}
+				rendererHeight={$rendererHeight}
+				updateRendererDimensions={(width, height) => {
+					$rendererWidth = width;
+					$rendererHeight = height;
+				}}
+			>
 				<DomRenderer {game} width={rendererWidth} height={rendererHeight} />
 			</ScaledSnakeRenderer>
 			{#if applesEaten === 0}

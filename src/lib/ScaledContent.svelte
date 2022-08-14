@@ -8,7 +8,7 @@
 	export let worldWidth: number;
 	export let worldHeight: number;
 	// TODO default?
-	export let rect = {bottom: 0, height: 0, left: 0, right: 0, top: 0, width: 0, x: 0, y: 0}; // exposed for binding
+	export let rect = new DOMRect(0, 0, 0, 0); // exposed for binding
 
 	$: xScale = Math.min(1, screenWidth / worldWidth);
 	$: yScale = Math.min(1, screenHeight / worldHeight);

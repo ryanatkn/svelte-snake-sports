@@ -16,7 +16,8 @@
 
 	let el: Element;
 
-	$: el && (scale, (rect = el.getBoundingClientRect()));
+	// TODO mutation observer?
+	$: el && (xScale, yScale, (rect = el.getBoundingClientRect()));
 
 	// TODO BLOCK hardcoded 512
 	$: renderer_scale = Math.min(worldWidth, worldHeight) / 512;

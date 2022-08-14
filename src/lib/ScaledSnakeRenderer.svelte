@@ -5,8 +5,8 @@
 	import ScaledContent from '$lib/ScaledContent.svelte';
 	import {getDimensions} from '$lib/Dimensions.svelte';
 
-	export let rendererWidth: Writable<number>;
-	export let rendererHeight: Writable<number>;
+	export let rendererWidth: Writable<number>; // this component writes to rendererWidth/rendererHeight
+	export let rendererHeight: Writable<number>; // this component writes to rendererWidth/rendererHeight
 	export let paddingX = 32;
 	export let paddingY = 32;
 	export let marginBottom = 83; // TODO BLOCK the 83 is the height of the `.scores`

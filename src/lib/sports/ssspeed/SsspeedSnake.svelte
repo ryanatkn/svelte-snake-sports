@@ -44,6 +44,7 @@
 	export const tickDurationMin = writable(17);
 	export const tickDurationMax = writable(2000);
 	// TODO belongs elsewhere
+	export const autoScaleRenderer = writable(true);
 	export const rendererWidth = setRendererWidth(writable(0));
 	export const rendererHeight = setRendererHeight(writable(0));
 
@@ -126,13 +127,14 @@
 		<Gamespace>
 			<!-- TODO `marginBottom={100}` is hardcoding the scores height -->
 			<ScaledSnakeRenderer
-				marginBottom={100}
+				autoScaleRenderer={$autoScaleRenderer}
 				rendererWidth={$rendererWidth}
 				rendererHeight={$rendererHeight}
 				updateRendererDimensions={(width, height) => {
 					$rendererWidth = width;
 					$rendererHeight = height;
 				}}
+				marginBottom={100}
 			>
 				<DomRenderer {game} width={rendererWidth} height={rendererHeight} />
 			</ScaledSnakeRenderer>
@@ -171,6 +173,7 @@
 					{tickDurationMin}
 					{tickDurationMax}
 					{tickDurationDecay}
+					{autoScaleRenderer}
 					{rendererWidth}
 					{rendererHeight}
 				/>

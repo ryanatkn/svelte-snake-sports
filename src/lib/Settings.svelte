@@ -9,6 +9,7 @@
 	export let tickDurationDecay: Writable<number>;
 	export let tickDurationMin: Writable<number>;
 	export let tickDurationMax: Writable<number>;
+	export let autoScaleRenderer: Writable<boolean>;
 	export let rendererWidth: Writable<number>;
 	export let rendererHeight: Writable<number>;
 
@@ -43,40 +44,42 @@
 		>
 	</section>
 	<section>
-		<label
-			><strong>baseTickDuration</strong><input
-				type="range"
-				bind:value={$baseTickDuration}
-				min={0}
-				max={2000}
-			/><input type="number" bind:value={$baseTickDuration} /></label
-		>
-		<label
-			><strong>tickDurationDecay</strong><input
-				type="range"
-				bind:value={$tickDurationDecay}
-				min={0}
-				max={1}
-				step={0.01}
-			/><input type="number" bind:value={$tickDurationDecay} /></label
-		>
-		<label
-			><strong>tickDurationMin</strong><input
-				type="range"
-				bind:value={$tickDurationMin}
-				min={TICK_DURATION_MIN}
-				max={TICK_DURATION_MAX}
-			/><input type="number" bind:value={$tickDurationMin} /></label
-		>
-		<label
-			><strong>tickDurationMax</strong><input
-				type="range"
-				bind:value={$tickDurationMax}
-				min={TICK_DURATION_MIN}
-				max={TICK_DURATION_MAX}
-			/><input type="number" bind:value={$tickDurationMax} /></label
-		>
-		<section>
+		<fieldset>
+			<label
+				><strong>baseTickDuration</strong><input
+					type="range"
+					bind:value={$baseTickDuration}
+					min={0}
+					max={2000}
+				/><input type="number" bind:value={$baseTickDuration} /></label
+			>
+			<label
+				><strong>tickDurationDecay</strong><input
+					type="range"
+					bind:value={$tickDurationDecay}
+					min={0}
+					max={1}
+					step={0.01}
+				/><input type="number" bind:value={$tickDurationDecay} /></label
+			>
+			<label
+				><strong>tickDurationMin</strong><input
+					type="range"
+					bind:value={$tickDurationMin}
+					min={TICK_DURATION_MIN}
+					max={TICK_DURATION_MAX}
+				/><input type="number" bind:value={$tickDurationMin} /></label
+			>
+			<label
+				><strong>tickDurationMax</strong><input
+					type="range"
+					bind:value={$tickDurationMax}
+					min={TICK_DURATION_MIN}
+					max={TICK_DURATION_MAX}
+				/><input type="number" bind:value={$tickDurationMax} /></label
+			>
+		</fieldset>
+		<fieldset>
 			<label
 				><strong>mapWidth</strong><input
 					type="range"
@@ -109,10 +112,16 @@
 					max={MAP_MAX_HEIGHT}
 				/></label
 			>
-			<label
+		</fieldset>
+		<fieldset>
+			<label class="buttonlike"
+				><input type="checkbox" bind:checked={$autoScaleRenderer} /> auto scale renderer</label
+			>
+			<label class:disabled={$autoScaleRenderer}
 				><strong>rendererWidth</strong><input
 					type="range"
 					value={$rendererWidth}
+					disabled={$autoScaleRenderer}
 					on:input={onRendererWidthInput}
 					min={RENDERER_MIN_WIDTH}
 					max={RENDERER_MAX_WIDTH}
@@ -120,15 +129,17 @@
 				/><input
 					type="number"
 					value={$rendererWidth}
+					disabled={$autoScaleRenderer}
 					on:input={onRendererWidthInput}
 					min={RENDERER_MIN_WIDTH}
 					max={RENDERER_MAX_WIDTH}
 				/></label
 			>
-			<label
+			<label class:disabled={$autoScaleRenderer}
 				><strong>rendererHeight</strong><input
 					type="range"
 					value={$rendererHeight}
+					disabled={$autoScaleRenderer}
 					on:input={onRendererHeightInput}
 					min={RENDERER_MIN_HEIGHT}
 					max={RENDERER_MAX_HEIGHT}
@@ -136,12 +147,13 @@
 				/><input
 					type="number"
 					value={$rendererHeight}
+					disabled={$autoScaleRenderer}
 					on:input={onRendererHeightInput}
 					min={RENDERER_MIN_HEIGHT}
 					max={RENDERER_MAX_HEIGHT}
 				/></label
 			>
-		</section>
+		</fieldset>
 	</section>
 </form>
 
@@ -157,5 +169,6 @@
 		align-items: flex-start;
 		justify-content: center;
 		flex-wrap: wrap;
+		margin-bottom: var(--spacing_xl);
 	}
 </style>

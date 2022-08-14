@@ -58,6 +58,7 @@
 	export const tickDurationMin = writable(17);
 	export const tickDurationMax = writable(2000);
 	// TODO belongs elsewhere
+	export const autoScaleRenderer = writable(true);
 	export const rendererWidth = setRendererWidth(writable(0));
 	export const rendererHeight = setRendererHeight(writable(0));
 
@@ -124,6 +125,7 @@
 	{#if game}
 		<Gamespace>
 			<ScaledSnakeRenderer
+				autoScaleRenderer={$autoScaleRenderer}
 				rendererWidth={$rendererWidth}
 				rendererHeight={$rendererHeight}
 				updateRendererDimensions={(width, height) => {
@@ -170,6 +172,7 @@
 					{tickDurationMin}
 					{tickDurationMax}
 					{tickDurationDecay}
+					{autoScaleRenderer}
 					{rendererWidth}
 					{rendererHeight}
 				/>

@@ -94,6 +94,11 @@ button.selected {
 	);
 }
 
+label.disabled {
+	/* TODO remove after updating Felt */
+	opacity: 0.6;
+}
+
 .snake-1 {
 	filter: hue-rotate(120deg);
 }

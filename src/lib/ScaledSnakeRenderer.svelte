@@ -4,6 +4,7 @@
 	import ScaledContent from '$lib/ScaledContent.svelte';
 	import {getDimensions} from '$lib/Dimensions.svelte';
 
+	export let autoScaleRenderer: boolean;
 	export let rendererWidth: number;
 	export let rendererHeight: number;
 	export let updateRendererDimensions: (width: number, height: number) => void;
@@ -25,7 +26,9 @@
 	$: screenSize = Math.min(availableWidth, availableHeight, rendererWidth, rendererHeight);
 
 	$: maxHeight = $dimensions.height - top - marginBottom;
-	$: maxSize = Math.min(availableWidth, maxHeight);
+	$: maxSize = autoScaleRenderer
+		? Math.min(availableWidth, maxHeight)
+		: Math.min(rendererWidth, rendererHeight);
 	$: updateRendererDimensions(maxSize, maxSize);
 
 	// Move `--bg_y` to the screen center of the renderer,

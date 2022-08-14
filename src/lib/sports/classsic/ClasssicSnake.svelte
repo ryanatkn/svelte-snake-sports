@@ -64,7 +64,7 @@
 	export const autoScaleRenderer = writable(true);
 	export const rendererWidth = setRendererWidth(writable(0));
 	export const rendererHeight = setRendererHeight(writable(0));
-	export const fixedAspectRatio = writable(true);
+	export const autoAspectRatio = writable(true);
 	export const aspectRatio = writable(1.0);
 
 	// TODO is there a better place to do this? imperatively after updating the state?
@@ -133,7 +133,7 @@
 				autoScaleRenderer={$autoScaleRenderer}
 				rendererWidth={$rendererWidth}
 				rendererHeight={$rendererHeight}
-				fixedAspectRatio={$fixedAspectRatio}
+				autoAspectRatio={$autoAspectRatio}
 				aspectRatio={$aspectRatio}
 				updateRendererDimensions={(width, height) => {
 					$rendererWidth = width;
@@ -184,7 +184,7 @@
 					{autoScaleRenderer}
 					{rendererWidth}
 					{rendererHeight}
-					{fixedAspectRatio}
+					{autoAspectRatio}
 					{aspectRatio}
 				/>
 			{/if}

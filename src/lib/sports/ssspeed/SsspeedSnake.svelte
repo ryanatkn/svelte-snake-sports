@@ -49,7 +49,7 @@
 	export const autoScaleRenderer = writable(true);
 	export const rendererWidth = setRendererWidth(writable(0));
 	export const rendererHeight = setRendererHeight(writable(0));
-	export const fixedAspectRatio = writable(true);
+	export const autoAspectRatio = writable(true);
 	export const aspectRatio = writable(1.0);
 
 	let applesEaten = 0;
@@ -134,7 +134,7 @@
 				autoScaleRenderer={$autoScaleRenderer}
 				rendererWidth={$rendererWidth}
 				rendererHeight={$rendererHeight}
-				fixedAspectRatio={$fixedAspectRatio}
+				autoAspectRatio={$autoAspectRatio}
 				aspectRatio={$aspectRatio}
 				marginBottom={100}
 				updateRendererDimensions={(width, height) => {
@@ -184,7 +184,7 @@
 					{autoScaleRenderer}
 					{rendererWidth}
 					{rendererHeight}
-					{fixedAspectRatio}
+					{autoAspectRatio}
 					{aspectRatio}
 				/>
 			{/if}

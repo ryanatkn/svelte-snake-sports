@@ -12,7 +12,7 @@
 	export let autoScaleRenderer: Writable<boolean>;
 	export let rendererWidth: Writable<number>;
 	export let rendererHeight: Writable<number>;
-	export let fixedAspectRatio: Writable<boolean>;
+	export let autoAspectRatio: Writable<boolean>;
 	export let aspectRatio: Writable<number>;
 
 	$: ({state} = game);
@@ -164,13 +164,13 @@
 		</fieldset>
 		<fieldset>
 			<label class="buttonlike"
-				><input type="checkbox" bind:checked={$fixedAspectRatio} /> fixedAspectRatio</label
+				><input type="checkbox" bind:checked={$autoAspectRatio} /> autoAspectRatio</label
 			>
-			<label class:disabled={!$fixedAspectRatio}
+			<label class:disabled={$autoAspectRatio}
 				><strong>aspectRatio</strong><input
 					type="range"
 					value={$aspectRatio}
-					disabled={!$fixedAspectRatio}
+					disabled={$autoAspectRatio}
 					on:input={onAspectRatioInput}
 					min={ASPECT_RATIO_MIN}
 					max={ASPECT_RATIO_MAX}
@@ -178,7 +178,7 @@
 				/><input
 					type="number"
 					value={$aspectRatio}
-					disabled={!$fixedAspectRatio}
+					disabled={$autoAspectRatio}
 					on:input={onAspectRatioInput}
 					min={ASPECT_RATIO_MIN}
 					max={ASPECT_RATIO_MAX}

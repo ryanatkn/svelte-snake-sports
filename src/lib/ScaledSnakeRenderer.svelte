@@ -8,7 +8,7 @@
 	export let rendererWidth: number;
 	export let rendererHeight: number;
 	export let updateRendererDimensions: (width: number, height: number) => void;
-	export let fixedAspectRatio: boolean;
+	export let autoAspectRatio: boolean;
 	export let aspectRatio: number;
 	export let paddingX = 32;
 	export let paddingY = 32;
@@ -29,7 +29,7 @@
 	$: worldWidth = Math.max(0, autoScaleRenderer ? availableWidth : rendererWidth);
 	$: worldHeight = Math.max(0, autoScaleRenderer ? availableHeight : rendererHeight);
 
-	$: finalAspectRatio = fixedAspectRatio ? aspectRatio : null;
+	$: finalAspectRatio = autoAspectRatio ? null : aspectRatio;
 	if (finalAspectRatio !== null) {
 		console.log(`finalAspectRatio`, finalAspectRatio);
 	}

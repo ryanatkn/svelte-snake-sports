@@ -5,3 +5,9 @@
 <div><strong>take one turn</strong>: <code>1</code></div>
 <div><strong>delete all saved data</strong>: <code>0</code></div>
 <div><strong>restart</strong>: <code>r</code></div>
+
+<style>
+	strong {
+		color: var(--brown_text_color);
+	}
+</style>

@@ -19,6 +19,10 @@
 	--dark_brown: hsl(15, 50%, 2%);
 	--dim_brown: hsl(30, 50%, 13%);
 	--rich_brown: hsl(30, 75%, 22%);
+	--brown_text_color: hsl(30, 85%, 72%);
+	--brown_text_color_lighter: hsl(30, 95%, 85%);
+	--brown_text_color_lightest: hsl(30, 100%, 93%);
+	--text_color: var(--brown_text_color_lighter);
 	--medium_brown: hsl(30, 25%, 27%);
 	--gray_brown: hsl(24, 3%, 39%);
 	--bright_green: hsl(116, 80%, 41%);
@@ -71,7 +75,7 @@ form label:last-child {
 
 button {
 	/* TODO delete all of this when felt has dark mode */
-	color: #ccc;
+	color: var(--brown_text_color_lightest);
 	border-radius: 3rem;
 	padding: var(--spacing_md) var(--spacing_xl);
 	background: radial-gradient(
@@ -166,6 +170,7 @@ label.disabled {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
+	font-weight: 600;
 }
 .instructions > *:not(button) {
 	padding: 0 var(--spacing_xs);

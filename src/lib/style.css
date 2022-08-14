@@ -24,6 +24,8 @@
 	--dim_red: hsl(353, 56%, 37%);
 	--bright_red: hsl(353, 78%, 44%);
 	--blue_to_brown_hue_rotation: 215;
+
+	--renderer_scale: 1;
 }
 
 /* TODO remove this after upgrading Felt */

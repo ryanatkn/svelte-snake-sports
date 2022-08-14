@@ -52,10 +52,15 @@
 		{/each}
 	</div>
 	<div class="time-and-score">
-		<div class="time" title="current elapsed time">{currentTimeSeconds}s</div>
+		<div
+			class="time"
+			title="{currentTimeSeconds} second{currentTimeSeconds === 1 ? ' has' : 's have'} elapsed"
+		>
+			{currentTimeSeconds}s
+		</div>
 		<div class="count">
 			<Score
-				title="progress towards goal"
+				title="{applesEaten} of {applesToWin} apples eaten"
 				progressKey={applesEaten === 0 ? undefined : applesEaten}
 			>
 				<div>{applesEaten}/{applesToWin}</div>

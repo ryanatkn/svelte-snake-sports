@@ -115,7 +115,7 @@
 		</fieldset>
 		<fieldset>
 			<label class="buttonlike"
-				><input type="checkbox" bind:checked={$autoScaleRenderer} /> auto scale renderer</label
+				><input type="checkbox" bind:checked={$autoScaleRenderer} /> autoScaleRenderer</label
 			>
 			<label class:disabled={$autoScaleRenderer}
 				><strong>rendererWidth</strong><input

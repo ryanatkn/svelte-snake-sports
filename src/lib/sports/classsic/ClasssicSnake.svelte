@@ -26,13 +26,16 @@
 	import {setCurrentTickDuration, setRendererWidth, setRendererHeight} from '$lib/SnakeGame';
 
 	export let game: SnakeGame | undefined = undefined;
-	export let toInitialState = (): SnakeGameState => initGameState(toDefaultGameState());
+	export let toInitialState = (): SnakeGameState =>
+		initGameState(toDefaultGameState({mapWidth, mapHeight}));
 
 	const clock = setClock(createClock({running: browser}));
 
 	let showSettings = false;
 
 	$: state = game?.state;
+	$: mapWidth = $state?.mapWidth;
+	$: mapHeight = $state?.mapHeight;
 	$: events = game?.events;
 	$: status = game?.status;
 

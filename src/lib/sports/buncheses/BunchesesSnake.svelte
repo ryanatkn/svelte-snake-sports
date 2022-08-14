@@ -38,6 +38,8 @@
 	let showSettings = false;
 
 	$: state = game?.state;
+	$: mapWidth = $state?.mapWidth;
+	$: mapHeight = $state?.mapHeight;
 	$: events = game?.events;
 	$: status = game?.status;
 
@@ -146,7 +148,7 @@
 			$currentTickDuration = $baseTickDuration;
 		}}
 		toInitialState={() => {
-			const state = initGameState(toDefaultGameState());
+			const state = initGameState(toDefaultGameState({mapWidth, mapHeight}));
 			// spawn the apples
 			state.apples.length = 0;
 			state.apples = [

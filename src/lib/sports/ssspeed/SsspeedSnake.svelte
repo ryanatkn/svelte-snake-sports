@@ -33,6 +33,8 @@
 	let showSettings = false;
 
 	$: state = game?.state;
+	$: mapWidth = $state?.mapWidth;
+	$: mapHeight = $state?.mapHeight;
 	$: events = game?.events;
 	$: status = game?.status;
 
@@ -109,7 +111,7 @@
 <div class="SsspeedSnake" class:game-win={$status === 'win'} class:game-ready={$status === 'ready'}>
 	<SnakeGame
 		bind:this={game}
-		toInitialState={() => initGameState(toDefaultGameState())}
+		toInitialState={() => initGameState(toDefaultGameState({mapWidth, mapHeight}))}
 		{tick}
 		onReset={() => {
 			$currentTickDuration = $baseTickDuration;

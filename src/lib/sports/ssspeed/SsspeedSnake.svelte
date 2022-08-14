@@ -130,13 +130,15 @@
 				autoScaleRenderer={$autoScaleRenderer}
 				rendererWidth={$rendererWidth}
 				rendererHeight={$rendererHeight}
+				marginBottom={100}
 				updateRendererDimensions={(width, height) => {
 					$rendererWidth = width;
 					$rendererHeight = height;
 				}}
-				marginBottom={100}
+				let:worldWidth
+				let:worldHeight
 			>
-				<DomRenderer {game} width={rendererWidth} height={rendererHeight} />
+				<DomRenderer {game} width={worldWidth} height={worldHeight} />
 			</ScaledSnakeRenderer>
 			{#if applesEaten === 0}
 				<ReadyInstructions {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />

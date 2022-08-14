@@ -19,16 +19,25 @@
 	$: height = rect?.height ?? 0;
 
 	const dimensions = getDimensions();
-	$: availableWidth = $dimensions.width - paddingX;
-	$: availableHeight = $dimensions.height - paddingY;
+	$: availableWidth = Math.max(0, $dimensions.width - paddingX);
+	$: availableHeight = Math.max(0, $dimensions.height - paddingY);
 	// TODO support more than a scaled square
 	$: screenSize = Math.min(availableWidth, availableHeight, rendererWidth, rendererHeight);
 
-	$: maxHeight = $dimensions.height - marginTop - marginBottom;
-	$: maxSize = autoScaleRenderer
-		? Math.min(availableWidth, maxHeight)
-		: Math.min(rendererWidth, rendererHeight);
-	$: updateRendererDimensions(maxSize, maxSize);
+	$: maxHeight = Math.max(0, $dimensions.height - marginTop - marginBottom);
+	$: maxSize = Math.max(
+		0,
+		autoScaleRenderer
+			? Math.min(availableWidth, maxHeight)
+			: Math.min(rendererWidth, rendererHeight),
+	);
+	// TODO support more than a scaled square
+	$: worldWidth = maxSize;
+	$: worldHeight = maxSize;
+
+	$: if (autoScaleRenderer) {
+		updateRendererDimensions(worldWidth, worldHeight);
+	}
 
 	// Move `--bg_y` to the screen center of the renderer,
 	// so the vingette surrounds the game viewport.
@@ -39,9 +48,9 @@
 <ScaledWorld
 	screenWidth={screenSize}
 	screenHeight={screenSize}
-	worldWidth={rendererWidth}
-	worldHeight={rendererHeight}
+	{worldWidth}
+	{worldHeight}
 	bind:rect
 >
-	<slot />
+	<slot {worldWidth} {worldHeight} />
 </ScaledWorld>

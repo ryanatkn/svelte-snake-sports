@@ -132,8 +132,10 @@
 					$rendererWidth = width;
 					$rendererHeight = height;
 				}}
+				let:worldWidth
+				let:worldHeight
 			>
-				<DomRenderer {game} width={rendererWidth} height={rendererHeight} />
+				<DomRenderer {game} width={worldWidth} height={worldHeight} />
 			</ScaledSnakeRenderer>
 			{#if applesEaten === 0}
 				<ReadyInstructions {highestApplesEaten} />

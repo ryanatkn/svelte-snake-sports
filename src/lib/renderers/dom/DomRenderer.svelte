@@ -1,6 +1,4 @@
 <script lang="ts">
-	import type {Writable} from 'svelte/store';
-
 	import Entity from '$lib/renderers/dom/Entity.svelte';
 	import Apple from '$lib/renderers/dom/Apple.svelte';
 	import Tiles from '$lib/renderers/dom/Tiles.svelte';
@@ -9,14 +7,14 @@
 	// TODO maybe rename this module to `SnameGameDomRenderer` or just `Renderer`?
 
 	export let game: SnakeGame;
-	export let width: Writable<number>;
-	export let height: Writable<number>;
+	export let width: number;
+	export let height: number;
 
 	$: ({state, movementDirection} = game);
 	$: ({apples, snakeSegments, mapWidth, mapHeight} = $state);
 
-	$: entityWidth = $width / mapWidth; // TODO Math.floor?
-	$: entityHeight = $height / mapHeight;
+	$: entityWidth = width / mapWidth; // TODO Math.floor?
+	$: entityHeight = height / mapHeight;
 </script>
 
 <div

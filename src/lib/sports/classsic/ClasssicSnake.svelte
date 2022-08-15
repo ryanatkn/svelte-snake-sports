@@ -27,7 +27,7 @@
 
 	export let game: SnakeGame | undefined = undefined;
 	export let toInitialState = (): SnakeGameState =>
-		initGameState(toDefaultGameState({mapWidth, mapHeight}));
+		initGameState($state || toDefaultGameState({mapWidth, mapHeight}));
 
 	const clock = setClock(createClock({running: browser}));
 

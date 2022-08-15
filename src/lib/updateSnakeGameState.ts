@@ -63,6 +63,8 @@ export const validateState = (state: SnakeGameState): void => {
 	if (!state.snakeSegments.length) throw Error(`state.snakeSegments cannot be empty`);
 };
 
+const DEFAULT_APPLES = [new Entity(1, 3), new Entity(7, 2), new Entity(5, 9)];
+
 /**
  * Sets up the initial state for a game.
  */
@@ -72,9 +74,21 @@ export const initGameState = (state: SnakeGameState): SnakeGameState => {
 
 	// TODO make this all customizable
 
-	// TODO but preserve current identities if convenient
+	// TODO BLOCK do this with a helper
 	// Create some apples.
-	state.apples = [new Entity(1, 3), new Entity(7, 2), new Entity(5, 9)];
+	while (state.apples.length > 3) {
+		state.apples.pop(); // TODO destroy?
+	}
+	for (let i = 0; i < DEFAULT_APPLES.length; i++) {
+		const defaultApple = DEFAULT_APPLES[i];
+		const existingApple: Entity | undefined = state.apples[i];
+		if (existingApple) {
+			existingApple.reset(defaultApple);
+		} else {
+			console.log('DCLONING APPLE');
+			state.apples.push(defaultApple.clone());
+		}
+	}
 
 	// Create the initial snake.
 	state.snakeSegments = [new Entity(4, 4), new Entity(4, 5), new Entity(5, 5), new Entity(5, 6)];

@@ -150,10 +150,10 @@
 			$currentTickDuration = $baseTickDuration;
 		}}
 		toInitialState={() => {
-			const state = initGameState(toDefaultGameState({mapWidth, mapHeight}));
+			const s = initGameState($state || toDefaultGameState({mapWidth, mapHeight}));
 			// spawn the apples
-			state.apples.length = 0;
-			state.apples = [
+			s.apples.length = 0;
+			s.apples = [
 				new Entity(4, 3),
 				new Entity(4, 2),
 				new Entity(5, 2),
@@ -161,7 +161,7 @@
 				new Entity(4, 1),
 				new Entity(3, 1),
 			];
-			return state;
+			return s;
 		}}
 		spawnApples={(state, game) => {
 			if (state.apples.length) return;

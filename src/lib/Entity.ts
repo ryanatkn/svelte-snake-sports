@@ -20,6 +20,14 @@ export class Entity {
 		return new Entity(this.x, this.y, this.prevX, this.prevY, id ? this.id : undefined);
 	}
 
+	reset({x, y, prevX, prevY}: Entity): Entity {
+		this.x = x;
+		this.y = y;
+		this.prevX = prevX;
+		this.prevY = prevY;
+		return this;
+	}
+
 	moveTo(x: number, y: number): Entity {
 		this.prevX = this.x;
 		this.prevY = this.y;

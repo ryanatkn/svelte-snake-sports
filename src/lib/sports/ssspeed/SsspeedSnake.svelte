@@ -113,7 +113,7 @@
 <div class="SsspeedSnake" class:game-win={$status === 'win'} class:game-ready={$status === 'ready'}>
 	<SnakeGame
 		bind:this={game}
-		toInitialState={() => initGameState(toDefaultGameState({mapWidth, mapHeight}))}
+		toInitialState={() => initGameState($state || toDefaultGameState({mapWidth, mapHeight}))}
 		{tick}
 		onReset={() => {
 			$currentTickDuration = $baseTickDuration;

@@ -27,4 +27,5 @@
 	<RestartInstructions {restart}>
 		{#if newHighScore}:D{:else}:)){/if}
 	</RestartInstructions>
+	<slot />
 </div>

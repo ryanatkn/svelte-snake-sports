@@ -149,15 +149,11 @@
 			{#if applesEaten === 0}
 				<ReadyInstructions {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
 			{:else if $status === 'win'}
-				<WinInstructions
-					{restart}
-					time={currentTime}
-					{bestTime}
-					applesToWin={APPLES_EATEN_TO_WIN}
-				/>
-				<div class="text-burst-wrapper">
-					<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} hueRotationMax={360} />
-				</div>
+				<WinInstructions {restart} time={currentTime} {bestTime} applesToWin={APPLES_EATEN_TO_WIN}>
+					<div class="text-burst-wrapper">
+						<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} hueRotationMax={360} />
+					</div>
+				</WinInstructions>
 			{/if}
 		</Gamespace>
 		<Ticker {clock} tickDuration={currentTickDuration} {tick} />
@@ -205,8 +201,9 @@
 	.text-burst-wrapper {
 		font-size: var(--font_size_xl5);
 		position: absolute;
-		left: 50%;
-		top: 50%;
+		/* TODO hacky positioning */
+		left: 6rem;
+		top: 2rem;
 		width: 0;
 		height: 0;
 	}

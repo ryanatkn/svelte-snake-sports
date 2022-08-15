@@ -203,16 +203,18 @@
 			{#if bunchesEaten === 0}
 				<ReadyInstructions {highestClustersEaten} />
 			{:else if $status === 'fail'}
-				<FailInstructions {restart} {bunchesEaten} {highestClustersEaten} />
-				<div class="text-burst-wrapper">
-					<TextBurst count={50} items={['🍎', '💥', '🦴', '🦴']} />
-				</div>
+				<FailInstructions {restart} {bunchesEaten} {highestClustersEaten}>
+					<div class="text-burst-wrapper">
+						<TextBurst count={50} items={['🍎', '💥', '🦴', '🦴']} />
+					</div>
+				</FailInstructions>
 			{:else if $status === 'win'}
 				<!-- This is unlikely to happen, is just a fallback -->
-				<FailInstructions {restart} {bunchesEaten} {highestClustersEaten} />
-				<div class="text-burst-wrapper">
-					<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} hueRotationMax={360} />
-				</div>
+				<FailInstructions {restart} {bunchesEaten} {highestClustersEaten}>
+					<div class="text-burst-wrapper">
+						<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} hueRotationMax={360} />
+					</div>
+				</FailInstructions>
 			{/if}
 		</Gamespace>
 		<div class="scores">
@@ -271,8 +273,9 @@
 	.text-burst-wrapper {
 		font-size: var(--font_size_xl5);
 		position: absolute;
-		left: 50%;
-		top: 50%;
+		/* TODO hacky positioning */
+		left: 6rem;
+		top: 2rem;
 		width: 0;
 		height: 0;
 	}

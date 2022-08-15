@@ -1,5 +1,6 @@
 <script lang="ts">
 	// TODO BLOCK how should this work?
+	// maybe use pointer events?
 	// maybe fire events instead?
 	// disable it when the game is paused, so UI can be clicked? or should that UI be rendered over the top?
 	// yeah that makes more sense -- the InteractiveSurface should be *below* the instructions.

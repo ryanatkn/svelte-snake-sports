@@ -30,6 +30,10 @@
 	export let toInitialState = (): SnakeGameState =>
 		initGameState(toDefaultGameState({mapWidth, mapHeight}));
 
+	export let pointerDown = false;
+	export let pointerX: number | null = null;
+	export let pointerY: number | null = null;
+
 	const clock = setClock(createClock({running: browser}));
 
 	let showSettings = false;
@@ -129,7 +133,7 @@
 		}}
 	/>
 	{#if game}
-		<Gamespace>
+		<Gamespace bind:pointerDown bind:pointerX bind:pointerY>
 			<ScaledSnakeRenderer
 				autoScaleRenderer={$autoScaleRenderer}
 				rendererWidth={$rendererWidth}

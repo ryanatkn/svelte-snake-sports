@@ -4,6 +4,18 @@
 	import InteractiveSurface from '$lib/InteractiveSurface.svelte';
 
 	// Maybe we'll put an `InteractiveSurface` in here for the mouse/touch controls?
+	/*
+
+	TODO BLOCK
+
+	- events or callbacks?
+	- get angle to snake head -- how? in the game impls, not here?
+
+	*/
+
+	export let pointerDown = false;
+	export let pointerX: number | null = null;
+	export let pointerY: number | null = null;
 
 	const clock = getClock();
 
@@ -15,10 +27,11 @@
 	<div class="interactive-surface-wrapper">
 		<InteractiveSurface
 			setPointerDown={(down) => {
-				console.log('setPointerDown', down);
+				pointerDown = down;
 			}}
 			setPointerPosition={(x, y) => {
-				console.log('setPointerPosition', x, y);
+				pointerX = x;
+				pointerY = y;
 			}}
 		/>
 	</div>

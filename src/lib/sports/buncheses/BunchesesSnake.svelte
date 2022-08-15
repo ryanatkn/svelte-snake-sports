@@ -34,6 +34,10 @@
 	export let game: SnakeGame | undefined = undefined;
 	export let audio: GameAudio | undefined = undefined;
 
+	export let pointerDown = false;
+	export let pointerX: number | null = null;
+	export let pointerY: number | null = null;
+
 	const clock = setClock(createClock({running: browser}));
 
 	let showSettings = false;
@@ -185,7 +189,7 @@
 		}}
 	/>
 	{#if game}
-		<Gamespace>
+		<Gamespace bind:pointerDown bind:pointerX bind:pointerY>
 			<ScaledSnakeRenderer
 				autoScaleRenderer={$autoScaleRenderer}
 				rendererWidth={$rendererWidth}

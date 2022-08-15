@@ -31,6 +31,10 @@
 	export let game: SnakeGame | undefined = undefined;
 	export let audio: GameAudio | undefined = undefined;
 
+	export let pointerDown = false;
+	export let pointerX: number | null = null;
+	export let pointerY: number | null = null;
+
 	let showSettings = false;
 
 	$: state = game?.state;
@@ -129,7 +133,7 @@
 		}}
 	/>
 	{#if game}
-		<Gamespace>
+		<Gamespace bind:pointerDown bind:pointerX bind:pointerY>
 			<!-- TODO `marginBottom={100}` is hardcoding the scores height -->
 			<ScaledSnakeRenderer
 				autoScaleRenderer={$autoScaleRenderer}

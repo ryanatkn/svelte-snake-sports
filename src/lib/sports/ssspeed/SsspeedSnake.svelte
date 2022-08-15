@@ -35,6 +35,10 @@
 	export let pointerX: number | null = null;
 	export let pointerY: number | null = null;
 
+	let snakeX: number;
+	let snakeY: number;
+	$: console.log(`snakeX, snakeY`, snakeX, snakeY);
+
 	let showSettings = false;
 
 	$: state = game?.state;
@@ -149,7 +153,7 @@
 				let:worldWidth
 				let:worldHeight
 			>
-				<DomRenderer {game} width={worldWidth} height={worldHeight} />
+				<DomRenderer {game} width={worldWidth} height={worldHeight} bind:snakeX bind:snakeY />
 			</ScaledSnakeRenderer>
 			<svelte:fragment slot="overlay">
 				{#if applesEaten === 0}

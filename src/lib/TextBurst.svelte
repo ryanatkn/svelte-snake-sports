@@ -1,5 +1,5 @@
 <script lang="ts">
-	import {randomInt, randomItem} from '@feltcoop/felt/util/random.js';
+	import {randomInt, randomItem, randomFloat} from '@feltcoop/felt/util/random.js';
 	import {GR2i} from '@feltcoop/felt/util/maths.js';
 	import {onMount, onDestroy} from 'svelte';
 
@@ -35,7 +35,7 @@
 				class="burst-item"
 				style:--target_x="{randomInt(-xRadius, xRadius)}px"
 				style:--target_y="{randomInt(-yRadius, yRadius)}px"
-				style:--scale={randomInt(scaleMin, scaleMax)}
+				style:--scale={randomFloat(scaleMin, scaleMax)}
 				style:--start_rotation="{randomInt(startRotationMin, startRotationMax)}deg"
 				style:--end_rotation="{randomInt(endRotationMin, endRotationMax)}deg"
 				style:--hue_rotation="{randomInt(hueRotationMin, hueRotationMax)}deg"

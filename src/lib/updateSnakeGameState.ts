@@ -1,5 +1,6 @@
 import {randomInt, randomItem} from '@feltcoop/felt/util/random.js';
 import {Logger} from '@feltcoop/felt/util/log.js';
+import {EMPTY_OBJECT} from '@feltcoop/felt/util/object.js';
 
 import {
 	directions,
@@ -63,37 +64,67 @@ export const validateState = (state: SnakeGameState): void => {
 	if (!state.snakeSegments.length) throw Error(`state.snakeSegments cannot be empty`);
 };
 
-const DEFAULT_APPLES = [new Entity(1, 3), new Entity(7, 2), new Entity(5, 9)];
+const DEFAULT_GAME_STATE: SnakeGameState = {
+	mapWidth: 16,
+	mapHeight: 16,
+	apples: [new Entity(1, 3), new Entity(7, 2), new Entity(5, 9)],
+	snakeSegments: [new Entity(4, 4), new Entity(4, 5), new Entity(5, 5), new Entity(5, 6)],
+};
 
 /**
  * Sets up the initial state for a game.
  */
-export const initGameState = (state: SnakeGameState): SnakeGameState => {
+export const initGameState = (
+	state: SnakeGameState,
+	defaultState: Partial<SnakeGameState> = EMPTY_OBJECT,
+): SnakeGameState => {
 	log.info('initGameState', state);
 	// TODO  single state JSON object instead? update(state, controller) => nextState
 
-	// TODO make this all customizable
+	const inited = {...state};
 
-	// TODO BLOCK do this with a helper
-	// Create some apples.
-	while (state.apples.length > 3) {
-		state.apples.pop(); // TODO destroy?
-	}
-	for (let i = 0; i < DEFAULT_APPLES.length; i++) {
-		const defaultApple = DEFAULT_APPLES[i];
-		const existingApple: Entity | undefined = state.apples[i];
-		if (existingApple) {
-			existingApple.reset(defaultApple);
-		} else {
-			console.log('DCLONING APPLE');
-			state.apples.push(defaultApple.clone());
-		}
-	}
+	// preserve the existing mapWidth/mapHeight
+
+	// Create the apples.
+	inited.apples = syncEntityArray(state.apples, defaultState.apples || DEFAULT_GAME_STATE.apples);
 
 	// Create the initial snake.
-	state.snakeSegments = [new Entity(4, 4), new Entity(4, 5), new Entity(5, 5), new Entity(5, 6)];
+	inited.snakeSegments = syncEntityArray(
+		state.snakeSegments,
+		defaultState.snakeSegments || DEFAULT_GAME_STATE.snakeSegments,
+	);
 
-	return state;
+	return inited;
+};
+
+const syncEntityArray = (items: Entity[], defaults: Entity[]): Entity[] =>
+	syncArray(
+		items,
+		defaults,
+		(entity, defaultEntity) => entity.reset(defaultEntity),
+		(e) => e.clone(),
+	);
+
+const syncArray = <T>(
+	items: T[],
+	defaults: T[],
+	reset: (item: T, defaultItem: T) => void,
+	clone: (defaultItem: T) => T,
+): T[] => {
+	const synced = items.slice();
+	while (synced.length > defaults.length) {
+		synced.pop(); // TODO `destroy(synced.pop())`? if not, make this more efficient by slicing the length
+	}
+	for (let i = 0; i < defaults.length; i++) {
+		const defaultItem = defaults[i];
+		const existingItem: T | undefined = synced[i];
+		if (existingItem) {
+			reset(existingItem, defaultItem);
+		} else {
+			synced.push(clone(defaultItem));
+		}
+	}
+	return synced;
 };
 
 /**

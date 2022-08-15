@@ -10,10 +10,9 @@
 	export let updateRendererDimensions: (width: number, height: number) => void;
 	export let autoAspectRatio: boolean;
 	export let aspectRatio: number;
-	export let paddingX = 32;
-	export let paddingY = 32;
+	export let marginX = 32;
 	export let marginTop = 400; // TODO the 400 is the height of the `TitleImage`
-	export let marginBottom = 83; // TODO the 83 is the height of the `.scores`
+	export let marginBottom = 83; // TODO the 83 is the height of the `.scores` minus the paddingY
 	// TODO default?
 	export let rect: DOMRect | undefined = undefined; // exposed for binding
 
@@ -21,8 +20,8 @@
 	$: height = rect?.height ?? 0;
 
 	const dimensions = getDimensions();
-	$: availableWidth = Math.max(0, $dimensions.width - paddingX);
-	$: availableHeight = Math.max(0, $dimensions.height - paddingY - marginTop - marginBottom);
+	$: availableWidth = Math.max(0, $dimensions.width - marginX);
+	$: availableHeight = Math.max(0, $dimensions.height - marginTop - marginBottom);
 	// TODO support more than a scaled square
 	$: rawScreenWidth = Math.min(availableWidth, rendererWidth);
 	$: rawScreenHeight = Math.min(availableHeight, rendererHeight);

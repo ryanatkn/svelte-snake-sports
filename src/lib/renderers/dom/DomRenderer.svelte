@@ -18,6 +18,7 @@
 
 	export let snakeX = 0; // exposed for binding
 	export let snakeY = 0; // exposed for binding
+	// TODO BLOCK account for scale
 	$: snakeX = entityWidth * snakeSegments[0].x + entityWidth / 2; // centered on the tile
 	$: snakeY = entityHeight * snakeSegments[0].y + entityHeight / 2; // centered on the tile
 </script>

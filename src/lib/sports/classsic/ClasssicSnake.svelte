@@ -64,7 +64,7 @@
 	export const autoScaleRenderer = writable(true);
 	export const rendererWidth = setRendererWidth(writable(0));
 	export const rendererHeight = setRendererHeight(writable(0));
-	export const autoAspectRatio = writable(true);
+	export const autoAspectRatio = writable(false);
 	export const aspectRatio = writable(1.0);
 
 	// TODO is there a better place to do this? imperatively after updating the state?

@@ -147,15 +147,22 @@
 			>
 				<DomRenderer {game} width={worldWidth} height={worldHeight} />
 			</ScaledSnakeRenderer>
-			{#if applesEaten === 0}
-				<ReadyInstructions {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
-			{:else if $status === 'win'}
-				<WinInstructions {restart} time={currentTime} {bestTime} applesToWin={APPLES_EATEN_TO_WIN}>
-					<div class="text-burst-wrapper">
-						<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} hueRotationMax={360} />
-					</div>
-				</WinInstructions>
-			{/if}
+			<svelte:fragment slot="overlay">
+				{#if applesEaten === 0}
+					<ReadyInstructions {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
+				{:else if $status === 'win'}
+					<WinInstructions
+						{restart}
+						time={currentTime}
+						{bestTime}
+						applesToWin={APPLES_EATEN_TO_WIN}
+					>
+						<div class="text-burst-wrapper">
+							<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} hueRotationMax={360} />
+						</div>
+					</WinInstructions>
+				{/if}
+			</svelte:fragment>
 		</Gamespace>
 		<Ticker {clock} tickDuration={currentTickDuration} {tick} />
 		<TimedScores {applesEaten} applesToWin={APPLES_EATEN_TO_WIN} {currentTime} {bestTime} />

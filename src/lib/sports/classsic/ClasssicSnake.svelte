@@ -145,15 +145,17 @@
 			>
 				<DomRenderer {game} width={worldWidth} height={worldHeight} />
 			</ScaledSnakeRenderer>
-			{#if applesEaten === 0}
-				<ReadyInstructions {highestApplesEaten} />
-			{:else if $status === 'fail'}
-				<FailInstructions {restart} {applesEaten} {highestApplesEaten}>
-					<div class="text-burst-wrapper">
-						<TextBurst count={50} items={['🐍', '💥', '🦴', '🦴']} />
-					</div>
-				</FailInstructions>
-			{/if}
+			<svelte:fragment slot="overlay">
+				{#if applesEaten === 0}
+					<ReadyInstructions {highestApplesEaten} />
+				{:else if $status === 'fail'}
+					<FailInstructions {restart} {applesEaten} {highestApplesEaten}>
+						<div class="text-burst-wrapper">
+							<TextBurst count={50} items={['🐍', '💥', '🦴', '🦴']} />
+						</div>
+					</FailInstructions>
+				{/if}
+			</svelte:fragment>
 		</Gamespace>
 		<div class="scores">
 			<Score title="apples eaten this try" progressKey={applesEaten === 0 ? undefined : applesEaten}

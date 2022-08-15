@@ -201,22 +201,24 @@
 			>
 				<DomRenderer {game} width={worldWidth} height={worldHeight} />
 			</ScaledSnakeRenderer>
-			{#if bunchesEaten === 0}
-				<ReadyInstructions {highestClustersEaten} />
-			{:else if $status === 'fail'}
-				<FailInstructions {restart} {bunchesEaten} {highestClustersEaten}>
-					<div class="text-burst-wrapper">
-						<TextBurst count={50} items={['🍎', '💥', '🦴', '🦴']} />
-					</div>
-				</FailInstructions>
-			{:else if $status === 'win'}
-				<!-- This is unlikely to happen, is just a fallback -->
-				<FailInstructions {restart} {bunchesEaten} {highestClustersEaten}>
-					<div class="text-burst-wrapper">
-						<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} hueRotationMax={360} />
-					</div>
-				</FailInstructions>
-			{/if}
+			<svelte:fragment slot="overlay">
+				{#if bunchesEaten === 0}
+					<ReadyInstructions {highestClustersEaten} />
+				{:else if $status === 'fail'}
+					<FailInstructions {restart} {bunchesEaten} {highestClustersEaten}>
+						<div class="text-burst-wrapper">
+							<TextBurst count={50} items={['🍎', '💥', '🦴', '🦴']} />
+						</div>
+					</FailInstructions>
+				{:else if $status === 'win'}
+					<!-- This is unlikely to happen, is just a fallback -->
+					<FailInstructions {restart} {bunchesEaten} {highestClustersEaten}>
+						<div class="text-burst-wrapper">
+							<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} hueRotationMax={360} />
+						</div>
+					</FailInstructions>
+				{/if}
+			</svelte:fragment>
 		</Gamespace>
 		<div class="scores">
 			<Score

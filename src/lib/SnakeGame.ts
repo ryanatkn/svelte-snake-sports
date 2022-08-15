@@ -53,7 +53,7 @@ export const setCurrentTickDuration = (d: Writable<number>): Writable<number> =>
 export const getCurrentTickDuration = (): Writable<number> | undefined =>
 	getContext(CURRENT_TICK_DURATION_KEY);
 
-// TODO maybe these belong elsewhere?
+// TODO maybe these belong elsewhere? or remove them altogether?
 export const RENDERER_WIDTH_KEY = Symbol('rendererWidth');
 export const setRendererWidth = (r: Writable<number>): Writable<number> =>
 	setContext(RENDERER_WIDTH_KEY, r);

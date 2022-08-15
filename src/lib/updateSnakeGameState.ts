@@ -67,7 +67,7 @@ export const validateState = (state: SnakeGameState): void => {
  * Sets up the initial state for a game.
  */
 export const initGameState = (state: SnakeGameState): SnakeGameState => {
-	log.info('initGameState');
+	log.info('initGameState', state);
 	// TODO  single state JSON object instead? update(state, controller) => nextState
 
 	// TODO make this all customizable

@@ -48,7 +48,7 @@ export class Entity {
 		}
 	}
 
-	isOutOfBounds(mapHeight: number, mapWidth: number): boolean {
+	isOutOfBounds(mapWidth: number, mapHeight: number): boolean {
 		return this.x < 0 || this.y < 0 || this.x >= mapWidth || this.y >= mapHeight;
 	}
 

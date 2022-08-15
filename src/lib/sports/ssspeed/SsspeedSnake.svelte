@@ -33,6 +33,8 @@
 	let showSettings = false;
 
 	$: state = game?.state;
+	$: mapWidth = $state?.mapWidth;
+	$: mapHeight = $state?.mapHeight;
 	$: events = game?.events;
 	$: status = game?.status;
 
@@ -44,8 +46,11 @@
 	export const tickDurationMin = writable(17);
 	export const tickDurationMax = writable(2000);
 	// TODO belongs elsewhere
+	export const autoScaleRenderer = writable(true);
 	export const rendererWidth = setRendererWidth(writable(0));
 	export const rendererHeight = setRendererHeight(writable(0));
+	export const autoAspectRatio = writable(false);
+	export const aspectRatio = writable(1.0);
 
 	let applesEaten = 0;
 	let applesEatenSinceCollision = 0;
@@ -108,7 +113,7 @@
 <div class="SsspeedSnake" class:game-win={$status === 'win'} class:game-ready={$status === 'ready'}>
 	<SnakeGame
 		bind:this={game}
-		toInitialState={() => initGameState(toDefaultGameState())}
+		toInitialState={() => initGameState(toDefaultGameState({mapWidth, mapHeight}))}
 		{tick}
 		onReset={() => {
 			$currentTickDuration = $baseTickDuration;
@@ -126,15 +131,20 @@
 		<Gamespace>
 			<!-- TODO `marginBottom={100}` is hardcoding the scores height -->
 			<ScaledSnakeRenderer
-				marginBottom={100}
+				autoScaleRenderer={$autoScaleRenderer}
 				rendererWidth={$rendererWidth}
 				rendererHeight={$rendererHeight}
+				autoAspectRatio={$autoAspectRatio}
+				aspectRatio={$aspectRatio}
+				marginBottom={100}
 				updateRendererDimensions={(width, height) => {
 					$rendererWidth = width;
 					$rendererHeight = height;
 				}}
+				let:worldWidth
+				let:worldHeight
 			>
-				<DomRenderer {game} width={rendererWidth} height={rendererHeight} />
+				<DomRenderer {game} width={worldWidth} height={worldHeight} />
 			</ScaledSnakeRenderer>
 			{#if applesEaten === 0}
 				<ReadyInstructions {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
@@ -171,8 +181,11 @@
 					{tickDurationMin}
 					{tickDurationMax}
 					{tickDurationDecay}
+					{autoScaleRenderer}
 					{rendererWidth}
 					{rendererHeight}
+					{autoAspectRatio}
+					{aspectRatio}
 				/>
 			{/if}
 		</section>

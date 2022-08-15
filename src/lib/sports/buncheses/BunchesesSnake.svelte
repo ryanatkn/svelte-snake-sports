@@ -38,6 +38,8 @@
 	let showSettings = false;
 
 	$: state = game?.state;
+	$: mapWidth = $state?.mapWidth;
+	$: mapHeight = $state?.mapHeight;
 	$: events = game?.events;
 	$: status = game?.status;
 
@@ -66,8 +68,11 @@
 	export const tickDurationMin = writable(17);
 	export const tickDurationMax = writable(2000);
 	// TODO belongs elsewhere
+	export const autoScaleRenderer = writable(true);
 	export const rendererWidth = setRendererWidth(writable(0));
 	export const rendererHeight = setRendererHeight(writable(0));
+	export const autoAspectRatio = writable(false);
+	export const aspectRatio = writable(1.0);
 
 	// TODO is there a better place to do this? imperatively after updating the state?
 	$: if (bunchesEaten > $highestClustersEaten) {
@@ -145,7 +150,7 @@
 			$currentTickDuration = $baseTickDuration;
 		}}
 		toInitialState={() => {
-			const state = initGameState(toDefaultGameState());
+			const state = initGameState(toDefaultGameState({mapWidth, mapHeight}));
 			// spawn the apples
 			state.apples.length = 0;
 			state.apples = [
@@ -181,14 +186,19 @@
 	{#if game}
 		<Gamespace>
 			<ScaledSnakeRenderer
+				autoScaleRenderer={$autoScaleRenderer}
 				rendererWidth={$rendererWidth}
 				rendererHeight={$rendererHeight}
+				autoAspectRatio={$autoAspectRatio}
+				aspectRatio={$aspectRatio}
 				updateRendererDimensions={(width, height) => {
 					$rendererWidth = width;
 					$rendererHeight = height;
 				}}
+				let:worldWidth
+				let:worldHeight
 			>
-				<DomRenderer {game} width={rendererWidth} height={rendererHeight} />
+				<DomRenderer {game} width={worldWidth} height={worldHeight} />
 			</ScaledSnakeRenderer>
 			{#if bunchesEaten === 0}
 				<ReadyInstructions {highestClustersEaten} />
@@ -234,8 +244,11 @@
 					{tickDurationMin}
 					{tickDurationMax}
 					{tickDurationDecay}
+					{autoScaleRenderer}
 					{rendererWidth}
 					{rendererHeight}
+					{autoAspectRatio}
+					{aspectRatio}
 				/>
 			{/if}
 		</section>

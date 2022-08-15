@@ -5,16 +5,16 @@
 
 	export let onKeydown: (
 		key: string,
-		shiftKey: boolean,
 		ctrlKey: boolean,
 		altKey: boolean,
+		shiftKey: boolean,
 	) => boolean;
 	export let enabled = true;
 </script>
 
 <svelte:window
 	on:keydown|capture={(e) => {
-		if (enabled && !isEditable(e.target) && onKeydown(e.key, e.shiftKey, e.ctrlKey, e.altKey)) {
+		if (enabled && !isEditable(e.target) && onKeydown(e.key, e.ctrlKey, e.altKey, e.shiftKey)) {
 			swallow(e);
 		}
 	}}

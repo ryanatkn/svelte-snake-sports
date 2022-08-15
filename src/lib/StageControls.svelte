@@ -32,7 +32,7 @@
 </div>
 
 <Hotkeys
-	onKeydown={(key, shiftKey, ctrlKey, altKey) => {
+	onKeydown={(key, ctrlKey, altKey, shiftKey) => {
 		if (ctrlKey || altKey) return false;
 		switch (key) {
 			case '`': {

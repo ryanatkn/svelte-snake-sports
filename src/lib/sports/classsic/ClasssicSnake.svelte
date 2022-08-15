@@ -3,7 +3,6 @@
 	// https://ryanatkn.github.io/snake-game
 	// See `$lib/sports/simple/SimpleSnake.svelte` for the same thing but simplified.
 	import {browser} from '$app/env';
-	import {base} from '$app/paths';
 	import {writable} from 'svelte/store';
 
 	import SnakeGame from '$lib/SnakeGame.svelte';
@@ -24,8 +23,10 @@
 	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
 	import {CLASSSIC_HIGH_SCORE_KEY} from '$lib/storage';
 	import {setCurrentTickDuration, setRendererWidth, setRendererHeight} from '$lib/SnakeGame';
+	import GameAudio from '$lib/GameAudio.svelte';
 
 	export let game: SnakeGame | undefined = undefined;
+	export let audio: GameAudio | undefined = undefined;
 	export let toInitialState = (): SnakeGameState =>
 		initGameState(toDefaultGameState({mapWidth, mapHeight}));
 
@@ -168,7 +169,7 @@
 			<ControlsInstructions />
 		</section>
 		<section class="centered">
-			<audio src="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls />
+			<GameAudio song="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" bind:this={audio} />
 		</section>
 		<section class="centered">
 			<button on:click={() => (showSettings = !showSettings)}

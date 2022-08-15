@@ -1,6 +1,5 @@
 <script lang="ts">
 	import {browser} from '$app/env';
-	import {base} from '$app/paths';
 	import {writable} from 'svelte/store';
 
 	import SnakeGame from '$lib/SnakeGame.svelte';
@@ -21,6 +20,7 @@
 	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
 	import {SSSPEED_HIGH_SCORE_KEY} from '$lib/storage';
 	import {setCurrentTickDuration, setRendererWidth, setRendererHeight} from '$lib/SnakeGame';
+	import GameAudio from '$lib/GameAudio.svelte';
 
 	// TODO after merging:
 	// fix settings dimensions to persist on reset
@@ -28,7 +28,8 @@
 
 	const clock = setClock(createClock({running: browser}));
 
-	let game: SnakeGame | undefined;
+	export let game: SnakeGame | undefined = undefined;
+	export let audio: GameAudio | undefined = undefined;
 
 	let showSettings = false;
 
@@ -163,7 +164,7 @@
 			<ControlsInstructions />
 		</section>
 		<section class="centered">
-			<audio src="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3" controls />
+			<GameAudio song="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" bind:this={audio} />
 		</section>
 		<section class="centered">
 			<button on:click={() => (showSettings = !showSettings)}

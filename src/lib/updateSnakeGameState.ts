@@ -111,7 +111,8 @@ const syncArray = <T>(
 	reset: (item: T, defaultItem: T) => void,
 	clone: (defaultItem: T) => T,
 ): T[] => {
-	const synced = items.slice();
+	// TODO BLOCK try to swap between 2 stable arrays?
+	const synced = items.slice(); // TODO BLOCK don't preemptively clone
 	while (synced.length > defaults.length) {
 		synced.pop(); // TODO `destroy(synced.pop())`? if not, make this more efficient by slicing the length
 	}

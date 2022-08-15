@@ -54,6 +54,7 @@
 		left: 0;
 		top: 0;
 		filter: hue-rotate(var(--hue_rotation));
+		transform: translate3d(0, 0, 0) scale3d(0, 0, 0);
 		animation: burst 2s linear;
 	}
 	/* TODO can probably be improved to remove the `calc` values
@@ -70,7 +71,6 @@
 		100% {
 			transform: translate3d(var(--target_x), var(--target_y), 0) scale3d(0, 0, 0)
 				rotate(var(--end_rotation));
-			display: none;
 		}
 	}
 </style>

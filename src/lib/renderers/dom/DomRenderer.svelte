@@ -55,7 +55,7 @@
 		background-color: var(--dim_green);
 	}
 	:global(.game-fail) .snake :global(.Entity) {
-		background-color: var(--dim_red);
+		background-color: var(--dead_red);
 	}
 
 	/* head */
@@ -75,7 +75,7 @@
 		border-bottom-left-radius: 50%;
 	}
 	:global(.game-fail) .snake :global(.Entity:first-child) {
-		background-color: var(--bright_red);
+		background-color: var(--bright_dead_red);
 		border-radius: 15%;
 	}
 	:global(.game-win) .snake.moving-up :global(.Entity:first-child) {
@@ -97,7 +97,7 @@
 		background-color: var(--bright_green);
 	}
 	:global(.game-fail) .snake :global(.Entity:last-child) {
-		background-color: var(--bright_red);
+		background-color: var(--bright_dead_red);
 	}
 
 	/* eye */

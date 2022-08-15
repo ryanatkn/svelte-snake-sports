@@ -70,6 +70,7 @@
 		100% {
 			transform: translate3d(var(--target_x), var(--target_y), 0) scale3d(0, 0, 0)
 				rotate(var(--end_rotation));
+			display: none;
 		}
 	}
 </style>

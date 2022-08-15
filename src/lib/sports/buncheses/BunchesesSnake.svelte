@@ -13,7 +13,7 @@
 	import Settings from '$lib/Settings.svelte';
 	import Score from '$lib/Score.svelte';
 	import Stats from '$lib/Stats.svelte';
-	import {toDefaultGameState, type SnakeGameState} from '$lib/SnakeGameState';
+	import {toDefaultGameState} from '$lib/SnakeGameState';
 	import {
 		initGameState,
 		spawnRandomShape6a,
@@ -34,17 +34,6 @@
 	export let game: SnakeGame | undefined = undefined;
 
 	const clock = setClock(createClock({running: browser}));
-
-	const defaultGameState: Partial<SnakeGameState> = {
-		apples: [
-			new Entity(4, 3),
-			new Entity(4, 2),
-			new Entity(5, 2),
-			new Entity(5, 1),
-			new Entity(4, 1),
-			new Entity(3, 1),
-		],
-	};
 
 	let showSettings = false;
 
@@ -160,8 +149,20 @@
 			bunchesEaten = 0;
 			$currentTickDuration = $baseTickDuration;
 		}}
-		toInitialState={() =>
-			initGameState($state || toDefaultGameState({mapWidth, mapHeight}), defaultGameState)}
+		toInitialState={() => {
+			const state = initGameState(toDefaultGameState({mapWidth, mapHeight}));
+			// spawn the apples
+			state.apples.length = 0;
+			state.apples = [
+				new Entity(4, 3),
+				new Entity(4, 2),
+				new Entity(5, 2),
+				new Entity(5, 1),
+				new Entity(4, 1),
+				new Entity(3, 1),
+			];
+			return state;
+		}}
 		spawnApples={(state, game) => {
 			if (state.apples.length) return;
 			let attempt = 0;

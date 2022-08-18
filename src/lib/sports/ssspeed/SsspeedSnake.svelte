@@ -21,6 +21,7 @@
 	import {SSSPEED_HIGH_SCORE_KEY} from '$lib/storage';
 	import {setCurrentTickDuration, setRendererWidth, setRendererHeight} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
+	import {toDirection} from '$lib/direction';
 
 	// TODO BLOCK broken with touch controls
 
@@ -29,12 +30,23 @@
 	export let game: SnakeGame | undefined = undefined;
 	export let audio: GameAudio | undefined = undefined;
 
+	// TODO refactor all of this, lots of copypaste
+	export let rendererRect: DOMRect | undefined = undefined; // exposed for binding
 	export let pointerDown = false;
 	export let pointerX: number | undefined = undefined;
 	export let pointerY: number | undefined = undefined;
-
 	let snakeX: number;
 	let snakeY: number;
+	$: rendererRectLeft = rendererRect?.left || 0;
+	$: rendererRectTop = rendererRect?.top || 0;
+	$: snakeScreenX = snakeX + rendererRectLeft;
+	$: snakeScreenY = snakeY + rendererRectTop;
+	$: if (game && pointerDown && pointerX !== undefined && pointerY !== undefined) {
+		const direction = toDirection(snakeScreenX, snakeScreenY, pointerX, pointerY);
+		if (direction) {
+			game.setMovementCommand(direction);
+		}
+	}
 
 	let showSettings = false;
 
@@ -147,6 +159,7 @@
 					$rendererWidth = width;
 					$rendererHeight = height;
 				}}
+				bind:rect={rendererRect}
 				let:worldWidth
 				let:worldHeight
 			>

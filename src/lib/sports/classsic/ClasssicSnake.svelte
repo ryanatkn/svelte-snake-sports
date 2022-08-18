@@ -31,11 +31,11 @@
 	export let toInitialState = (): SnakeGameState =>
 		initGameState(toDefaultGameState({mapWidth, mapHeight}));
 
+	// TODO refactor all of this, lots of copypaste
 	export let rendererRect: DOMRect | undefined = undefined; // exposed for binding
 	export let pointerDown = false;
 	export let pointerX: number | undefined = undefined;
 	export let pointerY: number | undefined = undefined;
-
 	let snakeX: number;
 	let snakeY: number;
 	$: rendererRectLeft = rendererRect?.left || 0;

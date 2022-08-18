@@ -47,6 +47,7 @@
 	$: pointerDirectionToSnakeY =
 		snakeScreenY !== undefined && pointerY !== undefined ? pointerY - snakeScreenY : 0;
 	$: if (pointerDown) {
+		// TODO BLOCK need to disallow killing oneself, probably
 		game?.movementDirection.set(
 			toSnakeDirection(pointerDirectionToSnakeX, pointerDirectionToSnakeY),
 		);

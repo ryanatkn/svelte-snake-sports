@@ -99,8 +99,7 @@
 	};
 
 	export const setMovementCommand = (movementCommand: Direction): void => {
-		// TODO is mutating here ok? I think better so we don't process the in-between state?
-		$movementCommandQueue.length = 0;
+		$movementCommandQueue = [];
 		enqueueMovementCommand(movementCommand);
 	};
 </script>

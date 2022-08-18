@@ -99,7 +99,7 @@
 					// TODO maybe display some damaged status?
 					$currentTickDuration = $baseTickDuration;
 					applesEatenSinceCollision = 0;
-					game.movementDirection.set(null);
+					game.resetMovementCommands();
 					break;
 				}
 			}

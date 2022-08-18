@@ -45,7 +45,6 @@
 	$: if (game && pointerDown && pointerX !== undefined && pointerY !== undefined) {
 		const direction = toDirection(snakeScreenX, snakeScreenY, pointerX, pointerY);
 		if (direction) {
-			// TODO BLOCK if it's the opposite direction, maybe go left/right?
 			game.setMovementCommand(direction);
 		}
 	}

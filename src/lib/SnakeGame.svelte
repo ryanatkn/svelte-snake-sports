@@ -88,6 +88,7 @@
 			$movementCommandQueue.at(-1) ||
 			toDirection(snakeHead.prevX, snakeHead.prevY, snakeHead.x, snakeHead.y);
 		if (prev !== undefined && areOpposites(prev, movementCommand)) {
+			// TODO BLOCK maybe try to go towards the target instead of discarding it?
 			return;
 		}
 		movementCommandQueue.update(($v) => {
@@ -102,5 +103,10 @@
 	export const setMovementCommand = (movementCommand: Direction): void => {
 		$movementCommandQueue = [];
 		enqueueMovementCommand(movementCommand);
+	};
+
+	export const resetMovementCommands = (): void => {
+		$movementDirection = null;
+		$movementCommandQueue = [];
 	};
 </script>

@@ -177,7 +177,7 @@
 				{/if}
 			</svelte:fragment>
 		</Gamespace>
-		<section class="info">
+		<div class="info">
 			<div class="scores">
 				<Score
 					title="apples eaten this try"
@@ -215,7 +215,7 @@
 					/>
 				{/if}
 			</section>
-		</section>
+		</div>
 	{/if}
 </div>
 

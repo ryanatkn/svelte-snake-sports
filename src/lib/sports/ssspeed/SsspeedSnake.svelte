@@ -169,35 +169,37 @@
 				{/if}
 			</svelte:fragment>
 		</Gamespace>
-		<Ticker {clock} tickDuration={currentTickDuration} {tick} />
-		<TimedScores {applesEaten} applesToWin={APPLES_EATEN_TO_WIN} {currentTime} {bestTime} />
-		<StageControls {clock} {tick} {game} />
-		<section class="panel-inset" style:padding="var(--spacing_xl)">
-			<ControlsInstructions />
-		</section>
-		<section class="centered">
-			<GameAudio song="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" bind:this={audio} />
-		</section>
-		<section class="centered">
-			<button on:click={() => (showSettings = !showSettings)}
-				>{#if showSettings}stash settings{:else}show settings{/if}</button
-			>
-			{#if showSettings}
-				<Stats {game} tickDuration={currentTickDuration} />
-				<Settings
-					{game}
-					{baseTickDuration}
-					{tickDurationMin}
-					{tickDurationMax}
-					{tickDurationDecay}
-					{autoScaleRenderer}
-					{rendererWidth}
-					{rendererHeight}
-					{autoAspectRatio}
-					{aspectRatio}
-				/>
-			{/if}
-		</section>
+		<div class="info">
+			<Ticker {clock} tickDuration={currentTickDuration} {tick} />
+			<TimedScores {applesEaten} applesToWin={APPLES_EATEN_TO_WIN} {currentTime} {bestTime} />
+			<StageControls {clock} {tick} {game} />
+			<section class="panel-inset" style:padding="var(--spacing_xl)">
+				<ControlsInstructions />
+			</section>
+			<section class="centered">
+				<GameAudio song="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" bind:this={audio} />
+			</section>
+			<section class="centered">
+				<button on:click={() => (showSettings = !showSettings)}
+					>{#if showSettings}stash settings{:else}show settings{/if}</button
+				>
+				{#if showSettings}
+					<Stats {game} tickDuration={currentTickDuration} />
+					<Settings
+						{game}
+						{baseTickDuration}
+						{tickDurationMin}
+						{tickDurationMax}
+						{tickDurationDecay}
+						{autoScaleRenderer}
+						{rendererWidth}
+						{rendererHeight}
+						{autoAspectRatio}
+						{aspectRatio}
+					/>
+				{/if}
+			</section>
+		</div>
 	{/if}
 </div>
 
@@ -219,5 +221,9 @@
 		top: 2rem;
 		width: 0;
 		height: 0;
+	}
+	/* TODO better name for this? */
+	.info {
+		position: relative;
 	}
 </style>

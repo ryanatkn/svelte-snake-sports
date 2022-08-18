@@ -80,6 +80,7 @@
 	/**
 	 * Registers a movement input command to be processed by the game as a queue.
 	 * Newer commands bump off older ones off the front.
+	 * Sequential commands that are opposites are discarded.
 	 */
 	export const enqueueMovementCommand = (movementCommand: Direction): void => {
 		const snakeHead = $state.snakeSegments[0];

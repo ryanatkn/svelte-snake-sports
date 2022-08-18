@@ -47,7 +47,11 @@
 	$: pointerDirectionToSnakeY =
 		snakeScreenY !== undefined && pointerY !== undefined ? pointerY - snakeScreenY : 0;
 	$: if (pointerDown) {
-		// TODO BLOCK need to disallow killing oneself, probably
+		// TODO BLOCK need to disallow killing oneself, probably.
+		// Where does that logic belong?
+		// - movementDirection could be ignored when used if invalid
+		// - game.setMovementDirection helper that checks invalid commands
+		// - validateMovement
 		game?.movementDirection.set(
 			toSnakeDirection(pointerDirectionToSnakeX, pointerDirectionToSnakeY),
 		);

@@ -43,7 +43,9 @@ export const updateSnakeGameState = (state: SnakeGameState, game: ISnakeGame): S
 	updateInput(game);
 
 	// Update entities
-	const movementDirection = get(game.movementDirection); // TODO avoid `get` -- probably with serialized inputs
+	// TODO BLOCK remove this get while fixing the issue of invalid commands
+	// inputs as a separate param? same events system?
+	const movementDirection = get(game.movementDirection);
 	if (movementDirection) {
 		moveSnake(nextState, game, movementDirection);
 	}

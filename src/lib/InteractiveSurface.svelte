@@ -1,4 +1,6 @@
 <script lang="ts">
+	import {swallow} from '@feltcoop/felt/util/dom.js';
+
 	// TODO BLOCK how should this work?
 	// maybe use pointer events?
 	// maybe fire events instead?
@@ -15,58 +17,77 @@
 	};
 
 	const onMousedown = (e: MouseEvent) => {
+		swallow(e);
 		updatePointer(e);
 		setPointerDown(true);
 	};
 	const onMouseup = (e: MouseEvent) => {
+		swallow(e);
 		updatePointer(e);
 		setPointerDown(false);
 	};
 	const onMousemove = (e: MouseEvent) => {
+		swallow(e);
 		updatePointer(e);
 	};
 	const onMouseenter = (e: MouseEvent) => {
+		swallow(e);
 		updatePointer(e);
 	};
 	const onMouseleave = (e: MouseEvent) => {
+		swallow(e);
 		updatePointer(e);
 		setPointerDown(false);
 	};
+
+	let touch = false;
 
 	// TODO can we mount only for mobile?
 	// TODO handle all touches
 	const onTouchstart = (e: TouchEvent) => {
+		swallow(e);
+		touch = true;
 		updatePointer(e.changedTouches[0]);
 		setPointerDown(true);
 	};
 	const onTouchend = (e: TouchEvent) => {
+		swallow(e);
+		touch = true;
 		updatePointer(e.changedTouches[0]);
 		setPointerDown(false);
 	};
 	const onTouchcancel = (e: TouchEvent) => {
+		swallow(e);
+		touch = true;
 		updatePointer(e.changedTouches[0]);
 		setPointerDown(false);
 	};
 	const onTouchmove = (e: TouchEvent) => {
+		swallow(e);
+		touch = true;
 		updatePointer(e.changedTouches[0]);
+	};
+
+	const onContextmenu = (e: MouseEvent) => {
+		if (touch && !e.shiftKey) {
+			swallow(e);
+		}
 	};
 </script>
 
-<!-- TODO instead of trapping the click with `stopPropagation`,
-allow it to bubble and do whatever
--->
 <div
 	bind:this={el}
 	class="interactive-surface"
-	on:mousedown|stopPropagation={onMousedown}
-	on:mouseup|stopPropagation={onMouseup}
-	on:mousemove|stopPropagation={onMousemove}
+	on:mousedown={onMousedown}
+	on:mouseup={onMouseup}
+	on:mousemove={onMousemove}
 	on:mouseenter={onMouseenter}
 	on:mouseleave={onMouseleave}
 	on:touchstart={onTouchstart}
 	on:touchend={onTouchend}
 	on:touchcancel={onTouchcancel}
 	on:touchmove={onTouchmove}
+	on:contextmenu={onContextmenu}
 />
 
 <style>

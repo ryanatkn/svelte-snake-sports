@@ -177,41 +177,44 @@
 				{/if}
 			</svelte:fragment>
 		</Gamespace>
-		<div class="scores">
-			<Score title="apples eaten this try" progressKey={applesEaten === 0 ? undefined : applesEaten}
-				>{applesEaten}</Score
-			>
-			{#if $highestApplesEaten !== applesEaten}
-				<Score title="the most apples you've ever eaten">{$highestApplesEaten}</Score>
-			{/if}
-		</div>
-		<Ticker {clock} tickDuration={currentTickDuration} {tick} />
-		<StageControls {clock} {tick} {game} />
-		<section class="panel-inset" style:padding="var(--spacing_xl)">
-			<ControlsInstructions />
-		</section>
-		<section class="centered">
-			<GameAudio song="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" bind:this={audio} />
-		</section>
-		<section class="centered">
-			<button on:click={() => (showSettings = !showSettings)}
-				>{#if showSettings}stash settings{:else}show settings{/if}</button
-			>
-			{#if showSettings}
-				<Stats {game} tickDuration={currentTickDuration} />
-				<Settings
-					{game}
-					{baseTickDuration}
-					{tickDurationMin}
-					{tickDurationMax}
-					{tickDurationDecay}
-					{autoScaleRenderer}
-					{rendererWidth}
-					{rendererHeight}
-					{autoAspectRatio}
-					{aspectRatio}
-				/>
-			{/if}
+		<section class="info">
+			<div class="scores">
+				<Score
+					title="apples eaten this try"
+					progressKey={applesEaten === 0 ? undefined : applesEaten}>{applesEaten}</Score
+				>
+				{#if $highestApplesEaten !== applesEaten}
+					<Score title="the most apples you've ever eaten">{$highestApplesEaten}</Score>
+				{/if}
+			</div>
+			<Ticker {clock} tickDuration={currentTickDuration} {tick} />
+			<StageControls {clock} {tick} {game} />
+			<section class="panel-inset" style:padding="var(--spacing_xl)">
+				<ControlsInstructions />
+			</section>
+			<section class="centered">
+				<GameAudio song="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" bind:this={audio} />
+			</section>
+			<section class="centered">
+				<button on:click={() => (showSettings = !showSettings)}
+					>{#if showSettings}stash settings{:else}show settings{/if}</button
+				>
+				{#if showSettings}
+					<Stats {game} tickDuration={currentTickDuration} />
+					<Settings
+						{game}
+						{baseTickDuration}
+						{tickDurationMin}
+						{tickDurationMax}
+						{tickDurationDecay}
+						{autoScaleRenderer}
+						{rendererWidth}
+						{rendererHeight}
+						{autoAspectRatio}
+						{aspectRatio}
+					/>
+				{/if}
+			</section>
 		</section>
 	{/if}
 </div>
@@ -237,5 +240,9 @@
 		top: 2rem;
 		width: 0;
 		height: 0;
+	}
+	/* TODO better name for this? */
+	.info {
+		position: relative;
 	}
 </style>

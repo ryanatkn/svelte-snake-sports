@@ -22,9 +22,7 @@
 	import {setCurrentTickDuration, setRendererWidth, setRendererHeight} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
 
-	// TODO after merging:
-	// fix settings dimensions to persist on reset
-	// responsive rendering and set pixel size of play area
+	// TODO BLOCK broken with touch controls
 
 	const clock = setClock(createClock({running: browser}));
 

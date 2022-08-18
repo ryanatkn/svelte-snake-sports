@@ -39,5 +39,6 @@
 	.interactive-surface-wrapper {
 		position: fixed;
 		inset: 0;
+		z-index: 0;
 	}
 </style>

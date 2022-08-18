@@ -101,13 +101,13 @@
 	};
 
 	export const setMovementCommand = (movementCommand: Direction): void => {
-		$movementCommandQueue = [];
+		if ($movementCommandQueue.length) $movementCommandQueue = [];
 		enqueueMovementCommand(movementCommand);
 	};
 
 	export const resetMovementCommands = (): void => {
 		$movementDirection = null;
-		$movementCommandQueue = [];
+		if ($movementCommandQueue.length) $movementCommandQueue = [];
 	};
 
 	export const nextMovementCommand = (): Direction | null => {

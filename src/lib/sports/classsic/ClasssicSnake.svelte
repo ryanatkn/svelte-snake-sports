@@ -24,6 +24,7 @@
 	import {CLASSSIC_HIGH_SCORE_KEY} from '$lib/storage';
 	import {setCurrentTickDuration, setRendererWidth, setRendererHeight} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
+	import type {Direction} from '$lib/Entity';
 
 	export let game: SnakeGame | undefined = undefined;
 	export let audio: GameAudio | undefined = undefined;
@@ -34,7 +35,6 @@
 	export let pointerDown = false;
 	export let pointerX: number | undefined = undefined;
 	export let pointerY: number | undefined = undefined;
-	$: console.log(`pointerX, pointerY`, pointerX, pointerY);
 
 	let snakeX: number;
 	let snakeY: number;
@@ -46,14 +46,19 @@
 		snakeScreenX !== undefined && pointerX !== undefined ? pointerX - snakeScreenX : 0;
 	$: pointerDirectionToSnakeY =
 		snakeScreenY !== undefined && pointerY !== undefined ? pointerY - snakeScreenY : 0;
-	$: snakeAngleToPointer = Math.atan2(pointerDirectionToSnakeX, pointerDirectionToSnakeY);
-	$: console.log(`snakeScreenX, snakeScreenY`, snakeScreenX, snakeScreenY);
-	$: console.log(
-		`pointerDirectionToSnakeX, pointerDirectionToSnakeY`,
-		pointerDirectionToSnakeX,
-		pointerDirectionToSnakeY,
-	);
-	$: console.log(`snakeAngleToPointer`, snakeAngleToPointer);
+	$: if (pointerDown) {
+		game?.movementDirection.set(
+			toSnakeDirection(pointerDirectionToSnakeX, pointerDirectionToSnakeY),
+		);
+	}
+	const toSnakeDirection = (directionX: number, directionY: number): Direction =>
+		Math.abs(directionX) > Math.abs(directionY)
+			? directionX > 0
+				? 'right'
+				: 'left'
+			: directionY > 0
+			? 'down'
+			: 'up';
 
 	const clock = setClock(createClock({running: browser}));
 

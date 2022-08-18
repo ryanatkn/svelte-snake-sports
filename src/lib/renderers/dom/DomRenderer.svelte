@@ -18,7 +18,6 @@
 
 	export let snakeX = 0; // exposed for binding
 	export let snakeY = 0; // exposed for binding
-
 	$: snakeHead = snakeSegments[0];
 	$: snakeHeadX = snakeHead.x;
 	$: snakeHeadY = snakeHead.y;

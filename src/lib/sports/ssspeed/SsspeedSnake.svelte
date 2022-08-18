@@ -23,8 +23,6 @@
 	import GameAudio from '$lib/GameAudio.svelte';
 	import {toDirection} from '$lib/direction';
 
-	// TODO BLOCK broken with touch controls
-
 	const clock = setClock(createClock({running: browser}));
 
 	export let game: SnakeGame | undefined = undefined;
@@ -42,6 +40,7 @@
 	$: snakeScreenX = snakeX + rendererRectLeft;
 	$: snakeScreenY = snakeY + rendererRectTop;
 	$: if (game && pointerDown && pointerX !== undefined && pointerY !== undefined) {
+		game.start(); // TODO is a bit hacky, is the one thing that differs game to game
 		const direction = toDirection(snakeScreenX, snakeScreenY, pointerX, pointerY);
 		if (direction) {
 			game.setMovementCommand(direction);

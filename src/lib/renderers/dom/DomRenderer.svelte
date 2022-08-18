@@ -15,6 +15,14 @@
 
 	$: entityWidth = width / mapWidth; // TODO Math.floor?
 	$: entityHeight = height / mapHeight;
+
+	export let snakeX = 0; // exposed for binding
+	export let snakeY = 0; // exposed for binding
+	$: snakeHead = snakeSegments[0];
+	$: snakeHeadX = snakeHead.x;
+	$: snakeHeadY = snakeHead.y;
+	$: snakeX = entityWidth * snakeHeadX + entityWidth / 2; // centered on the tile
+	$: snakeY = entityHeight * snakeHeadY + entityHeight / 2; // centered on the tile
 </script>
 
 <div

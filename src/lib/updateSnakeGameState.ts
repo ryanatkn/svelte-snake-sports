@@ -1,15 +1,9 @@
 import {randomInt, randomItem} from '@feltcoop/felt/util/random.js';
 import {Logger} from '@feltcoop/felt/util/log.js';
 
-import {
-	directions,
-	Entity,
-	horizontalDirections,
-	verticalDirections,
-	type Direction,
-} from '$lib/Entity';
+import {Entity} from '$lib/Entity';
+import {directions, horizontalDirections, verticalDirections, type Direction} from '$lib/direction';
 import type {SnakeGameState} from '$lib/SnakeGameState';
-import {get} from 'svelte/store';
 import type {ISnakeGame} from '$lib/SnakeGame';
 
 const log = new Logger('[updateSnakeGameState]');
@@ -31,19 +25,13 @@ interface Position {
  * Any potentially illegal states need to be checked and reconciled before the function ends.
  */
 export const updateSnakeGameState = (state: SnakeGameState, game: ISnakeGame): SnakeGameState => {
-	// TODO  need to have input/output from one state to the next, still using mutating functions so we can user Immer or not
-
 	validateState(state);
 
 	// TODO performance.now()
 
 	const nextState = game.beginUpdate(state);
 
-	// Updates state like `game.snake.movementDirection` based on user input
-	updateInput(game);
-
-	// Update entities
-	const movementDirection = get(game.movementDirection); // TODO avoid `get` -- probably with serialized inputs
+	const movementDirection = game.nextMovementCommand();
 	if (movementDirection) {
 		moveSnake(nextState, game, movementDirection);
 	}
@@ -215,19 +203,6 @@ const getRandomPosition = ({mapWidth, mapHeight}: SnakeGameState): Position => (
 	x: randomInt(0, mapWidth - 1),
 	y: randomInt(0, mapHeight - 1),
 });
-
-/**
- * Update the snake's movement direction with the next input direction, if any.
- */
-const updateInput = (game: ISnakeGame): void => {
-	// TODO this is always called first in update, so maybe it's a totally separate process, we only send serialized inputs here, then `.reset()` below gets converted
-	game.movementCommandQueue.update(($v) => {
-		if (!$v.length) return $v;
-		const $next = $v.slice();
-		game.movementDirection.set($next.shift()!);
-		return $next;
-	});
-};
 
 /**
  * Moves the snake in the given direction.

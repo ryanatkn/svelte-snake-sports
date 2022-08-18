@@ -3,10 +3,10 @@
 <script lang="ts">
 	import {writable} from 'svelte/store';
 	import {noop} from '@feltcoop/felt/util/function.js';
-	import type {Direction} from '$lib/Entity';
 	import type {SnakeGameState} from '$lib/SnakeGameState';
 	import type {SnakeGameEvent, SnakeGameHelpers} from '$lib/SnakeGame';
 	import {spawnApples as _spawnApples} from '$lib/updateSnakeGameState';
+	import {areOpposites, toDirection, type Direction} from '$lib/direction';
 
 	export let toInitialState: () => SnakeGameState;
 	export let toInitialEvents: () => SnakeGameEvent[] = () => [];
@@ -80,8 +80,17 @@
 	/**
 	 * Registers a movement input command to be processed by the game as a queue.
 	 * Newer commands bump off older ones off the front.
+	 * Sequential commands that are opposites are discarded.
 	 */
 	export const enqueueMovementCommand = (movementCommand: Direction): void => {
+		const snakeHead = $state.snakeSegments[0];
+		const prev =
+			$movementCommandQueue.at(-1) ||
+			toDirection(snakeHead.prevX, snakeHead.prevY, snakeHead.x, snakeHead.y);
+		if (prev !== undefined && areOpposites(prev, movementCommand)) {
+			// TODO maybe try to go towards the target instead of discarding it?
+			return;
+		}
 		movementCommandQueue.update(($v) => {
 			const $updated = $v.concat(movementCommand);
 			while ($updated.length > MOVEMENT_COMMAND_QUEUE_SIZE) {
@@ -92,6 +101,21 @@
 	};
 
 	export const setMovementCommand = (movementCommand: Direction): void => {
-		$movementCommandQueue = [movementCommand];
+		if ($movementCommandQueue.length) $movementCommandQueue = [];
+		enqueueMovementCommand(movementCommand);
+	};
+
+	export const resetMovementCommands = (): void => {
+		$movementDirection = null;
+		if ($movementCommandQueue.length) $movementCommandQueue = [];
+	};
+
+	export const nextMovementCommand = (): Direction | null => {
+		if ($movementCommandQueue.length) {
+			const next = $movementCommandQueue.slice();
+			$movementDirection = next.shift()!;
+			$movementCommandQueue = next;
+		}
+		return $movementDirection;
 	};
 </script>

@@ -1,7 +1,8 @@
 import type {Writable} from 'svelte/store';
 import {setContext, getContext} from 'svelte';
 
-import type {Direction, Entity} from '$lib/Entity';
+import type {Entity} from '$lib/Entity';
+import type {Direction} from '$lib/direction';
 import type {spawnApples} from '$lib/updateSnakeGameState';
 import type {SnakeGameState} from '$lib/SnakeGameState';
 
@@ -18,6 +19,7 @@ export interface ISnakeGame {
 	reset: () => void;
 	enqueueMovementCommand: (movementCommand: Direction) => void;
 	setMovementCommand: (movementCommand: Direction) => void;
+	nextMovementCommand: () => Direction | null;
 	end: (outcomeStatus: 'win' | 'fail') => void;
 	beginUpdate: (state: SnakeGameState) => SnakeGameState;
 	helpers: SnakeGameHelpers;

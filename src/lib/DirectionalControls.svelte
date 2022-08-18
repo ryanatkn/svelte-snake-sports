@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type {Direction} from '$lib/Entity';
+	import type {Direction} from '$lib/direction';
 
 	export let selectedDirection: Direction | undefined;
 	export let select: (direction: Direction) => void;

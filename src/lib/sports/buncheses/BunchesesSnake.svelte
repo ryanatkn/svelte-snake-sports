@@ -30,9 +30,29 @@
 	import {BUNCHESES_HIGH_SCORE_KEY} from '$lib/storage';
 	import {setCurrentTickDuration, setRendererWidth, setRendererHeight} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
+	import {toDirection} from '$lib/direction';
 
 	export let game: SnakeGame | undefined = undefined;
 	export let audio: GameAudio | undefined = undefined;
+
+	// TODO refactor all of this, lots of copypaste
+	export let rendererRect: DOMRect | undefined = undefined; // exposed for binding
+	export let pointerDown = false;
+	export let pointerX: number | undefined = undefined;
+	export let pointerY: number | undefined = undefined;
+
+	let snakeX: number;
+	let snakeY: number;
+	$: rendererRectLeft = rendererRect?.left || 0;
+	$: rendererRectTop = rendererRect?.top || 0;
+	$: snakeScreenX = snakeX + rendererRectLeft;
+	$: snakeScreenY = snakeY + rendererRectTop;
+	$: if (game && pointerDown && pointerX !== undefined && pointerY !== undefined) {
+		const direction = toDirection(snakeScreenX, snakeScreenY, pointerX, pointerY);
+		if (direction) {
+			game.setMovementCommand(direction);
+		}
+	}
 
 	const clock = setClock(createClock({running: browser}));
 
@@ -185,7 +205,7 @@
 		}}
 	/>
 	{#if game}
-		<Gamespace>
+		<Gamespace bind:pointerDown bind:pointerX bind:pointerY>
 			<ScaledSnakeRenderer
 				autoScaleRenderer={$autoScaleRenderer}
 				rendererWidth={$rendererWidth}
@@ -196,65 +216,70 @@
 					$rendererWidth = width;
 					$rendererHeight = height;
 				}}
+				bind:rect={rendererRect}
 				let:worldWidth
 				let:worldHeight
 			>
-				<DomRenderer {game} width={worldWidth} height={worldHeight} />
+				<DomRenderer {game} width={worldWidth} height={worldHeight} bind:snakeX bind:snakeY />
 			</ScaledSnakeRenderer>
-			{#if bunchesEaten === 0}
-				<ReadyInstructions {highestClustersEaten} />
-			{:else if $status === 'fail'}
-				<FailInstructions {restart} {bunchesEaten} {highestClustersEaten}>
-					<div class="text-burst-wrapper">
-						<TextBurst count={50} items={['🍎', '💥', '🦴', '🦴']} />
-					</div>
-				</FailInstructions>
-			{:else if $status === 'win'}
-				<!-- This is unlikely to happen, is just a fallback -->
-				<FailInstructions {restart} {bunchesEaten} {highestClustersEaten}>
-					<div class="text-burst-wrapper">
-						<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} hueRotationMax={360} />
-					</div>
-				</FailInstructions>
-			{/if}
+			<svelte:fragment slot="overlay">
+				{#if bunchesEaten === 0}
+					<ReadyInstructions {highestClustersEaten} />
+				{:else if $status === 'fail'}
+					<FailInstructions {restart} {bunchesEaten} {highestClustersEaten}>
+						<div class="text-burst-wrapper">
+							<TextBurst count={50} items={['🍎', '💥', '🦴', '🦴']} />
+						</div>
+					</FailInstructions>
+				{:else if $status === 'win'}
+					<!-- This is unlikely to happen, is just a fallback -->
+					<FailInstructions {restart} {bunchesEaten} {highestClustersEaten}>
+						<div class="text-burst-wrapper">
+							<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} hueRotationMax={360} />
+						</div>
+					</FailInstructions>
+				{/if}
+			</svelte:fragment>
 		</Gamespace>
-		<div class="scores">
-			<Score
-				title="apples eaten this try"
-				progressKey={bunchesEaten === 0 ? undefined : bunchesEaten}>{bunchesEaten}</Score
-			>
-			{#if $highestClustersEaten !== bunchesEaten}
-				<Score title="the most apples you've ever eaten">{$highestClustersEaten}</Score>
-			{/if}
+		<div class="info">
+			<div class="scores">
+				<Score
+					title="apples eaten this try"
+					progressKey={bunchesEaten === 0 ? undefined : bunchesEaten}>{bunchesEaten}</Score
+				>
+				{#if $highestClustersEaten !== bunchesEaten}
+					<Score title="the most apples you've ever eaten">{$highestClustersEaten}</Score>
+				{/if}
+			</div>
+			<Ticker {clock} tickDuration={currentTickDuration} {tick} />
+			<StageControls {clock} {tick} {game} />
+			<section class="panel-inset" style:padding="var(--spacing_xl)">
+				<ControlsInstructions />
+			</section>
+			<section class="centered">
+				<GameAudio song="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" bind:this={audio} />
+			</section>
+			<section class="centered">
+				<button on:click={() => (showSettings = !showSettings)}
+					>{#if showSettings}stash settings{:else}show settings{/if}</button
+				>
+				{#if showSettings}
+					<Stats {game} tickDuration={currentTickDuration} />
+					<Settings
+						{game}
+						{baseTickDuration}
+						{tickDurationMin}
+						{tickDurationMax}
+						{tickDurationDecay}
+						{autoScaleRenderer}
+						{rendererWidth}
+						{rendererHeight}
+						{autoAspectRatio}
+						{aspectRatio}
+					/>
+				{/if}
+			</section>
 		</div>
-		<Ticker {clock} tickDuration={currentTickDuration} {tick} />
-		<StageControls {clock} {tick} {game} />
-		<section class="panel-inset" style:padding="var(--spacing_xl)">
-			<ControlsInstructions />
-		</section>
-		<section class="centered">
-			<GameAudio song="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" bind:this={audio} />
-		</section>
-		<section class="centered">
-			<button on:click={() => (showSettings = !showSettings)}
-				>{#if showSettings}stash settings{:else}show settings{/if}</button
-			>
-			{#if showSettings}
-				<Stats {game} tickDuration={currentTickDuration} />
-				<Settings
-					{game}
-					{baseTickDuration}
-					{tickDurationMin}
-					{tickDurationMax}
-					{tickDurationDecay}
-					{autoScaleRenderer}
-					{rendererWidth}
-					{rendererHeight}
-					{autoAspectRatio}
-					{aspectRatio}
-				/>
-			{/if}
-		</section>
 	{/if}
 </div>
 
@@ -279,5 +304,9 @@
 		top: 2rem;
 		width: 0;
 		height: 0;
+	}
+	/* TODO better name for this? */
+	.info {
+		position: relative;
 	}
 </style>

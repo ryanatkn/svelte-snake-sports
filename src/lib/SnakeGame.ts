@@ -19,6 +19,7 @@ export interface ISnakeGame {
 	reset: () => void;
 	enqueueMovementCommand: (movementCommand: Direction) => void;
 	setMovementCommand: (movementCommand: Direction) => void;
+	nextMovementCommand: () => Direction | null;
 	end: (outcomeStatus: 'win' | 'fail') => void;
 	beginUpdate: (state: SnakeGameState) => SnakeGameState;
 	helpers: SnakeGameHelpers;

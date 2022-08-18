@@ -40,7 +40,6 @@
 
 	let snakeX: number;
 	let snakeY: number;
-	$: console.log(`snakeX, snakeY`, snakeX, snakeY);
 
 	const clock = setClock(createClock({running: browser}));
 

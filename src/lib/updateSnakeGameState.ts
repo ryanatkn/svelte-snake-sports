@@ -4,7 +4,6 @@ import {Logger} from '@feltcoop/felt/util/log.js';
 import {Entity} from '$lib/Entity';
 import {directions, horizontalDirections, verticalDirections, type Direction} from '$lib/direction';
 import type {SnakeGameState} from '$lib/SnakeGameState';
-import {get} from 'svelte/store';
 import type {ISnakeGame} from '$lib/SnakeGame';
 
 const log = new Logger('[updateSnakeGameState]');
@@ -32,20 +31,7 @@ export const updateSnakeGameState = (state: SnakeGameState, game: ISnakeGame): S
 
 	const nextState = game.beginUpdate(state);
 
-	// TODO BLOCK
-	// Updates state like `game.snake.movementDirection` based on user input
-	game.movementCommandQueue.update(($v) => {
-		if (!$v.length) return $v;
-		const $next = $v.slice();
-		game.movementDirection.set($next.shift()!);
-		return $next;
-	});
-
-	// Update entities
-	// TODO BLOCK remove this get while fixing the issue of invalid commands
-	// inputs as a separate param? same events system?
-	// maybe `game.inputs` or `game.commands`?
-	const movementDirection = get(game.movementDirection);
+	const movementDirection = game.nextMovementCommand();
 	if (movementDirection) {
 		moveSnake(nextState, game, movementDirection);
 	}

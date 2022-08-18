@@ -3,16 +3,6 @@
 	import {getClock} from '$lib/clock';
 	import InteractiveSurface from '$lib/InteractiveSurface.svelte';
 
-	// Maybe we'll put an `InteractiveSurface` in here for the mouse/touch controls?
-	/*
-
-	TODO BLOCK
-
-	- events or callbacks?
-	- get angle to snake head -- how? in the game impls, not here?
-
-	*/
-
 	export let pointerDown = false;
 	export let pointerX: number | undefined = undefined;
 	export let pointerY: number | undefined = undefined;

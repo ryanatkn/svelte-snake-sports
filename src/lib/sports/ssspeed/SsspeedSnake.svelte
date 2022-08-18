@@ -37,7 +37,6 @@
 
 	let snakeX: number;
 	let snakeY: number;
-	$: console.log(`snakeX, snakeY`, snakeX, snakeY);
 
 	let showSettings = false;
 

@@ -1,9 +1,6 @@
-let _id = 0;
+import type {Direction} from '$lib/direction';
 
-export type Direction = 'left' | 'right' | 'up' | 'down';
-export const directions: Direction[] = ['left', 'right', 'up', 'down'];
-export const verticalDirections: Direction[] = ['up', 'down'];
-export const horizontalDirections: Direction[] = ['left', 'right'];
+let _id = 0;
 
 // TODO separate implementation?
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type {Direction} from '$lib/Entity';
+	import type {Direction} from '$lib/direction';
 	import type {Writable} from 'svelte/store';
 
 	export let movementCommandQueue: Writable<Direction[]>;

@@ -24,7 +24,7 @@
 	import {CLASSSIC_HIGH_SCORE_KEY} from '$lib/storage';
 	import {setCurrentTickDuration, setRendererWidth, setRendererHeight} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
-	import type {Direction} from '$lib/Entity';
+	import {toDirection} from '$lib/direction';
 
 	export let game: SnakeGame | undefined = undefined;
 	export let audio: GameAudio | undefined = undefined;
@@ -42,28 +42,13 @@
 	$: rendererRectTop = rendererRect?.top || 0;
 	$: snakeScreenX = snakeX + rendererRectLeft;
 	$: snakeScreenY = snakeY + rendererRectTop;
-	$: pointerDirectionToSnakeX =
-		snakeScreenX !== undefined && pointerX !== undefined ? pointerX - snakeScreenX : 0;
-	$: pointerDirectionToSnakeY =
-		snakeScreenY !== undefined && pointerY !== undefined ? pointerY - snakeScreenY : 0;
-	$: if (pointerDown) {
-		// TODO BLOCK need to disallow killing oneself, probably.
-		// Where does that logic belong?
-		// - movementDirection could be ignored when used if invalid
-		// - game.setMovementDirection helper that checks invalid commands
-		// - validateMovement
-		game?.movementDirection.set(
-			toSnakeDirection(pointerDirectionToSnakeX, pointerDirectionToSnakeY),
-		);
+	$: if (game && pointerDown && pointerX !== undefined && pointerY !== undefined) {
+		const direction = toDirection(snakeScreenX, snakeScreenY, pointerX, pointerY);
+		if (direction) {
+			// TODO BLOCK if it's the opposite direction, maybe go left/right?
+			game.setMovementCommand(direction);
+		}
 	}
-	const toSnakeDirection = (directionX: number, directionY: number): Direction =>
-		Math.abs(directionX) > Math.abs(directionY)
-			? directionX > 0
-				? 'right'
-				: 'left'
-			: directionY > 0
-			? 'down'
-			: 'up';
 
 	const clock = setClock(createClock({running: browser}));
 

@@ -14,11 +14,13 @@
 	};
 
 	const onMousedown = (e: MouseEvent) => {
+		if (e.which > 3) return; // TODO how else to avoid breaking mouse back button on Chrome? doesn't happen on Firefox
 		swallow(e);
 		updatePointer(e);
 		setPointerDown(true);
 	};
 	const onMouseup = (e: MouseEvent) => {
+		if (e.which > 3) return; // TODO how else to avoid breaking mouse back button on Chrome? doesn't happen on Firefox
 		swallow(e);
 		updatePointer(e);
 		setPointerDown(false);

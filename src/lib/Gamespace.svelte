@@ -14,8 +14,8 @@
 	*/
 
 	export let pointerDown = false;
-	export let pointerX: number | null = null;
-	export let pointerY: number | null = null;
+	export let pointerX: number | undefined = undefined;
+	export let pointerY: number | undefined = undefined;
 
 	const clock = getClock();
 

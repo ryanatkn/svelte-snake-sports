@@ -30,13 +30,30 @@
 	export let toInitialState = (): SnakeGameState =>
 		initGameState(toDefaultGameState({mapWidth, mapHeight}));
 
+	export let rendererRect: DOMRect | undefined = undefined; // exposed for binding
 	export let pointerDown = false;
-	export let pointerX: number | null = null;
-	export let pointerY: number | null = null;
+	export let pointerX: number | undefined = undefined;
+	export let pointerY: number | undefined = undefined;
+	$: console.log(`pointerX, pointerY`, pointerX, pointerY);
 
 	let snakeX: number;
 	let snakeY: number;
-	$: console.log(`snakeX, snakeY`, snakeX, snakeY);
+	$: rendererRectLeft = rendererRect?.left || 0;
+	$: rendererRectTop = rendererRect?.top || 0;
+	$: snakeScreenX = snakeX + rendererRectLeft;
+	$: snakeScreenY = snakeY + rendererRectTop;
+	$: pointerDirectionToSnakeX =
+		snakeScreenX !== undefined && pointerX !== undefined ? pointerX - snakeScreenX : 0;
+	$: pointerDirectionToSnakeY =
+		snakeScreenY !== undefined && pointerY !== undefined ? pointerY - snakeScreenY : 0;
+	$: snakeAngleToPointer = Math.atan2(pointerDirectionToSnakeX, pointerDirectionToSnakeY);
+	$: console.log(`snakeScreenX, snakeScreenY`, snakeScreenX, snakeScreenY);
+	$: console.log(
+		`pointerDirectionToSnakeX, pointerDirectionToSnakeY`,
+		pointerDirectionToSnakeX,
+		pointerDirectionToSnakeY,
+	);
+	$: console.log(`snakeAngleToPointer`, snakeAngleToPointer);
 
 	const clock = setClock(createClock({running: browser}));
 
@@ -148,6 +165,7 @@
 					$rendererWidth = width;
 					$rendererHeight = height;
 				}}
+				bind:rect={rendererRect}
 				let:worldWidth
 				let:worldHeight
 			>

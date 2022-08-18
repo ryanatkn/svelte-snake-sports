@@ -1,12 +1,6 @@
 <script lang="ts">
 	import {swallow} from '@feltcoop/felt/util/dom.js';
 
-	// TODO BLOCK how should this work?
-	// maybe use pointer events?
-	// maybe fire events instead?
-	// disable it when the game is paused, so UI can be clicked? or should that UI be rendered over the top?
-	// yeah that makes more sense -- the InteractiveSurface should be *below* the instructions.
-
 	export let setPointerDown: (down: boolean) => void;
 	export let setPointerPosition: (x: number, y: number) => void;
 

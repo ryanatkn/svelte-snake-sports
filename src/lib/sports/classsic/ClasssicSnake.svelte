@@ -244,5 +244,8 @@
 	/* TODO better name for this? */
 	.info {
 		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 	}
 </style>

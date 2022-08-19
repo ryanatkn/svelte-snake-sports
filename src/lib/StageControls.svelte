@@ -20,15 +20,17 @@
 	<button title="[r] restart game" class="icon-button" on:click={reset}>⏮</button>
 	<ClockControls {clock} />
 	<button title="[1] next turn" class="icon-button" on:click={tick}>⏩</button>
-	<DirectionalControls
-		selectedDirection={currentCommand}
-		select={(d) => enqueueMovementCommand(d)}
-	/>
-	{#if movementCommandQueue}
-		<div class="padded-md">
-			<MovementCommandQueue {movementCommandQueue} />
-		</div>
-	{/if}
+	<div class="centered-hz">
+		<DirectionalControls
+			selectedDirection={currentCommand}
+			select={(d) => enqueueMovementCommand(d)}
+		/>
+		{#if movementCommandQueue}
+			<div class="padded-md">
+				<MovementCommandQueue {movementCommandQueue} />
+			</div>
+		{/if}
+	</div>
 </div>
 
 <Hotkeys

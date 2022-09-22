@@ -1,5 +1,5 @@
 <script lang="ts">
-	import {browser} from '$app/env';
+	import {browser} from '$app/environment';
 
 	import ScaledWorld from '$lib/ScaledWorld.svelte';
 	import {getDimensions} from '$lib/Dimensions.svelte';

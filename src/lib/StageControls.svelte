@@ -16,7 +16,7 @@
 	$: currentCommand = $movementCommandQueue?.[0];
 </script>
 
-<div class="controls">
+<div class="controls panel">
 	<button title="[r] restart game" class="icon-button" on:click={reset}>⏮</button>
 	<ClockControls {clock} />
 	<button title="[1] next turn" class="icon-button" on:click={tick}>⏩</button>
@@ -138,5 +138,6 @@
 		align-items: center;
 		justify-content: center;
 		padding: var(--spacing_md);
+		margin-bottom: var(--spacing_xl2);
 	}
 </style>

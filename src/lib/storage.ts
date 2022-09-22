@@ -1,4 +1,4 @@
-import {browser} from '$app/env';
+import {browser} from '$app/environment';
 
 export const CLASSSIC_HIGH_SCORE_KEY = 'classsic_high_score';
 export const SSSPEED_HIGH_SCORE_KEY = 'ssspeed_high_score';

@@ -15,7 +15,8 @@
 
 <style>
 	ul {
-		width: 70px;
+		white-space: nowrap;
+		width: 6rem;
 		font-weight: 700;
 		color: var(--brown_text_color);
 	}

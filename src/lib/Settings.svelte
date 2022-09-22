@@ -122,7 +122,7 @@
 			>
 		</fieldset>
 		<fieldset>
-			<label class="buttonlike"
+			<label class="row"
 				><input type="checkbox" bind:checked={$autoScaleRenderer} /> autoScaleRenderer</label
 			>
 			<label class:disabled={$autoScaleRenderer}
@@ -163,7 +163,7 @@
 			>
 		</fieldset>
 		<fieldset>
-			<label class="buttonlike"
+			<label class="row"
 				><input type="checkbox" bind:checked={$autoAspectRatio} /> autoAspectRatio</label
 			>
 			<label class:disabled={$autoAspectRatio}

@@ -2,16 +2,15 @@
 
 :root {
 	--active_color: var(--bright_green);
+	--text_color_active: var(--bright_green);
 	--link_color: var(--bright_green);
 	--text_color: #ddd;
 	--text_color_light: #fed;
-	--button_text_color: #000;
-	--panel_color_dark: var(--dark_brown);
+	--border_color_dark: var(--medium_brown);
 	--bg: var(--dim_brown);
-	--interactive_color_disabled: var(--gray_brown);
-	--interactive_color_hover: var(--dark_brown);
-	--interactive_color_active: var(--dark_brown);
-	--panel_color: #0004;
+	--button_color_disabled: var(--gray_brown);
+	--button_color_hover: var(--dark_brown);
+	--button_color_active: var(--dark_brown);
 
 	/* specific to this project, consider upstreaming */
 	--bg_y: 0px;
@@ -25,7 +24,7 @@
 	--brown_text_color_lightest: hsl(30, 100%, 93%);
 	--text_color: var(--brown_text_color_lighter);
 	--medium_brown: hsl(30, 25%, 27%);
-	--gray_brown: hsl(24, 3%, 39%);
+	--gray_brown: hsl(30, 16%, 20%);
 	--bright_green: hsl(116, 80%, 41%);
 	--dim_green: hsl(111, 46%, 40%);
 	--dim_red: hsl(353, 56%, 37%);
@@ -98,19 +97,18 @@ button.selected {
 	background: var(--rich_brown);
 }
 button.inline {
-	/* tODO upstream */
-	margin: 0 var(--spacing_xs);
+	/* TODO remove after updating Felt */
+	margin-left: var(--spacing_sm);
+	margin-right: var(--spacing_sm);
 }
 
-label.buttonlike {
+label.row {
 	/* TODO remove after updating Felt */
-	display: flex;
-	flex-direction: row;
 	align-items: center;
 }
-label.disabled {
-	/* TODO remove after updating Felt */
-	opacity: 0.6;
+label.row input[type='checkbox'],
+label.row input[type='radio'] {
+	margin-right: var(--spacing_md);
 }
 
 .snake-1 {
@@ -216,4 +214,8 @@ label.disabled {
 fieldset {
 	padding: var(--spacing_sm);
 	border: 0;
+}
+
+.panel {
+	background-color: var(--tint_dark_3);
 }

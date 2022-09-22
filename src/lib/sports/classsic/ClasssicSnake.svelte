@@ -2,7 +2,7 @@
 	// This version is a port of the original React project:
 	// https://ryanatkn.github.io/snake-game
 	// See `$lib/sports/simple/SimpleSnake.svelte` for the same thing but simplified.
-	import {browser} from '$app/env';
+	import {browser} from '$app/environment';
 	import {writable} from 'svelte/store';
 
 	import SnakeGame from '$lib/SnakeGame.svelte';
@@ -189,7 +189,7 @@
 			</div>
 			<Ticker {clock} tickDuration={currentTickDuration} {tick} />
 			<StageControls {clock} {tick} {game} />
-			<section class="panel-inset" style:padding="var(--spacing_xl)">
+			<section class="panel" style:padding="var(--spacing_xl)">
 				<ControlsInstructions />
 			</section>
 			<section class="centered">

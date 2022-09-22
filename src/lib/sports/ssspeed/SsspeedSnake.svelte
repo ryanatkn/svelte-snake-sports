@@ -1,5 +1,5 @@
 <script lang="ts">
-	import {browser} from '$app/env';
+	import {browser} from '$app/environment';
 	import {writable} from 'svelte/store';
 
 	import SnakeGame from '$lib/SnakeGame.svelte';
@@ -185,7 +185,7 @@
 			<Ticker {clock} tickDuration={currentTickDuration} {tick} />
 			<TimedScores {applesEaten} applesToWin={APPLES_EATEN_TO_WIN} {currentTime} {bestTime} />
 			<StageControls {clock} {tick} {game} />
-			<section class="panel-inset" style:padding="var(--spacing_xl)">
+			<section class="panel" style:padding="var(--spacing_xl)">
 				<ControlsInstructions />
 			</section>
 			<section class="centered">

@@ -120,6 +120,8 @@ generated images by [DALL-E](https://wikipedia.org/wiki/DALL-E):
 - [buncheses](/src/lib/sports/buncheses):
   "macro photography of an adorable green cartoon snake with huge cute eyes next to a pile of red apples on lush green moss, realistic 3d video game, digital art, vibrant, artstation"
   - font is [Indie Flower](https://fonts.google.com/betterspecimen/Indie+Flower)
+- [chassse](/src/lib/sports/chassse):
+  "macro photography of an adorable green cartoon snake with big cute eyes running towards a row of red apples in a line on lush green moss, realistic 3d video game, digital art, Pixar movie character, vibrant, artstation"
 
 ## license [🐦](https://wikipedia.org/wiki/Free_and_open-source_software)
 

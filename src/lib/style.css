@@ -96,20 +96,6 @@ button.selected {
 	box-shadow: 0 0 0 3px var(--darker_brown) inset !important;
 	background: var(--rich_brown);
 }
-button.inline {
-	/* TODO remove after updating Felt */
-	margin-left: var(--spacing_sm);
-	margin-right: var(--spacing_sm);
-}
-
-label.row {
-	/* TODO remove after updating Felt */
-	align-items: center;
-}
-label.row input[type='checkbox'],
-label.row input[type='radio'] {
-	margin-right: var(--spacing_md);
-}
 
 .snake-1 {
 	filter: hue-rotate(120deg);

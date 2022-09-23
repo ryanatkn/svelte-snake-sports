@@ -138,7 +138,7 @@
 			$tickDurationMin,
 			Math.min(
 				$tickDurationMax,
-				Math.round($baseTickDuration! * $tickDurationDecay ** (1 + bunchesEaten * CLUSTER_COUNT)),
+				Math.round($baseTickDuration! * $tickDurationDecay ** (bunchesEaten * CLUSTER_COUNT)),
 			),
 		);
 

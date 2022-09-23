@@ -124,7 +124,7 @@
 			$tickDurationMin,
 			Math.min(
 				$tickDurationMax,
-				Math.round($baseTickDuration! * $tickDurationDecay ** (1 + applesEaten)),
+				Math.round($baseTickDuration! * $tickDurationDecay ** applesEaten),
 			),
 		);
 

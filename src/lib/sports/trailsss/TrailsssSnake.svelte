@@ -57,9 +57,9 @@
 
 	// TODO refactor with the other impls
 	// TODO maybe these shouldn't be stores? or maybe the tick logic should be extracted to a single store/object?
-	export const baseTickDuration = writable(Math.round(1000 / 6)); // the starting tick duration, may be modified by gameplay
+	export const baseTickDuration = writable(Math.round(1000 / 2)); // the starting tick duration, may be modified by gameplay
 	export const currentTickDuration = setCurrentTickDuration(writable($baseTickDuration));
-	export const tickDurationDecay = writable(0.5);
+	export const tickDurationDecay = writable(0.97);
 	export const tickDurationMin = writable(17);
 	export const tickDurationMax = writable(2000);
 	// TODO belongs elsewhere
@@ -99,13 +99,11 @@
 				case 'eat_apple': {
 					applesEaten++;
 					applesEatenSinceCollision++;
-					$currentTickDuration *= $tickDurationDecay ** (1 / applesEatenSinceCollision ** 1.7);
 					break;
 				}
 				case 'snake_collide_self':
 				case 'snake_collide_bounds': {
 					// TODO maybe display some damaged status?
-					$currentTickDuration = $baseTickDuration;
 					applesEatenSinceCollision = 0;
 					game.resetMovementCommands();
 					break;
@@ -122,6 +120,14 @@
 				if (browser) localStorage.setItem(SSSPEED_HIGH_SCORE_KEY, $bestTime + ''); // TODO use helper on store instead
 			}
 		}
+
+		$currentTickDuration = Math.max(
+			$tickDurationMin,
+			Math.min(
+				$tickDurationMax,
+				Math.round($baseTickDuration * $tickDurationDecay ** applesEatenSinceCollision),
+			),
+		);
 
 		return true;
 	};

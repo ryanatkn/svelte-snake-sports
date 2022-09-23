@@ -113,15 +113,21 @@ generated images by [DALL-E](https://wikipedia.org/wiki/DALL-E):
 
 - [classsic](/src/lib/sports/classsic):
   "macro photography of an adorable cartoon snake with big eyes next to a red apple on lush green moss in a realistic 3d video game in the style of Tim Burton"
+  - </src/static/assets/classsic.webp>
   - font is [Georgia Bold](<https://wikipedia.org/wiki/Georgia_(typeface)>)
 - [ssspeed](/src/lib/sports/ssspeed):
   "macro photography of a cute cartoon snake eating a red apple on lush green moss in a 3d video game"
+  - </src/static/assets/ssspeed.webp>
   - font is [Gabriola](<https://wikipedia.org/wiki/Gabriola_(typeface)>)
 - [buncheses](/src/lib/sports/buncheses):
   "macro photography of an adorable green cartoon snake with huge cute eyes next to a pile of red apples on lush green moss, realistic 3d video game, digital art, vibrant, artstation"
+  - </src/static/assets/buncheses.webp>
   - font is [Indie Flower](https://fonts.google.com/betterspecimen/Indie+Flower)
-- [chassse](/src/lib/sports/chassse):
+- [trailsss](/src/lib/sports/trailsss):
   "macro photography of an adorable green cartoon snake with big cute eyes running towards a row of red apples in a line on lush green moss, realistic 3d video game, digital art, Pixar movie character, vibrant, artstation"
+  - </src/static/assets/trailsss.webp>
+  - fonts are [Raleway Dots](https://fonts.google.com/specimen/Raleway+Dots)
+    and [Codystar](https://fonts.google.com/specimen/Codystar)
 
 ## license [🐦](https://wikipedia.org/wiki/Free_and_open-source_software)
 

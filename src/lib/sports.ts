@@ -11,4 +11,8 @@ export const sports = [
 		name: 'buncheses',
 		slug: '/buncheses',
 	},
+	{
+		name: 'trailsss',
+		slug: '/trailsss',
+	},
 ];

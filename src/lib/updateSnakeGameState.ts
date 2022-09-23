@@ -1,5 +1,7 @@
 import {randomInt, randomItem} from '@feltcoop/felt/util/random.js';
 import {Logger} from '@feltcoop/felt/util/log.js';
+import {removeUnordered} from '@feltcoop/felt/util/array.js';
+import {UnreachableError} from '@feltcoop/felt/util/error.js';
 
 import {Entity} from '$lib/Entity';
 import {directions, horizontalDirections, verticalDirections, type Direction} from '$lib/direction';
@@ -97,7 +99,7 @@ const findEntityAt = (state: SnakeGameState, x: number, y: number): Entity | voi
 export const getRandomEmptyPosition = (
 	state: SnakeGameState,
 	maxAttempts = 50,
-): Position | undefined => {
+): Position | null => {
 	let attempts = 0;
 	while (attempts < maxAttempts) {
 		attempts++;
@@ -106,7 +108,7 @@ export const getRandomEmptyPosition = (
 			return position;
 		}
 	}
-	return;
+	return null;
 };
 
 /**
@@ -142,32 +144,32 @@ export const isHorizontalDirection = (direction: Direction): boolean =>
 export const spawnRandomShape6a = (
 	state: SnakeGameState,
 	position1 = getRandomEmptyPosition(state),
-): Position[] | undefined => {
-	if (!position1) return;
+): Position[] | null => {
+	if (!position1) return null;
 
 	// Then choose a random direction.
 	const direction1 = getRandomDirection();
-	const position2 = getPositionFrom(state, position1, direction1);
-	if (!position2) return;
+	const position2 = getEmptyPositionFrom(state, position1, direction1);
+	if (!position2) return null;
 
 	// Then choose a direction tangential to `direction1`.
 	const direction2 = getRandomTangent(direction1);
-	const position3 = getPositionFrom(state, position2, direction2);
-	if (!position3) return;
+	const position3 = getEmptyPositionFrom(state, position2, direction2);
+	if (!position3) return null;
 
 	// Then move the same as `direction1`.
 	const direction3 = direction1;
-	const position4 = getPositionFrom(state, position3, direction3);
-	if (!position4) return;
+	const position4 = getEmptyPositionFrom(state, position3, direction3);
+	if (!position4) return null;
 
 	// Then move the opposite of `direction2`.
 	const direction4 = toOppositeDirection(direction2);
-	const position5 = getPositionFrom(state, position4, direction4);
-	if (!position5) return;
+	const position5 = getEmptyPositionFrom(state, position4, direction4);
+	if (!position5) return null;
 
 	// Then move the same as `direction1` one last time.
-	const position6 = getPositionFrom(state, position5, direction4);
-	if (!position6) return;
+	const position6 = getEmptyPositionFrom(state, position5, direction4);
+	if (!position6) return null;
 
 	return [position1, position2, position3, position4, position5, position6];
 };
@@ -177,30 +179,122 @@ export const spawnRandomShape6a = (
 // Also, the strategy this uses is to pick a random spot and try to place the apple,
 // which is hacky and will fail a lot when many tiles are filled.
 // A possible improvement would be to track empty tiles and allow querying for shapes.
-export const spawnRandomTrail = (state: SnakeGameState): Position | undefined => {
+export const spawnRandomTrail = (
+	state: SnakeGameState,
+	game: ISnakeGame | undefined,
+	length: number,
+): boolean => {
+	const apples = toApples(state, game);
+
 	// Choose a random direction from the last apple.
-	// TODO BLOCK need to search outwards if it's unable to place it -- put the looping logic in here?
-	const trailEndPosition = state.apples[state.apples.length - 1] || state.snakeSegments[0];
-	const direction = getRandomDirection();
-	return getPositionFrom(state, trailEndPosition, direction);
+	while (apples.length < length) {
+		// Start at the end of the apple trail, or at the head of the snake if no apples.
+		const trailEndPosition = state.apples[state.apples.length - 1] || state.snakeSegments[0];
+
+		const directionsToTry = directions.slice();
+		let added = false; // TODO maybe use labels here?
+		while (directionsToTry.length) {
+			const direction = randomItem(directionsToTry);
+			const position = getEmptyPositionFrom(state, trailEndPosition, direction);
+			if (position) {
+				apples.push(new Entity(position.x, position.y));
+				added = true;
+				break;
+			}
+			// The attempted position is occupied, so remove the direction and try again.
+			removeUnordered(directionsToTry, directionsToTry.indexOf(direction));
+		}
+		if (added) continue;
+
+		// A direction didn't work, so spiral
+		const position = getNearestEmptyPositionFrom(state, trailEndPosition);
+		if (!position) return false;
+		apples.push(new Entity(position.x, position.y));
+	}
+
+	return true; // succeeded in placing the entire trail
 };
 
-export const getPositionFrom = (
+export const getEmptyPositionFrom = (
 	state: SnakeGameState,
 	position: Position,
 	direction: Direction,
-): Position | undefined => {
-	const x = moveX(position.x, direction);
-	const y = moveY(position.y, direction);
+): Position | null =>
+	getEmptyPositionAt(state, moveX(position.x, direction), moveY(position.y, direction));
 
+export const getEmptyPositionAt = (
+	state: SnakeGameState,
+	x: number,
+	y: number,
+): Position | null => {
 	// Ensure x and y are in bounds.
-	if (x < 0 || x >= state.mapWidth || y < 0 || y >= state.mapHeight) return;
+	if (x < 0 || x >= state.mapWidth || y < 0 || y >= state.mapHeight) return null;
 
 	// Ensure x and y are empty.
 	const existingEntity = findEntityAt(state, x, y);
-	if (existingEntity) return;
+	if (existingEntity) return null;
 
 	return {x, y};
+};
+
+export const getNearestEmptyPositionFrom = (
+	state: SnakeGameState,
+	position: Position,
+): Position | null => {
+	// TODO make this algorithm more variable than a fixed spiral
+
+	// Starting at `position`, search in a spiral outwards until a tile is found,
+	// or until we run out of tiles.
+	let {x, y} = position;
+	let maxX = x;
+	let maxY = y;
+	let minX = x;
+	let minY = y;
+	let direction: Direction = 'up';
+	do {
+		switch (direction) {
+			case 'up': {
+				y -= 1;
+				if (y < minY) {
+					direction = 'right';
+					minY = y;
+				}
+				break;
+			}
+			case 'right': {
+				x += 1;
+				if (x > maxX) {
+					direction = 'down';
+					maxX = x;
+				}
+				break;
+			}
+			case 'down': {
+				y += 1;
+				if (y > maxY) {
+					direction = 'left';
+					maxY = y;
+				}
+				break;
+			}
+			case 'left': {
+				x -= 1;
+				if (x < minX) {
+					direction = 'up';
+					minX = x;
+				}
+				break;
+			}
+			default:
+				throw new UnreachableError(direction);
+		}
+
+		// Are we at an empty spot?
+		const position = getEmptyPositionAt(state, x, y);
+		if (position) return position;
+	} while (minX >= 0 || minY >= 0 || maxX < state.mapWidth || maxY < state.mapHeight);
+
+	return null;
 };
 
 export const moveX = (x: number, direction: Direction): number =>
@@ -306,8 +400,8 @@ export const spawnApples = (state: SnakeGameState, game: ISnakeGame): void => {
 };
 
 // TODO make a single generic function for this? `lazyClone`? need a shallow clone fn
-export const toApples = (state: SnakeGameState, game: ISnakeGame): Entity[] =>
-	state.apples === game.prevState?.apples ? (state.apples = state.apples.slice()) : state.apples;
+export const toApples = (state: SnakeGameState, game?: ISnakeGame): Entity[] =>
+	state.apples === game?.prevState?.apples ? (state.apples = state.apples.slice()) : state.apples;
 export const toSnakeSegments = (state: SnakeGameState, game: ISnakeGame): Entity[] =>
 	state.snakeSegments === game.prevState?.snakeSegments
 		? (state.snakeSegments = state.snakeSegments.slice())

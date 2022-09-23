@@ -9,12 +9,7 @@
 	import Settings from '$lib/Settings.svelte';
 	import Stats from '$lib/Stats.svelte';
 	import {toDefaultGameState, type SnakeGameState} from '$lib/SnakeGameState';
-	import {
-		initGameState,
-		spawnRandomTrail,
-		toApples,
-		updateSnakeGameState,
-	} from '$lib/updateSnakeGameState';
+	import {initGameState, spawnRandomTrail, updateSnakeGameState} from '$lib/updateSnakeGameState';
 	import Ticker from '$lib/Ticker.svelte';
 	import StageControls from '$lib/StageControls.svelte';
 	import TimedScores from '$lib/TimedScores.svelte';
@@ -32,7 +27,6 @@
 	} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
 	import {toDirection} from '$lib/direction';
-	import {Entity} from '$lib/Entity';
 
 	const clock = setClock(createClock({running: browser}));
 
@@ -143,28 +137,15 @@
 		return true;
 	};
 
-	const MAX_SPAWN_ATTEMPTS = 30; // TODO where does this belong?
 	const TRAIL_LENGTH = 8; // TODO BLOCK trail length? should it increase as you go or be fixed width?
 
-	// TODO hacky, the optional `game` is needed because `toInitialState` is called before `game` is available
-	const spawnApples = (state: SnakeGameState, game?: ISnakeGame) => {
-		// TODO BLOCK should only spawn apples if the trail is connected (or something else?)
-		while (state.apples.length < TRAIL_LENGTH) {
-			let attempt = 0;
-			while (attempt < MAX_SPAWN_ATTEMPTS) {
-				attempt++;
-				const spawned = spawnRandomTrail(state);
-				if (!spawned) continue;
-				// TODO hacky, see `game` not above
-				const apples = game ? toApples(state, game) : state.apples;
-				apples.push(new Entity(spawned.x, spawned.y));
-				break;
-			}
-			if (attempt >= MAX_SPAWN_ATTEMPTS) {
-				// TODO BLOCK need to search outwards instead of this
-				game?.end('win');
-				return;
-			}
+	// TODO hacky, the `game` may be undefined because `toInitialState` is called before `game` is available
+	const spawnApples = (state: SnakeGameState, game: ISnakeGame | undefined): void => {
+		const spawned = spawnRandomTrail(state, game, TRAIL_LENGTH);
+		console.log(`spawned`, spawned);
+		// As a failsafe, if we can't spawn anything and there's no apples left, end the game.
+		if (!spawned && !state.apples.length) {
+			game?.end('win');
 		}
 	};
 </script>
@@ -187,8 +168,8 @@
 			const state = initGameState(toDefaultGameState({mapWidth, mapHeight}));
 			// spawn the apples
 			state.apples.length = 0;
-			state.apples = [new Entity(4, 3)];
-			spawnApples(state);
+			state.apples = [];
+			spawnApples(state, game);
 			return state;
 		}}
 		{spawnApples}

@@ -180,9 +180,9 @@ export const spawnRandomShape6a = (
 export const spawnRandomTrail = (state: SnakeGameState): Position | undefined => {
 	// Choose a random direction from the last apple.
 	// TODO BLOCK need to search outwards if it's unable to place it -- put the looping logic in here?
-	const fromPosition = state.apples[state.apples.length - 1] || state.snakeSegments[0];
+	const trailEndPosition = state.apples[state.apples.length - 1] || state.snakeSegments[0];
 	const direction = getRandomDirection();
-	return getPositionFrom(state, fromPosition, direction);
+	return getPositionFrom(state, trailEndPosition, direction);
 };
 
 export const getPositionFrom = (

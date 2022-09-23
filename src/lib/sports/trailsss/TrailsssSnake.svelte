@@ -148,6 +148,7 @@
 
 	// TODO hacky, the optional `game` is needed because `toInitialState` is called before `game` is available
 	const spawnApples = (state: SnakeGameState, game?: ISnakeGame) => {
+		// TODO BLOCK should only spawn apples if the trail is connected (or something else?)
 		while (state.apples.length < TRAIL_LENGTH) {
 			let attempt = 0;
 			while (attempt < MAX_SPAWN_ATTEMPTS) {

@@ -105,10 +105,12 @@ gro deploy
 [Gro](https://github.com/feltcoop/gro)
 & [more](package.json)
 
-["Lurking Sloth"](/src/static/assets/Alexander_Nakarada__Lurking_Sloth.mp3)
-by Alexander Nakarada
+music by Alexander Nakarada
 ([serpentsoundstudios.com](https://www.serpentsoundstudios.com/),
-[CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/))
+[CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/)):
+
+- ["Lurking Sloth"](/src/static/assets/Alexander_Nakarada__Lurking_Sloth.mp3)
+- ["Horde of Geese"](/src/static/assets/Alexander_Nakarada__Horde_of_Geese.mp3)
 
 generated images by [DALL-E](https://wikipedia.org/wiki/DALL-E):
 

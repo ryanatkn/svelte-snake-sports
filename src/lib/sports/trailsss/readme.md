@@ -1,12 +1,13 @@
-# svelte snake sports: ssspeed
+# svelte snake sports: trailsss
 
-> eat 66 apples asap
+> eat 66 apples in trails asap
 
-- [SsspeedSnake.svelte](./SsspeedSnake.svelte)
+- [TrailsssSnake.svelte](./TrailsssSnake.svelte)
 
-<a href="https://ryanatkn.github.io/svelte-snake-sports/ssspeed"><img src="/src/static/assets/ssspeed.webp" alt="logo for ssspeed, macro photography of a cute cartoon snake eating a red apple on lush green moss in a 3d video game" /></a>
+<a href="https://ryanatkn.github.io/svelte-snake-sports/trailsss"><img src="/src/static/assets/trailsss.webp" alt="logo for trailsss, macro photography of an adorable green cartoon snake with big cute eyes running towards a row of red apples in a line on lush green moss, realistic 3d video game, digital art, Pixar movie character, vibrant, artstation" /></a>
 
 generated image by [DALL-E](https://wikipedia.org/wiki/DALL-E):
-"macro photography of a cute cartoon snake eating a red apple on lush green moss in a 3d video game"
+"macro photography of an adorable green cartoon snake with big cute eyes running towards a row of red apples in a line on lush green moss, realistic 3d video game, digital art, Pixar movie character, vibrant, artstation"
 
-font is [Gabriola](<https://wikipedia.org/wiki/Gabriola_(typeface)>)
+fonts are [Raleway Dots](https://fonts.google.com/specimen/Raleway+Dots)
+and [Codystar](https://fonts.google.com/specimen/Codystar)

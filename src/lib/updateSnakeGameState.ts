@@ -172,6 +172,19 @@ export const spawnRandomShape6a = (
 	return [position1, position2, position3, position4, position5, position6];
 };
 
+// This mutates `state.apples` if it can place an apple connected to the end,
+// but this is a hacky strategy and probably over-optimized.
+// Also, the strategy this uses is to pick a random spot and try to place the apple,
+// which is hacky and will fail a lot when many tiles are filled.
+// A possible improvement would be to track empty tiles and allow querying for shapes.
+export const spawnRandomTrail = (state: SnakeGameState): Position | undefined => {
+	// Choose a random direction from the last apple.
+	// TODO BLOCK need to search outwards if it's unable to place it -- put the looping logic in here?
+	const lastApple = state.apples[state.apples.length - 1];
+	const direction = getRandomDirection();
+	return getPositionFrom(state, lastApple, direction);
+};
+
 export const getPositionFrom = (
 	state: SnakeGameState,
 	position: Position,

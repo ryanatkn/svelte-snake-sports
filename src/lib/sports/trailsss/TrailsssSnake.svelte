@@ -8,8 +8,13 @@
 	import {createClock, setClock} from '$lib/clock';
 	import Settings from '$lib/Settings.svelte';
 	import Stats from '$lib/Stats.svelte';
-	import {toDefaultGameState} from '$lib/SnakeGameState';
-	import {initGameState, spawnApples, updateSnakeGameState} from '$lib/updateSnakeGameState';
+	import {toDefaultGameState, type SnakeGameState} from '$lib/SnakeGameState';
+	import {
+		initGameState,
+		spawnRandomTrail,
+		toApples,
+		updateSnakeGameState,
+	} from '$lib/updateSnakeGameState';
 	import Ticker from '$lib/Ticker.svelte';
 	import StageControls from '$lib/StageControls.svelte';
 	import TimedScores from '$lib/TimedScores.svelte';
@@ -19,9 +24,15 @@
 	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
 	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
 	import {SSSPEED_HIGH_SCORE_KEY} from '$lib/storage';
-	import {setCurrentTickDuration, setRendererWidth, setRendererHeight} from '$lib/SnakeGame';
+	import {
+		setCurrentTickDuration,
+		setRendererWidth,
+		setRendererHeight,
+		type ISnakeGame,
+	} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
 	import {toDirection} from '$lib/direction';
+	import {Entity} from '$lib/Entity';
 
 	const clock = setClock(createClock({running: browser}));
 
@@ -131,6 +142,30 @@
 
 		return true;
 	};
+
+	const MAX_SPAWN_ATTEMPTS = 30; // TODO where does this belong?
+	const TRAIL_LENGTH = 8; // TODO BLOCK trail length? should it increase as you go or be fixed width?
+
+	// TODO hacky, the optional `game` is needed because `toInitialState` is called before `game` is available
+	const spawnApples = (state: SnakeGameState, game?: ISnakeGame) => {
+		while (state.apples.length < TRAIL_LENGTH) {
+			let attempt = 0;
+			while (attempt < MAX_SPAWN_ATTEMPTS) {
+				attempt++;
+				const spawned = spawnRandomTrail(state);
+				if (!spawned) continue;
+				// TODO hacky, see `game` not above
+				const apples = game ? toApples(state, game) : state.apples;
+				apples.push(new Entity(spawned.x, spawned.y));
+				break;
+			}
+			if (attempt >= MAX_SPAWN_ATTEMPTS) {
+				// TODO BLOCK need to search outwards instead of this
+				game?.end('win');
+				return;
+			}
+		}
+	};
 </script>
 
 <div
@@ -140,7 +175,6 @@
 >
 	<SnakeGame
 		bind:this={game}
-		toInitialState={() => initGameState(toDefaultGameState({mapWidth, mapHeight}))}
 		{tick}
 		onReset={() => {
 			$currentTickDuration = $baseTickDuration;
@@ -148,11 +182,15 @@
 			applesEaten = 0;
 			applesEatenSinceCollision = 0;
 		}}
-		spawnApples={(state, game) => {
-			if (state.apples.length + applesEaten + 1 < APPLES_EATEN_TO_WIN) {
-				return spawnApples(state, game);
-			}
+		toInitialState={() => {
+			const state = initGameState(toDefaultGameState({mapWidth, mapHeight}));
+			// spawn the apples
+			state.apples.length = 0;
+			state.apples = [new Entity(4, 3)];
+			spawnApples(state);
+			return state;
 		}}
+		{spawnApples}
 	/>
 	{#if game}
 		<Gamespace bind:pointerDown bind:pointerX bind:pointerY>

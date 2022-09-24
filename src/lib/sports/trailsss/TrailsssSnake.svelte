@@ -75,7 +75,7 @@
 	export const aspectRatio = writable(1.0);
 
 	let applesEaten = 0;
-	let applesEatenSinceCollision = 0;
+	let applesEatenStreak = 0;
 	const APPLES_EATEN_TO_WIN = 66; // sixxty six applesss
 
 	const restart = (): void => {
@@ -99,21 +99,22 @@
 		// TODO maybe serialize input state as param instead of `game`?
 		$state = updateSnakeGameState($state, game);
 
+		let ateApple = false;
+
 		for (const event of $events) {
 			switch (event.name) {
 				case 'eat_apple': {
 					applesEaten++;
-					applesEatenSinceCollision++;
-					break;
-				}
-				case 'snake_collide_self':
-				case 'snake_collide_bounds': {
-					// TODO maybe display some damaged status?
-					applesEatenSinceCollision = 0;
-					game.resetMovementCommands();
+					applesEatenStreak++;
+					ateApple = true;
 					break;
 				}
 			}
+		}
+
+		if (!ateApple) {
+			applesEatenStreak = 0;
+			game.resetMovementCommands();
 		}
 
 		if (applesEaten >= APPLES_EATEN_TO_WIN) {
@@ -130,19 +131,19 @@
 			$tickDurationMin,
 			Math.min(
 				$tickDurationMax,
-				Math.round($baseTickDuration * $tickDurationDecay ** applesEatenSinceCollision),
+				Math.round($baseTickDuration * $tickDurationDecay ** applesEatenStreak),
 			),
 		);
 
 		return true;
 	};
 
-	const TRAIL_LENGTH = 8; // TODO BLOCK trail length? should it increase as you go or be fixed width?
+	const TRAIL_LENGTH = 6;
+	$: trailLength = Math.min(TRAIL_LENGTH, APPLES_EATEN_TO_WIN - applesEaten - 1);
 
 	// TODO hacky, the `game` may be undefined because `toInitialState` is called before `game` is available
 	const spawnApples = (state: SnakeGameState, game: ISnakeGame | undefined): void => {
-		const spawned = spawnRandomTrail(state, game, TRAIL_LENGTH);
-		console.log(`spawned`, spawned);
+		const spawned = spawnRandomTrail(state, game, trailLength);
 		// As a failsafe, if we can't spawn anything and there's no apples left, end the game.
 		if (!spawned && !state.apples.length) {
 			game?.end('win');
@@ -162,7 +163,7 @@
 			$currentTickDuration = $baseTickDuration;
 			currentTime = 0;
 			applesEaten = 0;
-			applesEatenSinceCollision = 0;
+			applesEatenStreak = 0;
 		}}
 		toInitialState={() => {
 			const state = initGameState(toDefaultGameState({mapWidth, mapHeight}));

@@ -173,7 +173,6 @@
 		toInitialState={() => {
 			const state = initGameState(toDefaultGameState({mapWidth, mapHeight}));
 			// spawn the apples
-			state.apples.length = 0;
 			state.apples = [
 				new Entity(4, 3),
 				new Entity(4, 2),

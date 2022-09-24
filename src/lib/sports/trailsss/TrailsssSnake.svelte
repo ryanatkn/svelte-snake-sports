@@ -138,11 +138,12 @@
 		return true;
 	};
 
-	const TRAIL_LENGTH = 6;
-	$: trailLength = Math.min(TRAIL_LENGTH, APPLES_EATEN_TO_WIN - applesEaten - 1);
+	const TRAIL_LENGTH = 6; // TODO expose as setting for users to modify
 
 	// TODO hacky, the `game` may be undefined because `toInitialState` is called before `game` is available
 	const spawnApples = (state: SnakeGameState, game: ISnakeGame | undefined): void => {
+		// TODO was a computed property but we needed it to synchronously update during `game.reset()`
+		const trailLength = Math.min(TRAIL_LENGTH, APPLES_EATEN_TO_WIN - applesEaten - 1);
 		const spawned = spawnRandomTrail(state, game, trailLength);
 		// As a failsafe, if we can't spawn anything and there's no apples left, end the game.
 		if (!spawned && !state.apples.length) {
@@ -169,7 +170,6 @@
 			const state = initGameState(toDefaultGameState({mapWidth, mapHeight}));
 			// spawn the apples
 			state.apples.length = 0;
-			state.apples = [];
 			spawnApples(state, game);
 			return state;
 		}}

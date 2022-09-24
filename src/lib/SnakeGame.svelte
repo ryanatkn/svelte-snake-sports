@@ -55,9 +55,9 @@
 		$movementDirection = toInitialMovementDirection();
 		$movementCommandQueue = [];
 		$runCount++;
-		$state = toInitialState();
 		prevState = undefined;
 		onReset();
+		$state = toInitialState();
 	};
 
 	export const emit = (event: SnakeGameEvent): void => {

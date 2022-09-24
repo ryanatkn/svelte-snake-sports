@@ -24,7 +24,6 @@
 	import {CLASSSIC_HIGH_SCORE_KEY} from '$lib/storage';
 	import {setCurrentTickDuration, setRendererWidth, setRendererHeight} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
-	import {toDirection} from '$lib/direction';
 
 	export let game: SnakeGame | undefined = undefined;
 	export let audio: GameAudio | undefined = undefined;
@@ -43,10 +42,7 @@
 	$: snakeScreenX = snakeX + rendererRectLeft;
 	$: snakeScreenY = snakeY + rendererRectTop;
 	$: if (game && pointerDown && pointerX !== undefined && pointerY !== undefined) {
-		const direction = toDirection(snakeScreenX, snakeScreenY, pointerX, pointerY);
-		if (direction) {
-			game.setMovementCommand(direction);
-		}
+		game.handlePointerInput(snakeScreenX, snakeScreenY, pointerX, pointerY);
 	}
 
 	const clock = setClock(createClock({running: browser}));

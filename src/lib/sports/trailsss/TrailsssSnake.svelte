@@ -26,7 +26,6 @@
 		type ISnakeGame,
 	} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
-	import {toDirection} from '$lib/direction';
 
 	const clock = setClock(createClock({running: browser}));
 
@@ -46,10 +45,7 @@
 	$: snakeScreenY = snakeY + rendererRectTop;
 	$: if (game && pointerDown && pointerX !== undefined && pointerY !== undefined) {
 		if (applesEaten === 0) game.start(); // TODO hacky
-		const direction = toDirection(snakeScreenX, snakeScreenY, pointerX, pointerY);
-		if (direction) {
-			game.setMovementCommand(direction);
-		}
+		game.handlePointerInput(snakeScreenX, snakeScreenY, pointerX, pointerY);
 	}
 
 	let showSettings = false;

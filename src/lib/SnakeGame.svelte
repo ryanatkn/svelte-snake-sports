@@ -77,19 +77,22 @@
 
 	const MOVEMENT_COMMAND_QUEUE_SIZE = 4; // how many inputs a player can queue up at once
 
+	const toPreviousDirection = (): Direction | undefined => {
+		const queued = $movementCommandQueue.at(-1);
+		if (queued) return queued;
+		const snakeHead = $state.snakeSegments[0];
+		return toDirection(snakeHead.prevX, snakeHead.prevY, snakeHead.x, snakeHead.y);
+	};
+
 	/**
 	 * Registers a movement input command to be processed by the game as a queue.
 	 * Newer commands bump off older ones off the front.
 	 * Sequential commands that are opposites are discarded.
 	 */
 	export const enqueueMovementCommand = (movementCommand: Direction): void => {
-		const snakeHead = $state.snakeSegments[0];
-		const prev =
-			$movementCommandQueue.at(-1) ||
-			toDirection(snakeHead.prevX, snakeHead.prevY, snakeHead.x, snakeHead.y);
+		const prev = toPreviousDirection();
 		if (prev !== undefined && areOpposites(prev, movementCommand)) {
-			// TODO maybe try to go towards the target instead of discarding it?
-			return;
+			return; // ignore sequential commands that are opposites
 		}
 		movementCommandQueue.update(($v) => {
 			const $updated = $v.concat(movementCommand);
@@ -117,5 +120,25 @@
 			$movementCommandQueue = next;
 		}
 		return $movementDirection;
+	};
+
+	export const handlePointerInput = (
+		snakeScreenX: number,
+		snakeScreenY: number,
+		pointerX: number,
+		pointerY: number,
+	): void => {
+		const prev = toPreviousDirection();
+		let movementCommand = toDirection(snakeScreenX, snakeScreenY, pointerX, pointerY);
+		if (!movementCommand) return; // ignore in the case the pointer is exactly the snake position
+		if (prev !== undefined && areOpposites(prev, movementCommand)) {
+			// The input is opposite the previous direction, so move towards it.
+			if (movementCommand === 'up' || movementCommand === 'down') {
+				movementCommand = pointerX > snakeScreenX ? 'right' : 'left';
+			} else {
+				movementCommand = pointerY < snakeScreenY ? 'up' : 'down';
+			}
+		}
+		setMovementCommand(movementCommand);
 	};
 </script>

@@ -7,10 +7,8 @@
 	export let setPointerDown: (down: boolean) => void;
 	export let setPointerPosition: (x: number, y: number) => void;
 
-	let el: HTMLElement;
-
 	const updatePointer = (e: {clientX: number; clientY: number}) => {
-		setPointerPosition(e.clientX - el.clientLeft, e.clientY - el.clientTop);
+		setPointerPosition(e.clientX, e.clientY);
 	};
 
 	const onMousedown = (e: MouseEvent) => {
@@ -75,7 +73,6 @@
 </script>
 
 <div
-	bind:this={el}
 	class="interactive-surface"
 	on:mousedown={onMousedown}
 	on:mouseup={onMouseup}

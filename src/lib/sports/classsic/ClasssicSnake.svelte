@@ -124,7 +124,7 @@
 			$tickDurationMin,
 			Math.min(
 				$tickDurationMax,
-				Math.round($baseTickDuration! * $tickDurationDecay ** (1 + applesEaten)),
+				Math.round($baseTickDuration! * $tickDurationDecay ** applesEaten),
 			),
 		);
 
@@ -192,7 +192,11 @@
 			<section class="panel" style:padding="var(--spacing_xl)">
 				<ControlsInstructions />
 			</section>
-			<section class="centered">
+			<section class="centered markup">
+				<p>
+					<a href="https://www.serpentsoundstudios.com/">Alexander Nakarada</a> -
+					<a href="/assets/Alexander_Nakarada__Lurking_Sloth.mp3">Lurking Sloth</a>
+				</p>
 				<GameAudio song="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" bind:this={audio} />
 			</section>
 			<section class="centered">

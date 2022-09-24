@@ -2,7 +2,6 @@
 	import type {Writable} from 'svelte/store';
 
 	import Score from '$lib/Score.svelte';
-	import {getRendererWidth} from '$lib/SnakeGame';
 
 	// TODO rename this module
 
@@ -10,8 +9,8 @@
 	export let applesToWin: number;
 	export let currentTime: number;
 	export let bestTime: Writable<number | null>;
+	export let rendererWidth: Writable<number>;
 
-	const rendererWidth = getRendererWidth();
 	const APPLE_SIZE = 16;
 
 	// TODO pull from a memoized object cache, using the same lazy cloning pattern -- you'd have to memoize by the several deps

@@ -37,7 +37,7 @@
 		position: relative;
 	}
 	.interactive-surface-wrapper {
-		position: fixed;
+		position: absolute;
 		inset: 0;
 		z-index: 0;
 	}

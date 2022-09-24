@@ -40,7 +40,7 @@
 	$: snakeScreenX = snakeX + rendererRectLeft;
 	$: snakeScreenY = snakeY + rendererRectTop;
 	$: if (game && pointerDown && pointerX !== undefined && pointerY !== undefined) {
-		game.start(); // TODO is a bit hacky, is the one thing that differs game to game
+		if (applesEaten === 0) game.start(); // TODO hacky
 		const direction = toDirection(snakeScreenX, snakeScreenY, pointerX, pointerY);
 		if (direction) {
 			game.setMovementCommand(direction);

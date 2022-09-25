@@ -18,12 +18,6 @@
 	export const autoAspectRatio = writable(false);
 	export const aspectRatio = writable(1.0);
 
-	const updateRendererDimensions = (width: number, height: number) => {
-		// TODO think this is a cyclic dependency, fails if extracted
-		$rendererWidth = width;
-		$rendererHeight = height;
-	};
-
 	let height: number;
 	$: height = rect?.height ?? 0;
 
@@ -73,7 +67,8 @@
 	}
 
 	$: if ($autoScaleRenderer) {
-		updateRendererDimensions(worldWidth, worldHeight);
+		$rendererWidth = worldWidth;
+		$rendererHeight = worldHeight;
 	}
 
 	// Move `--bg_y` to the screen center of the renderer,

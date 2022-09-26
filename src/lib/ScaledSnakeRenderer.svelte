@@ -12,7 +12,6 @@
 
 	// Exported for optional binding.
 	export let rect: DOMRect | undefined = undefined;
-	export const autoScaleRenderer = writable(true);
 	export const rendererWidth = writable(0);
 	export const rendererHeight = writable(0);
 	export const autoAspectRatio = writable(false);
@@ -24,11 +23,6 @@
 	const dimensions = getDimensions();
 	$: availableWidth = Math.max(0, $dimensions.width - marginX);
 	$: availableHeight = Math.max(0, $dimensions.height - marginTop - marginBottom);
-	// TODO support more than a scaled square
-	$: rawScreenWidth = Math.min(availableWidth, $rendererWidth);
-	$: rawScreenHeight = Math.min(availableHeight, $rendererHeight);
-	$: rawWorldWidth = Math.max(0, $autoScaleRenderer ? availableWidth : $rendererWidth);
-	$: rawWorldHeight = Math.max(0, $autoScaleRenderer ? availableHeight : $rendererHeight);
 
 	// TODO can these be computed separately, or do we need to do a single combined calculation?
 	const scaleToAspectRatio = (
@@ -53,20 +47,20 @@
 	let worldHeight: number;
 	$: finalAspectRatio = $autoAspectRatio ? null : $aspectRatio;
 	$: if (finalAspectRatio === null) {
-		screenWidth = rawScreenWidth;
-		screenHeight = rawScreenHeight;
-		worldWidth = rawWorldWidth;
-		worldHeight = rawWorldHeight;
+		screenWidth = availableWidth;
+		screenHeight = availableHeight;
+		worldWidth = availableWidth;
+		worldHeight = availableHeight;
 	} else {
-		const scaledScreen = scaleToAspectRatio(rawScreenWidth, rawScreenHeight, finalAspectRatio);
+		const scaledScreen = scaleToAspectRatio(availableWidth, availableHeight, finalAspectRatio);
 		screenWidth = scaledScreen.width;
 		screenHeight = scaledScreen.height;
-		const scaledWorld = scaleToAspectRatio(rawWorldWidth, rawWorldHeight, finalAspectRatio);
+		const scaledWorld = scaleToAspectRatio(availableWidth, availableHeight, finalAspectRatio);
 		worldWidth = scaledWorld.width;
 		worldHeight = scaledWorld.height;
 	}
 
-	$: if ($autoScaleRenderer) {
+	$: {
 		$rendererWidth = worldWidth;
 		$rendererHeight = worldHeight;
 	}

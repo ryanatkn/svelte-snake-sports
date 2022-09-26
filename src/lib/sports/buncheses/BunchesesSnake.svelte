@@ -86,9 +86,6 @@
 	export const tickDurationMax = writable(2000);
 
 	let rendererRect: DOMRect | undefined;
-	let autoScaleRenderer: Writable<boolean> | undefined;
-	let rendererWidth: Writable<number> | undefined;
-	let rendererHeight: Writable<number> | undefined;
 	let autoAspectRatio: Writable<boolean> | undefined;
 	let aspectRatio: Writable<number> | undefined;
 
@@ -204,9 +201,6 @@
 		<Gamespace bind:pointerDown bind:pointerX bind:pointerY>
 			<ScaledSnakeRenderer
 				bind:rect={rendererRect}
-				bind:autoScaleRenderer
-				bind:rendererWidth
-				bind:rendererHeight
 				bind:autoAspectRatio
 				bind:aspectRatio
 				let:worldWidth
@@ -233,7 +227,7 @@
 				{/if}
 			</svelte:fragment>
 		</Gamespace>
-		{#if autoScaleRenderer && rendererWidth && rendererHeight && autoAspectRatio && aspectRatio}
+		{#if autoAspectRatio && aspectRatio}
 			<div class="info">
 				<div class="scores">
 					<Score
@@ -268,9 +262,6 @@
 							{tickDurationMin}
 							{tickDurationMax}
 							{tickDurationDecay}
-							{autoScaleRenderer}
-							{rendererWidth}
-							{rendererHeight}
 							{autoAspectRatio}
 							{aspectRatio}
 						/>

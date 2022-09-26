@@ -5,6 +5,7 @@
 	export let screenHeight: number;
 	export let worldWidth: number;
 	export let worldHeight: number;
+	// TODO BLOCK this needs to measure relative to the top of the page, not viewport
 	export let rect = new DOMRect(0, 0, 0, 0); // exposed for binding
 
 	$: xScale = Math.min(1, screenWidth / worldWidth);

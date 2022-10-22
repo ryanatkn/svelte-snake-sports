@@ -18,7 +18,7 @@
 	import TextBurst from '$lib/TextBurst.svelte';
 	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
 	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
-	import {SSSPEED_HIGH_SCORE_KEY} from '$lib/storage';
+	import {TRAILSSS_HIGH_SCORE_KEY} from '$lib/storage';
 	import {setCurrentTickDuration, type ISnakeGame} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
 
@@ -72,7 +72,7 @@
 	$: if ($status === 'playing') currentTime += $clock.dt;
 
 	const bestTime = writable<number | null>(
-		(browser && Number(localStorage.getItem(SSSPEED_HIGH_SCORE_KEY))) || null,
+		(browser && Number(localStorage.getItem(TRAILSSS_HIGH_SCORE_KEY))) || null,
 	);
 
 	const tick = (): boolean => {
@@ -107,7 +107,7 @@
 			// don't set the high score immediately like this, wait til it's over
 			if (!$bestTime || currentTime < $bestTime) {
 				$bestTime = Math.round(currentTime);
-				if (browser) localStorage.setItem(SSSPEED_HIGH_SCORE_KEY, $bestTime + ''); // TODO use helper on store instead
+				if (browser) localStorage.setItem(TRAILSSS_HIGH_SCORE_KEY, $bestTime + ''); // TODO use helper on store instead
 			}
 		}
 

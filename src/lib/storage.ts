@@ -1,17 +1,17 @@
 import {browser} from '$app/environment';
 
-// TODO BLOCK make this extensible
-export const CLASSSIC_HIGH_SCORE_KEY = 'classsic_high_score';
-export const SSSPEED_HIGH_SCORE_KEY = 'ssspeed_high_score';
-export const BUNCHESES_HIGH_SCORE_KEY = 'buncheses_high_score';
-export const TRAILSSS_HIGH_SCORE_KEY = 'trailsss_high_score';
+const storageKeys = new Set<string>();
+
+export const registerStorageKey = <T extends string>(key: T): T => {
+	storageKeys.add(key);
+	return key;
+};
 
 export const clearLocalStorage = (): void => {
 	if (!browser) return;
-	localStorage.removeItem(CLASSSIC_HIGH_SCORE_KEY);
-	localStorage.removeItem(SSSPEED_HIGH_SCORE_KEY);
-	localStorage.removeItem(BUNCHESES_HIGH_SCORE_KEY);
-	localStorage.removeItem(TRAILSSS_HIGH_SCORE_KEY);
+	for (const key of storageKeys) {
+		localStorage.removeItem(key);
+	}
 	window.location = window.location;
 };
 

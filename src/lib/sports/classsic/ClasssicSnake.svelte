@@ -21,9 +21,11 @@
 	import TextBurst from '$lib/TextBurst.svelte';
 	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
 	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
-	import {CLASSSIC_HIGH_SCORE_KEY} from '$lib/storage';
+	import {registerStorageKey} from '$lib/storage';
 	import {setCurrentTickDuration} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
+
+	const CLASSSIC_HIGH_SCORE_KEY = registerStorageKey('classsic_high_score');
 
 	export let game: SnakeGame | undefined = undefined;
 	export let audio: GameAudio | undefined = undefined;

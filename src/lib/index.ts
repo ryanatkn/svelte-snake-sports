@@ -1,4 +1,5 @@
 export * from '$lib/clock';
+export * from '$lib/storage';
 export * from '$lib/SnakeGameState';
 export * from '$lib/updateSnakeGameState';
 export * from '$lib/SnakeGame';

@@ -18,9 +18,12 @@
 	import TextBurst from '$lib/TextBurst.svelte';
 	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
 	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
-	import {SSSPEED_HIGH_SCORE_KEY} from '$lib/storage';
+	import {registerStorageKey} from '$lib/storage';
 	import {setCurrentTickDuration} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
+
+	// TODO BLOCK does this need to be in the module context? does that ensure it runs?
+	const SSSPEED_HIGH_SCORE_KEY = registerStorageKey('ssspeed_high_score');
 
 	const clock = setClock(createClock({running: browser}));
 

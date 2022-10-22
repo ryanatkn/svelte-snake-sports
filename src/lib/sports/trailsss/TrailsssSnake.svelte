@@ -18,9 +18,11 @@
 	import TextBurst from '$lib/TextBurst.svelte';
 	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
 	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
-	import {TRAILSSS_HIGH_SCORE_KEY} from '$lib/storage';
+	import {registerStorageKey} from '$lib/storage';
 	import {setCurrentTickDuration, type ISnakeGame} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
+
+	const TRAILSSS_HIGH_SCORE_KEY = registerStorageKey('trailsss_high_score');
 
 	const clock = setClock(createClock({running: browser}));
 

@@ -27,9 +27,11 @@
 	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
 	import {Entity} from '$lib/Entity';
 	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
-	import {BUNCHESES_HIGH_SCORE_KEY} from '$lib/storage';
+	import {registerStorageKey} from '$lib/storage';
 	import {setCurrentTickDuration} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
+
+	const BUNCHESES_HIGH_SCORE_KEY = registerStorageKey('buncheses_high_score');
 
 	export let game: SnakeGame | undefined = undefined;
 	export let audio: GameAudio | undefined = undefined;

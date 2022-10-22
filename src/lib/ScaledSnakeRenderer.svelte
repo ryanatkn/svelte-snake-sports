@@ -11,14 +11,10 @@
 	// TODO default?
 
 	// Exported for optional binding.
-	export let rect: DOMRect | undefined = undefined;
 	export const rendererWidth = writable(0);
 	export const rendererHeight = writable(0);
 	export const autoAspectRatio = writable(false);
 	export const aspectRatio = writable(1.0);
-
-	let height: number;
-	$: height = rect?.height ?? 0;
 
 	const dimensions = getDimensions();
 	$: availableWidth = Math.max(0, $dimensions.width - marginX);
@@ -67,10 +63,10 @@
 
 	// Move `--bg_y` to the screen center of the renderer,
 	// so the vingette surrounds the game viewport.
-	$: bg_y = marginTop + height / 2;
+	$: bg_y = marginTop + screenHeight / 2;
 	$: if (browser) document.body.style.setProperty('--bg_y', bg_y + 'px');
 </script>
 
-<ScaledWorld {screenWidth} {screenHeight} {worldWidth} {worldHeight} bind:rect>
+<ScaledWorld {screenWidth} {screenHeight} {worldWidth} {worldHeight}>
 	<slot {worldWidth} {worldHeight} />
 </ScaledWorld>

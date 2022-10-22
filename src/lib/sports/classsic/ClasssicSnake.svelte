@@ -36,12 +36,8 @@
 	export let pointerY: number | undefined = undefined;
 	let snakeX: number;
 	let snakeY: number;
-	$: rendererRectLeft = rendererRect?.left || 0;
-	$: rendererRectTop = rendererRect?.top || 0;
-	$: snakeScreenX = snakeX + rendererRectLeft;
-	$: snakeScreenY = snakeY + rendererRectTop;
 	$: if (game && pointerDown && pointerX !== undefined && pointerY !== undefined) {
-		game.handlePointerInput(snakeScreenX, snakeScreenY, pointerX, pointerY);
+		game.handlePointerInput(snakeX, snakeY, pointerX, pointerY);
 	}
 
 	const clock = setClock(createClock({running: browser}));
@@ -76,7 +72,6 @@
 	export const tickDurationMin = writable(17);
 	export const tickDurationMax = writable(2000);
 
-	let rendererRect: DOMRect | undefined;
 	let autoAspectRatio: Writable<boolean> | undefined;
 	let aspectRatio: Writable<number> | undefined;
 
@@ -142,13 +137,7 @@
 	/>
 	{#if game}
 		<Gamespace bind:pointerDown bind:pointerX bind:pointerY>
-			<ScaledSnakeRenderer
-				bind:rect={rendererRect}
-				bind:autoAspectRatio
-				bind:aspectRatio
-				let:worldWidth
-				let:worldHeight
-			>
+			<ScaledSnakeRenderer bind:autoAspectRatio bind:aspectRatio let:worldWidth let:worldHeight>
 				<DomRenderer {game} width={worldWidth} height={worldHeight} bind:snakeX bind:snakeY />
 			</ScaledSnakeRenderer>
 			<svelte:fragment slot="overlay">

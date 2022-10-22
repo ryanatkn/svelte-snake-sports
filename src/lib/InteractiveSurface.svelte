@@ -7,33 +7,33 @@
 	export let setPointerDown: (down: boolean) => void;
 	export let setPointerPosition: (x: number, y: number) => void;
 
-	const updatePointer = (e: {clientX: number; clientY: number}) => {
-		setPointerPosition(e.clientX, e.clientY);
+	const updatePointer = (offsetX: number, offsetY: number) => {
+		setPointerPosition(offsetX, offsetY);
 	};
 
 	const onMousedown = (e: MouseEvent) => {
 		if (e.button >= 3) return; // TODO how else to avoid breaking mouse back button on Chrome? doesn't happen on Firefox
 		swallow(e);
-		updatePointer(e);
+		updatePointer(e.offsetX, e.offsetY);
 		setPointerDown(true);
 	};
 	const onMouseup = (e: MouseEvent) => {
 		if (e.button >= 3) return; // TODO how else to avoid breaking mouse back button on Chrome? doesn't happen on Firefox
 		swallow(e);
-		updatePointer(e);
+		updatePointer(e.offsetX, e.offsetY);
 		setPointerDown(false);
 	};
 	const onMousemove = (e: MouseEvent) => {
 		swallow(e);
-		updatePointer(e);
+		updatePointer(e.offsetX, e.offsetY);
 	};
 	const onMouseenter = (e: MouseEvent) => {
 		swallow(e);
-		updatePointer(e);
+		updatePointer(e.offsetX, e.offsetY);
 	};
 	const onMouseleave = (e: MouseEvent) => {
 		swallow(e);
-		updatePointer(e);
+		updatePointer(e.offsetX, e.offsetY);
 		setPointerDown(false);
 	};
 
@@ -44,25 +44,29 @@
 	const onTouchstart = (e: TouchEvent) => {
 		swallow(e);
 		touch = true;
-		updatePointer(e.changedTouches[0]);
+		const rect = (e.target as HTMLElement).getBoundingClientRect();
+		updatePointer(e.changedTouches[0].pageX - rect.left, e.changedTouches[0].pageY - rect.top);
 		setPointerDown(true);
 	};
 	const onTouchend = (e: TouchEvent) => {
 		swallow(e);
 		touch = true;
-		updatePointer(e.changedTouches[0]);
+		const rect = (e.target as HTMLElement).getBoundingClientRect();
+		updatePointer(e.changedTouches[0].pageX - rect.left, e.changedTouches[0].pageY - rect.top);
 		setPointerDown(false);
 	};
 	const onTouchcancel = (e: TouchEvent) => {
 		swallow(e);
 		touch = true;
-		updatePointer(e.changedTouches[0]);
+		const rect = (e.target as HTMLElement).getBoundingClientRect();
+		updatePointer(e.changedTouches[0].pageX - rect.left, e.changedTouches[0].pageY - rect.top);
 		setPointerDown(false);
 	};
 	const onTouchmove = (e: TouchEvent) => {
 		swallow(e);
 		touch = true;
-		updatePointer(e.changedTouches[0]);
+		const rect = (e.target as HTMLElement).getBoundingClientRect();
+		updatePointer(e.changedTouches[0].pageX - rect.left, e.changedTouches[0].pageY - rect.top);
 	};
 
 	const onContextmenu = (e: MouseEvent) => {

@@ -33,13 +33,9 @@
 	export let pointerY: number | undefined = undefined;
 	let snakeX: number;
 	let snakeY: number;
-	$: rendererRectLeft = rendererRect?.left || 0;
-	$: rendererRectTop = rendererRect?.top || 0;
-	$: snakeScreenX = snakeX + rendererRectLeft;
-	$: snakeScreenY = snakeY + rendererRectTop;
 	$: if (game && pointerDown && pointerX !== undefined && pointerY !== undefined) {
 		if (applesEaten === 0) game.start(); // TODO hacky
-		game.handlePointerInput(snakeScreenX, snakeScreenY, pointerX, pointerY);
+		game.handlePointerInput(snakeX, snakeY, pointerX, pointerY);
 	}
 
 	let showSettings = false;
@@ -58,7 +54,6 @@
 	export const tickDurationMin = writable(17);
 	export const tickDurationMax = writable(2000);
 
-	let rendererRect: DOMRect | undefined;
 	let rendererWidth: Writable<number> | undefined;
 	let autoAspectRatio: Writable<boolean> | undefined;
 	let aspectRatio: Writable<number> | undefined;
@@ -143,7 +138,6 @@
 			<!-- TODO `marginBottom={100}` is hardcoding the scores height -->
 			<ScaledSnakeRenderer
 				marginBottom={100}
-				bind:rect={rendererRect}
 				bind:rendererWidth
 				bind:autoAspectRatio
 				bind:aspectRatio

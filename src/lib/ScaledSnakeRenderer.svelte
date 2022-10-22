@@ -1,44 +1,36 @@
 <script lang="ts">
 	import {browser} from '$app/environment';
+	import {writable} from 'svelte/store';
 
 	import ScaledWorld from '$lib/ScaledWorld.svelte';
 	import {getDimensions} from '$lib/Dimensions.svelte';
 
-	export let autoScaleRenderer: boolean;
-	export let rendererWidth: number;
-	export let rendererHeight: number;
-	export let updateRendererDimensions: (width: number, height: number) => void;
-	export let autoAspectRatio: boolean;
-	export let aspectRatio: number;
 	export let marginX = 32;
 	export let marginTop = 400; // TODO the 400 is the height of the `TitleImage`
 	export let marginBottom = 83; // TODO the 83 is the height of the `.scores` minus the paddingY
 	// TODO default?
-	export let rect: DOMRect | undefined = undefined; // exposed for binding
 
-	let height: number;
-	$: height = rect?.height ?? 0;
+	// Exported for optional binding.
+	export const rendererWidth = writable(0);
+	export const rendererHeight = writable(0);
+	export const autoAspectRatio = writable(false);
+	export const aspectRatio = writable(1.0);
 
 	const dimensions = getDimensions();
 	$: availableWidth = Math.max(0, $dimensions.width - marginX);
 	$: availableHeight = Math.max(0, $dimensions.height - marginTop - marginBottom);
-	// TODO support more than a scaled square
-	$: rawScreenWidth = Math.min(availableWidth, rendererWidth);
-	$: rawScreenHeight = Math.min(availableHeight, rendererHeight);
-	$: rawWorldWidth = Math.max(0, autoScaleRenderer ? availableWidth : rendererWidth);
-	$: rawWorldHeight = Math.max(0, autoScaleRenderer ? availableHeight : rendererHeight);
 
 	// TODO can these be computed separately, or do we need to do a single combined calculation?
 	const scaleToAspectRatio = (
 		width: number,
 		height: number,
-		aspectRatio: number,
+		newAspectRatio: number,
 	): {width: number; height: number} => {
 		const currentRatio = width / height;
-		if (currentRatio > aspectRatio) {
-			return {width: width * (aspectRatio / currentRatio), height};
-		} else if (currentRatio < aspectRatio) {
-			return {width, height: height * (currentRatio / aspectRatio)};
+		if (currentRatio > newAspectRatio) {
+			return {width: width * (newAspectRatio / currentRatio), height};
+		} else if (currentRatio < newAspectRatio) {
+			return {width, height: height * (currentRatio / newAspectRatio)};
 		} else {
 			return {width, height};
 		}
@@ -49,31 +41,32 @@
 	let screenHeight: number;
 	let worldWidth: number;
 	let worldHeight: number;
-	$: finalAspectRatio = autoAspectRatio ? null : aspectRatio;
+	$: finalAspectRatio = $autoAspectRatio ? null : $aspectRatio;
 	$: if (finalAspectRatio === null) {
-		screenWidth = rawScreenWidth;
-		screenHeight = rawScreenHeight;
-		worldWidth = rawWorldWidth;
-		worldHeight = rawWorldHeight;
+		screenWidth = availableWidth;
+		screenHeight = availableHeight;
+		worldWidth = availableWidth;
+		worldHeight = availableHeight;
 	} else {
-		const scaledScreen = scaleToAspectRatio(rawScreenWidth, rawScreenHeight, finalAspectRatio);
+		const scaledScreen = scaleToAspectRatio(availableWidth, availableHeight, finalAspectRatio);
 		screenWidth = scaledScreen.width;
 		screenHeight = scaledScreen.height;
-		const scaledWorld = scaleToAspectRatio(rawWorldWidth, rawWorldHeight, finalAspectRatio);
+		const scaledWorld = scaleToAspectRatio(availableWidth, availableHeight, finalAspectRatio);
 		worldWidth = scaledWorld.width;
 		worldHeight = scaledWorld.height;
 	}
 
-	$: if (autoScaleRenderer) {
-		updateRendererDimensions(worldWidth, worldHeight);
+	$: {
+		$rendererWidth = worldWidth;
+		$rendererHeight = worldHeight;
 	}
 
 	// Move `--bg_y` to the screen center of the renderer,
 	// so the vingette surrounds the game viewport.
-	$: bg_y = marginTop + height / 2;
+	$: bg_y = marginTop + screenHeight / 2;
 	$: if (browser) document.body.style.setProperty('--bg_y', bg_y + 'px');
 </script>
 
-<ScaledWorld {screenWidth} {screenHeight} {worldWidth} {worldHeight} bind:rect>
+<ScaledWorld {screenWidth} {screenHeight} {worldWidth} {worldHeight}>
 	<slot {worldWidth} {worldHeight} />
 </ScaledWorld>

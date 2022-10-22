@@ -1,11 +1,8 @@
 <script lang="ts">
-	import {measure} from '$lib/measure';
-
 	export let screenWidth: number;
 	export let screenHeight: number;
 	export let worldWidth: number;
 	export let worldHeight: number;
-	export let rect = new DOMRect(0, 0, 0, 0); // exposed for binding
 
 	$: xScale = Math.min(1, screenWidth / worldWidth);
 	$: yScale = Math.min(1, screenHeight / worldHeight);
@@ -17,7 +14,6 @@
 </script>
 
 <div
-	use:measure={(r) => (rect = r)}
 	class="scaled-world"
 	style:--screen_width={screenWidth}
 	style:--screen_height={screenHeight}

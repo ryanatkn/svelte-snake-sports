@@ -1,6 +1,6 @@
 <script lang="ts">
 	import {browser} from '$app/environment';
-	import {writable} from 'svelte/store';
+	import {writable, type Writable} from 'svelte/store';
 
 	import SnakeGame from '$lib/SnakeGame.svelte';
 	import Gamespace from '$lib/Gamespace.svelte';
@@ -19,7 +19,7 @@
 	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
 	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
 	import {SSSPEED_HIGH_SCORE_KEY} from '$lib/storage';
-	import {setCurrentTickDuration, setRendererWidth, setRendererHeight} from '$lib/SnakeGame';
+	import {setCurrentTickDuration} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
 
 	const clock = setClock(createClock({running: browser}));
@@ -28,19 +28,14 @@
 	export let audio: GameAudio | undefined = undefined;
 
 	// TODO refactor all of this, lots of copypaste
-	export let rendererRect: DOMRect | undefined = undefined; // exposed for binding
 	export let pointerDown = false;
 	export let pointerX: number | undefined = undefined;
 	export let pointerY: number | undefined = undefined;
 	let snakeX: number;
 	let snakeY: number;
-	$: rendererRectLeft = rendererRect?.left || 0;
-	$: rendererRectTop = rendererRect?.top || 0;
-	$: snakeScreenX = snakeX + rendererRectLeft;
-	$: snakeScreenY = snakeY + rendererRectTop;
 	$: if (game && pointerDown && pointerX !== undefined && pointerY !== undefined) {
 		if (applesEaten === 0) game.start(); // TODO hacky
-		game.handlePointerInput(snakeScreenX, snakeScreenY, pointerX, pointerY);
+		game.handlePointerInput(snakeX, snakeY, pointerX, pointerY);
 	}
 
 	let showSettings = false;
@@ -58,12 +53,10 @@
 	export const tickDurationDecay = writable(0.5);
 	export const tickDurationMin = writable(17);
 	export const tickDurationMax = writable(2000);
-	// TODO belongs elsewhere
-	export const autoScaleRenderer = writable(true);
-	export const rendererWidth = setRendererWidth(writable(0));
-	export const rendererHeight = setRendererHeight(writable(0));
-	export const autoAspectRatio = writable(false);
-	export const aspectRatio = writable(1.0);
+
+	let rendererWidth: Writable<number> | undefined;
+	let autoAspectRatio: Writable<boolean> | undefined;
+	let aspectRatio: Writable<number> | undefined;
 
 	let applesEaten = 0;
 	let applesEatenSinceCollision = 0;
@@ -144,17 +137,10 @@
 		<Gamespace bind:pointerDown bind:pointerX bind:pointerY>
 			<!-- TODO `marginBottom={100}` is hardcoding the scores height -->
 			<ScaledSnakeRenderer
-				autoScaleRenderer={$autoScaleRenderer}
-				rendererWidth={$rendererWidth}
-				rendererHeight={$rendererHeight}
-				autoAspectRatio={$autoAspectRatio}
-				aspectRatio={$aspectRatio}
 				marginBottom={100}
-				updateRendererDimensions={(width, height) => {
-					$rendererWidth = width;
-					$rendererHeight = height;
-				}}
-				bind:rect={rendererRect}
+				bind:rendererWidth
+				bind:autoAspectRatio
+				bind:aspectRatio
 				let:worldWidth
 				let:worldHeight
 			>
@@ -177,41 +163,46 @@
 				{/if}
 			</svelte:fragment>
 		</Gamespace>
-		<div class="info">
-			<Ticker {clock} tickDuration={currentTickDuration} {tick} />
-			<TimedScores {applesEaten} applesToWin={APPLES_EATEN_TO_WIN} {currentTime} {bestTime} />
-			<StageControls {clock} {tick} {game} />
-			<section class="panel" style:padding="var(--spacing_xl)">
-				<ControlsInstructions />
-			</section>
-			<section class="centered markup">
-				<p>
-					<a href="https://www.serpentsoundstudios.com/">Alexander Nakarada</a> -
-					<a href="/assets/Alexander_Nakarada__Lurking_Sloth.mp3">Lurking Sloth</a>
-				</p>
-				<GameAudio song="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" bind:this={audio} />
-			</section>
-			<section class="centered">
-				<button on:click={() => (showSettings = !showSettings)}
-					>{#if showSettings}stash settings{:else}show settings{/if}</button
-				>
-				{#if showSettings}
-					<Stats {game} tickDuration={currentTickDuration} />
-					<Settings
-						{game}
-						{baseTickDuration}
-						{tickDurationMin}
-						{tickDurationMax}
-						{tickDurationDecay}
-						{autoScaleRenderer}
-						{rendererWidth}
-						{rendererHeight}
-						{autoAspectRatio}
-						{aspectRatio}
-					/>
-				{/if}
-			</section>
-		</div>
+		{#if rendererWidth && autoAspectRatio && aspectRatio}
+			<div class="info">
+				<Ticker {clock} tickDuration={currentTickDuration} {tick} />
+				<TimedScores
+					{applesEaten}
+					applesToWin={APPLES_EATEN_TO_WIN}
+					{currentTime}
+					{bestTime}
+					{rendererWidth}
+				/>
+				<StageControls {clock} {tick} {game} />
+				<section class="panel" style:padding="var(--spacing_xl)">
+					<ControlsInstructions />
+				</section>
+				<section class="centered markup">
+					<p>
+						<a href="https://www.serpentsoundstudios.com/">Alexander Nakarada</a> -
+						<a href="/assets/Alexander_Nakarada__Lurking_Sloth.mp3">Lurking Sloth</a>
+					</p>
+					<GameAudio song="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" bind:this={audio} />
+				</section>
+				<section class="centered">
+					<button on:click={() => (showSettings = !showSettings)}
+						>{#if showSettings}stash settings{:else}show settings{/if}</button
+					>
+					{#if showSettings}
+						<Stats {game} tickDuration={currentTickDuration} />
+						<Settings
+							{game}
+							{baseTickDuration}
+							{tickDurationMin}
+							{tickDurationMax}
+							{tickDurationDecay}
+							{autoAspectRatio}
+							{aspectRatio}
+						/>
+					{/if}
+				</section>
+			</div>
+		{/if}
 	{/if}
 </div>
 

@@ -54,13 +54,3 @@ export const setCurrentTickDuration = (d: Writable<number>): Writable<number> =>
 // Handles the `undefined` case. Assert! if the API requires it.
 export const getCurrentTickDuration = (): Writable<number> | undefined =>
 	getContext(CURRENT_TICK_DURATION_KEY);
-
-// TODO maybe these belong elsewhere? or remove them altogether?
-export const RENDERER_WIDTH_KEY = Symbol('rendererWidth');
-export const setRendererWidth = (r: Writable<number>): Writable<number> =>
-	setContext(RENDERER_WIDTH_KEY, r);
-export const getRendererWidth = (): Writable<number> => getContext(RENDERER_WIDTH_KEY);
-export const RENDERER_HEIGHT_KEY = Symbol('rendererHeight');
-export const setRendererHeight = (r: Writable<number>): Writable<number> =>
-	setContext(RENDERER_HEIGHT_KEY, r);
-export const getRendererHeight = (): Writable<number> => getContext(RENDERER_HEIGHT_KEY);

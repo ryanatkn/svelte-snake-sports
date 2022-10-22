@@ -3,7 +3,7 @@
 	// https://ryanatkn.github.io/snake-game
 	// See `$lib/sports/simple/SimpleSnake.svelte` for the same thing but simplified.
 	import {browser} from '$app/environment';
-	import {writable} from 'svelte/store';
+	import {writable, type Writable} from 'svelte/store';
 
 	import SnakeGame from '$lib/SnakeGame.svelte';
 	import Gamespace from '$lib/Gamespace.svelte';
@@ -28,26 +28,22 @@
 	import {Entity} from '$lib/Entity';
 	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
 	import {BUNCHESES_HIGH_SCORE_KEY} from '$lib/storage';
-	import {setCurrentTickDuration, setRendererWidth, setRendererHeight} from '$lib/SnakeGame';
+	import {setCurrentTickDuration} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
 
 	export let game: SnakeGame | undefined = undefined;
 	export let audio: GameAudio | undefined = undefined;
 
 	// TODO refactor all of this, lots of copypaste
-	export let rendererRect: DOMRect | undefined = undefined; // exposed for binding
+
 	export let pointerDown = false;
 	export let pointerX: number | undefined = undefined;
 	export let pointerY: number | undefined = undefined;
 
 	let snakeX: number;
 	let snakeY: number;
-	$: rendererRectLeft = rendererRect?.left || 0;
-	$: rendererRectTop = rendererRect?.top || 0;
-	$: snakeScreenX = snakeX + rendererRectLeft;
-	$: snakeScreenY = snakeY + rendererRectTop;
 	$: if (game && pointerDown && pointerX !== undefined && pointerY !== undefined) {
-		game.handlePointerInput(snakeScreenX, snakeScreenY, pointerX, pointerY);
+		game.handlePointerInput(snakeX, snakeY, pointerX, pointerY);
 	}
 
 	const clock = setClock(createClock({running: browser}));
@@ -84,12 +80,9 @@
 	export const currentTickDuration = setCurrentTickDuration(writable($baseTickDuration));
 	export const tickDurationMin = writable(17);
 	export const tickDurationMax = writable(2000);
-	// TODO belongs elsewhere
-	export const autoScaleRenderer = writable(true);
-	export const rendererWidth = setRendererWidth(writable(0));
-	export const rendererHeight = setRendererHeight(writable(0));
-	export const autoAspectRatio = writable(false);
-	export const aspectRatio = writable(1.0);
+
+	let autoAspectRatio: Writable<boolean> | undefined;
+	let aspectRatio: Writable<number> | undefined;
 
 	// TODO is there a better place to do this? imperatively after updating the state?
 	$: if (bunchesEaten > $highestClustersEaten) {
@@ -201,20 +194,7 @@
 	/>
 	{#if game}
 		<Gamespace bind:pointerDown bind:pointerX bind:pointerY>
-			<ScaledSnakeRenderer
-				autoScaleRenderer={$autoScaleRenderer}
-				rendererWidth={$rendererWidth}
-				rendererHeight={$rendererHeight}
-				autoAspectRatio={$autoAspectRatio}
-				aspectRatio={$aspectRatio}
-				updateRendererDimensions={(width, height) => {
-					$rendererWidth = width;
-					$rendererHeight = height;
-				}}
-				bind:rect={rendererRect}
-				let:worldWidth
-				let:worldHeight
-			>
+			<ScaledSnakeRenderer bind:autoAspectRatio bind:aspectRatio let:worldWidth let:worldHeight>
 				<DomRenderer {game} width={worldWidth} height={worldHeight} bind:snakeX bind:snakeY />
 			</ScaledSnakeRenderer>
 			<svelte:fragment slot="overlay">
@@ -236,49 +216,48 @@
 				{/if}
 			</svelte:fragment>
 		</Gamespace>
-		<div class="info">
-			<div class="scores">
-				<Score
-					title="apples eaten this try"
-					progressKey={bunchesEaten === 0 ? undefined : bunchesEaten}>{bunchesEaten}</Score
-				>
-				{#if $highestClustersEaten !== bunchesEaten}
-					<Score title="the most apples you've ever eaten">{$highestClustersEaten}</Score>
-				{/if}
+		{#if autoAspectRatio && aspectRatio}
+			<div class="info">
+				<div class="scores">
+					<Score
+						title="apples eaten this try"
+						progressKey={bunchesEaten === 0 ? undefined : bunchesEaten}>{bunchesEaten}</Score
+					>
+					{#if $highestClustersEaten !== bunchesEaten}
+						<Score title="the most apples you've ever eaten">{$highestClustersEaten}</Score>
+					{/if}
+				</div>
+				<Ticker {clock} tickDuration={currentTickDuration} {tick} />
+				<StageControls {clock} {tick} {game} />
+				<section class="panel" style:padding="var(--spacing_xl)">
+					<ControlsInstructions />
+				</section>
+				<section class="centered markup">
+					<p>
+						<a href="https://www.serpentsoundstudios.com/">Alexander Nakarada</a> -
+						<a href="/assets/Alexander_Nakarada__Lurking_Sloth.mp3">Lurking Sloth</a>
+					</p>
+					<GameAudio song="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" bind:this={audio} />
+				</section>
+				<section class="centered">
+					<button on:click={() => (showSettings = !showSettings)}
+						>{#if showSettings}stash settings{:else}show settings{/if}</button
+					>
+					{#if showSettings}
+						<Stats {game} tickDuration={currentTickDuration} />
+						<Settings
+							{game}
+							{baseTickDuration}
+							{tickDurationMin}
+							{tickDurationMax}
+							{tickDurationDecay}
+							{autoAspectRatio}
+							{aspectRatio}
+						/>
+					{/if}
+				</section>
 			</div>
-			<Ticker {clock} tickDuration={currentTickDuration} {tick} />
-			<StageControls {clock} {tick} {game} />
-			<section class="panel" style:padding="var(--spacing_xl)">
-				<ControlsInstructions />
-			</section>
-			<section class="centered markup">
-				<p>
-					<a href="https://www.serpentsoundstudios.com/">Alexander Nakarada</a> -
-					<a href="/assets/Alexander_Nakarada__Lurking_Sloth.mp3">Lurking Sloth</a>
-				</p>
-				<GameAudio song="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" bind:this={audio} />
-			</section>
-			<section class="centered">
-				<button on:click={() => (showSettings = !showSettings)}
-					>{#if showSettings}stash settings{:else}show settings{/if}</button
-				>
-				{#if showSettings}
-					<Stats {game} tickDuration={currentTickDuration} />
-					<Settings
-						{game}
-						{baseTickDuration}
-						{tickDurationMin}
-						{tickDurationMax}
-						{tickDurationDecay}
-						{autoScaleRenderer}
-						{rendererWidth}
-						{rendererHeight}
-						{autoAspectRatio}
-						{aspectRatio}
-					/>
-				{/if}
-			</section>
-		</div>
+		{/if}
 	{/if}
 </div>
 

@@ -2,7 +2,6 @@
 	// This version is a port of the original React project:
 	// https://ryanatkn.github.io/snake-game
 	// See `$lib/sports/simple/SimpleSnake.svelte` for the same thing but simplified.
-	import {browser} from '$app/environment';
 	import {writable, type Writable} from 'svelte/store';
 
 	import SnakeGame from '$lib/SnakeGame.svelte';
@@ -41,7 +40,7 @@
 		game.handlePointerInput(snakeX, snakeY, pointerX, pointerY);
 	}
 
-	const clock = setClock(createClock({running: browser}));
+	const clock = setClock(createClock({running: true}));
 
 	let showSettings = false;
 
@@ -55,9 +54,7 @@
 	$: if ($status === 'ready') $status = 'playing';
 
 	let applesEaten = 0;
-	const highestApplesEaten = writable<number>(
-		(browser && Number(localStorage.getItem(storageKey))) || 0,
-	);
+	const highestApplesEaten = writable<number>(Number(localStorage.getItem(storageKey)) || 0);
 
 	const restart = (): void => {
 		if (!game) return;
@@ -79,7 +76,7 @@
 	// TODO is there a better place to do this? imperatively after updating the state?
 	$: if (applesEaten > $highestApplesEaten) {
 		$highestApplesEaten = applesEaten;
-		if (browser) localStorage.setItem(storageKey, applesEaten + ''); // TODO use helper on store instead
+		localStorage.setItem(storageKey, applesEaten + ''); // TODO use helper on store instead
 	}
 
 	const tick = (): boolean => {

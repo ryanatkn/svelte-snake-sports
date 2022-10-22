@@ -1,5 +1,4 @@
 <script lang="ts">
-	import {browser} from '$app/environment';
 	import {writable, type Writable} from 'svelte/store';
 
 	import SnakeGame from '$lib/SnakeGame.svelte';
@@ -23,7 +22,7 @@
 
 	const storageKey = 'ssspeed_high_score';
 
-	const clock = setClock(createClock({running: browser}));
+	const clock = setClock(createClock({running: true}));
 
 	export let game: SnakeGame | undefined = undefined;
 	export let audio: GameAudio | undefined = undefined;
@@ -72,9 +71,7 @@
 	let currentTime = 0;
 	$: if ($status === 'playing') currentTime += $clock.dt;
 
-	const bestTime = writable<number | null>(
-		(browser && Number(localStorage.getItem(storageKey))) || null,
-	);
+	const bestTime = writable<number | null>(Number(localStorage.getItem(storageKey)) || null);
 
 	const tick = (): boolean => {
 		if (!game || !$state || !$events || $status !== 'playing') {
@@ -109,7 +106,7 @@
 			// don't set the high score immediately like this, wait til it's over
 			if (!$bestTime || currentTime < $bestTime) {
 				$bestTime = Math.round(currentTime);
-				if (browser) localStorage.setItem(storageKey, $bestTime + ''); // TODO use helper on store instead
+				localStorage.setItem(storageKey, $bestTime + ''); // TODO use helper on store instead
 			}
 		}
 

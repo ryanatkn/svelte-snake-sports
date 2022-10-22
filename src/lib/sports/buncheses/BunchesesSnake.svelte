@@ -27,11 +27,10 @@
 	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
 	import {Entity} from '$lib/Entity';
 	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
-	import {registerStorageKey} from '$lib/storage';
 	import {setCurrentTickDuration} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
 
-	const BUNCHESES_HIGH_SCORE_KEY = registerStorageKey('buncheses_high_score');
+	const storageKey = 'buncheses_high_score';
 
 	export let game: SnakeGame | undefined = undefined;
 	export let audio: GameAudio | undefined = undefined;
@@ -66,7 +65,7 @@
 	let applesEaten = 0;
 	let bunchesEaten = 0;
 	const highestClustersEaten = writable<number>(
-		(browser && Number(localStorage.getItem(BUNCHESES_HIGH_SCORE_KEY))) || 0,
+		(browser && Number(localStorage.getItem(storageKey))) || 0,
 	);
 
 	const restart = (): void => {
@@ -89,7 +88,7 @@
 	// TODO is there a better place to do this? imperatively after updating the state?
 	$: if (bunchesEaten > $highestClustersEaten) {
 		$highestClustersEaten = bunchesEaten;
-		if (browser) localStorage.setItem(BUNCHESES_HIGH_SCORE_KEY, bunchesEaten + ''); // TODO use helper on store instead
+		if (browser) localStorage.setItem(storageKey, bunchesEaten + ''); // TODO use helper on store instead
 	}
 
 	const tick = (): boolean => {
@@ -154,6 +153,7 @@
 >
 	<SnakeGame
 		bind:this={game}
+		{storageKey}
 		toInitialMovementDirection={() => 'up'}
 		{tick}
 		onReset={() => {

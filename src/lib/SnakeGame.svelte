@@ -8,6 +8,7 @@
 	import {spawnApples as _spawnApples} from '$lib/updateSnakeGameState';
 	import {areOpposites, toDirection, type Direction} from '$lib/direction';
 
+	export let storageKey: string;
 	export let toInitialState: () => SnakeGameState;
 	export let toInitialEvents: () => SnakeGameEvent[] = () => [];
 	export let toInitialMovementDirection: () => Direction | null = () => null;

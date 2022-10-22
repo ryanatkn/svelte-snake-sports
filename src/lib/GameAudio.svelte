@@ -1,6 +1,4 @@
 <script lang="ts">
-	import {base} from '$app/paths';
-
 	import Hotkeys from '$lib/Hotkeys.svelte';
 
 	export let song: string;
@@ -22,7 +20,7 @@
 	export const toggle = (): void => (playing ? pause() : play());
 </script>
 
-<audio src="{base}{song}" controls bind:this={el} />
+<audio src={song} controls bind:this={el} />
 
 <Hotkeys
 	onKeydown={(key, ctrlKey, altKey) => {

@@ -18,7 +18,6 @@
 
 	// this prop gets set by `beginUpdate`, but it's exposed for binding externally
 	export let prevState: SnakeGameState | undefined = undefined;
-	prevState; // TODO eslint borked
 
 	export const state = writable(toInitialState());
 	export const events = writable(toInitialEvents());

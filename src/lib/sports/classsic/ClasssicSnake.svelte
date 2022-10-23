@@ -2,8 +2,8 @@
 	// This version is a port of the original React project:
 	// https://ryanatkn.github.io/snake-game
 	// See `$lib/sports/simple/SimpleSnake.svelte` for the same thing but simplified.
-	import {browser} from '$app/environment';
 	import {writable, type Writable} from 'svelte/store';
+	import {base} from '$app/paths';
 
 	import SnakeGame from '$lib/SnakeGame.svelte';
 	import Gamespace from '$lib/Gamespace.svelte';
@@ -21,9 +21,10 @@
 	import TextBurst from '$lib/TextBurst.svelte';
 	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
 	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
-	import {CLASSSIC_HIGH_SCORE_KEY} from '$lib/storage';
 	import {setCurrentTickDuration} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
+
+	const storageKey = 'classsic_high_score';
 
 	export let game: SnakeGame | undefined = undefined;
 	export let audio: GameAudio | undefined = undefined;
@@ -40,7 +41,7 @@
 		game.handlePointerInput(snakeX, snakeY, pointerX, pointerY);
 	}
 
-	const clock = setClock(createClock({running: browser}));
+	const clock = setClock(createClock({running: true}));
 
 	let showSettings = false;
 
@@ -54,9 +55,7 @@
 	$: if ($status === 'ready') $status = 'playing';
 
 	let applesEaten = 0;
-	const highestApplesEaten = writable<number>(
-		(browser && Number(localStorage.getItem(CLASSSIC_HIGH_SCORE_KEY))) || 0,
-	);
+	const highestApplesEaten = writable<number>(Number(localStorage.getItem(storageKey)) || 0);
 
 	const restart = (): void => {
 		if (!game) return;
@@ -78,7 +77,7 @@
 	// TODO is there a better place to do this? imperatively after updating the state?
 	$: if (applesEaten > $highestApplesEaten) {
 		$highestApplesEaten = applesEaten;
-		if (browser) localStorage.setItem(CLASSSIC_HIGH_SCORE_KEY, applesEaten + ''); // TODO use helper on store instead
+		localStorage.setItem(storageKey, applesEaten + ''); // TODO use helper on store instead
 	}
 
 	const tick = (): boolean => {
@@ -127,6 +126,7 @@
 >
 	<SnakeGame
 		bind:this={game}
+		{storageKey}
 		{toInitialState}
 		toInitialMovementDirection={() => 'up'}
 		{tick}
@@ -173,7 +173,7 @@
 						<a href="https://www.serpentsoundstudios.com/">Alexander Nakarada</a> -
 						<a href="/assets/Alexander_Nakarada__Lurking_Sloth.mp3">Lurking Sloth</a>
 					</p>
-					<GameAudio song="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" bind:this={audio} />
+					<GameAudio song="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3" bind:this={audio} />
 				</section>
 				<section class="centered">
 					<button on:click={() => (showSettings = !showSettings)}

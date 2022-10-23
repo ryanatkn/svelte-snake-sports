@@ -1,5 +1,4 @@
 <script lang="ts">
-	import {browser} from '$app/environment';
 	import {writable} from 'svelte/store';
 
 	import ScaledWorld from '$lib/ScaledWorld.svelte';
@@ -64,7 +63,7 @@
 	// Move `--bg_y` to the screen center of the renderer,
 	// so the vingette surrounds the game viewport.
 	$: bg_y = marginTop + screenHeight / 2;
-	$: if (browser) document.body.style.setProperty('--bg_y', bg_y + 'px');
+	$: document.body.style.setProperty('--bg_y', bg_y + 'px');
 </script>
 
 <ScaledWorld {screenWidth} {screenHeight} {worldWidth} {worldHeight}>

@@ -8,6 +8,9 @@
 	import {spawnApples as _spawnApples} from '$lib/updateSnakeGameState';
 	import {areOpposites, toDirection, type Direction} from '$lib/direction';
 
+	export let storageKey: string;
+	storageKey; // TODO disabling with eslint isn't working
+
 	export let toInitialState: () => SnakeGameState;
 	export let toInitialEvents: () => SnakeGameEvent[] = () => [];
 	export let toInitialMovementDirection: () => Direction | null = () => null;
@@ -18,7 +21,6 @@
 
 	// this prop gets set by `beginUpdate`, but it's exposed for binding externally
 	export let prevState: SnakeGameState | undefined = undefined;
-	prevState; // TODO eslint borked
 
 	export const state = writable(toInitialState());
 	export const events = writable(toInitialEvents());

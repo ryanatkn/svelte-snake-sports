@@ -1,5 +1,4 @@
 import {randomInt, randomItem} from '@feltcoop/felt/util/random.js';
-import {Logger} from '@feltcoop/felt/util/log.js';
 import {removeUnordered} from '@feltcoop/felt/util/array.js';
 import {UnreachableError} from '@feltcoop/felt/util/error.js';
 
@@ -7,8 +6,6 @@ import {Entity} from '$lib/Entity';
 import {directions, horizontalDirections, verticalDirections, type Direction} from '$lib/direction';
 import type {SnakeGameState} from '$lib/SnakeGameState';
 import type {ISnakeGame} from '$lib/SnakeGame';
-
-const log = new Logger('[updateSnakeGameState]');
 
 // TODO refactor this -- into what? a component?
 
@@ -57,7 +54,7 @@ export const validateState = (state: SnakeGameState): void => {
  * Sets up the initial state for a game.
  */
 export const initGameState = (state: SnakeGameState): SnakeGameState => {
-	log.info('initGameState', state);
+	console.log('initGameState', state);
 	// TODO  single state JSON object instead? update(state, controller) => nextState
 
 	// TODO make this all customizable

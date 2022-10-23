@@ -1,5 +1,9 @@
 # changelog
 
+## 0.2.1
+
+- publish `style.css`
+
 ## 0.2.0
 
 - **break**: refactor and publish `Dimensions.svelte`

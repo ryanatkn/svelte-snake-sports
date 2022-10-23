@@ -1,9 +1,9 @@
 <script lang="ts">
-	import {writable} from 'svelte/store';
+	import {writable, type Writable} from 'svelte/store';
 
 	import ScaledWorld from '$lib/ScaledWorld.svelte';
-	import {getDimensions} from '$lib/Dimensions.svelte';
 
+	export let dimensions: Writable<{width: number; height: number}>;
 	export let marginX = 32;
 	export let marginTop = 400; // TODO the 400 is the height of the `TitleImage`
 	export let marginBottom = 83; // TODO the 83 is the height of the `.scores` minus the paddingY
@@ -15,7 +15,6 @@
 	export const autoAspectRatio = writable(false);
 	export const aspectRatio = writable(1.0);
 
-	const dimensions = getDimensions();
 	$: availableWidth = Math.max(0, $dimensions.width - marginX);
 	$: availableHeight = Math.max(0, $dimensions.height - marginTop - marginBottom);
 

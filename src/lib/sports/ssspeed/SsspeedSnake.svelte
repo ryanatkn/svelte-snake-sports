@@ -20,10 +20,11 @@
 	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
 	import {setCurrentTickDuration} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
+	import Dimensions from '$lib/Dimensions.svelte';
 
 	const storageKey = 'ssspeed_high_score';
-
 	const clock = setClock(createClock({running: true}));
+	const dimensions = writable({width: 0, height: 0});
 
 	export let game: SnakeGame | undefined = undefined;
 	export let audio: GameAudio | undefined = undefined;
@@ -115,6 +116,8 @@
 	};
 </script>
 
+<Dimensions {dimensions} />
+
 <div class="SsspeedSnake" class:game-win={$status === 'win'} class:game-ready={$status === 'ready'}>
 	<SnakeGame
 		bind:this={game}
@@ -137,6 +140,7 @@
 		<Gamespace bind:pointerDown bind:pointerX bind:pointerY>
 			<!-- TODO `marginBottom={100}` is hardcoding the scores height -->
 			<ScaledSnakeRenderer
+				{dimensions}
 				marginBottom={100}
 				bind:rendererWidth
 				bind:autoAspectRatio

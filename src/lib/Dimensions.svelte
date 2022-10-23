@@ -1,22 +1,7 @@
-<script lang="ts" context="module">
-	import {getContext, setContext} from 'svelte';
+<script lang="ts">
 	import type {Writable} from 'svelte/store';
 
-	export interface Dimensions {
-		width: number;
-		height: number;
-	}
-
-	const KEY = Symbol();
-
-	export const getDimensions = (): Writable<Dimensions> => getContext(KEY);
-
-	export const setDimensions = (dimensions: Writable<Dimensions>): Writable<Dimensions> =>
-		setContext(KEY, dimensions);
-</script>
-
-<script lang="ts">
-	export let dimensions: Writable<Dimensions>;
+	export let dimensions: Writable<{width: number; height: number}>;
 
 	// This measures an onscreen element instead of window.innerWidth/Height
 	// to account for scrollbars on some OSes.

@@ -23,8 +23,11 @@
 	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
 	import {setCurrentTickDuration} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
+	import Dimensions from '$lib/Dimensions.svelte';
 
 	const storageKey = 'classsic_high_score';
+	const clock = setClock(createClock({running: true}));
+	const dimensions = writable({width: 0, height: 0});
 
 	export let game: SnakeGame | undefined = undefined;
 	export let audio: GameAudio | undefined = undefined;
@@ -40,8 +43,6 @@
 	$: if (game && pointerDown && pointerX !== undefined && pointerY !== undefined) {
 		game.handlePointerInput(snakeX, snakeY, pointerX, pointerY);
 	}
-
-	const clock = setClock(createClock({running: true}));
 
 	let showSettings = false;
 
@@ -119,6 +120,8 @@
 	};
 </script>
 
+<Dimensions {dimensions} />
+
 <div
 	class="ClasssicSnake"
 	class:game-fail={$status === 'fail'}
@@ -137,7 +140,13 @@
 	/>
 	{#if game}
 		<Gamespace bind:pointerDown bind:pointerX bind:pointerY>
-			<ScaledSnakeRenderer bind:autoAspectRatio bind:aspectRatio let:worldWidth let:worldHeight>
+			<ScaledSnakeRenderer
+				{dimensions}
+				bind:autoAspectRatio
+				bind:aspectRatio
+				let:worldWidth
+				let:worldHeight
+			>
 				<DomRenderer {game} width={worldWidth} height={worldHeight} bind:snakeX bind:snakeY />
 			</ScaledSnakeRenderer>
 			<svelte:fragment slot="overlay">

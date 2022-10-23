@@ -20,10 +20,11 @@
 	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
 	import {setCurrentTickDuration, type ISnakeGame} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
+	import Dimensions from '$lib/Dimensions.svelte';
 
 	const storageKey = 'trailsss_high_score';
-
 	const clock = setClock(createClock({running: true}));
+	const dimensions = writable({width: 0, height: 0});
 
 	export let game: SnakeGame | undefined = undefined;
 	export let audio: GameAudio | undefined = undefined;
@@ -135,6 +136,8 @@
 	};
 </script>
 
+<Dimensions {dimensions} />
+
 <div
 	class="TrailsssSnake"
 	class:game-win={$status === 'win'}
@@ -163,6 +166,7 @@
 		<Gamespace bind:pointerDown bind:pointerX bind:pointerY>
 			<!-- TODO `marginBottom={100}` is hardcoding the scores height -->
 			<ScaledSnakeRenderer
+				{dimensions}
 				marginBottom={100}
 				bind:rendererWidth
 				bind:autoAspectRatio

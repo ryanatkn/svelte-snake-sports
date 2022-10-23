@@ -15,6 +15,8 @@ export {default as Ticker} from '$lib/Ticker.svelte';
 export {default as StageControls} from '$lib/StageControls.svelte';
 export {default as TextBurst} from '$lib/TextBurst.svelte';
 export {default as ScaledSnakeRenderer} from '$lib/ScaledSnakeRenderer.svelte';
+export {default as Dimensions} from '$lib/Dimensions.svelte';
 export {default as ControlsInstructions} from '$lib/ControlsInstructions.svelte';
+export {default as RestartInstructions} from '$lib/RestartInstructions.svelte';
 export {default as GameAudio} from '$lib/GameAudio.svelte';
 export {default as TimedScores} from '$lib/TimedScores.svelte';

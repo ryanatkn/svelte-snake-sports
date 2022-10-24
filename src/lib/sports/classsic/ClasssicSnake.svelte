@@ -24,6 +24,7 @@
 	import {setCurrentTickDuration} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
 	import Dimensions from '$lib/Dimensions.svelte';
+	import {assertNumber, getFromStorage, setInStorage} from '$lib/storage';
 
 	const storageKey = 'classsic_high_score';
 	const clock = setClock(createClock({running: true}));
@@ -56,7 +57,7 @@
 	$: if ($status === 'ready') $status = 'playing';
 
 	let applesEaten = 0;
-	const highestApplesEaten = writable<number>(Number(localStorage.getItem(storageKey)) || 0);
+	const highestApplesEaten = writable(getFromStorage(storageKey, assertNumber) ?? 0);
 
 	const restart = (): void => {
 		if (!game) return;
@@ -78,7 +79,7 @@
 	// TODO is there a better place to do this? imperatively after updating the state?
 	$: if (applesEaten > $highestApplesEaten) {
 		$highestApplesEaten = applesEaten;
-		localStorage.setItem(storageKey, applesEaten + ''); // TODO use helper on store instead
+		setInStorage(storageKey, applesEaten);
 	}
 
 	const tick = (): boolean => {

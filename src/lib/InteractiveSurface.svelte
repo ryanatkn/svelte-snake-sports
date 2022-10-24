@@ -79,12 +79,12 @@
 
 	let el: HTMLDivElement;
 
-	const focus = () => {
+	const focus = (): void => {
 		if (document.activeElement !== el) {
 			el.focus();
 		}
 	};
-	const unfocus = () => {
+	const unfocus = (): void => {
 		if (document.activeElement === el) {
 			el.blur();
 		}

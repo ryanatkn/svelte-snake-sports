@@ -1,5 +1,9 @@
 # changelog
 
+## 0.2.4
+
+- remove `InteractiveSurface.svelte` focus on mount
+
 ## 0.2.3
 
 - improve visual feedback for `InteractiveSurface.svelte`

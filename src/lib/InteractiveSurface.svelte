@@ -1,6 +1,5 @@
 <script lang="ts">
 	import {swallow} from '@feltcoop/felt/util/dom.js';
-	import {onMount} from 'svelte';
 
 	export let pointerDown: boolean; // readonly -- but maybe remove `setPointerDown` and bind to it externally?
 	export let setPointerDown: (down: boolean) => void;
@@ -89,10 +88,6 @@
 			el.blur();
 		}
 	};
-
-	onMount(() => {
-		focus();
-	});
 </script>
 
 <div

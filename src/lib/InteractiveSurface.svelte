@@ -2,10 +2,7 @@
 	import {swallow} from '@feltcoop/felt/util/dom.js';
 	import {onMount} from 'svelte';
 
-	// TODO maybe use pointer events?
-	// https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events
-
-	export let pointerDown: boolean; // readonly (but maybe remove `setPointerDown`?)
+	export let pointerDown: boolean; // readonly -- but maybe remove `setPointerDown` and bind to it externally?
 	export let setPointerDown: (down: boolean) => void;
 	export let setPointerPosition: (x: number, y: number) => void;
 

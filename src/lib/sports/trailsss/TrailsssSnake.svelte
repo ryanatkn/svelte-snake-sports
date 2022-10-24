@@ -21,7 +21,7 @@
 	import {setCurrentTickDuration, type ISnakeGame} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
 	import Dimensions from '$lib/Dimensions.svelte';
-	import {assertNumber, getFromStorage, setInStorage} from '$lib/storage';
+	import {assertObject, getFromStorage, setInStorage} from '$lib/storage';
 
 	const storageKey = 'trailsss_high_score';
 	const clock = setClock(createClock({running: true}));
@@ -63,6 +63,7 @@
 
 	let applesEaten = 0;
 	let applesEatenStreak = 0;
+	let applelessTurns = 0;
 	const APPLES_EATEN_TO_WIN = 66; // sixxty six applesss
 
 	const restart = (): void => {
@@ -74,7 +75,18 @@
 	let currentTime = 0;
 	$: if ($status === 'playing') currentTime += $clock.dt;
 
-	const bestTime = writable(getFromStorage(storageKey, assertNumber) ?? null);
+	interface Highscores {
+		bestTime: number | null;
+		applesEaten: number | null;
+	}
+	const assertHighscores = (value: any): asserts value is Highscores => {
+		assertObject(value);
+		value;
+	};
+
+	const highscores = writable(
+		getFromStorage<Highscores>(storageKey, assertHighscores) ?? {bestTime: null, applesEaten: null},
+	);
 
 	const tick = (): boolean => {
 		if (!game || !$state || !$events || $status !== 'playing') {
@@ -99,16 +111,22 @@
 
 		if (!ateApple) {
 			applesEatenStreak = 0;
+			applelessTurns++;
 			game.resetMovementCommands();
 		}
 
 		if (applesEaten >= APPLES_EATEN_TO_WIN) {
-			game.end('win');
-			// TODO maybe an event instead? maybe like classsic,
-			// don't set the high score immediately like this, wait til it's over
-			if (!$bestTime || currentTime < $bestTime) {
-				$bestTime = Math.round(currentTime);
-				setInStorage(storageKey, $bestTime);
+			if (applelessTurns) {
+				game.end('win');
+				// TODO maybe an event instead? maybe like classsic,
+				// don't set the high score immediately like this, wait til it's over
+				if (!$highscores.bestTime || currentTime < $highscores.bestTime) {
+					$highscores = {...$highscores, bestTime: Math.round(currentTime)};
+					setInStorage(storageKey, $highscores); // TODO enhanced store enables removing this line
+				}
+			} else {
+				// The user has played flawlessly, so continue until they make a mistake or run out of tiles.
+				// TODO BLOCK
 			}
 		}
 
@@ -153,6 +171,7 @@
 			currentTime = 0;
 			applesEaten = 0;
 			applesEatenStreak = 0;
+			applelessTurns = 0;
 		}}
 		toInitialState={() => {
 			const state = initGameState(toDefaultGameState({mapWidth, mapHeight}));
@@ -179,12 +198,12 @@
 			</ScaledSnakeRenderer>
 			<svelte:fragment slot="overlay">
 				{#if applesEaten === 0}
-					<ReadyInstructions {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
+					<ReadyInstructions {highscores} applesToWin={APPLES_EATEN_TO_WIN} />
 				{:else if $status === 'win'}
 					<WinInstructions
 						{restart}
 						time={currentTime}
-						{bestTime}
+						{highscores}
 						applesToWin={APPLES_EATEN_TO_WIN}
 					>
 						<div class="text-burst-wrapper">
@@ -201,7 +220,7 @@
 					{applesEaten}
 					applesToWin={APPLES_EATEN_TO_WIN}
 					{currentTime}
-					{bestTime}
+					bestTime={$highscores.bestTime}
 					{rendererWidth}
 				/>
 				<StageControls {clock} {tick} {game} />

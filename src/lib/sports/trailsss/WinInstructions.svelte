@@ -4,7 +4,7 @@
 	import RestartInstructions from '$lib/RestartInstructions.svelte';
 
 	export let time: number;
-	export let bestTime: Writable<number | null>; // TODO don't need to handle `null` here, would need upstream changes
+	export let highscores: Writable<{bestTime: number | null}>; // TODO don't need to handle `null` here, would need upstream changes
 	export let applesToWin: number;
 	export let restart: () => void;
 
@@ -14,7 +14,7 @@
 	// These times are in milliseconds with fractional parts,
 	// but we only care about whole milliseconds for the UX.
 	$: roundedTime = Math.round(time);
-	$: roundedBestTime = $bestTime === null ? 0 : Math.round($bestTime);
+	$: roundedBestTime = $highscores.bestTime === null ? 0 : Math.round($highscores.bestTime);
 	$: newHighScore = roundedTime === roundedBestTime;
 </script>
 

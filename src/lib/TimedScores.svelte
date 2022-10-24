@@ -8,7 +8,7 @@
 	export let applesEaten: number;
 	export let applesToWin: number;
 	export let currentTime: number;
-	export let bestTime: Writable<number | null>;
+	export let bestTime: number | null;
 	export let rendererWidth: Writable<number>;
 
 	const APPLE_SIZE = 16;
@@ -34,8 +34,8 @@
 	});
 
 	$: currentTimeSeconds = Math.floor(currentTime / 1000);
-	$: bestTimeSeconds = $bestTime !== null ? Math.floor($bestTime / 1000) : null;
-	$: bestTimeMs = $bestTime !== null ? Math.round($bestTime) : null;
+	$: bestTimeSeconds = bestTime !== null ? Math.floor(bestTime / 1000) : null;
+	$: bestTimeMs = bestTime !== null ? Math.round(bestTime) : null;
 </script>
 
 <div class="progress">

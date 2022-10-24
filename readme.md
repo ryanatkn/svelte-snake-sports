@@ -5,6 +5,8 @@
 > and [SvelteKit](https://github.com/sveltejs/kit) —
 > [ryanatkn.github.io/svelte-snake-sports](https://ryanatkn.github.io/svelte-snake-sports)
 
+**status** - mostly working but the code quality isn't great, needs a lot of refactoring and polish
+
 intro video — [youtube.com/watch?v=ciei8H6IOWk](https://www.youtube.com/watch?v=ciei8H6IOWk)
 
 ## sports
@@ -17,6 +19,9 @@ See [contributing.md](contributing.md) to submit highscores.
 | <a href="https://ryanatkn.github.io/svelte-snake-sports/ssspeed"><img src="/src/static/assets/ssspeed.webp" alt="logo for ssspeed, macro photography of a cute cartoon snake eating a red apple on lush green moss in a 3d video game" width="192" /></a>                                                                                                                            | [ssspeed](https://ryanatkn.github.io/svelte-snake-sports/ssspeed)     | eat apples asap                  |                                                                                                                                                                              |
 | <a href="https://ryanatkn.github.io/svelte-snake-sports/buncheses"><img src="/src/static/assets/buncheses.webp" alt="logo for buncheses, macro photography of an adorable green cartoon snake with huge cute eyes next to a pile of red apples on lush green moss, realistic 3d video game, digital art, vibrant, artstation" width="192" /></a>                                     | [buncheses](https://ryanatkn.github.io/svelte-snake-sports/buncheses) | eat many whole bunches of apples | <ol><li>9 bunches — [@ryanatkn](https://github.com/ryanatkn)—<a href="https://www.youtube.com/watch?v=EorynexNDJI">YouTube</a> <sub>uncontested world record</sub></li></ol> |
 | <a href="https://ryanatkn.github.io/svelte-snake-sports/trailsss"><img src="/src/static/assets/trailsss.webp" alt="logo for trailsss, macro photography of an adorable green cartoon snake with big cute eyes running towards a row of red apples in a line on lush green moss, realistic 3d video game, digital art, Pixar movie character, vibrant, artstation" width="192" /></a> | [trailsss](https://ryanatkn.github.io/svelte-snake-sports/trailsss)   | eat trails of apples asap        |                                                                                                                                                                              |
+
+Make your own cussstom sport right now in your browser! Start with
+[this Svelte REPL](https://svelte.dev/repl/ebf7455697c3497ab358675de43bb1e0?version=3.52.0).
 
 See [contributing.md](contributing.md) to submit highscores.
 

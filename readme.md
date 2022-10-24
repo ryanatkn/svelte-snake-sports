@@ -16,7 +16,8 @@ For now the best dev experience outside
 [the REPL](https://svelte.dev/repl/ebf7455697c3497ab358675de43bb1e0?version=3.52.0)
 will be forking this repo and editing a game or copying the patterns to add your own.
 (Windows users will need a Linux VM, see [this issue](https://github.com/feltcoop/gro/issues/319))
-You can also install via npm, but it currently lacks types as a hack for REPL support,
+You can also install via [npm](https://www.npmjs.com/package/@ryanatkn/svelte-snake-sports),
+but it currently lacks types as a hack for REPL support,
 see [PR #22](https://github.com/ryanatkn/svelte-snake-sports/pull/22):
 
 ```bash

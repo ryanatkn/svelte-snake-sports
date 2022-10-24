@@ -12,7 +12,9 @@ Watch the intro video: [youtube.com/watch?v=ciei8H6IOWk](https://www.youtube.com
 Make your own custom sport right now in your browser! Start with
 [this Svelte REPL](https://svelte.dev/repl/ebf7455697c3497ab358675de43bb1e0?version=3.52.0).
 
-For now the best dev experience will be forking this repo and editing a game or adding your own.
+For now the best dev experience outside
+[the REPL](https://svelte.dev/repl/ebf7455697c3497ab358675de43bb1e0?version=3.52.0)
+will be forking this repo and editing a game or copying to patterns to add your own.
 (Windows users will need a Linux VM, see [this issue](https://github.com/feltcoop/gro/issues/319))
 You can also install via npm, but it currently lacks types as a hack for REPL support,
 see [PR #22](https://github.com/ryanatkn/svelte-snake-sports/pull/22):

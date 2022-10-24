@@ -16,6 +16,7 @@
 	<slot />
 	<div class="interactive-surface-wrapper">
 		<InteractiveSurface
+			{pointerDown}
 			setPointerDown={(down) => {
 				pointerDown = down;
 			}}

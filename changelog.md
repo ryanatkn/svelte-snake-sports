@@ -1,5 +1,10 @@
 # changelog
 
+## 0.2.2
+
+- use `localStorage` helpers wrapped in try/catch
+  ([#26](https://github.com/feltcoop/felt/pull/26))
+
 ## 0.2.1
 
 - publish `style.css`

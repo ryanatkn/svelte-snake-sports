@@ -30,7 +30,7 @@
 	import {setCurrentTickDuration} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
 	import Dimensions from '$lib/Dimensions.svelte';
-	import {assertNumber, getFromStorage, setInStorage} from '$lib/localStorage';
+	import {assertNumber, getFromStorage, setInStorage} from '$lib/storage';
 
 	const storageKey = 'buncheses_high_score';
 	const clock = setClock(createClock({running: true}));

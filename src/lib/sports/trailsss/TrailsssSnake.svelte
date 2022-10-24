@@ -21,7 +21,7 @@
 	import {setCurrentTickDuration, type ISnakeGame} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
 	import Dimensions from '$lib/Dimensions.svelte';
-	import {assertNumber, getFromStorage, setInStorage} from '$lib/localStorage';
+	import {assertNumber, getFromStorage, setInStorage} from '$lib/storage';
 
 	const storageKey = 'trailsss_high_score';
 	const clock = setClock(createClock({running: true}));

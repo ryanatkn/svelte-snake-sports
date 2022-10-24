@@ -9,7 +9,7 @@
 
 Watch the intro video: [youtube.com/watch?v=ciei8H6IOWk](https://www.youtube.com/watch?v=ciei8H6IOWk)
 
-Make your own cussstom sport right now in your browser! Start with
+Make your own custom sport right now in your browser! Start with
 [this Svelte REPL](https://svelte.dev/repl/ebf7455697c3497ab358675de43bb1e0?version=3.52.0).
 
 Install via npm (currently without types as a hack for REPL support,

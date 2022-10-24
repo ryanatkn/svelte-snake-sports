@@ -2,8 +2,8 @@
 	// This version is a port of the original React project:
 	// https://ryanatkn.github.io/snake-game
 	// See `$lib/sports/simple/SimpleSnake.svelte` for the same thing but simplified.
-	import {browser} from '$app/environment';
 	import {writable, type Writable} from 'svelte/store';
+	import {base} from '$app/paths';
 
 	import SnakeGame from '$lib/SnakeGame.svelte';
 	import Gamespace from '$lib/Gamespace.svelte';
@@ -27,9 +27,13 @@
 	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
 	import {Entity} from '$lib/Entity';
 	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
-	import {BUNCHESES_HIGH_SCORE_KEY} from '$lib/storage';
 	import {setCurrentTickDuration} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
+	import Dimensions from '$lib/Dimensions.svelte';
+
+	const storageKey = 'buncheses_high_score';
+	const clock = setClock(createClock({running: true}));
+	const dimensions = writable({width: 0, height: 0});
 
 	export let game: SnakeGame | undefined = undefined;
 	export let audio: GameAudio | undefined = undefined;
@@ -46,8 +50,6 @@
 		game.handlePointerInput(snakeX, snakeY, pointerX, pointerY);
 	}
 
-	const clock = setClock(createClock({running: browser}));
-
 	let showSettings = false;
 
 	$: state = game?.state;
@@ -63,9 +65,7 @@
 
 	let applesEaten = 0;
 	let bunchesEaten = 0;
-	const highestClustersEaten = writable<number>(
-		(browser && Number(localStorage.getItem(BUNCHESES_HIGH_SCORE_KEY))) || 0,
-	);
+	const highestClustersEaten = writable<number>(Number(localStorage.getItem(storageKey)) || 0);
 
 	const restart = (): void => {
 		if (!game) return;
@@ -87,7 +87,7 @@
 	// TODO is there a better place to do this? imperatively after updating the state?
 	$: if (bunchesEaten > $highestClustersEaten) {
 		$highestClustersEaten = bunchesEaten;
-		if (browser) localStorage.setItem(BUNCHESES_HIGH_SCORE_KEY, bunchesEaten + ''); // TODO use helper on store instead
+		localStorage.setItem(storageKey, bunchesEaten + ''); // TODO use helper on store instead
 	}
 
 	const tick = (): boolean => {
@@ -145,6 +145,8 @@
 	const MAX_SPAWN_ATTEMPTS = 30; // TODO where does this belong?
 </script>
 
+<Dimensions {dimensions} />
+
 <div
 	class="ClasssicSnake"
 	class:game-fail={$status === 'fail'}
@@ -152,6 +154,7 @@
 >
 	<SnakeGame
 		bind:this={game}
+		{storageKey}
 		toInitialMovementDirection={() => 'up'}
 		{tick}
 		onReset={() => {
@@ -194,7 +197,13 @@
 	/>
 	{#if game}
 		<Gamespace bind:pointerDown bind:pointerX bind:pointerY>
-			<ScaledSnakeRenderer bind:autoAspectRatio bind:aspectRatio let:worldWidth let:worldHeight>
+			<ScaledSnakeRenderer
+				{dimensions}
+				bind:autoAspectRatio
+				bind:aspectRatio
+				let:worldWidth
+				let:worldHeight
+			>
 				<DomRenderer {game} width={worldWidth} height={worldHeight} bind:snakeX bind:snakeY />
 			</ScaledSnakeRenderer>
 			<svelte:fragment slot="overlay">
@@ -237,7 +246,7 @@
 						<a href="https://www.serpentsoundstudios.com/">Alexander Nakarada</a> -
 						<a href="/assets/Alexander_Nakarada__Lurking_Sloth.mp3">Lurking Sloth</a>
 					</p>
-					<GameAudio song="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" bind:this={audio} />
+					<GameAudio song="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3" bind:this={audio} />
 				</section>
 				<section class="centered">
 					<button on:click={() => (showSettings = !showSettings)}

@@ -2,7 +2,7 @@
   "name": "@ryanatkn/svelte-snake-sports",
   "description": "games of snake in svelte",
   "license": "Unlicense",
-  "version": "0.0.1",
+  "version": "0.2.1",
   "type": "module",
   "homepage": "https://ryanatkn.github.io/svelte-snake-sports",
   "engines": {
@@ -18,7 +18,7 @@
   "devDependencies": {
     "@feltcoop/eslint-config": "^0.2.1",
     "@feltcoop/felt": "^0.41.3",
-    "@feltcoop/gro": "^0.61.2",
+    "@feltcoop/gro": "^0.62.0",
     "@sveltejs/adapter-static": "^1.0.0-next.46",
     "@sveltejs/kit": "^1.0.0-next.522",
     "@typescript-eslint/eslint-plugin": "^5.40.1",
@@ -35,10 +35,7 @@
   },
   "eslintConfig": {
     "root": true,
-    "extends": "@feltcoop",
-    "rules": {
-      "no-console": 1
-    }
+    "extends": "@feltcoop"
   },
   "prettier": {
     "useTabs": true,

@@ -51,7 +51,7 @@
 				return true;
 			}
 			case '0': {
-				askToClearLocalStorage();
+				askToClearLocalStorage(game.storageKey);
 				return true;
 			}
 			case '3': {

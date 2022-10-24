@@ -1,6 +1,5 @@
 import {writable, get, type Writable} from 'svelte/store';
 import {getContext, setContext} from 'svelte';
-import {browser} from '$app/environment';
 
 // TODO merge with `clock`
 
@@ -59,7 +58,6 @@ export const createClock = (initialState: Partial<ClockState> = {}): Clock => {
 		set,
 		update,
 		resume: (): void => {
-			if (!browser) return;
 			update(($clock) => {
 				if ($clock.running) return $clock;
 				queueUpdate();
@@ -67,7 +65,6 @@ export const createClock = (initialState: Partial<ClockState> = {}): Clock => {
 			});
 		},
 		pause: (): void => {
-			if (!browser) return;
 			update(($clock) => {
 				if (!$clock.running) return $clock;
 				cancelUpdate();

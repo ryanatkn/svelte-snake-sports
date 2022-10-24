@@ -1,6 +1,6 @@
 <script lang="ts">
-	import {browser} from '$app/environment';
 	import {writable, type Writable} from 'svelte/store';
+	import {base} from '$app/paths';
 
 	import SnakeGame from '$lib/SnakeGame.svelte';
 	import Gamespace from '$lib/Gamespace.svelte';
@@ -18,11 +18,13 @@
 	import TextBurst from '$lib/TextBurst.svelte';
 	import ScaledSnakeRenderer from '$lib/ScaledSnakeRenderer.svelte';
 	import ControlsInstructions from '$lib/ControlsInstructions.svelte';
-	import {SSSPEED_HIGH_SCORE_KEY} from '$lib/storage';
 	import {setCurrentTickDuration} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
+	import Dimensions from '$lib/Dimensions.svelte';
 
-	const clock = setClock(createClock({running: browser}));
+	const storageKey = 'ssspeed_high_score';
+	const clock = setClock(createClock({running: true}));
+	const dimensions = writable({width: 0, height: 0});
 
 	export let game: SnakeGame | undefined = undefined;
 	export let audio: GameAudio | undefined = undefined;
@@ -71,9 +73,7 @@
 	let currentTime = 0;
 	$: if ($status === 'playing') currentTime += $clock.dt;
 
-	const bestTime = writable<number | null>(
-		(browser && Number(localStorage.getItem(SSSPEED_HIGH_SCORE_KEY))) || null,
-	);
+	const bestTime = writable<number | null>(Number(localStorage.getItem(storageKey)) || null);
 
 	const tick = (): boolean => {
 		if (!game || !$state || !$events || $status !== 'playing') {
@@ -108,7 +108,7 @@
 			// don't set the high score immediately like this, wait til it's over
 			if (!$bestTime || currentTime < $bestTime) {
 				$bestTime = Math.round(currentTime);
-				if (browser) localStorage.setItem(SSSPEED_HIGH_SCORE_KEY, $bestTime + ''); // TODO use helper on store instead
+				localStorage.setItem(storageKey, $bestTime + ''); // TODO use helper on store instead
 			}
 		}
 
@@ -116,9 +116,12 @@
 	};
 </script>
 
+<Dimensions {dimensions} />
+
 <div class="SsspeedSnake" class:game-win={$status === 'win'} class:game-ready={$status === 'ready'}>
 	<SnakeGame
 		bind:this={game}
+		{storageKey}
 		toInitialState={() => initGameState(toDefaultGameState({mapWidth, mapHeight}))}
 		{tick}
 		onReset={() => {
@@ -137,6 +140,7 @@
 		<Gamespace bind:pointerDown bind:pointerX bind:pointerY>
 			<!-- TODO `marginBottom={100}` is hardcoding the scores height -->
 			<ScaledSnakeRenderer
+				{dimensions}
 				marginBottom={100}
 				bind:rendererWidth
 				bind:autoAspectRatio
@@ -182,7 +186,7 @@
 						<a href="https://www.serpentsoundstudios.com/">Alexander Nakarada</a> -
 						<a href="/assets/Alexander_Nakarada__Lurking_Sloth.mp3">Lurking Sloth</a>
 					</p>
-					<GameAudio song="/assets/Alexander_Nakarada__Lurking_Sloth.mp3" bind:this={audio} />
+					<GameAudio song="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3" bind:this={audio} />
 				</section>
 				<section class="centered">
 					<button on:click={() => (showSettings = !showSettings)}

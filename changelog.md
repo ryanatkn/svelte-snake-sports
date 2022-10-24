@@ -1,5 +1,10 @@
 # changelog
 
+## 0.2.3
+
+- improve visual feedback for `InteractiveSurface.svelte`
+  ([#27](https://github.com/feltcoop/felt/pull/27))
+
 ## 0.2.2
 
 - use `localStorage` helpers wrapped in try/catch

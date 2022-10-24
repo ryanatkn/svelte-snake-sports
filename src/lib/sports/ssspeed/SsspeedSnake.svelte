@@ -21,6 +21,7 @@
 	import {setCurrentTickDuration} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
 	import Dimensions from '$lib/Dimensions.svelte';
+	import {assertNumber, getFromStorage, setInStorage} from '$lib/localStorage';
 
 	const storageKey = 'ssspeed_high_score';
 	const clock = setClock(createClock({running: true}));
@@ -73,7 +74,7 @@
 	let currentTime = 0;
 	$: if ($status === 'playing') currentTime += $clock.dt;
 
-	const bestTime = writable<number | null>(Number(localStorage.getItem(storageKey)) || null);
+	const bestTime = writable(getFromStorage(storageKey, assertNumber) ?? null);
 
 	const tick = (): boolean => {
 		if (!game || !$state || !$events || $status !== 'playing') {
@@ -108,7 +109,7 @@
 			// don't set the high score immediately like this, wait til it's over
 			if (!$bestTime || currentTime < $bestTime) {
 				$bestTime = Math.round(currentTime);
-				localStorage.setItem(storageKey, $bestTime + ''); // TODO use helper on store instead
+				setInStorage(storageKey, $bestTime);
 			}
 		}
 

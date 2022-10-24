@@ -1,5 +1,7 @@
 import type {Json} from '@feltcoop/felt/util/json.js';
 
+// TODO maybe refactor to use a storage enhancer function
+
 /**
  * Loads `key` and parses it as JSON.
  * If `validate` is provided and throws, it removes the `key` and returns `undefined`.
@@ -7,7 +9,7 @@ import type {Json} from '@feltcoop/felt/util/json.js';
  * @param validate
  * @returns
  */
-export const loadFromStorage = <T extends Json>(
+export const getFromStorage = <T extends Json>(
 	key: string,
 	validate?: (value: any) => asserts value is T,
 ): T | void => {
@@ -23,7 +25,7 @@ export const loadFromStorage = <T extends Json>(
 		validate?.(parsed);
 		return parsed;
 	} catch (err) {
-		// some non-JSON value was stored, so clear it
+		// some non-JSON or invalid value was stored, so clear it
 		try {
 			localStorage.removeItem(key);
 		} catch (err) {} // ignore the error -- might be a sandboxed iframe like the Svelte REPL
@@ -45,4 +47,27 @@ export const setInStorage = (key: string, value: Json): void => {
 			localStorage.setItem(key, JSON.stringify(value));
 		}
 	} catch (err) {} // ignore the error -- might be a sandboxed iframe like the Svelte REPL
+};
+
+export const clearLocalStorage = (key: string): void => {
+	try {
+		localStorage.removeItem(key);
+		window.location = window.location; // TODO hacky until this is a store
+	} catch (err) {
+		// eslint-disable-next-line no-alert
+		alert(
+			'failed to clear localStorage item -- you might be in a sandboxed iframe like the Svelte REPL',
+		);
+	} // ignore the error -- might be a sandboxed iframe like the Svelte REPL
+};
+
+export const askToClearLocalStorage = (key: string): void => {
+	// eslint-disable-next-line no-alert
+	if (confirm('permanently delete saved data?')) {
+		clearLocalStorage(key);
+	}
+};
+
+export const assertNumber = (value: any): asserts value is number => {
+	if (typeof value !== 'number' || Number.isNaN(value)) throw Error();
 };

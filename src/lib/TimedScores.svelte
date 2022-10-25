@@ -81,11 +81,6 @@
 		width: calc(var(--map_width) * 1px);
 	}
 
-	.time-and-score {
-		display: flex;
-		align-items: center;
-	}
-
 	.count {
 		display: flex;
 		align-items: center;

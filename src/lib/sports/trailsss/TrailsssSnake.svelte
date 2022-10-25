@@ -61,13 +61,10 @@
 	let autoAspectRatio: Writable<boolean> | undefined;
 	let aspectRatio: Writable<number> | undefined;
 
-	// TODO BLOCK fix the score when eaten more than target
-
 	let applesEaten = 0; // maybe should be `currentApplesEaten`, or `currentTime` should be `time`
 	let applesEatenStreak = 0;
 	let applelessTurns = 0;
-	// TODO BLOCK revert to 66
-	const APPLES_EATEN_TO_WIN = 9; // sixxty six applesss
+	const APPLES_EATEN_TO_WIN = 66; // sixxty six applesss
 
 	const restart = (): void => {
 		if (!game) return;

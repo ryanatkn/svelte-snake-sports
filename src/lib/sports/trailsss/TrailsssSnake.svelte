@@ -127,17 +127,17 @@
 				// TODO maybe an event instead? maybe like classsic,
 				// don't set the high score immediately like this, wait til it's over
 
-				$highscores = {
-					bestTime:
-						!$highscores.bestTime || currentTime <= $highscores.bestTime
-							? Math.round(currentTime)
-							: $highscores.bestTime,
-					applesEaten:
-						applesEaten > APPLES_EATEN_TO_WIN &&
-						(!$highscores.applesEaten || applesEaten >= $highscores.applesEaten)
-							? applesEaten
-							: $highscores.applesEaten,
-				};
+				const time = Math.round(currentTime);
+				if (!$highscores.bestTime || time <= $highscores.bestTime) {
+					$highscores = {...$highscores, bestTime: time};
+				}
+				if (
+					applesEaten > APPLES_EATEN_TO_WIN &&
+					(!$highscores.applesEaten || applesEaten >= $highscores.applesEaten)
+				) {
+					$highscores = {...$highscores, applesEaten};
+				}
+
 				setInStorage(storageKey, $highscores); // TODO enhanced store enables removing this line
 			} else {
 				// The user has played flawlessly, so continue until they make a mistake or run out of tiles.

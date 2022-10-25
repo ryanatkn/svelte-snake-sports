@@ -64,7 +64,8 @@
 	let applesEaten = 0;
 	let applesEatenStreak = 0;
 	let applelessTurns = 0;
-	const APPLES_EATEN_TO_WIN = 66; // sixxty six applesss
+	// TODO BLOCK revert to 66
+	const APPLES_EATEN_TO_WIN = 3; // sixxty six applesss
 
 	const restart = (): void => {
 		if (!game) return;

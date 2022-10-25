@@ -28,7 +28,7 @@
 
 <div class="instructions" transition:scale|local>
 	{#if winType === 'bestTime'}
-		<div>you ate all {applesToWin} apples :O</div>
+		<div>you ate {applesToWin} apples...</div>
 		<div style:position="relative" style:left="{55}px">in <strong>{roundedTime}ms</strong>!</div>
 		<div style:position="relative" style:left="{25}px">
 			{#if newHighScore}<strong>a new high score!!</strong>{:else}besst is {roundedBestTime}ms!{/if}

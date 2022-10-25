@@ -158,7 +158,12 @@
 
 	// TODO hacky, the `game` may be undefined because `toInitialState` is called before `game` is available
 	const spawnApples = (state: SnakeGameState, game: ISnakeGame | undefined): void => {
-		const spawned = spawnRandomTrail(state, game, TRAIL_LENGTH);
+		// TODO was a computed property but we needed it to synchronously update during `game.reset()`
+		const trailLength =
+			applelessTurns === 0
+				? TRAIL_LENGTH
+				: Math.min(TRAIL_LENGTH, APPLES_EATEN_TO_WIN - applesEaten - 1);
+		const spawned = spawnRandomTrail(state, game, trailLength);
 		// As a failsafe, if we can't spawn anything and there's no apples left, end the game.
 		if (!spawned && !state.apples.length) {
 			game?.end('win');

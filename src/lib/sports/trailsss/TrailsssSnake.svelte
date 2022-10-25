@@ -61,11 +61,13 @@
 	let autoAspectRatio: Writable<boolean> | undefined;
 	let aspectRatio: Writable<number> | undefined;
 
+	// TODO BLOCK fix the score when eaten more than target
+
 	let applesEaten = 0;
 	let applesEatenStreak = 0;
 	let applelessTurns = 0;
 	// TODO BLOCK revert to 66
-	const APPLES_EATEN_TO_WIN = 3; // sixxty six applesss
+	const APPLES_EATEN_TO_WIN = 9; // sixxty six applesss
 
 	const restart = (): void => {
 		if (!game) return;
@@ -161,7 +163,7 @@
 		// TODO was a computed property but we needed it to synchronously update during `game.reset()`
 		const trailLength =
 			applelessTurns === 0
-				? TRAIL_LENGTH
+				? Math.min(TRAIL_LENGTH, APPLES_EATEN_TO_WIN)
 				: Math.min(TRAIL_LENGTH, APPLES_EATEN_TO_WIN - applesEaten - 1);
 		const spawned = spawnRandomTrail(state, game, trailLength);
 		// As a failsafe, if we can't spawn anything and there's no apples left, end the game.

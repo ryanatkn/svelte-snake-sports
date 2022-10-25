@@ -9,7 +9,7 @@
 ## 0.3.0
 
 - change `TimedScores` prop `bestTime` to no longer have a store wrapper
-  ([#28](https://github.com/ryanatkn/svelte-snake-sports/pull/29))
+  ([#29](https://github.com/ryanatkn/svelte-snake-sports/pull/29))
 
 ## 0.2.4
 

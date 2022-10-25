@@ -24,8 +24,6 @@ The [Svelte REPL-friendly version](https://github.com/ryanatkn/svelte-snake-spor
 npm i -D @ryanatkn/svelte-snake-sports-repl
 ```
 
-Windows users will need a Linux VM, see [this issue](https://github.com/feltcoop/gro/issues/319).
-
 ## sports
 
 See [contributing.md](contributing.md) to submit highscores.
@@ -73,6 +71,8 @@ on the web:
 [ryanatkn.github.io/svelte-snake-sports](https://ryanatkn.github.io/svelte-snake-sports)
 
 ## usage
+
+Windows users will need a Linux VM, see [this issue](https://github.com/feltcoop/gro/issues/319).
 
 ```bash
 npm run dev

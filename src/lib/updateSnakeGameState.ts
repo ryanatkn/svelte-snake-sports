@@ -183,6 +183,11 @@ export const spawnRandomTrail = (
 ): boolean => {
 	const apples = toApples(state, game);
 
+	// Cap the apples.
+	if (apples.length > length) {
+		apples.length = length;
+	}
+
 	// Choose a random direction from the last apple.
 	while (apples.length < length) {
 		// Start at the end of the apple trail, or at the head of the snake if no apples.

@@ -1,5 +1,10 @@
 # changelog
 
+## 0.3.0
+
+- change `TimeScores` prop `bestTime` to no longer have a store wrapper
+  ([#28](https://github.com/feltcoop/felt/pull/28))
+
 ## 0.2.4
 
 - remove `InteractiveSurface.svelte` focus on mount

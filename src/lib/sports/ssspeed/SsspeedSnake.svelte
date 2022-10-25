@@ -175,7 +175,7 @@
 					{applesEaten}
 					applesToWin={APPLES_EATEN_TO_WIN}
 					{currentTime}
-					{bestTime}
+					bestTime={$bestTime}
 					{rendererWidth}
 				/>
 				<StageControls {clock} {tick} {game} />

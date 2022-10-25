@@ -1,5 +1,3 @@
-import type {Json} from '@feltcoop/felt/util/json.js';
-
 // TODO maybe refactor to use a storage enhancer function
 
 /**
@@ -9,7 +7,7 @@ import type {Json} from '@feltcoop/felt/util/json.js';
  * @param validate
  * @returns
  */
-export const getFromStorage = <T extends Json>(
+export const getFromStorage = <T>(
 	key: string,
 	validate?: (value: any) => asserts value is T,
 ): T | void => {
@@ -39,7 +37,7 @@ export const getFromStorage = <T extends Json>(
  * @param key
  * @param value
  */
-export const setInStorage = (key: string, value: Json): void => {
+export const setInStorage = (key: string, value: any): void => {
 	try {
 		if (value === undefined) {
 			localStorage.removeItem(key);
@@ -68,6 +66,9 @@ export const askToClearLocalStorage = (key: string): void => {
 	}
 };
 
-export const assertNumber = (value: any): asserts value is number => {
+export function assertNumber(value: unknown): asserts value is number {
 	if (typeof value !== 'number' || Number.isNaN(value)) throw Error();
-};
+}
+export function assertObject(value: any): asserts value is object {
+	if (!value || typeof value !== 'object') throw Error();
+}

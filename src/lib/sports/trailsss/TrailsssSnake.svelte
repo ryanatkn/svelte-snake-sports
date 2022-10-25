@@ -12,7 +12,7 @@
 	import {initGameState, spawnRandomTrail, updateSnakeGameState} from '$lib/updateSnakeGameState';
 	import Ticker from '$lib/Ticker.svelte';
 	import StageControls from '$lib/StageControls.svelte';
-	import TimedScores from '$lib/TimedScores.svelte';
+	import EatenOrTimedScores from '$lib/EatenOrTimedScores.svelte';
 	import ReadyInstructions from '$lib/sports/trailsss/ReadyInstructions.svelte';
 	import WinInstructions from '$lib/sports/trailsss/WinInstructions.svelte';
 	import TextBurst from '$lib/TextBurst.svelte';
@@ -21,7 +21,7 @@
 	import {setCurrentTickDuration, type ISnakeGame} from '$lib/SnakeGame';
 	import GameAudio from '$lib/GameAudio.svelte';
 	import Dimensions from '$lib/Dimensions.svelte';
-	import {assertNumber, getFromStorage, setInStorage} from '$lib/storage';
+	import {assertObject, getFromStorage, setInStorage} from '$lib/storage';
 
 	const storageKey = 'trailsss_high_score';
 	const clock = setClock(createClock({running: true}));
@@ -61,8 +61,9 @@
 	let autoAspectRatio: Writable<boolean> | undefined;
 	let aspectRatio: Writable<number> | undefined;
 
-	let applesEaten = 0;
+	let applesEaten = 0; // maybe should be `currentApplesEaten`, or `currentTime` should be `time`
 	let applesEatenStreak = 0;
+	let applelessTurns = 0;
 	const APPLES_EATEN_TO_WIN = 66; // sixxty six applesss
 
 	const restart = (): void => {
@@ -74,7 +75,21 @@
 	let currentTime = 0;
 	$: if ($status === 'playing') currentTime += $clock.dt;
 
-	const bestTime = writable(getFromStorage(storageKey, assertNumber) ?? null);
+	interface EatenOrTimedHighscores {
+		time: number | null;
+		applesEaten: number | null;
+	}
+	const assertEatenOrTimedHighscores = (value: any): asserts value is EatenOrTimedHighscores => {
+		assertObject(value);
+		// TODO zod?
+	};
+
+	const highscores = writable(
+		getFromStorage<EatenOrTimedHighscores>(storageKey, assertEatenOrTimedHighscores) ?? {
+			time: null,
+			applesEaten: null,
+		},
+	);
 
 	const tick = (): boolean => {
 		if (!game || !$state || !$events || $status !== 'playing') {
@@ -99,16 +114,27 @@
 
 		if (!ateApple) {
 			applesEatenStreak = 0;
+			applelessTurns++;
 			game.resetMovementCommands();
 		}
 
 		if (applesEaten >= APPLES_EATEN_TO_WIN) {
-			game.end('win');
-			// TODO maybe an event instead? maybe like classsic,
-			// don't set the high score immediately like this, wait til it's over
-			if (!$bestTime || currentTime < $bestTime) {
-				$bestTime = Math.round(currentTime);
-				setInStorage(storageKey, $bestTime);
+			if (applelessTurns) {
+				game.end('win');
+			} // else the user has played flawlessly, so continue until they make a mistake or run out of tiles.
+
+			// Update highscores.
+			const time = Math.round(currentTime);
+			if (!$highscores.time || time <= $highscores.time) {
+				$highscores = {...$highscores, time};
+				setInStorage(storageKey, $highscores); // TODO enhanced store enables removing this line
+			}
+			if (
+				applesEaten > APPLES_EATEN_TO_WIN &&
+				(!$highscores.applesEaten || applesEaten >= $highscores.applesEaten)
+			) {
+				$highscores = {...$highscores, applesEaten};
+				setInStorage(storageKey, $highscores); // TODO enhanced store enables removing this line
 			}
 		}
 
@@ -128,7 +154,10 @@
 	// TODO hacky, the `game` may be undefined because `toInitialState` is called before `game` is available
 	const spawnApples = (state: SnakeGameState, game: ISnakeGame | undefined): void => {
 		// TODO was a computed property but we needed it to synchronously update during `game.reset()`
-		const trailLength = Math.min(TRAIL_LENGTH, APPLES_EATEN_TO_WIN - applesEaten - 1);
+		const trailLength =
+			applelessTurns === 0
+				? Math.min(TRAIL_LENGTH, APPLES_EATEN_TO_WIN)
+				: Math.min(TRAIL_LENGTH, APPLES_EATEN_TO_WIN - applesEaten - 1);
 		const spawned = spawnRandomTrail(state, game, trailLength);
 		// As a failsafe, if we can't spawn anything and there's no apples left, end the game.
 		if (!spawned && !state.apples.length) {
@@ -153,6 +182,7 @@
 			currentTime = 0;
 			applesEaten = 0;
 			applesEatenStreak = 0;
+			applelessTurns = 0;
 		}}
 		toInitialState={() => {
 			const state = initGameState(toDefaultGameState({mapWidth, mapHeight}));
@@ -179,13 +209,14 @@
 			</ScaledSnakeRenderer>
 			<svelte:fragment slot="overlay">
 				{#if applesEaten === 0}
-					<ReadyInstructions {bestTime} applesToWin={APPLES_EATEN_TO_WIN} />
+					<ReadyInstructions {highscores} applesToWin={APPLES_EATEN_TO_WIN} />
 				{:else if $status === 'win'}
 					<WinInstructions
-						{restart}
+						{highscores}
 						time={currentTime}
-						{bestTime}
+						{applesEaten}
 						applesToWin={APPLES_EATEN_TO_WIN}
+						{restart}
 					>
 						<div class="text-burst-wrapper">
 							<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} hueRotationMax={360} />
@@ -196,14 +227,17 @@
 		</Gamespace>
 		{#if rendererWidth && autoAspectRatio && aspectRatio}
 			<div class="info">
-				<Ticker {clock} tickDuration={currentTickDuration} {tick} />
-				<TimedScores
-					{applesEaten}
-					applesToWin={APPLES_EATEN_TO_WIN}
-					{currentTime}
-					{bestTime}
-					{rendererWidth}
-				/>
+				<div class="centered-hz">
+					<Ticker {clock} tickDuration={currentTickDuration} {tick} />
+					<EatenOrTimedScores
+						{applesEaten}
+						highestApplesEaten={$highscores.applesEaten}
+						applesToWin={APPLES_EATEN_TO_WIN}
+						{currentTime}
+						bestTime={$highscores.time}
+						{rendererWidth}
+					/>
+				</div>
 				<StageControls {clock} {tick} {game} />
 				<section class="panel" style:padding="var(--spacing_xl)">
 					<ControlsInstructions />

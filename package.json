@@ -2,7 +2,7 @@
   "name": "@ryanatkn/svelte-snake-sports",
   "description": "games of snake in svelte",
   "license": "Unlicense",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "type": "module",
   "homepage": "https://ryanatkn.github.io/svelte-snake-sports",
   "engines": {

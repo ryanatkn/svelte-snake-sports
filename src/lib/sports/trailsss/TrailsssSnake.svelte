@@ -76,17 +76,20 @@
 	let currentTime = 0;
 	$: if ($status === 'playing') currentTime += $clock.dt;
 
-	interface Highscores {
+	interface EatenOrTimedHighscores {
 		bestTime: number | null;
 		applesEaten: number | null;
 	}
-	const assertHighscores = (value: any): asserts value is Highscores => {
+	const assertEatenOrTimedHighscores = (value: any): asserts value is EatenOrTimedHighscores => {
 		assertObject(value);
-		value;
+		// TODO zod?
 	};
 
 	const highscores = writable(
-		getFromStorage<Highscores>(storageKey, assertHighscores) ?? {bestTime: null, applesEaten: null},
+		getFromStorage<EatenOrTimedHighscores>(storageKey, assertEatenOrTimedHighscores) ?? {
+			bestTime: null,
+			applesEaten: null,
+		},
 	);
 
 	const tick = (): boolean => {
@@ -121,10 +124,19 @@
 				game.end('win');
 				// TODO maybe an event instead? maybe like classsic,
 				// don't set the high score immediately like this, wait til it's over
-				if (!$highscores.bestTime || currentTime < $highscores.bestTime) {
-					$highscores = {...$highscores, bestTime: Math.round(currentTime)};
-					setInStorage(storageKey, $highscores); // TODO enhanced store enables removing this line
-				}
+
+				$highscores = {
+					bestTime:
+						!$highscores.bestTime || currentTime <= $highscores.bestTime
+							? Math.round(currentTime)
+							: $highscores.bestTime,
+					applesEaten:
+						applesEaten > APPLES_EATEN_TO_WIN &&
+						(!$highscores.applesEaten || applesEaten >= $highscores.applesEaten)
+							? applesEaten
+							: $highscores.applesEaten,
+				};
+				setInStorage(storageKey, $highscores); // TODO enhanced store enables removing this line
 			} else {
 				// The user has played flawlessly, so continue until they make a mistake or run out of tiles.
 				// TODO BLOCK
@@ -202,10 +214,11 @@
 					<ReadyInstructions {highscores} applesToWin={APPLES_EATEN_TO_WIN} />
 				{:else if $status === 'win'}
 					<WinInstructions
-						{restart}
-						time={currentTime}
 						{highscores}
+						time={currentTime}
+						{applesEaten}
 						applesToWin={APPLES_EATEN_TO_WIN}
+						{restart}
 					>
 						<div class="text-burst-wrapper">
 							<TextBurst count={50} items={['🐍', '🐍', '🌸', '🌺']} hueRotationMax={360} />

@@ -12,7 +12,7 @@
 	import {initGameState, spawnRandomTrail, updateSnakeGameState} from '$lib/updateSnakeGameState';
 	import Ticker from '$lib/Ticker.svelte';
 	import StageControls from '$lib/StageControls.svelte';
-	import TimedScores from '$lib/TimedScores.svelte';
+	import EatenOrTimedScores from '$lib/EatenOrTimedScores.svelte';
 	import ReadyInstructions from '$lib/sports/trailsss/ReadyInstructions.svelte';
 	import WinInstructions from '$lib/sports/trailsss/WinInstructions.svelte';
 	import TextBurst from '$lib/TextBurst.svelte';
@@ -63,7 +63,7 @@
 
 	// TODO BLOCK fix the score when eaten more than target
 
-	let applesEaten = 0;
+	let applesEaten = 0; // maybe should be `currentApplesEaten`, or `currentTime` should be `time`
 	let applesEatenStreak = 0;
 	let applelessTurns = 0;
 	// TODO BLOCK revert to 66
@@ -79,7 +79,7 @@
 	$: if ($status === 'playing') currentTime += $clock.dt;
 
 	interface EatenOrTimedHighscores {
-		bestTime: number | null;
+		time: number | null;
 		applesEaten: number | null;
 	}
 	const assertEatenOrTimedHighscores = (value: any): asserts value is EatenOrTimedHighscores => {
@@ -89,7 +89,7 @@
 
 	const highscores = writable(
 		getFromStorage<EatenOrTimedHighscores>(storageKey, assertEatenOrTimedHighscores) ?? {
-			bestTime: null,
+			time: null,
 			applesEaten: null,
 		},
 	);
@@ -124,24 +124,20 @@
 		if (applesEaten >= APPLES_EATEN_TO_WIN) {
 			if (applelessTurns) {
 				game.end('win');
-				// TODO maybe an event instead? maybe like classsic,
-				// don't set the high score immediately like this, wait til it's over
+			} // else the user has played flawlessly, so continue until they make a mistake or run out of tiles.
 
-				const time = Math.round(currentTime);
-				if (!$highscores.bestTime || time <= $highscores.bestTime) {
-					$highscores = {...$highscores, bestTime: time};
-				}
-				if (
-					applesEaten > APPLES_EATEN_TO_WIN &&
-					(!$highscores.applesEaten || applesEaten >= $highscores.applesEaten)
-				) {
-					$highscores = {...$highscores, applesEaten};
-				}
-
+			// Update highscores.
+			const time = Math.round(currentTime);
+			if (!$highscores.time || time <= $highscores.time) {
+				$highscores = {...$highscores, time};
 				setInStorage(storageKey, $highscores); // TODO enhanced store enables removing this line
-			} else {
-				// The user has played flawlessly, so continue until they make a mistake or run out of tiles.
-				// TODO BLOCK
+			}
+			if (
+				applesEaten > APPLES_EATEN_TO_WIN &&
+				(!$highscores.applesEaten || applesEaten >= $highscores.applesEaten)
+			) {
+				$highscores = {...$highscores, applesEaten};
+				setInStorage(storageKey, $highscores); // TODO enhanced store enables removing this line
 			}
 		}
 
@@ -235,11 +231,12 @@
 		{#if rendererWidth && autoAspectRatio && aspectRatio}
 			<div class="info">
 				<Ticker {clock} tickDuration={currentTickDuration} {tick} />
-				<TimedScores
+				<EatenOrTimedScores
 					{applesEaten}
+					highestApplesEaten={$highscores.applesEaten}
 					applesToWin={APPLES_EATEN_TO_WIN}
 					{currentTime}
-					bestTime={$highscores.bestTime}
+					bestTime={$highscores.time}
 					{rendererWidth}
 				/>
 				<StageControls {clock} {tick} {game} />

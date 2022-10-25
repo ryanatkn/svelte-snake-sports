@@ -3,15 +3,14 @@
 	import type {Writable} from 'svelte/store';
 	import RestartInstructions from '$lib/RestartInstructions.svelte';
 
-	export let highscores: Writable<{bestTime: number | null; applesEaten: number | null}>; // TODO don't need to handle `null` here, would need upstream changes
+	export let highscores: Writable<{time: number | null; applesEaten: number | null}>; // TODO don't need to handle `null` here, would need upstream changes
 	export let time: number;
 	export let applesEaten: number;
 	export let applesToWin: number;
 	export let restart: () => void;
 
-	$: ateMoreApples = applesEaten > applesToWin;
-	let winType: 'bestTime' | 'applesEaten';
-	$: winType = ateMoreApples ? 'applesEaten' : 'bestTime';
+	let winType: 'time' | 'applesEaten';
+	$: winType = applesEaten > applesToWin ? 'applesEaten' : 'time';
 
 	// TODO doesn't detect if you equal your old score exactly,
 	// but that's super unlikely in most cases (though some games may possibly have "perfect" play)
@@ -19,15 +18,15 @@
 	// These times are in milliseconds with fractional parts,
 	// but we only care about whole milliseconds for the UX.
 	$: roundedTime = Math.round(time);
-	$: roundedBestTime = $highscores.bestTime === null ? 0 : Math.round($highscores.bestTime);
+	$: roundedBestTime = $highscores.time === null ? 0 : Math.round($highscores.time);
 	$: newHighScore =
-		winType === 'bestTime'
+		winType === 'time'
 			? roundedTime === roundedBestTime
 			: !$highscores.applesEaten || applesEaten >= $highscores.applesEaten;
 </script>
 
 <div class="instructions" transition:scale|local>
-	{#if winType === 'bestTime'}
+	{#if winType === 'time'}
 		<div>you ate {applesToWin} apples...</div>
 		<div style:position="relative" style:left="{55}px">in <strong>{roundedTime}ms</strong>!</div>
 		<div style:position="relative" style:left="{25}px">

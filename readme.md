@@ -24,6 +24,12 @@ see [PR #22](https://github.com/ryanatkn/svelte-snake-sports/pull/22):
 npm i -D @ryanatkn/svelte-snake-sports
 ```
 
+The [Svelte REPL-friendly version](https://github.com/ryanatkn/svelte-snake-sports-repl):
+
+```bash
+npm i -D @ryanatkn/svelte-snake-sports-repl
+```
+
 ## sports
 
 See [contributing.md](contributing.md) to submit highscores.

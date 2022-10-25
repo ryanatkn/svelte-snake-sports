@@ -10,7 +10,7 @@
 	export let restart: () => void;
 
 	let winType: 'time' | 'applesEaten';
-	$: winType = applesEaten > applesToWin ? 'applesEaten' : 'time';
+	$: winType = $highscores.applesEaten || applesEaten > applesToWin ? 'applesEaten' : 'time';
 
 	// TODO doesn't detect if you equal your old score exactly,
 	// but that's super unlikely in most cases (though some games may possibly have "perfect" play)
@@ -21,7 +21,7 @@
 	$: roundedBestTime = $highscores.time === null ? 0 : Math.round($highscores.time);
 	$: newHighScore =
 		winType === 'time'
-			? roundedTime === roundedBestTime
+			? !$highscores.time || roundedTime <= roundedBestTime
 			: !$highscores.applesEaten || applesEaten >= $highscores.applesEaten;
 </script>
 

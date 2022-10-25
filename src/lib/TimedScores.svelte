@@ -50,7 +50,7 @@
 			</div>
 		{/each}
 	</div>
-	<div class="time-and-score">
+	<div class="centered-hz">
 		<div
 			class="time"
 			title="{currentTimeSeconds} second{currentTimeSeconds === 1 ? ' has' : 's have'} elapsed"

@@ -230,15 +230,17 @@
 		</Gamespace>
 		{#if rendererWidth && autoAspectRatio && aspectRatio}
 			<div class="info">
-				<Ticker {clock} tickDuration={currentTickDuration} {tick} />
-				<EatenOrTimedScores
-					{applesEaten}
-					highestApplesEaten={$highscores.applesEaten}
-					applesToWin={APPLES_EATEN_TO_WIN}
-					{currentTime}
-					bestTime={$highscores.time}
-					{rendererWidth}
-				/>
+				<div class="centered-hz">
+					<Ticker {clock} tickDuration={currentTickDuration} {tick} />
+					<EatenOrTimedScores
+						{applesEaten}
+						highestApplesEaten={$highscores.applesEaten}
+						applesToWin={APPLES_EATEN_TO_WIN}
+						{currentTime}
+						bestTime={$highscores.time}
+						{rendererWidth}
+					/>
+				</div>
 				<StageControls {clock} {tick} {game} />
 				<section class="panel" style:padding="var(--spacing_xl)">
 					<ControlsInstructions />

@@ -14,7 +14,7 @@
 	export let rendererWidth: Writable<number>;
 
 	let winType: 'time' | 'applesEaten';
-	$: winType = applesEaten > applesToWin ? 'applesEaten' : 'time';
+	$: winType = highestApplesEaten || applesEaten > applesToWin ? 'applesEaten' : 'time';
 </script>
 
 {#if winType === 'applesEaten'}

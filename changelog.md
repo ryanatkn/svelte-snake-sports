@@ -4,6 +4,7 @@
 
 - publish types now that we're publishing
   [@ryanatkn/svelte-snake-sports-repl](https://github.com/ryanatkn/svelte-snake-sports-repl)
+  ([#30](https://github.com/feltcoop/felt/pull/30))
 
 ## 0.3.0
 

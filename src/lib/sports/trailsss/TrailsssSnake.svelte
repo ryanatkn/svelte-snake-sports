@@ -53,7 +53,7 @@
 	// TODO maybe these shouldn't be stores? or maybe the tick logic should be extracted to a single store/object?
 	export const baseTickDuration = writable(Math.round(1000 / 2)); // the starting tick duration, may be modified by gameplay
 	export const currentTickDuration = setCurrentTickDuration(writable($baseTickDuration));
-	export const tickDurationDecay = writable(0.97);
+	export const tickDurationDecay = writable(0.985);
 	export const tickDurationMin = writable(17);
 	export const tickDurationMax = writable(2000);
 

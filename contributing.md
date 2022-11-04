@@ -6,6 +6,15 @@ This project is free and open source software with a public domain license.
 The goal is to support students and creators and players in a fun game context.
 It's just a little hobby project so set your expectations accordingly :)
 
+## custom games
+
+Svelte Snake Sports is designed to be reusable to create custom variations.
+As a developer, you can fork the code and either edit a game directly or copy-paste a new one.
+There's also
+[this Svelte REPL](https://svelte.dev/repl/ebf7455697c3497ab358675de43bb1e0?version=3.52.0)
+that lets you make new variations right in your browser.
+If you make a variation you like, please share and we'll link to it!
+
 ## issues
 
 [The issues on GitHub](https://github.com/ryanatkn/svelte-snake-sports/issues)

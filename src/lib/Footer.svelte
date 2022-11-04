@@ -8,7 +8,15 @@
 <footer class="centered column-sm">
 	<div class="padded-md markup">
 		<p>
-			<a href="https://github.com/ryanatkn/svelte-snake-sports">ssources & creditss on GitHub</a>
+			<a href="https://github.com/ryanatkn/svelte-snake-sports">ssource & creditss on GitHub</a>
+		</p>
+		<p>
+			create your own variations
+			<br />
+			with
+			<a href="https://svelte.dev/repl/ebf7455697c3497ab358675de43bb1e0?version=3.52.0"
+				>this Svelte REPL</a
+			>!
 		</p>
 		<p>
 			music by Alexander Nakarada
@@ -19,9 +27,9 @@
 		<p>
 			generated images by <a href="https://wikipedia.org/wiki/DALL-E">DALL-E</a>
 		</p>
-		{#if $page.url.pathname !== base + '/'}
+		{#if $page.url.pathname !== base}
 			<p>
-				<a href="{base}/" class="back-link"
+				<a href={base} class="back-link"
 					>go back <div class="snake-3">🐍</div>
 					home</a
 				>

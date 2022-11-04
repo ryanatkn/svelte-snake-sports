@@ -13,7 +13,9 @@ As a developer, you can fork the code and either edit a game directly or copy-pa
 There's also
 [this Svelte REPL](https://svelte.dev/repl/ebf7455697c3497ab358675de43bb1e0?version=3.52.0)
 that lets you make new variations right in your browser.
-If you make a variation you like, please share and we'll link to it!
+If you make a variation you like, please share in
+[the discussions](https://github.com/ryanatkn/svelte-snake-sports/discussions)
+and we'll link to it!
 
 ## issues
 
@@ -32,7 +34,7 @@ I go through the PR workflow for most medium and larger changes -- here's
 
 If something isn't an issue or PR, post it over in
 [the discussions on GitHub](https://github.com/ryanatkn/svelte-snake-sports/discussions).
-Anything on topic is welcome here.
+Anything on topic is welcome here, especially your custom variations!
 
 ## highscores
 

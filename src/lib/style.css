@@ -103,9 +103,6 @@ button.selected {
 .snake-2 {
 	filter: hue-rotate(240deg);
 }
-.snake-3 {
-	transform: rotate(165deg);
-}
 
 .icon-button {
 	line-height: 1;

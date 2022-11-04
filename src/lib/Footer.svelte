@@ -27,11 +27,11 @@
 		<p>
 			generated images by <a href="https://wikipedia.org/wiki/DALL-E">DALL-E</a>
 		</p>
-		{#if $page.url.pathname !== base}
+		{#if $page.url.pathname !== (base || '/')}
 			<p>
-				<a href={base} class="back-link"
-					>go back <div class="snake-3">🐍</div>
-					home</a
+				<a href={base || '/'} class="back-link"
+					>go back home<br />
+					<div class="snake">🐍</div></a
 				>
 			</p>
 		{/if}
@@ -51,5 +51,9 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		flex-direction: column;
+	}
+	.snake {
+		font-size: var(--font_size_xl5);
 	}
 </style>

@@ -1,6 +1,7 @@
 <h2>controls</h2>
 <div>
-	<strong>queue a move</strong>: <code>arrow keys</code>, <code>wasd</code>, <code>hjkl</code>
+	<strong>queue a move</strong>: <code>tap</code> or <code>click</code> the snake,
+	<code>arrow keys</code>, <code>wasd</code>, <code>hjkl</code>
 </div>
 <div><strong>move and end turn</strong>: hold <code>shift</code> and move</div>
 <div><strong>toggle clock</strong>: <code>Backtick `</code></div>

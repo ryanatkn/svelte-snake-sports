@@ -1,6 +1,8 @@
 /* global stylesheet imported by `src/routes/__layout.svelte */
 
 :root {
+	color-scheme: dark;
+
 	--active_color: var(--bright_green);
 	--text_color_active: var(--bright_green);
 	--link_color: var(--bright_green);

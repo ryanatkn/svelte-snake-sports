@@ -8,7 +8,8 @@
 <footer class="centered column-sm">
 	<div class="padded-md markup">
 		<p>
-			<a href="https://github.com/ryanatkn/svelte-snake-sports">ssource & creditss on GitHub</a>
+			<a href="https://github.com/ryanatkn/svelte-snake-sports">ssource code & creditss on GitHub</a
+			>
 		</p>
 		<p>
 			create your own variations

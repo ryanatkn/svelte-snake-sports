@@ -111,6 +111,8 @@ button.selected {
 	padding-left: var(--spacing_sm);
 	padding-right: var(--spacing_sm);
 	font-size: var(--font_size_xl3);
+	min-width: var(--icon_size_lg);
+	min-height: var(--icon_size_lg);
 }
 
 .apple {

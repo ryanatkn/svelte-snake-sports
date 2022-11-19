@@ -40,11 +40,6 @@
 		display: flex;
 		align-items: center;
 	}
-	button {
-		padding: var(--spacing_xl);
-		font-size: var(--font_size_lg);
-		min-width: 53px;
-	}
 	.up-and-down {
 		display: flex;
 		flex-direction: column;

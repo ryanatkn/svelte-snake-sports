@@ -1,5 +1,5 @@
 <script lang="ts">
-	import {isEditable, swallow} from '@feltcoop/felt/util/dom.js';
+	import {isEditable, swallow} from '@feltcoop/util/dom.js';
 
 	// TODO maybe a hotkey definition API like {'ctrl+s,s,b': () => {...}}
 

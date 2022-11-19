@@ -1,6 +1,6 @@
 <script lang="ts">
-	import {randomInt, randomItem, randomFloat} from '@feltcoop/felt/util/random.js';
-	import {GR2i} from '@feltcoop/felt/util/maths.js';
+	import {randomInt, randomItem, randomFloat} from '@feltcoop/util/random.js';
+	import {GR2i} from '@feltcoop/util/maths.js';
 	import {onMount, onDestroy} from 'svelte';
 
 	export let count: number;

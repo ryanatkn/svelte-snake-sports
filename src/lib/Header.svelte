@@ -1,6 +1,6 @@
 <script lang="ts">
 	import {base} from '$app/paths';
-	import {randomItem} from '@feltcoop/felt/util/random.js';
+	import {randomItem} from '@feltcoop/util/random.js';
 	import {sports} from '$lib/sports';
 
 	$: randomSport = randomItem(sports);

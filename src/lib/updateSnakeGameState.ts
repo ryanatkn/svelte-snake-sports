@@ -1,6 +1,6 @@
-import {randomInt, randomItem} from '@feltcoop/felt/util/random.js';
-import {removeUnordered} from '@feltcoop/felt/util/array.js';
-import {UnreachableError} from '@feltcoop/felt/util/error.js';
+import {randomInt, randomItem} from '@feltcoop/util/random.js';
+import {removeUnordered} from '@feltcoop/util/array.js';
+import {UnreachableError} from '@feltcoop/util/error.js';
 
 import {Entity} from '$lib/Entity';
 import {directions, horizontalDirections, verticalDirections, type Direction} from '$lib/direction';

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import {swallow} from '@feltcoop/felt/util/dom.js';
+	import {swallow} from '@feltcoop/util/dom.js';
 
 	export let pointerDown: boolean; // readonly -- but maybe remove `setPointerDown` and bind to it externally?
 	export let setPointerDown: (down: boolean) => void;

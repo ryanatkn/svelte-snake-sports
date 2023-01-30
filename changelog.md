@@ -1,5 +1,9 @@
 # changelog
 
+## 0.4.0
+
+- **break**: upgrade deps
+
 ## 0.3.1
 
 - publish types now that we're publishing

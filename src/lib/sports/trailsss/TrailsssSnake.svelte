@@ -149,7 +149,7 @@
 		return true;
 	};
 
-	const TRAIL_LENGTH = 6; // TODO expose as setting for users to modify
+	const TRAIL_LENGTH = 3; // TODO expose as setting for users to modify
 
 	// TODO hacky, the `game` may be undefined because `toInitialState` is called before `game` is available
 	const spawnApples = (state: SnakeGameState, game: ISnakeGame | undefined): void => {

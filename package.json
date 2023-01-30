@@ -2,7 +2,7 @@
   "name": "@ryanatkn/svelte-snake-sports",
   "description": "games of snake in svelte and sveltekit",
   "license": "Unlicense",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "homepage": "https://ryanatkn.github.io/svelte-snake-sports",
   "author": {
     "name": "Ryan Atkinson",

@@ -15,7 +15,7 @@
 			create your own variations
 			<br />
 			with
-			<a href="https://svelte.dev/repl/ebf7455697c3497ab358675de43bb1e0?version=3.52.0"
+			<a href="https://svelte.dev/repl/ebf7455697c3497ab358675de43bb1e0?version=3.55.1"
 				>this Svelte REPL</a
 			>!
 		</p>

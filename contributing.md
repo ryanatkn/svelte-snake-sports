@@ -11,7 +11,7 @@ It's just a little hobby project so set your expectations accordingly :)
 Svelte Snake Sports is designed to be reusable to create custom variations.
 As a developer, you can fork the code and either edit a game directly or copy-paste a new one.
 There's also
-[this Svelte REPL](https://svelte.dev/repl/ebf7455697c3497ab358675de43bb1e0?version=3.52.0)
+[this Svelte REPL](https://svelte.dev/repl/ebf7455697c3497ab358675de43bb1e0?version=3.55.1)
 that lets you make new variations right in your browser.
 If you make a variation you like, please share in
 [the discussions](https://github.com/ryanatkn/svelte-snake-sports/discussions)

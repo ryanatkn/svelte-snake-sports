@@ -1,6 +1,8 @@
 <script lang="ts">
 	import {swallow} from '@feltjs/util/dom.js';
 
+	// TODO maybe refactor to use pointer events?
+
 	export let pointerDown: boolean; // readonly -- but maybe remove `setPointerDown` and bind to it externally?
 	export let setPointerDown: (down: boolean) => void;
 	export let setPointerPosition: (x: number, y: number) => void;

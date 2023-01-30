@@ -21,7 +21,7 @@
 			width: 227px;
 		}
 	}
-	@media (max-width: 400px) {
+	@media (max-width: 450px) {
 		img {
 			width: 141px;
 		}

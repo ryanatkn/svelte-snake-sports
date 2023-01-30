@@ -1,5 +1,5 @@
 <script lang="ts">
-	// import Breadcrumbs from '@feltcoop/felt/Breadcrumbs.svelte';
+	// import Breadcrumbs from '@feltjs/felt-ui/Breadcrumbs.svelte';
 	import {base} from '$app/paths';
 
 	import ClasssicSnake from '$lib/sports/classsic/ClasssicSnake.svelte';

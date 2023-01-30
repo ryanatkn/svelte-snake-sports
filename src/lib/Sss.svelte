@@ -1,6 +1,6 @@
 <script lang="ts">
-	import {randomItem} from '@feltcoop/util/random.js';
-	import {plural} from '@feltcoop/util/string.js';
+	import {randomItem} from '@feltjs/util/random.js';
+	import {plural} from '@feltjs/util/string.js';
 	import {onDestroy} from 'svelte';
 	import {scale} from 'svelte/transition';
 

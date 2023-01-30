@@ -2,7 +2,7 @@
 	import {base} from '$app/paths';
 	import {page} from '$app/stores';
 
-	// import Breadcrumbs from '@feltcoop/felt/Breadcrumbs.svelte';
+	// import Breadcrumbs from '@feltjs/felt-ui/Breadcrumbs.svelte';
 </script>
 
 <footer class="centered column-sm">

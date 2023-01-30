@@ -9,7 +9,7 @@
 
 Watch the intro video: [youtube.com/watch?v=ciei8H6IOWk](https://www.youtube.com/watch?v=ciei8H6IOWk)
 
-Make your own custom sport right now in your browser! Start with
+Make your own custom sport right now in your browser! (⚠️this is currently broken) Start with
 [this Svelte REPL](https://svelte.dev/repl/ebf7455697c3497ab358675de43bb1e0?version=3.52.0).
 
 Install via [npm](https://www.npmjs.com/package/@ryanatkn/svelte-snake-sports):
@@ -72,17 +72,17 @@ on the web:
 
 ## usage
 
-Windows users will need a Linux VM, see [this issue](https://github.com/feltcoop/gro/issues/319).
+Windows users will need a Linux VM, see [this issue](https://github.com/feltjs/gro/issues/319).
 
 ```bash
 npm run dev
 # or
-gro dev # npm i -g @feltcoop/gro
+gro dev # npm i -g @feltjs/gro
 ```
 
 > learn more about [SvelteKit](https://github.com/sveltejs/kit),
-> [Vite](https://github.com/vitejs/vite), [Gro](https://github.com/feltcoop/gro),
-> and [Felt](https://github.com/feltcoop/felt)
+> [Vite](https://github.com/vitejs/vite), [Gro](https://github.com/feltjs/gro),
+> and [Felt](https://github.com/feltjs/felt-ui)
 
 ## build
 
@@ -94,7 +94,7 @@ gro build
 
 ## deploy
 
-[Deploy](https://github.com/feltcoop/gro/blob/main/src/docs/deploy.md)
+[Deploy](https://github.com/feltjs/gro/blob/main/src/docs/deploy.md)
 (build, commit, and push) to the `deploy` branch, e.g. for GitHub Pages:
 
 ```bash
@@ -113,8 +113,8 @@ gro deploy
 [TypeScript](https://github.com/microsoft/TypeScript) ∙
 [ESLint](https://github.com/eslint/eslint) ∙
 [Prettier](https://github.com/prettier/prettier) ∙
-[Felt](https://github.com/feltcoop/felt) ∙
-[Gro](https://github.com/feltcoop/gro)
+[Felt](https://github.com/feltjs/felt-ui) ∙
+[Gro](https://github.com/feltjs/gro)
 & [more](package.json)
 
 music by Alexander Nakarada

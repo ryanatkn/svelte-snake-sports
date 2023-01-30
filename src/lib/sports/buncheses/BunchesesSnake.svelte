@@ -245,9 +245,12 @@
 				<section class="centered markup">
 					<p>
 						<a href="https://www.serpentsoundstudios.com/">Alexander Nakarada</a> -
-						<a href="/assets/Alexander_Nakarada__Lurking_Sloth.mp3">Lurking Sloth</a>
+						<a href="/assets/Alexander_Nakarada__Horde_of_Geese.mp3">Horde of Geese</a>
 					</p>
-					<GameAudio song="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3" bind:this={audio} />
+					<GameAudio
+						song="{base}/assets/Alexander_Nakarada__Horde_of_Geese.mp3"
+						bind:this={audio}
+					/>
 				</section>
 				<section class="centered">
 					<button on:click={() => (showSettings = !showSettings)}

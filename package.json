@@ -1,12 +1,24 @@
 {
   "name": "@ryanatkn/svelte-snake-sports",
-  "description": "games of snake in svelte",
+  "description": "games of snake in svelte and sveltekit",
   "license": "Unlicense",
   "version": "0.3.1",
-  "type": "module",
   "homepage": "https://ryanatkn.github.io/svelte-snake-sports",
+  "author": {
+    "name": "Ryan Atkinson",
+    "email": "mail@ryanatkn.com",
+    "url": "https://www.ryanatkn.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryanatkn/svelte-snake-sports.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ryanatkn/svelte-snake-sports/issues"
+  },
+  "type": "module",
   "engines": {
-    "node": ">=18.6"
+    "node": ">=18.6.0"
   },
   "scripts": {
     "start": "gro dev",
@@ -16,27 +28,27 @@
     "deploy": "gro deploy"
   },
   "devDependencies": {
-    "@feltcoop/eslint-config": "^0.2.1",
-    "@feltcoop/felt": "^0.43.0",
-    "@feltcoop/gro": "^0.67.3",
-    "@feltcoop/util": "^0.4.0",
-    "@sveltejs/adapter-static": "^1.0.0-next.48",
-    "@sveltejs/kit": "^1.0.0-next.551",
-    "@typescript-eslint/eslint-plugin": "^5.43.0",
-    "@typescript-eslint/parser": "^5.43.0",
-    "eslint": "^8.28.0",
+    "@feltjs/eslint-config": "^0.2.1",
+    "@feltjs/felt-ui": "^0.47.0",
+    "@feltjs/gro": "^0.70.4",
+    "@feltjs/util": "^0.5.2",
+    "@sveltejs/adapter-static": "^1.0.5",
+    "@sveltejs/kit": "^1.3.3",
+    "@typescript-eslint/eslint-plugin": "^5.49.0",
+    "@typescript-eslint/parser": "^5.49.0",
+    "eslint": "^8.33.0",
     "eslint-plugin-svelte3": "^4.0.0",
-    "prettier": "^2.7.1",
-    "prettier-plugin-svelte": "^2.8.1",
-    "svelte": "^3.53.1",
-    "svelte-check": "^2.9.2",
+    "prettier": "^2.8.3",
+    "prettier-plugin-svelte": "^2.9.0",
+    "svelte": "^3.55.1",
+    "svelte-check": "^3.0.3",
     "svelte-preprocess-esbuild": "^3.0.1",
-    "tslib": "^2.4.1",
-    "typescript": "^4.9.3"
+    "tslib": "^2.5.0",
+    "typescript": "^4.9.4"
   },
   "eslintConfig": {
     "root": true,
-    "extends": "@feltcoop"
+    "extends": "@feltjs"
   },
   "prettier": {
     "useTabs": true,

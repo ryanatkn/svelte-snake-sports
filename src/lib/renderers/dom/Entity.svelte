@@ -1,5 +1,5 @@
 <script lang="ts">
-	import {GR3i} from '@feltcoop/util/maths.js';
+	import {GR3i} from '@feltjs/util/maths.js';
 
 	import {getCurrentTickDuration} from '$lib/SnakeGame';
 

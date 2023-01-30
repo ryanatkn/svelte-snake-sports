@@ -1,4 +1,4 @@
-import type {GroConfigCreator, GroConfigPartial} from '@feltcoop/gro';
+import type {GroConfigCreator, GroConfigPartial} from '@feltjs/gro';
 
 const files = ['lib/index.ts', 'lib/style.css'];
 

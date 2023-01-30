@@ -46,7 +46,12 @@
 				style:transform="translate3d({apple.x}px, {apple.y}px, 0) scale3d({apple.scale},
 				{apple.scale}, 1)"
 			>
-				<div class="apple" class:eaten={apple.eaten} width={apple.width} height={apple.height} />
+				<div
+					class="apple"
+					class:eaten={apple.eaten}
+					style:width="{apple.width}px"
+					style:height="{apple.height}px"
+				/>
 			</div>
 		{/each}
 	</div>

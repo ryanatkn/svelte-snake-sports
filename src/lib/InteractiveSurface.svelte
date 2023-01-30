@@ -45,7 +45,7 @@
 		swallow(e);
 		touch = true;
 		const rect = (e.target as HTMLElement).getBoundingClientRect();
-		updatePointer(e.changedTouches[0].pageX - rect.left, e.changedTouches[0].pageY - rect.top);
+		updatePointer(e.changedTouches[0].clientX - rect.left, e.changedTouches[0].clientY - rect.top);
 		setPointerDown(true);
 		focus();
 	};
@@ -53,21 +53,21 @@
 		swallow(e);
 		touch = true;
 		const rect = (e.target as HTMLElement).getBoundingClientRect();
-		updatePointer(e.changedTouches[0].pageX - rect.left, e.changedTouches[0].pageY - rect.top);
+		updatePointer(e.changedTouches[0].clientX - rect.left, e.changedTouches[0].clientY - rect.top);
 		setPointerDown(false);
 	};
 	const onTouchcancel = (e: TouchEvent) => {
 		swallow(e);
 		touch = true;
 		const rect = (e.target as HTMLElement).getBoundingClientRect();
-		updatePointer(e.changedTouches[0].pageX - rect.left, e.changedTouches[0].pageY - rect.top);
+		updatePointer(e.changedTouches[0].clientX - rect.left, e.changedTouches[0].clientY - rect.top);
 		setPointerDown(false);
 	};
 	const onTouchmove = (e: TouchEvent) => {
 		swallow(e);
 		touch = true;
 		const rect = (e.target as HTMLElement).getBoundingClientRect();
-		updatePointer(e.changedTouches[0].pageX - rect.left, e.changedTouches[0].pageY - rect.top);
+		updatePointer(e.changedTouches[0].clientX - rect.left, e.changedTouches[0].clientY - rect.top);
 	};
 
 	const onContextmenu = (e: MouseEvent) => {

@@ -11,9 +11,19 @@
 	.wrapper {
 		display: flex;
 		padding: var(--spacing_xl);
-		max-width: 400px;
 	}
 	img {
+		width: 368px;
 		border-radius: 20%;
+	}
+	@media (max-width: 800px) {
+		img {
+			width: 227px;
+		}
+	}
+	@media (max-width: 400px) {
+		img {
+			width: 141px;
+		}
 	}
 </style>

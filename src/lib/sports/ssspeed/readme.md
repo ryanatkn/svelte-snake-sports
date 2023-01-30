@@ -1,4 +1,4 @@
-# svelte snake sports: ssspeed
+# svelte🐍snake🐍sports: ssspeed
 
 > eat 66 apples asap
 

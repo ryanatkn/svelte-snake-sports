@@ -1,4 +1,4 @@
-# svelte snake sports: trailsss
+# svelte🐍snake🐍sports: trailsss
 
 > eat 66 apples in trails asap
 

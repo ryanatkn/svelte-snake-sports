@@ -7,9 +7,9 @@
 <menu>
 	{#each sports as sport (sport)}
 		<li>
-			<a href="{base}{sport.slug}" title="svelte snake sports: {sport.name}">
+			<a href="{base}{sport.slug}" title="svelte🐍snake🐍sports: {sport.name}">
 				<img
-					alt="logo for svelte snake sports: {sport.name}"
+					alt="logo for svelte🐍snake🐍sports: {sport.name}"
 					src="{base}/assets{sport.slug}.webp"
 					class="clickable-box"
 				/>

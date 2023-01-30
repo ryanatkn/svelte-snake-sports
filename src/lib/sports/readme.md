@@ -1,4 +1,4 @@
-# svelte snake sports
+# svelte🐍snake🐍sports
 
 - [classsic](./classsic) - eat many apples
 - [ssspeed](./ssspeed) - eat 66 apples asap

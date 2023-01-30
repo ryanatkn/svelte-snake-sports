@@ -1,4 +1,4 @@
-# svelte snake sports: classsic
+# svelte🐍snake🐍sports: classsic
 
 > eat many apples
 

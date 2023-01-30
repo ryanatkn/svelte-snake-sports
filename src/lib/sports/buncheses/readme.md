@@ -1,4 +1,4 @@
-# svelte snake sports: buncheses
+# svelte🐍snake🐍sports: buncheses
 
 > eat whole bunches of apples
 

@@ -17,9 +17,6 @@
 </script>
 
 <div class="controls panel">
-	<button title="[r] restart game" class="icon-button" on:click={reset}>⏮</button>
-	<ClockControls {clock} />
-	<button title="[1] next turn" class="icon-button" on:click={tick}>⏩</button>
 	<div class="centered-hz">
 		<DirectionalControls
 			selectedDirection={currentCommand}
@@ -30,6 +27,11 @@
 				<MovementCommandQueue {movementCommandQueue} />
 			</div>
 		{/if}
+	</div>
+	<div class="centered-hz">
+		<button title="[r] restart game" class="icon-button" on:click={reset}>⏮</button>
+		<ClockControls {clock} />
+		<button title="[1] next turn" class="icon-button" on:click={tick}>⏩</button>
 	</div>
 </div>
 

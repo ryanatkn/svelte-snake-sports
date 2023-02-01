@@ -11,15 +11,15 @@
 		title="[Backtick `] unpause"
 		on:click={() => clock.resume()}
 		style:position="relative"
-		style:top="-125px"
-		style:left="100px">paused</button
+		style:top="-110px"
+		style:left="50px">paused</button
 	>
 	<button
 		title="[Backtick `] unpause"
 		on:click={() => clock.resume()}
 		style:position="relative"
-		style:top="-110px"
-		style:left="50px">paused</button
+		style:top="25px"
+		style:left="-90px">paused</button
 	>
 </div>
 

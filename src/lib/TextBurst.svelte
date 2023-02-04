@@ -1,7 +1,7 @@
 <script lang="ts">
 	import {randomInt, randomItem, randomFloat} from '@feltjs/util/random.js';
 	import {GR2i} from '@feltjs/util/maths.js';
-	import {onMount, onDestroy} from 'svelte';
+	import {onMount} from 'svelte';
 
 	export let count: number;
 	export let items: string[];
@@ -23,9 +23,7 @@
 	let timeout: NodeJS.Timeout;
 	onMount(() => {
 		timeout = setTimeout(() => (done = true), ANIMATION_TIMER);
-	});
-	onDestroy(() => {
-		clearTimeout(timeout);
+		return () => clearTimeout(timeout);
 	});
 </script>
 

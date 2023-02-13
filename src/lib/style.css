@@ -212,3 +212,8 @@ fieldset {
 .panel {
 	background-color: var(--tint_dark_3);
 }
+
+.surface:focus {
+	outline: var(--border_width_5) dotted var(--border_color_dark);
+	border-radius: var(--border_radius_xs);
+}

@@ -3,9 +3,9 @@
 ## 0.5.0
 
 - **break**: replace `InteractiveSurface.svelte` with `@feltjs/felt-ui/Surface.svelte`
-  ([#31](https://github.com/ryanatkn/svelte-snake-sports/pull/31))
+  ([#32](https://github.com/ryanatkn/svelte-snake-sports/pull/32))
 - **break**: upgrade deps, `@feltjs/felt-ui@0.48.0` and `@sveltejs/adapter-static@2`
-  ([#31](https://github.com/ryanatkn/svelte-snake-sports/pull/31))
+  ([#32](https://github.com/ryanatkn/svelte-snake-sports/pull/32))
 
 ## 0.4.0
 

@@ -20,7 +20,7 @@ Install via [npm](https://www.npmjs.com/package/@ryanatkn/svelte-snake-sports):
 npm i -D @ryanatkn/svelte-snake-sports
 ```
 
-The [Svelte REPL-friendly version](https://github.com/ryanatkn/svelte-snake-sports-repl):
+The [Svelte REPL-friendly version](https://github.com/ryanatkn/svelte-snake-sports-repl) (no types):
 
 ```bash
 npm i -D @ryanatkn/svelte-snake-sports-repl

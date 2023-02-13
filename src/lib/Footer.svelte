@@ -45,7 +45,7 @@
 
 <style>
 	footer {
-		position: relative; /* hacky, needed so the game's InteractiveSurface doesn't overlap it */
+		position: relative; /* hacky, needed so the game's Surface doesn't overlap it */
 		text-align: center;
 	}
 	.back-link {

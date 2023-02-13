@@ -1,7 +1,8 @@
 <script lang="ts">
+	import Surface from '@feltjs/felt-ui/Surface.svelte';
+
 	import PauseInstructions from '$lib/PauseInstructions.svelte';
 	import {getClock} from '$lib/clock';
-	import InteractiveSurface from '$lib/InteractiveSurface.svelte';
 
 	export let pointerDown = false;
 	export let pointerX: number | undefined = undefined;
@@ -15,16 +16,7 @@
 <div class="gamespace">
 	<slot />
 	<div class="interactive-surface-wrapper">
-		<InteractiveSurface
-			{pointerDown}
-			setPointerDown={(down) => {
-				pointerDown = down;
-			}}
-			setPointerPosition={(x, y) => {
-				pointerX = x;
-				pointerY = y;
-			}}
-		/>
+		<Surface bind:pointerDown bind:pointerX bind:pointerY />
 	</div>
 	<slot name="overlay" />
 	{#if !running}

@@ -1,13 +1,13 @@
 .DS_Store
-/node_modules
-/.svelte-kit
-/build
+node_modules
+.svelte-kit
+build
 
-/.gro
-/dist
-/worktree
+.gro
+dist
+worktree
 *.ignore
 *.ignore.*
 ignore/
 *.pem
-/.env*
+.env*

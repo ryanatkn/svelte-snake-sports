@@ -5,7 +5,7 @@
 > and [SvelteKit](https://github.com/sveltejs/kit) —
 > [ryanatkn.github.io/svelte-snake-sports](https://ryanatkn.github.io/svelte-snake-sports)
 
-> **status:** mostly working but the code quality isn't great,
+> **status:** 4 working games but the code quality isn't great,
 > needs a lot of refactoring and polish - I elaborated in
 > [a comment on the aliensite](https://np.reddit.com/r/sveltejs/comments/10necle/five_svelte_games_to_learn_how_to_code/j68rpla/)
 

@@ -11,5 +11,6 @@ export default {
 		adapter: adapter(),
 		paths: dev ? undefined : {base: '/svelte-snake-sports'}, // for GitHub pages -- delete this line for top-level domains
 		files: {assets: 'src/static'},
+		alias: {$routes: 'src/routes'},
 	},
 };

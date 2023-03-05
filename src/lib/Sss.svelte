@@ -71,8 +71,8 @@
 			stopPlaying(song);
 		}
 	}
-	let sssInterval: NodeJS.Timer | undefined;
-	let pauseTimeout: NodeJS.Timeout | undefined;
+	let sssInterval: number | undefined;
+	let pauseTimeout: number | undefined;
 	const startPlaying = (song: HTMLAudioElement) => {
 		queueSssInterval();
 		clearPauseTimeout();

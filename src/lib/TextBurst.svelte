@@ -20,7 +20,7 @@
 
 	let done = false;
 
-	let timeout: NodeJS.Timeout;
+	let timeout: number;
 	onMount(() => {
 		timeout = setTimeout(() => (done = true), ANIMATION_TIMER);
 		return () => clearTimeout(timeout);

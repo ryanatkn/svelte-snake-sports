@@ -14,7 +14,7 @@
 	<div><strong>take one turn</strong>: <code>1</code></div>
 	<div><strong>delete all saved data</strong>: <code>0</code></div>
 	<div><strong>toggle song</strong>: <code>=</code></div>
-	<div><strong>restart</strong>: <code>r</code></div>
+	<div><strong>restart</strong>: <code>r</code> or <code>g</code></div>
 </div>
 
 <style>

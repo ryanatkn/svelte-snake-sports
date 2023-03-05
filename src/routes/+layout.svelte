@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-	<title>svelte-snake-sports</title>
+	<title>svelte🐍snake🐍sports</title>
 </svelte:head>
 
 <slot />

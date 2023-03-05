@@ -9,7 +9,7 @@ export default {
 	compilerOptions: {immutable: true},
 	kit: {
 		adapter: adapter(),
-		paths: dev ? undefined : {base: '/svelte-snake-sports'}, // for GitHub pages -- delete this line for top-level domains
+		paths: {base: '/svelte-snake-sports'},
 		files: {assets: 'src/static'},
 		alias: {$routes: 'src/routes'},
 	},

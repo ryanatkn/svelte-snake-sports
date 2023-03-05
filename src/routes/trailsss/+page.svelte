@@ -6,6 +6,10 @@
 	import Footer from '$lib/Footer.svelte';
 </script>
 
+<svelte:head>
+	<title>svelte🐍snake🐍sports: trailsss</title>
+</svelte:head>
+
 <TitleImage
 	alt="logo for svelte🐍snake🐍sports: macro photography of an adorable green cartoon snake with big cute eyes running towards a row of red apples in a line on lush green moss, realistic 3d video game, digital art, Pixar movie character, vibrant, artstation"
 	src="{base}/assets/trailsss.webp"

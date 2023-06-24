@@ -181,7 +181,7 @@
 				<section class="centered markup">
 					<p>
 						<a href="https://www.serpentsoundstudios.com/">Alexander Nakarada</a> -
-						<a href="/assets/Alexander_Nakarada__Lurking_Sloth.mp3">Lurking Sloth</a>
+						<a href="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3">Lurking Sloth</a>
 					</p>
 					<GameAudio song="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3" bind:this={audio} />
 				</section>

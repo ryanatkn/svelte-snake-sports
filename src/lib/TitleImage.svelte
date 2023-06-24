@@ -1,10 +1,12 @@
 <script lang="ts">
+	import {base} from '$app/paths';
+
 	export let alt: string;
 	export let src: string;
 </script>
 
 <div class="title_image">
-	<a href="/">
+	<a href="{base}/">
 		<img {alt} {src} {...$$restProps} />
 	</a>
 </div>

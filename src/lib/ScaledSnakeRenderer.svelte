@@ -5,8 +5,8 @@
 
 	export let dimensions: Writable<{width: number; height: number}>;
 	export let marginX = 32;
-	export let marginTop = 288; // TODO the 272 is the height of the header including `TitleImage`
-	export let marginBottom = 83; // TODO the 83 is the height of the `.scores` minus the paddingY
+	export let marginTop = 320; // TODO is the height of the header including `TitleImage`
+	export let marginBottom = 83; // TODO is the height of the `.scores` minus the paddingY
 	// TODO default?
 
 	// Exported for optional binding.

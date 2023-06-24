@@ -6,15 +6,21 @@
 </script>
 
 <div class="title_image">
-	<a href="{base}/">
-		<img {alt} {src} {...$$restProps} />
-	</a>
+	<!-- TODO change to this after upgrading deps -->
+	<!-- <Breadcrumbs>🐍</Breadcrumbs> -->
+	<a href="{base}/"> 🐍 </a>
+	<img {alt} {src} {...$$restProps} />
 </div>
 
 <style>
 	.title_image {
 		display: flex;
+		flex-direction: column;
+		align-items: center;
 		padding: var(--spacing_xl);
+	}
+	a {
+		padding-bottom: var(--spacing_lg);
 	}
 	img {
 		width: 256px;

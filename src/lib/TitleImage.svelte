@@ -20,7 +20,7 @@
 		padding: var(--spacing_xl);
 	}
 	a {
-		padding-bottom: var(--spacing_lg);
+		margin-bottom: var(--spacing_lg);
 	}
 	img {
 		width: 256px;

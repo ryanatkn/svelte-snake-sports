@@ -17,7 +17,7 @@
 		padding: var(--spacing_xl);
 	}
 	img {
-		width: 368px;
+		width: 256px;
 		border-radius: 20%;
 	}
 	@media (max-width: 800px) {

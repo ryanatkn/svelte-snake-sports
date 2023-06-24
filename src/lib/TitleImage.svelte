@@ -3,12 +3,14 @@
 	export let src: string;
 </script>
 
-<div class="wrapper">
-	<img {alt} {src} {...$$restProps} />
+<div class="title_image">
+	<a href="/">
+		<img {alt} {src} {...$$restProps} />
+	</a>
 </div>
 
 <style>
-	.wrapper {
+	.title_image {
 		display: flex;
 		padding: var(--spacing_xl);
 	}

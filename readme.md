@@ -9,19 +9,10 @@ Play: [ryanatkn.github.io/svelte-snake-sports](https://ryanatkn.github.io/svelte
 
 Watch the intro video: [youtube.com/watch?v=ciei8H6IOWk](https://www.youtube.com/watch?v=ciei8H6IOWk)
 
-Make your own custom sport right now in your browser! Start with
-[this Svelte REPL](https://svelte.dev/repl/ebf7455697c3497ab358675de43bb1e0?version=3.55.1).
-
 Install via [npm](https://www.npmjs.com/package/@ryanatkn/svelte-snake-sports):
 
 ```bash
 npm i -D @ryanatkn/svelte-snake-sports
-```
-
-The [Svelte REPL-friendly version](https://github.com/ryanatkn/svelte-snake-sports-repl) (no types):
-
-```bash
-npm i -D @ryanatkn/svelte-snake-sports-repl
 ```
 
 ## sports

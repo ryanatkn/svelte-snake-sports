@@ -12,14 +12,6 @@
 			>
 		</p>
 		<p>
-			create your own variations
-			<br />
-			with
-			<a href="https://svelte.dev/repl/ebf7455697c3497ab358675de43bb1e0?version=3.55.1"
-				>this Svelte REPL</a
-			>!
-		</p>
-		<p>
 			music by Alexander Nakarada
 			<br />
 			<a href="https://creativecommons.org/licenses/by/4.0/">CC-BY-4.0</a> ∙

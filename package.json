@@ -35,7 +35,7 @@
     "@feltjs/eslint-config": "^0.4.0",
     "@feltjs/felt-mural": "^0.2.3",
     "@feltjs/felt-ui": "^0.66.2",
-    "@feltjs/gro": "^0.82.7",
+    "@feltjs/gro": "^0.82.8",
     "@feltjs/util": "^0.9.1",
     "@sveltejs/adapter-static": "^2.0.3",
     "@sveltejs/kit": "^1.25.0",

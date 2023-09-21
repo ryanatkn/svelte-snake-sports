@@ -1,3 +1,4 @@
+//@ts-expect-error
 import {typescript} from 'svelte-preprocess-esbuild';
 import adapter from '@sveltejs/adapter-static';
 

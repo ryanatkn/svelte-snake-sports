@@ -1,5 +1,5 @@
 ---
-'@ryanatkn/svelte-snake-sports': patch
+'@ryanatkn/svelte-snake-sports': minor
 ---
 
 upgrade deps

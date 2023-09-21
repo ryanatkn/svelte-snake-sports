@@ -10,7 +10,6 @@ export default {
 	compilerOptions: {immutable: true},
 	kit: {
 		adapter: adapter(),
-		paths: {base: '/svelte-snake-sports'},
 		files: {assets: 'src/static'},
 		alias: {$routes: 'src/routes'},
 	},

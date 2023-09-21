@@ -3,7 +3,7 @@
 	import {randomItem} from '@feltjs/util/random.js';
 	import {sports} from '$lib/sports';
 
-	$: randomSport = randomItem(sports);
+	const randomSport = randomItem(sports);
 </script>
 
 <header class="centered-hz">

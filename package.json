@@ -75,10 +75,6 @@
     ]
   },
   "exports": {
-    ".": {
-      "default": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
     "./bouncey.js": {
       "default": "./dist/bouncey.js",
       "types": "./dist/bouncey.d.ts"

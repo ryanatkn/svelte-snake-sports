@@ -8,7 +8,7 @@
 	import {writable} from 'svelte/store';
 
 	const selected_color_scheme = writable('dark' as const);
-	sync_color_scheme($selected_color_scheme);
+	sync_color_scheme($selected_color_scheme); // TODO probably shouldn't be needed
 </script>
 
 <svelte:head>

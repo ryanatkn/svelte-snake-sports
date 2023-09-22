@@ -1,5 +1,5 @@
 <script lang="ts">
-	import '@feltjs/felt-ui/style.css';
+	import '@fuz.dev/fuz/style.css';
 
 	import '$lib/style.css';
 </script>

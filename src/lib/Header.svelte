@@ -1,9 +1,9 @@
 <script lang="ts">
 	import {base} from '$app/paths';
-	import {randomItem} from '@feltjs/util/random.js';
+	import {random_item} from '@grogarden/util/random.js';
 	import {sports} from '$lib/sports';
 
-	const randomSport = randomItem(sports);
+	const randomSport = random_item(sports);
 </script>
 
 <header class="centered-hz">

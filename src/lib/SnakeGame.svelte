@@ -2,7 +2,7 @@
 
 <script lang="ts">
 	import {writable} from 'svelte/store';
-	import {noop} from '@feltjs/util/function.js';
+	import {noop} from '@grogarden/util/function.js';
 	import type {SnakeGameState} from '$lib/SnakeGameState';
 	import type {SnakeGameEvent, SnakeGameHelpers} from '$lib/SnakeGame';
 	import {spawnApples as _spawnApples} from '$lib/updateSnakeGameState';

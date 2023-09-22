@@ -3,7 +3,7 @@ import {sveltekit} from '@sveltejs/kit/vite';
 
 const config: UserConfig = {
 	plugins: [sveltekit()],
-	ssr: {noExternal: ['@feltjs/felt-ui']},
+	ssr: {noExternal: ['@fuz.dev/fuz']},
 };
 
 export default config;

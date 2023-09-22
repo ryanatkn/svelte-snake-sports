@@ -1,6 +1,6 @@
-import {randomInt, randomItem} from '@feltjs/util/random.js';
-import {removeUnordered} from '@feltjs/util/array.js';
-import {UnreachableError} from '@feltjs/util/error.js';
+import {random_int, random_item} from '@grogarden/util/random.js';
+import {remove_unordered} from '@grogarden/util/array.js';
+import {UnreachableError} from '@grogarden/util/error.js';
 
 import {Entity} from '$lib/Entity';
 import {directions, horizontalDirections, verticalDirections, type Direction} from '$lib/direction';
@@ -111,10 +111,10 @@ export const getRandomEmptyPosition = (
 /**
  * Returns a random direction, up/down/left/right.
  */
-export const getRandomDirection = (): Direction => randomItem(directions);
+export const getRandomDirection = (): Direction => random_item(directions);
 
 export const getRandomTangent = (from: Direction): Direction =>
-	randomItem(from === 'up' || from === 'down' ? horizontalDirections : verticalDirections);
+	random_item(from === 'up' || from === 'down' ? horizontalDirections : verticalDirections);
 
 export const toOppositeDirection = (from: Direction): Direction =>
 	from === 'up' ? 'down' : from === 'down' ? 'up' : from === 'left' ? 'right' : 'left';
@@ -125,7 +125,7 @@ export const toOppositeDirection = (from: Direction): Direction =>
  * and if you're going left or right, it'll choose up or down.
  */
 export const getRandomTurn = (current: Direction): Direction =>
-	randomItem(isVerticalDirection(current) ? horizontalDirections : verticalDirections);
+	random_item(isVerticalDirection(current) ? horizontalDirections : verticalDirections);
 
 export const isVerticalDirection = (direction: Direction): boolean =>
 	direction === 'left' || direction === 'right';
@@ -196,7 +196,7 @@ export const spawnRandomTrail = (
 		const directionsToTry = directions.slice();
 		let added = false; // TODO maybe use labels here?
 		while (directionsToTry.length) {
-			const direction = randomItem(directionsToTry);
+			const direction = random_item(directionsToTry);
 			const position = getEmptyPositionFrom(state, trailEndPosition, direction);
 			if (position) {
 				apples.push(new Entity(position.x, position.y));
@@ -204,7 +204,7 @@ export const spawnRandomTrail = (
 				break;
 			}
 			// The attempted position is occupied, so remove the direction and try again.
-			removeUnordered(directionsToTry, directionsToTry.indexOf(direction));
+			remove_unordered(directionsToTry, directionsToTry.indexOf(direction));
 		}
 		if (added) continue;
 
@@ -309,8 +309,8 @@ export const moveY = (y: number, direction: Direction): number =>
  * Gets a random position on the game map.
  */
 const getRandomPosition = ({mapWidth, mapHeight}: SnakeGameState): Position => ({
-	x: randomInt(0, mapWidth - 1),
-	y: randomInt(0, mapHeight - 1),
+	x: random_int(0, mapWidth - 1),
+	y: random_int(0, mapHeight - 1),
 });
 
 /**

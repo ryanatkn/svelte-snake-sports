@@ -5,7 +5,7 @@
 
 	--active_color: var(--bright_green);
 	--text_color_active: var(--bright_green);
-	--link_color: var(--bright_green);
+	--link_color: var(--bright_green) !important; /* TODO instead of !important, change colors */
 	--text_color: #ddd;
 	--border_color_dark: var(--medium_brown);
 	--bg: var(--dim_brown);

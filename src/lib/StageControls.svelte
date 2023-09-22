@@ -23,7 +23,7 @@
 			select={(d) => enqueueMovementCommand(d)}
 		/>
 		{#if movementCommandQueue}
-			<div class="padded-md">
+			<div class="padded_md">
 				<MovementCommandQueue {movementCommandQueue} />
 			</div>
 		{/if}

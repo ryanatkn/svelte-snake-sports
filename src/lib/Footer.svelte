@@ -5,8 +5,8 @@
 	// import Breadcrumbs from '@fuz.dev/fuz/Breadcrumbs.svelte';
 </script>
 
-<footer class="centered column-sm">
-	<div class="padded-md prose">
+<footer class="centered width_sm">
+	<div class="padded_md prose">
 		<p>
 			<a href="https://github.com/ryanatkn/svelte-snake-sports">ssource code & creditss on GitHub</a
 			>
@@ -30,7 +30,7 @@
 		{/if}
 	</div>
 	<!-- TODO why is this not working? latest sveltekit problem with Felt? -->
-	<!-- <div class="padded-xl"> -->
+	<!-- <div class="padded_xl"> -->
 	<!-- <Breadcrumbs basePath={base}>🐍</Breadcrumbs> -->
 	<!-- </div> -->
 </footer>

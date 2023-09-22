@@ -1,4 +1,4 @@
-<div class="markup">
+<div class="prose">
 	<h2>controls</h2>
 	<div class="group">
 		<div>
@@ -18,8 +18,8 @@
 </div>
 
 <style>
-	.markup {
-		font-size: var(--font_size_lg);
+	.prose {
+		font-size: var(--size_lg);
 	}
 	strong {
 		color: var(--brown_text_color);

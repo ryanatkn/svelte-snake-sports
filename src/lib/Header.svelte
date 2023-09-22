@@ -6,7 +6,7 @@
 	const randomSport = random_item(sports);
 </script>
 
-<header class="centered-hz">
+<header class="box row prose">
 	<h1>
 		<a href="https://svelte.dev/" title="Svelte: cybernetically enhanced web apps">svelte</a>
 		<a class="snake" href="https://github.com/ryanatkn/svelte-snake-sports" title="source code"
@@ -36,12 +36,12 @@
 	}
 	@media (max-width: 550px) {
 		h1 {
-			font-size: var(--font_size_xl2);
+			font-size: var(--size_xl2);
 		}
 	}
 	@media (max-width: 450px) {
 		h1 {
-			font-size: var(--font_size_xl);
+			font-size: var(--size_xl);
 		}
 	}
 	.snake {

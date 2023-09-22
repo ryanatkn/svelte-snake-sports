@@ -1,13 +1,15 @@
 <script lang="ts">
 	import '@fuz.dev/fuz/style.css';
-
+	import '@fuz.dev/fuz/theme.css';
 	import '$lib/style.css';
 
-	// TODO BLOCK `Themed` with forced dark?
+	import Themed from '@fuz.dev/fuz/Themed.svelte';
 </script>
 
 <svelte:head>
 	<title>svelte🐍snake🐍sports</title>
 </svelte:head>
 
-<slot />
+<Themed color_scheme_fallback="dark">
+	<slot />
+</Themed>

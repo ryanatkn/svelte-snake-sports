@@ -110,7 +110,7 @@ button.selected {
 	line-height: 1;
 	padding-left: var(--spacing_sm);
 	padding-right: var(--spacing_sm);
-	font-size: var(--font_size_xl3);
+	font-size: var(--size_xl3);
 	min-width: var(--icon_size_lg);
 	min-height: var(--icon_size_lg);
 }
@@ -158,7 +158,7 @@ button.selected {
 	top: 50%;
 	left: 50%;
 	transform: translate3d(-50%, -50%, 0);
-	font-size: var(--font_size_lg);
+	font-size: var(--size_lg);
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -175,7 +175,7 @@ button.selected {
 }
 @media (max-width: 400px) {
 	.instructions {
-		font-size: var(--font_size_md);
+		font-size: var(--size_md);
 	}
 }
 

@@ -17,7 +17,7 @@
 </script>
 
 <div class="controls panel">
-	<div class="centered-hz">
+	<div class="box row">
 		<DirectionalControls
 			selectedDirection={currentCommand}
 			select={(d) => enqueueMovementCommand(d)}
@@ -28,7 +28,7 @@
 			</div>
 		{/if}
 	</div>
-	<div class="centered-hz">
+	<div class="box row">
 		<button title="[r] restart game" class="icon-button" on:click={reset}>⏮</button>
 		<ClockControls {clock} />
 		<button title="[1] next turn" class="icon-button" on:click={tick}>⏩</button>

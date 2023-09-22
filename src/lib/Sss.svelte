@@ -176,7 +176,7 @@
 	}
 
 	.sss {
-		font-size: var(--font_size_xl5);
+		font-size: var(--size_xl5);
 		font-weight: 300;
 		text-transform: uppercase;
 	}

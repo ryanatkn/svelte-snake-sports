@@ -6,7 +6,7 @@
 </script>
 
 <footer class="centered column-sm">
-	<div class="padded-md markup">
+	<div class="padded-md prose">
 		<p>
 			<a href="https://github.com/ryanatkn/svelte-snake-sports">ssource code & creditss on GitHub</a
 			>
@@ -47,6 +47,6 @@
 		flex-direction: column;
 	}
 	.snake {
-		font-size: var(--font_size_xl5);
+		font-size: var(--size_xl5);
 	}
 </style>

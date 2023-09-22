@@ -6,7 +6,7 @@
 	import Themed from '@fuz.dev/fuz/Themed.svelte';
 	import {writable} from 'svelte/store';
 
-	// TODO BLOCK doesn't seem to be working correctly, no `.dark` class added
+	// TODO BLOCK broken, no `.dark` class added to html
 	const selected_color_scheme = writable('dark' as const);
 </script>
 

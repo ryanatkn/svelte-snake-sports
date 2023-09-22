@@ -3,12 +3,12 @@
 :root {
 	color-scheme: dark;
 
-	--active_color: var(--bright_green);
-	--text_color_active: var(--bright_green);
+	--active_color: var(--bright_green) !important;
+	--text_color_active: var(--bright_green) !important;
 	--link_color: var(--bright_green) !important; /* TODO instead of !important, change colors */
-	--text_color: #ddd;
+	--text_color: #ddd !important;
 	--border_color_dark: var(--medium_brown);
-	--bg: var(--dim_brown);
+	--bg: var(--dim_brown) !important;
 	--button_color_disabled: var(--gray_brown);
 	--button_color_hover: var(--dark_brown);
 	--button_color_active: var(--dark_brown);

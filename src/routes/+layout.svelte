@@ -4,16 +4,17 @@
 	import '$lib/style.css';
 
 	import Themed from '@fuz.dev/fuz/Themed.svelte';
+	import {sync_color_scheme} from '@fuz.dev/fuz/theme.js';
 	import {writable} from 'svelte/store';
 
-	// TODO BLOCK broken, no `.dark` class added to html
 	const selected_color_scheme = writable('dark' as const);
+	sync_color_scheme($selected_color_scheme);
 </script>
 
 <svelte:head>
 	<title>svelte🐍snake🐍sports</title>
 </svelte:head>
 
-<Themed {selected_color_scheme} color_scheme_fallback="dark">
+<Themed {selected_color_scheme} color_scheme_fallback={$selected_color_scheme}>
 	<slot />
 </Themed>

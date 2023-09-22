@@ -1,10 +1,11 @@
 /* global stylesheet imported by `src/routes/+layout.svelte */
 
 :root {
-	--active_color: var(--bright_green);
-	--text_color_active: var(--bright_green);
-	--link_color: var(--bright_green) !important; /* TODO instead of !important, change colors */
-	--text_color: #ddd;
+	--hue_2: 210; /* blue */
+	--color_2: hsl(var(--hue_2), 55%, 50%);
+	--hue_1: 120; /* green, triad with `--color_3` and `--color_4` */
+	--color_1: hsl(var(--hue_1), 55%, 32%); /* same as THEME_COLOR */
+
 	--border_color_dark: var(--medium_brown);
 	--bg: var(--dim_brown);
 	--button_color_disabled: var(--gray_brown);

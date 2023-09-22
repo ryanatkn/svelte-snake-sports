@@ -11,8 +11,15 @@
 	export let tick: () => void;
 	export let game: SnakeGame;
 
-	$: ({movementCommandQueue, enqueueMovementCommand, status, setMovementCommand, start, reset} =
-		game);
+	$: ({
+		movementCommandQueue,
+		enqueueMovementCommand,
+		MOVEMENT_COMMAND_QUEUE_SIZE,
+		status,
+		setMovementCommand,
+		start,
+		reset,
+	} = game);
 	$: currentCommand = $movementCommandQueue?.[0];
 </script>
 
@@ -24,7 +31,7 @@
 		/>
 		{#if movementCommandQueue}
 			<div class="padded_md">
-				<MovementCommandQueue {movementCommandQueue} />
+				<MovementCommandQueue {movementCommandQueue} queueSize={MOVEMENT_COMMAND_QUEUE_SIZE} />
 			</div>
 		{/if}
 	</div>

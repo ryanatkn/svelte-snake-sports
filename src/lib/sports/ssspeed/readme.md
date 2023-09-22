@@ -4,7 +4,7 @@
 
 - [SsspeedSnake.svelte](./SsspeedSnake.svelte)
 
-<a href="https://ryanatkn.github.io/svelte-snake-sports/ssspeed"><img src="/src/static/assets/ssspeed.webp" alt="logo for ssspeed, macro photography of a cute cartoon snake eating a red apple on lush green moss in a 3d video game" /></a>
+<a href="https://sss.ryanatkn.com/ssspeed"><img src="/src/static/assets/ssspeed.webp" alt="logo for ssspeed, macro photography of a cute cartoon snake eating a red apple on lush green moss in a 3d video game" /></a>
 
 generated image by [DALL-E](https://wikipedia.org/wiki/DALL-E):
 "macro photography of a cute cartoon snake eating a red apple on lush green moss in a 3d video game"

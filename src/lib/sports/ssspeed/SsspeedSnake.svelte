@@ -182,7 +182,7 @@
 				<section class="panel" style:padding="var(--spacing_xl)">
 					<ControlsInstructions />
 				</section>
-				<section class="centered markup">
+				<section class="centered prose">
 					<p>
 						<a href="https://www.serpentsoundstudios.com/">Alexander Nakarada</a> -
 						<a href="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3">Lurking Sloth</a>
@@ -222,7 +222,7 @@
 		padding-top: var(--spacing_xl5);
 	}
 	.text-burst-wrapper {
-		font-size: var(--font_size_xl5);
+		font-size: var(--size_xl5);
 		position: absolute;
 		/* TODO hacky positioning */
 		left: 6rem;

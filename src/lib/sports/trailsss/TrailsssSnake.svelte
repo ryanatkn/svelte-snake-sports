@@ -227,7 +227,7 @@
 		</Gamespace>
 		{#if rendererWidth && autoAspectRatio && aspectRatio}
 			<div class="info">
-				<div class="centered-hz">
+				<div class="box row">
 					<Ticker {clock} tickDuration={currentTickDuration} {tick} />
 					<EatenOrTimedScores
 						{applesEaten}
@@ -242,7 +242,7 @@
 				<section class="panel" style:padding="var(--spacing_xl)">
 					<ControlsInstructions />
 				</section>
-				<section class="centered markup">
+				<section class="centered prose">
 					<p>
 						<a href="https://www.serpentsoundstudios.com/">Alexander Nakarada</a> -
 						<a href="{base}/assets/Alexander_Nakarada__Horde_of_Geese.mp3">Horde of Geese</a>
@@ -285,7 +285,7 @@
 		padding-top: var(--spacing_xl5);
 	}
 	.text-burst-wrapper {
-		font-size: var(--font_size_xl5);
+		font-size: var(--size_xl5);
 		position: absolute;
 		/* TODO hacky positioning */
 		left: 6rem;

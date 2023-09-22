@@ -11,24 +11,31 @@
 	export let tick: () => void;
 	export let game: SnakeGame;
 
-	$: ({movementCommandQueue, enqueueMovementCommand, status, setMovementCommand, start, reset} =
-		game);
+	$: ({
+		movementCommandQueue,
+		enqueueMovementCommand,
+		MOVEMENT_COMMAND_QUEUE_SIZE,
+		status,
+		setMovementCommand,
+		start,
+		reset,
+	} = game);
 	$: currentCommand = $movementCommandQueue?.[0];
 </script>
 
 <div class="controls panel">
-	<div class="centered-hz">
+	<div class="box row">
 		<DirectionalControls
 			selectedDirection={currentCommand}
 			select={(d) => enqueueMovementCommand(d)}
 		/>
 		{#if movementCommandQueue}
-			<div class="padded-md">
-				<MovementCommandQueue {movementCommandQueue} />
+			<div class="padded_md">
+				<MovementCommandQueue {movementCommandQueue} queueSize={MOVEMENT_COMMAND_QUEUE_SIZE} />
 			</div>
 		{/if}
 	</div>
-	<div class="centered-hz">
+	<div class="box row">
 		<button title="[r] restart game" class="icon-button" on:click={reset}>⏮</button>
 		<ClockControls {clock} />
 		<button title="[1] next turn" class="icon-button" on:click={tick}>⏩</button>

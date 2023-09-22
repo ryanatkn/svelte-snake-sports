@@ -1,6 +1,6 @@
 <script lang="ts">
-	import {randomItem} from '@feltjs/util/random.js';
-	import {plural} from '@feltjs/util/string.js';
+	import {random_item} from '@grogarden/util/random.js';
+	import {plural} from '@grogarden/util/string.js';
 	import {onDestroy} from 'svelte';
 	import {scale} from 'svelte/transition';
 
@@ -26,7 +26,7 @@
 	export let song: HTMLAudioElement | undefined;
 
 	const sss = (): void => {
-		ssses = [{...randomItem(items)!}].concat(ssses);
+		ssses = [{...random_item(items)!}].concat(ssses);
 	};
 	const reset = (): void => {
 		ssses = [];
@@ -176,7 +176,7 @@
 	}
 
 	.sss {
-		font-size: var(--font_size_xl5);
+		font-size: var(--size_xl5);
 		font-weight: 300;
 		text-transform: uppercase;
 	}

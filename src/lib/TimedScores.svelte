@@ -55,7 +55,7 @@
 			</div>
 		{/each}
 	</div>
-	<div class="centered-hz">
+	<div class="box row">
 		<div
 			class="time"
 			title="{currentTimeSeconds} second{currentTimeSeconds === 1 ? ' has' : 's have'} elapsed"
@@ -82,7 +82,7 @@
 		align-items: center;
 		justify-content: center;
 		flex-direction: column;
-		font-size: var(--font_size_xl3);
+		font-size: var(--size_xl3);
 		width: calc(var(--map_width) * 1px);
 	}
 

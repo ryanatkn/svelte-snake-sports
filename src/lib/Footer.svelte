@@ -2,11 +2,11 @@
 	import {base} from '$app/paths';
 	import {page} from '$app/stores';
 
-	// import Breadcrumbs from '@feltjs/felt-ui/Breadcrumbs.svelte';
+	// import Breadcrumbs from '@fuz.dev/fuz/Breadcrumbs.svelte';
 </script>
 
-<footer class="centered column-sm">
-	<div class="padded-md markup">
+<footer class="centered width_sm">
+	<div class="padded_md prose">
 		<p>
 			<a href="https://github.com/ryanatkn/svelte-snake-sports">ssource code & creditss on GitHub</a
 			>
@@ -30,7 +30,7 @@
 		{/if}
 	</div>
 	<!-- TODO why is this not working? latest sveltekit problem with Felt? -->
-	<!-- <div class="padded-xl"> -->
+	<!-- <div class="padded_xl"> -->
 	<!-- <Breadcrumbs basePath={base}>🐍</Breadcrumbs> -->
 	<!-- </div> -->
 </footer>
@@ -47,6 +47,6 @@
 		flex-direction: column;
 	}
 	.snake {
-		font-size: var(--font_size_xl5);
+		font-size: var(--size_xl5);
 	}
 </style>

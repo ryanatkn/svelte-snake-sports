@@ -1,12 +1,12 @@
 <script lang="ts">
 	import {base} from '$app/paths';
-	import {randomItem} from '@feltjs/util/random.js';
+	import {random_item} from '@grogarden/util/random.js';
 	import {sports} from '$lib/sports';
 
-	$: randomSport = randomItem(sports);
+	const randomSport = random_item(sports);
 </script>
 
-<header class="centered-hz">
+<header class="box row prose">
 	<h1>
 		<a href="https://svelte.dev/" title="Svelte: cybernetically enhanced web apps">svelte</a>
 		<a class="snake" href="https://github.com/ryanatkn/svelte-snake-sports" title="source code"
@@ -30,16 +30,18 @@
 		flex-wrap: wrap;
 		justify-content: center;
 		align-items: center;
-		text-shadow: 2px 2px var(--dark_brown), -1px -1px var(--bright_green);
+		text-shadow:
+			2px 2px var(--dark_brown),
+			-1px -1px var(--bright_green);
 	}
 	@media (max-width: 550px) {
 		h1 {
-			font-size: var(--font_size_xl2);
+			font-size: var(--size_xl2);
 		}
 	}
 	@media (max-width: 450px) {
 		h1 {
-			font-size: var(--font_size_xl);
+			font-size: var(--size_xl);
 		}
 	}
 	.snake {

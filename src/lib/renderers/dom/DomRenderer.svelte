@@ -4,7 +4,7 @@
 	import Tiles from '$lib/renderers/dom/Tiles.svelte';
 	import type SnakeGame from '$lib/SnakeGame.svelte';
 
-	// TODO maybe rename this module to `SnameGameDomRenderer` or just `Renderer`?
+	// TODO rename to Svelte4DomRenderer
 
 	export let game: SnakeGame;
 	export let width: number;

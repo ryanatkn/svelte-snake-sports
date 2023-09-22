@@ -1,5 +1,5 @@
 <script lang="ts">
-	import {isEditable, swallow} from '@feltjs/util/dom.js';
+	import {is_editable, swallow} from '@grogarden/util/dom.js';
 
 	// TODO maybe a hotkey definition API like {'ctrl+s,s,b': () => {...}}
 
@@ -14,7 +14,7 @@
 
 <svelte:window
 	on:keydown|capture={(e) => {
-		if (enabled && !isEditable(e.target) && onKeydown(e.key, e.ctrlKey, e.altKey, e.shiftKey)) {
+		if (enabled && !is_editable(e.target) && onKeydown(e.key, e.ctrlKey, e.altKey, e.shiftKey)) {
 			swallow(e);
 		}
 	}}

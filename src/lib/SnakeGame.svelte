@@ -2,7 +2,7 @@
 
 <script lang="ts">
 	import {writable} from 'svelte/store';
-	import {noop} from '@feltjs/util/function.js';
+	import {noop} from '@grogarden/util/function.js';
 	import type {SnakeGameState} from '$lib/SnakeGameState';
 	import type {SnakeGameEvent, SnakeGameHelpers} from '$lib/SnakeGame';
 	import {spawnApples as _spawnApples} from '$lib/updateSnakeGameState';
@@ -77,7 +77,7 @@
 		return true;
 	};
 
-	const MOVEMENT_COMMAND_QUEUE_SIZE = 4; // how many inputs a player can queue up at once
+	export const MOVEMENT_COMMAND_QUEUE_SIZE = 4; // how many inputs a player can queue up at once
 
 	const toPreviousDirection = (): Direction | undefined => {
 		const queued = $movementCommandQueue.at(-1);

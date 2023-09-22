@@ -1,13 +1,11 @@
-/* global stylesheet imported by `src/routes/__layout.svelte */
+/* global stylesheet imported by `src/routes/+layout.svelte */
 
 :root {
-	color-scheme: dark;
+	--hue_2: 210; /* blue */
+	--color_2: hsl(var(--hue_2), 55%, 50%);
+	--hue_1: 120; /* green, triad with `--color_3` and `--color_4` */
+	--color_1: hsl(var(--hue_1), 55%, 32%); /* same as THEME_COLOR */
 
-	--active_color: var(--bright_green);
-	--text_color_active: var(--bright_green);
-	--link_color: var(--bright_green);
-	--text_color: #ddd;
-	--text_color_light: #fed;
 	--border_color_dark: var(--medium_brown);
 	--bg: var(--dim_brown);
 	--button_color_disabled: var(--gray_brown);
@@ -24,7 +22,6 @@
 	--brown_text_color: hsl(30, 85%, 72%);
 	--brown_text_color_lighter: hsl(30, 95%, 85%);
 	--brown_text_color_lightest: hsl(30, 100%, 93%);
-	--text_color: var(--brown_text_color_lighter);
 	--medium_brown: hsl(30, 25%, 27%);
 	--gray_brown: hsl(30, 16%, 20%);
 	--bright_green: hsl(116, 80%, 41%);
@@ -36,13 +33,6 @@
 	--blue_to_brown_hue_rotation: 215;
 
 	--renderer_scale: 1;
-}
-
-/* TODO remove this after upgrading Felt */
-input,
-textarea,
-select {
-	color: var(--text_color);
 }
 
 html {
@@ -110,7 +100,7 @@ button.selected {
 	line-height: 1;
 	padding-left: var(--spacing_sm);
 	padding-right: var(--spacing_sm);
-	font-size: var(--font_size_xl3);
+	font-size: var(--size_xl3);
 	min-width: var(--icon_size_lg);
 	min-height: var(--icon_size_lg);
 }
@@ -136,7 +126,9 @@ button.selected {
 }
 
 .clickable-box {
-	transition: border-radius 0.09s ease-out, transform 0.13s ease;
+	transition:
+		border-radius 0.09s ease-out,
+		transform 0.13s ease;
 	border-radius: 20%;
 }
 .clickable-box:hover {
@@ -156,7 +148,7 @@ button.selected {
 	top: 50%;
 	left: 50%;
 	transform: translate3d(-50%, -50%, 0);
-	font-size: var(--font_size_lg);
+	font-size: var(--size_lg);
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -173,7 +165,7 @@ button.selected {
 }
 @media (max-width: 400px) {
 	.instructions {
-		font-size: var(--font_size_md);
+		font-size: var(--size_md);
 	}
 }
 

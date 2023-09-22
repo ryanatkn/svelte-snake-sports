@@ -19,7 +19,7 @@
 	style:--screen_height={screenHeight}
 	style:--renderer_scale={renderer_scale}
 >
-	<div style={`transform: scale3d(${scale}, ${scale}, 1);`}>
+	<div style:transform="scale3d({scale}, {scale}, 1)">
 		<div class="world" style:--world_width={worldWidth} style:--world_height={worldHeight}>
 			<slot />
 		</div>

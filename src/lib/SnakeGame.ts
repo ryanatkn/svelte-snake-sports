@@ -6,6 +6,8 @@ import type {Direction} from '$lib/direction';
 import type {spawnApples} from '$lib/updateSnakeGameState';
 import type {SnakeGameState} from '$lib/SnakeGameState';
 
+// TODO BLOCK add particle effects on eat
+
 // TODO try to delete, only need it because
 // `SnakeGame.svelte` types in `context="module"` can't be imported by TS modules
 

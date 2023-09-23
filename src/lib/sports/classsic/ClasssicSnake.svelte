@@ -178,14 +178,14 @@
 				<section class="panel" style:padding="var(--spacing_xl)">
 					<ControlsInstructions />
 				</section>
-				<section class="centered prose">
+				<section class="box prose">
 					<p>
 						<a href="https://www.serpentsoundstudios.com/">Alexander Nakarada</a> -
 						<a href="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3">Lurking Sloth</a>
 					</p>
 					<GameAudio song="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3" bind:this={audio} />
 				</section>
-				<section class="centered">
+				<section class="box">
 					<button on:click={() => (showSettings = !showSettings)}
 						>{#if showSettings}stash settings{:else}show settings{/if}</button
 					>

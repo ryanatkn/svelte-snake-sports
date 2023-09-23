@@ -34,7 +34,7 @@
 	const onAspectRatioInput = (e: any) => ($aspectRatio = Number(e.target.value));
 </script>
 
-<form class="Settings">
+<form class="settings panel">
 	<section>
 		<button
 			type="button"
@@ -140,7 +140,7 @@
 </form>
 
 <style>
-	.Settings {
+	.settings {
 		font-size: 18px;
 		font-weight: 300;
 		padding: var(--spacing_xl);

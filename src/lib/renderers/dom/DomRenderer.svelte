@@ -21,8 +21,8 @@
 	$: snakeHead = snakeSegments[0];
 	$: snakeHeadX = snakeHead.x;
 	$: snakeHeadY = snakeHead.y;
-	$: snakeX = entityWidth * snakeHeadX + entityWidth / 2; // centered on the tile
-	$: snakeY = entityHeight * snakeHeadY + entityHeight / 2; // centered on the tile
+	$: snakeX = entityWidth * snakeHeadX + entityWidth / 2; // box on the tile
+	$: snakeY = entityHeight * snakeHeadY + entityHeight / 2; // box on the tile
 </script>
 
 <div

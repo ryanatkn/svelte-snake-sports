@@ -5,8 +5,8 @@
 	// import Breadcrumbs from '@fuz.dev/fuz/Breadcrumbs.svelte';
 </script>
 
-<footer class="centered width_sm">
-	<div class="padded_md prose">
+<footer class="box width_sm">
+	<div class="panel padded_md prose">
 		<p>
 			<a href="https://github.com/ryanatkn/svelte-snake-sports">ssource code & creditss on GitHub</a
 			>

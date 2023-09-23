@@ -203,10 +203,6 @@
       "default": "./dist/SnakeGameState.js",
       "types": "./dist/SnakeGameState.d.ts"
     },
-    "./Sports.svelte": {
-      "svelte": "./dist/Sports.svelte",
-      "types": "./dist/Sports.svelte.d.ts"
-    },
     "./sports.js": {
       "default": "./dist/sports.js",
       "types": "./dist/sports.d.ts"
@@ -258,6 +254,10 @@
     "./sports/trailsss/WinInstructions.svelte": {
       "svelte": "./dist/sports/trailsss/WinInstructions.svelte",
       "types": "./dist/sports/trailsss/WinInstructions.svelte.d.ts"
+    },
+    "./SportsMenu.svelte": {
+      "svelte": "./dist/SportsMenu.svelte",
+      "types": "./dist/SportsMenu.svelte.d.ts"
     },
     "./Sss.svelte": {
       "svelte": "./dist/Sss.svelte",

@@ -31,4 +31,8 @@
 		align-items: center;
 		justify-content: center;
 	}
+	img {
+		/* TODO header height var */
+		max-height: calc(81vh - 95px);
+	}
 </style>

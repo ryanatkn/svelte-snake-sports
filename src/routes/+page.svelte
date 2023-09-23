@@ -3,7 +3,7 @@
 
 	import Header from '$lib/Header.svelte';
 	import Sss from '$lib/Sss.svelte';
-	import Sports from '$lib/Sports.svelte';
+	import SportsMenu from '$lib/SportsMenu.svelte';
 	import Footer from '$lib/Footer.svelte';
 
 	let ssses: Array<{icon: string}> | undefined;
@@ -20,7 +20,7 @@
 		<Header />
 	</section>
 	<section>
-		<Sports />
+		<SportsMenu />
 	</section>
 	<audio src="{base}/assets/Alexander_Nakarada__Lurking_Sloth.mp3" bind:this={song} />
 	<Footer />

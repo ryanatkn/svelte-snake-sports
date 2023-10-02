@@ -168,10 +168,6 @@
       "svelte": "./dist/renderers/dom/Entity.svelte",
       "types": "./dist/renderers/dom/Entity.svelte.d.ts"
     },
-    "./renderers/dom/SnakeSegment.svelte": {
-      "svelte": "./dist/renderers/dom/SnakeSegment.svelte",
-      "types": "./dist/renderers/dom/SnakeSegment.svelte.d.ts"
-    },
     "./renderers/dom/Tiles.svelte": {
       "svelte": "./dist/renderers/dom/Tiles.svelte",
       "types": "./dist/renderers/dom/Tiles.svelte.d.ts"

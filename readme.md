@@ -35,6 +35,39 @@ caveats:
 - some of the code is still very rough from the port, I just tried to ship gameplay asap
 - some of the code has experimental patterns that I wouldn't recommend
 
+## usage
+
+Windows users will need a Linux VM, see [this issue](https://github.com/grogarden/gro/issues/319).
+
+```bash
+npm run dev
+# or
+gro dev # npm i -g @grogarden/gro
+```
+
+> learn more about [SvelteKit](https://github.com/sveltejs/kit),
+> [Vite](https://github.com/vitejs/vite), [Gro](https://github.com/grogarden/gro),
+> and [Felt](https://github.com/fuz-dev/fuz)
+
+## build
+
+```bash
+npm run build
+# or
+gro build
+```
+
+## deploy
+
+[Deploy](https://github.com/grogarden/gro/blob/main/src/docs/deploy.md)
+(build, commit, and push) to the `deploy` branch, e.g. for GitHub Pages:
+
+```bash
+npm run deploy
+# or
+gro deploy
+```
+
 ## what
 
 In 2016 I wrote a tiny [`snake-game`](https://ryanatkn.github.io/snake-game)
@@ -61,39 +94,6 @@ and deep enough to hold the interest of more advanced students like myself.
 on the web:
 [sss.ryanatkn.com](https://sss.ryanatkn.com/)
 
-## usage
-
-Windows users will need a Linux VM, see [this issue](https://github.com/feltjs/gro/issues/319).
-
-```bash
-npm run dev
-# or
-gro dev # npm i -g @feltjs/gro
-```
-
-> learn more about [SvelteKit](https://github.com/sveltejs/kit),
-> [Vite](https://github.com/vitejs/vite), [Gro](https://github.com/feltjs/gro),
-> and [Felt](https://github.com/fuz-dev/fuz)
-
-## build
-
-```bash
-npm run build
-# or
-gro build
-```
-
-## deploy
-
-[Deploy](https://github.com/feltjs/gro/blob/main/src/docs/deploy.md)
-(build, commit, and push) to the `deploy` branch, e.g. for GitHub Pages:
-
-```bash
-npm run deploy
-# or
-gro deploy
-```
-
 ## credits 🐢<sub>🐢</sub><sub><sub>🐢</sub></sub>
 
 [Svelte](https://github.com/sveltejs/svelte) ∙
@@ -105,7 +105,7 @@ gro deploy
 [ESLint](https://github.com/eslint/eslint) ∙
 [Prettier](https://github.com/prettier/prettier) ∙
 [Felt](https://github.com/fuz-dev/fuz) ∙
-[Gro](https://github.com/feltjs/gro)
+[Gro](https://github.com/grogarden/gro)
 & [more](package.json)
 
 music by Alexander Nakarada

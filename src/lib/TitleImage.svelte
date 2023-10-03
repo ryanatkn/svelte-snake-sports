@@ -17,7 +17,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding: var(--spacing_xl);
+		padding: var(--spacing_1);
 	}
 	a {
 		margin-bottom: var(--spacing_lg);

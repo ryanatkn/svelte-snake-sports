@@ -82,7 +82,7 @@
 		align-items: center;
 		justify-content: center;
 		flex-direction: column;
-		font-size: var(--size_xl3);
+		font-size: var(--size_3);
 		width: calc(var(--map_width) * 1px);
 	}
 
@@ -93,7 +93,7 @@
 	}
 
 	.time {
-		padding: var(--spacing_xl);
+		padding: var(--spacing_1);
 		font-weight: 600;
 	}
 
@@ -101,7 +101,7 @@
 		width: 100%;
 		position: relative;
 		display: flex;
-		padding-top: var(--spacing_xl);
+		padding-top: var(--spacing_1);
 	}
 	.apple-wrapper {
 		position: absolute;

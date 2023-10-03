@@ -143,7 +143,7 @@
 	.settings {
 		font-size: 18px;
 		font-weight: 300;
-		padding: var(--spacing_xl);
+		padding: var(--spacing_1);
 	}
 	section {
 		display: flex;
@@ -151,6 +151,6 @@
 		align-items: flex-start;
 		justify-content: center;
 		flex-wrap: wrap;
-		margin-bottom: var(--spacing_xl);
+		margin-bottom: var(--spacing_1);
 	}
 </style>

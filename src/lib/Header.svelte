@@ -36,12 +36,12 @@
 	}
 	@media (max-width: 550px) {
 		h1 {
-			font-size: var(--size_xl2);
+			font-size: var(--size_2);
 		}
 	}
 	@media (max-width: 450px) {
 		h1 {
-			font-size: var(--size_xl);
+			font-size: var(--size_1);
 		}
 	}
 	.snake {

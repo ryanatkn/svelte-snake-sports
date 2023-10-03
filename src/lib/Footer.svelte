@@ -30,7 +30,7 @@
 		{/if}
 	</div>
 	<!-- TODO why is this not working? latest sveltekit problem with Felt? -->
-	<!-- <div class="padded_xl"> -->
+	<!-- <div class="padded_1"> -->
 	<!-- <Breadcrumbs basePath={base}>🐍</Breadcrumbs> -->
 	<!-- </div> -->
 </footer>
@@ -47,6 +47,6 @@
 		flex-direction: column;
 	}
 	.snake {
-		font-size: var(--size_xl5);
+		font-size: var(--size_5);
 	}
 </style>

@@ -1,6 +1,5 @@
 <script lang="ts">
-	import Surface from '@feltjs/felt-mural/Surface.svelte';
-
+	import Surface from '$lib/Surface.svelte';
 	import PauseInstructions from '$lib/PauseInstructions.svelte';
 	import {getClock} from '$lib/clock';
 

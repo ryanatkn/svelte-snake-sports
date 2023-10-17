@@ -35,10 +35,15 @@
   "files": [
     "dist"
   ],
+  "peerDependencies": {
+    "@fuz.dev/fuz": "^0.73.0",
+    "@grogarden/util": "^0.15",
+    "@sveltejs/kit": "*",
+    "svelte": "*"
+  },
   "devDependencies": {
     "@changesets/changelog-git": "^0.1.14",
     "@feltjs/eslint-config": "^0.4.0",
-    "@feltjs/felt-mural": "^0.3.0",
     "@fuz.dev/fuz": "^0.73.0",
     "@grogarden/gro": "^0.95.3",
     "@grogarden/util": "^0.15.0",
@@ -281,6 +286,10 @@
     },
     "./style.css": {
       "default": "./dist/style.css"
+    },
+    "./Surface.svelte": {
+      "svelte": "./dist/Surface.svelte",
+      "types": "./dist/Surface.svelte.d.ts"
     },
     "./TextBurst.svelte": {
       "svelte": "./dist/TextBurst.svelte",

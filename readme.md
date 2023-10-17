@@ -19,12 +19,12 @@ npm i -D @ryanatkn/svelte-snake-sports
 
 See [contributing.md](contributing.md) to submit highscores.
 
-| 🐍                                                                                                                                                                                                                                                                                                                                                             | sport                                           | goal                             | highscores                                                                                                                                                                   |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <a href="https://sss.ryanatkn.com/classsic"><img src="/src/static/assets/classsic.webp" alt="logo for classsic, macro photography of an adorable cartoon snake with big eyes next to a red apple on lush green moss in a realistic 3d video game in the style of Tim Burton" width="192" /></a>                                                                | [classsic](https://sss.ryanatkn.com/classsic)   | eat many apples                  |                                                                                                                                                                              |
-| <a href="https://sss.ryanatkn.com/ssspeed"><img src="/src/static/assets/ssspeed.webp" alt="logo for ssspeed, macro photography of a cute cartoon snake eating a red apple on lush green moss in a 3d video game" width="192" /></a>                                                                                                                            | [ssspeed](https://sss.ryanatkn.com/ssspeed)     | eat apples asap                  |                                                                                                                                                                              |
-| <a href="https://sss.ryanatkn.com/buncheses"><img src="/src/static/assets/buncheses.webp" alt="logo for buncheses, macro photography of an adorable green cartoon snake with huge cute eyes next to a pile of red apples on lush green moss, realistic 3d video game, digital art, vibrant, artstation" width="192" /></a>                                     | [buncheses](https://sss.ryanatkn.com/buncheses) | eat many whole bunches of apples | <ol><li>9 bunches — [@ryanatkn](https://github.com/ryanatkn)—<a href="https://www.youtube.com/watch?v=EorynexNDJI">YouTube</a> <sub>uncontested world record</sub></li></ol> |
-| <a href="https://sss.ryanatkn.com/trailsss"><img src="/src/static/assets/trailsss.webp" alt="logo for trailsss, macro photography of an adorable green cartoon snake with big cute eyes running towards a row of red apples in a line on lush green moss, realistic 3d video game, digital art, Pixar movie character, vibrant, artstation" width="192" /></a> | [trailsss](https://sss.ryanatkn.com/trailsss)   | eat trails of apples             | is often unfair, see [issue #28](https://github.com/ryanatkn/svelte-snake-sports/issues/28)                                                                                  |
+| 🐍                                                                                                                                                                                                                                                                                                                                                         | sport                                           | goal                             | highscores                                                                                                                                                                   |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <a href="https://sss.ryanatkn.com/classsic"><img src="/static/assets/classsic.webp" alt="logo for classsic, macro photography of an adorable cartoon snake with big eyes next to a red apple on lush green moss in a realistic 3d video game in the style of Tim Burton" width="192" /></a>                                                                | [classsic](https://sss.ryanatkn.com/classsic)   | eat many apples                  |                                                                                                                                                                              |
+| <a href="https://sss.ryanatkn.com/ssspeed"><img src="/static/assets/ssspeed.webp" alt="logo for ssspeed, macro photography of a cute cartoon snake eating a red apple on lush green moss in a 3d video game" width="192" /></a>                                                                                                                            | [ssspeed](https://sss.ryanatkn.com/ssspeed)     | eat apples asap                  |                                                                                                                                                                              |
+| <a href="https://sss.ryanatkn.com/buncheses"><img src="/static/assets/buncheses.webp" alt="logo for buncheses, macro photography of an adorable green cartoon snake with huge cute eyes next to a pile of red apples on lush green moss, realistic 3d video game, digital art, vibrant, artstation" width="192" /></a>                                     | [buncheses](https://sss.ryanatkn.com/buncheses) | eat many whole bunches of apples | <ol><li>9 bunches — [@ryanatkn](https://github.com/ryanatkn)—<a href="https://www.youtube.com/watch?v=EorynexNDJI">YouTube</a> <sub>uncontested world record</sub></li></ol> |
+| <a href="https://sss.ryanatkn.com/trailsss"><img src="/static/assets/trailsss.webp" alt="logo for trailsss, macro photography of an adorable green cartoon snake with big cute eyes running towards a row of red apples in a line on lush green moss, realistic 3d video game, digital art, Pixar movie character, vibrant, artstation" width="192" /></a> | [trailsss](https://sss.ryanatkn.com/trailsss)   | eat trails of apples             | is often unfair, see [issue #28](https://github.com/ryanatkn/svelte-snake-sports/issues/28)                                                                                  |
 
 Here's [the source code](https://github.com/ryanatkn/svelte-snake-sports/tree/main/src/lib/sports)
 for each sport.
@@ -112,26 +112,26 @@ music by Alexander Nakarada
 ([serpentsoundstudios.com](https://www.serpentsoundstudios.com/),
 [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/)):
 
-- ["Lurking Sloth"](/src/static/assets/Alexander_Nakarada__Lurking_Sloth.mp3)
-- ["Horde of Geese"](/src/static/assets/Alexander_Nakarada__Horde_of_Geese.mp3)
+- ["Lurking Sloth"](/static/assets/Alexander_Nakarada__Lurking_Sloth.mp3)
+- ["Horde of Geese"](/static/assets/Alexander_Nakarada__Horde_of_Geese.mp3)
 
 generated images by [DALL-E](https://wikipedia.org/wiki/DALL-E):
 
 - [classsic](/src/lib/sports/classsic):
   "macro photography of an adorable cartoon snake with big eyes next to a red apple on lush green moss in a realistic 3d video game in the style of Tim Burton"
-  - [/src/static/assets/classsic.webp](/src/static/assets/classsic.webp)
+  - [/static/assets/classsic.webp](/static/assets/classsic.webp)
   - font is [Georgia Bold](<https://wikipedia.org/wiki/Georgia_(typeface)>)
 - [ssspeed](/src/lib/sports/ssspeed):
   "macro photography of a cute cartoon snake eating a red apple on lush green moss in a 3d video game"
-  - [/src/static/assets/ssspeed.webp](/src/static/assets/ssspeed.webp)
+  - [/static/assets/ssspeed.webp](/static/assets/ssspeed.webp)
   - font is [Gabriola](<https://wikipedia.org/wiki/Gabriola_(typeface)>)
 - [buncheses](/src/lib/sports/buncheses):
   "macro photography of an adorable green cartoon snake with huge cute eyes next to a pile of red apples on lush green moss, realistic 3d video game, digital art, vibrant, artstation"
-  - [/src/static/assets/buncheses.webp](/src/static/assets/buncheses.webp)
+  - [/static/assets/buncheses.webp](/static/assets/buncheses.webp)
   - font is [Indie Flower](https://fonts.google.com/betterspecimen/Indie+Flower)
 - [trailsss](/src/lib/sports/trailsss):
   "macro photography of an adorable green cartoon snake with big cute eyes running towards a row of red apples in a line on lush green moss, realistic 3d video game, digital art, Pixar movie character, vibrant, artstation"
-  - [/src/static/assets/trailsss.webp](/src/static/assets/trailsss.webp)
+  - [/static/assets/trailsss.webp](/static/assets/trailsss.webp)
   - fonts are [Raleway Dots](https://fonts.google.com/specimen/Raleway+Dots)
     and [Codystar](https://fonts.google.com/specimen/Codystar)
 

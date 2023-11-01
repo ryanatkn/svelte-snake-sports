@@ -1,5 +1,11 @@
 # @ryanatkn/svelte_snake_sports
 
+## 0.7.0
+
+### Minor Changes
+
+- dc1a6c4: rename to svelte_snake_sports
+
 ## 0.6.1
 
 ### Patch Changes

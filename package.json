@@ -1,7 +1,7 @@
 {
   "name": "@ryanatkn/svelte_snake_sports",
   "description": "games of snake in svelte and sveltekit",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "public": true,
   "homepage": "https://sss.ryanatkn.com/",
   "license": "Unlicense",

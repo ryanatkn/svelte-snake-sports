@@ -9,14 +9,14 @@
 <header class="box row prose">
 	<h1>
 		<a href="https://svelte.dev/" title="Svelte: cybernetically enhanced web apps">svelte</a>
-		<a class="snake" href="https://github.com/ryanatkn/svelte-snake-sports" title="source code"
+		<a class="snake" href="https://github.com/ryanatkn/svelte_snake_sports" title="source code"
 			>🐍</a
 		>
 		<a href="https://wikipedia.org/wiki/Snake_game" title="Wikipedia on Snake (video game genre)"
 			>snake</a
 		>
 		<a
-			href="https://github.com/ryanatkn/svelte-snake-sports"
+			href="https://github.com/ryanatkn/svelte_snake_sports"
 			title="source code"
 			class="snake second-snake">🐍</a
 		>
@@ -36,12 +36,12 @@
 	}
 	@media (max-width: 550px) {
 		h1 {
-			font-size: var(--size_xl2);
+			font-size: var(--size_2);
 		}
 	}
 	@media (max-width: 450px) {
 		h1 {
-			font-size: var(--size_xl);
+			font-size: var(--size_1);
 		}
 	}
 	.snake {

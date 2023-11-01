@@ -1,6 +1,6 @@
 import {random_int, random_item} from '@grogarden/util/random.js';
 import {remove_unordered} from '@grogarden/util/array.js';
-import {UnreachableError} from '@grogarden/util/error.js';
+import {Unreachable_Error} from '@grogarden/util/error.js';
 
 import {Entity} from '$lib/Entity';
 import {directions, horizontalDirections, verticalDirections, type Direction} from '$lib/direction';
@@ -288,7 +288,7 @@ export const getNearestEmptyPositionFrom = (
 				break;
 			}
 			default:
-				throw new UnreachableError(direction);
+				throw new Unreachable_Error(direction);
 		}
 
 		// Are we at an empty spot?

@@ -148,6 +148,6 @@
 		align-items: center;
 		justify-content: center;
 		padding: var(--spacing_md);
-		margin-bottom: var(--spacing_xl2);
+		margin-bottom: var(--spacing_2);
 	}
 </style>

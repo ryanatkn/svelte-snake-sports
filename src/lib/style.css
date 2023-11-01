@@ -52,7 +52,7 @@ body {
 }
 
 footer {
-	padding: var(--spacing_xl5) 0;
+	padding: var(--spacing_5) 0;
 }
 
 /* TODO upstream to Felt? */
@@ -61,7 +61,7 @@ form label {
 	flex-direction: column;
 	align-items: flex-start;
 	font-weight: bold;
-	margin-bottom: var(--spacing_xl);
+	margin-bottom: var(--spacing_1);
 }
 form label:last-child {
 	margin: 0;
@@ -71,7 +71,7 @@ button {
 	/* TODO delete all of this when felt has dark mode */
 	color: var(--brown_text_color_lightest);
 	border-radius: 3rem;
-	padding: var(--spacing_md) var(--spacing_xl);
+	padding: var(--spacing_md) var(--spacing_1);
 	background: var(--dim_brown);
 	box-shadow: 0 0 0 3px var(--rich_brown) inset !important;
 	--border_color: var(--darker_brown);
@@ -100,7 +100,7 @@ button.selected {
 	line-height: 1;
 	padding-left: var(--spacing_sm);
 	padding-right: var(--spacing_sm);
-	font-size: var(--size_xl3);
+	font-size: var(--size_3);
 	min-width: var(--icon_size_lg);
 	min-height: var(--icon_size_lg);
 }

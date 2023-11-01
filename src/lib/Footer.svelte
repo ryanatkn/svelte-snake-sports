@@ -8,7 +8,7 @@
 <footer class="box width_sm">
 	<div class="panel padded_md prose">
 		<p>
-			<a href="https://github.com/ryanatkn/svelte-snake-sports">ssource code & creditss on GitHub</a
+			<a href="https://github.com/ryanatkn/svelte_snake_sports">ssource code & creditss on GitHub</a
 			>
 		</p>
 		<p>
@@ -30,7 +30,7 @@
 		{/if}
 	</div>
 	<!-- TODO why is this not working? latest sveltekit problem with Felt? -->
-	<!-- <div class="padded_xl"> -->
+	<!-- <div class="padded_1"> -->
 	<!-- <Breadcrumbs basePath={base}>🐍</Breadcrumbs> -->
 	<!-- </div> -->
 </footer>
@@ -47,6 +47,6 @@
 		flex-direction: column;
 	}
 	.snake {
-		font-size: var(--size_xl5);
+		font-size: var(--size_5);
 	}
 </style>

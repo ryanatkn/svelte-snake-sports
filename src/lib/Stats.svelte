@@ -51,6 +51,6 @@
 
 	.value {
 		padding: 0 5px;
-		font-size: var(--size_xl);
+		font-size: var(--size_1);
 	}
 </style>

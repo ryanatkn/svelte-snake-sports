@@ -36,27 +36,27 @@
     "dist"
   ],
   "peerDependencies": {
-    "@fuz.dev/fuz": "^0.73.0",
-    "@grogarden/util": "^0.15",
+    "@fuz.dev/fuz": "*",
+    "@grogarden/util": "*",
     "@sveltejs/kit": "*",
     "svelte": "*"
   },
   "devDependencies": {
     "@changesets/changelog-git": "^0.1.14",
-    "@feltjs/eslint-config": "^0.4.0",
-    "@fuz.dev/fuz": "^0.73.0",
-    "@grogarden/gro": "^0.95.3",
-    "@grogarden/util": "^0.15.0",
+    "@feltjs/eslint-config": "^0.4.1",
+    "@fuz.dev/fuz": "^0.79.1",
+    "@grogarden/gro": "^0.100.1",
+    "@grogarden/util": "^0.16.0",
     "@sveltejs/adapter-static": "^2.0.3",
-    "@sveltejs/kit": "^1.25.2",
+    "@sveltejs/kit": "^1.27.2",
     "@sveltejs/package": "^2.2.2",
-    "@typescript-eslint/eslint-plugin": "^6.8.0",
-    "@typescript-eslint/parser": "^6.8.0",
-    "eslint": "^8.51.0",
+    "@typescript-eslint/eslint-plugin": "^6.9.1",
+    "@typescript-eslint/parser": "^6.9.1",
+    "eslint": "^8.52.0",
     "eslint-plugin-svelte": "^2.34.0",
     "prettier": "^3.0.3",
     "prettier-plugin-svelte": "^3.0.3",
-    "svelte": "^4.2.1",
+    "svelte": "^4.2.2",
     "svelte-check": "^3.5.2",
     "tslib": "^2.6.2",
     "typescript": "^5.2.2",
@@ -94,14 +94,17 @@
     },
     "./ClockControls.svelte": {
       "svelte": "./dist/ClockControls.svelte",
+      "default": "./dist/ClockControls.svelte",
       "types": "./dist/ClockControls.svelte.d.ts"
     },
     "./ControlsInstructions.svelte": {
       "svelte": "./dist/ControlsInstructions.svelte",
+      "default": "./dist/ControlsInstructions.svelte",
       "types": "./dist/ControlsInstructions.svelte.d.ts"
     },
     "./Dimensions.svelte": {
       "svelte": "./dist/Dimensions.svelte",
+      "default": "./dist/Dimensions.svelte",
       "types": "./dist/Dimensions.svelte.d.ts"
     },
     "./direction.js": {
@@ -110,14 +113,17 @@
     },
     "./DirectionalControls.svelte": {
       "svelte": "./dist/DirectionalControls.svelte",
+      "default": "./dist/DirectionalControls.svelte",
       "types": "./dist/DirectionalControls.svelte.d.ts"
     },
     "./EatenOrTimedScores.svelte": {
       "svelte": "./dist/EatenOrTimedScores.svelte",
+      "default": "./dist/EatenOrTimedScores.svelte",
       "types": "./dist/EatenOrTimedScores.svelte.d.ts"
     },
     "./EatenScores.svelte": {
       "svelte": "./dist/EatenScores.svelte",
+      "default": "./dist/EatenScores.svelte",
       "types": "./dist/EatenScores.svelte.d.ts"
     },
     "./Entity.js": {
@@ -126,82 +132,102 @@
     },
     "./Footer.svelte": {
       "svelte": "./dist/Footer.svelte",
+      "default": "./dist/Footer.svelte",
       "types": "./dist/Footer.svelte.d.ts"
     },
     "./Fps.svelte": {
       "svelte": "./dist/Fps.svelte",
+      "default": "./dist/Fps.svelte",
       "types": "./dist/Fps.svelte.d.ts"
     },
     "./GameAudio.svelte": {
       "svelte": "./dist/GameAudio.svelte",
+      "default": "./dist/GameAudio.svelte",
       "types": "./dist/GameAudio.svelte.d.ts"
     },
     "./Gamespace.svelte": {
       "svelte": "./dist/Gamespace.svelte",
+      "default": "./dist/Gamespace.svelte",
       "types": "./dist/Gamespace.svelte.d.ts"
     },
     "./Header.svelte": {
       "svelte": "./dist/Header.svelte",
+      "default": "./dist/Header.svelte",
       "types": "./dist/Header.svelte.d.ts"
     },
     "./Hotkeys.svelte": {
       "svelte": "./dist/Hotkeys.svelte",
+      "default": "./dist/Hotkeys.svelte",
       "types": "./dist/Hotkeys.svelte.d.ts"
     },
     "./MovementCommandQueue.svelte": {
       "svelte": "./dist/MovementCommandQueue.svelte",
+      "default": "./dist/MovementCommandQueue.svelte",
       "types": "./dist/MovementCommandQueue.svelte.d.ts"
     },
     "./PauseInstructions.svelte": {
       "svelte": "./dist/PauseInstructions.svelte",
+      "default": "./dist/PauseInstructions.svelte",
       "types": "./dist/PauseInstructions.svelte.d.ts"
     },
     "./Positioned.svelte": {
       "svelte": "./dist/Positioned.svelte",
+      "default": "./dist/Positioned.svelte",
       "types": "./dist/Positioned.svelte.d.ts"
     },
     "./renderers/dom/Apple.svelte": {
       "svelte": "./dist/renderers/dom/Apple.svelte",
+      "default": "./dist/renderers/dom/Apple.svelte",
       "types": "./dist/renderers/dom/Apple.svelte.d.ts"
     },
     "./renderers/dom/DomRenderer.svelte": {
       "svelte": "./dist/renderers/dom/DomRenderer.svelte",
+      "default": "./dist/renderers/dom/DomRenderer.svelte",
       "types": "./dist/renderers/dom/DomRenderer.svelte.d.ts"
     },
     "./renderers/dom/Entity.svelte": {
       "svelte": "./dist/renderers/dom/Entity.svelte",
+      "default": "./dist/renderers/dom/Entity.svelte",
       "types": "./dist/renderers/dom/Entity.svelte.d.ts"
     },
     "./renderers/dom/SnakeSegment.svelte": {
       "svelte": "./dist/renderers/dom/SnakeSegment.svelte",
+      "default": "./dist/renderers/dom/SnakeSegment.svelte",
       "types": "./dist/renderers/dom/SnakeSegment.svelte.d.ts"
     },
     "./renderers/dom/Tiles.svelte": {
       "svelte": "./dist/renderers/dom/Tiles.svelte",
+      "default": "./dist/renderers/dom/Tiles.svelte",
       "types": "./dist/renderers/dom/Tiles.svelte.d.ts"
     },
     "./RestartInstructions.svelte": {
       "svelte": "./dist/RestartInstructions.svelte",
+      "default": "./dist/RestartInstructions.svelte",
       "types": "./dist/RestartInstructions.svelte.d.ts"
     },
     "./ScaledSnakeRenderer.svelte": {
       "svelte": "./dist/ScaledSnakeRenderer.svelte",
+      "default": "./dist/ScaledSnakeRenderer.svelte",
       "types": "./dist/ScaledSnakeRenderer.svelte.d.ts"
     },
     "./ScaledWorld.svelte": {
       "svelte": "./dist/ScaledWorld.svelte",
+      "default": "./dist/ScaledWorld.svelte",
       "types": "./dist/ScaledWorld.svelte.d.ts"
     },
     "./Score.svelte": {
       "svelte": "./dist/Score.svelte",
+      "default": "./dist/Score.svelte",
       "types": "./dist/Score.svelte.d.ts"
     },
     "./Settings.svelte": {
       "svelte": "./dist/Settings.svelte",
+      "default": "./dist/Settings.svelte",
       "types": "./dist/Settings.svelte.d.ts"
     },
     "./SnakeGame.svelte": {
       "svelte": "./dist/SnakeGame.svelte",
+      "default": "./dist/SnakeGame.svelte",
       "types": "./dist/SnakeGame.svelte.d.ts"
     },
     "./SnakeGame.js": {
@@ -218,66 +244,82 @@
     },
     "./sports/buncheses/BunchesesSnake.svelte": {
       "svelte": "./dist/sports/buncheses/BunchesesSnake.svelte",
+      "default": "./dist/sports/buncheses/BunchesesSnake.svelte",
       "types": "./dist/sports/buncheses/BunchesesSnake.svelte.d.ts"
     },
     "./sports/buncheses/FailInstructions.svelte": {
       "svelte": "./dist/sports/buncheses/FailInstructions.svelte",
+      "default": "./dist/sports/buncheses/FailInstructions.svelte",
       "types": "./dist/sports/buncheses/FailInstructions.svelte.d.ts"
     },
     "./sports/buncheses/ReadyInstructions.svelte": {
       "svelte": "./dist/sports/buncheses/ReadyInstructions.svelte",
+      "default": "./dist/sports/buncheses/ReadyInstructions.svelte",
       "types": "./dist/sports/buncheses/ReadyInstructions.svelte.d.ts"
     },
     "./sports/classsic/ClasssicSnake.svelte": {
       "svelte": "./dist/sports/classsic/ClasssicSnake.svelte",
+      "default": "./dist/sports/classsic/ClasssicSnake.svelte",
       "types": "./dist/sports/classsic/ClasssicSnake.svelte.d.ts"
     },
     "./sports/classsic/FailInstructions.svelte": {
       "svelte": "./dist/sports/classsic/FailInstructions.svelte",
+      "default": "./dist/sports/classsic/FailInstructions.svelte",
       "types": "./dist/sports/classsic/FailInstructions.svelte.d.ts"
     },
     "./sports/classsic/ReadyInstructions.svelte": {
       "svelte": "./dist/sports/classsic/ReadyInstructions.svelte",
+      "default": "./dist/sports/classsic/ReadyInstructions.svelte",
       "types": "./dist/sports/classsic/ReadyInstructions.svelte.d.ts"
     },
     "./sports/ssspeed/ReadyInstructions.svelte": {
       "svelte": "./dist/sports/ssspeed/ReadyInstructions.svelte",
+      "default": "./dist/sports/ssspeed/ReadyInstructions.svelte",
       "types": "./dist/sports/ssspeed/ReadyInstructions.svelte.d.ts"
     },
     "./sports/ssspeed/SsspeedSnake.svelte": {
       "svelte": "./dist/sports/ssspeed/SsspeedSnake.svelte",
+      "default": "./dist/sports/ssspeed/SsspeedSnake.svelte",
       "types": "./dist/sports/ssspeed/SsspeedSnake.svelte.d.ts"
     },
     "./sports/ssspeed/WinInstructions.svelte": {
       "svelte": "./dist/sports/ssspeed/WinInstructions.svelte",
+      "default": "./dist/sports/ssspeed/WinInstructions.svelte",
       "types": "./dist/sports/ssspeed/WinInstructions.svelte.d.ts"
     },
     "./sports/trailsss/ReadyInstructions.svelte": {
       "svelte": "./dist/sports/trailsss/ReadyInstructions.svelte",
+      "default": "./dist/sports/trailsss/ReadyInstructions.svelte",
       "types": "./dist/sports/trailsss/ReadyInstructions.svelte.d.ts"
     },
     "./sports/trailsss/TrailsssSnake.svelte": {
       "svelte": "./dist/sports/trailsss/TrailsssSnake.svelte",
+      "default": "./dist/sports/trailsss/TrailsssSnake.svelte",
       "types": "./dist/sports/trailsss/TrailsssSnake.svelte.d.ts"
     },
     "./sports/trailsss/WinInstructions.svelte": {
       "svelte": "./dist/sports/trailsss/WinInstructions.svelte",
+      "default": "./dist/sports/trailsss/WinInstructions.svelte",
       "types": "./dist/sports/trailsss/WinInstructions.svelte.d.ts"
     },
     "./SportsMenu.svelte": {
       "svelte": "./dist/SportsMenu.svelte",
+      "default": "./dist/SportsMenu.svelte",
       "types": "./dist/SportsMenu.svelte.d.ts"
     },
     "./Sss.svelte": {
       "svelte": "./dist/Sss.svelte",
+      "default": "./dist/Sss.svelte",
       "types": "./dist/Sss.svelte.d.ts"
     },
     "./StageControls.svelte": {
       "svelte": "./dist/StageControls.svelte",
+      "default": "./dist/StageControls.svelte",
       "types": "./dist/StageControls.svelte.d.ts"
     },
     "./Stats.svelte": {
       "svelte": "./dist/Stats.svelte",
+      "default": "./dist/Stats.svelte",
       "types": "./dist/Stats.svelte.d.ts"
     },
     "./storage.js": {
@@ -289,22 +331,27 @@
     },
     "./Surface.svelte": {
       "svelte": "./dist/Surface.svelte",
+      "default": "./dist/Surface.svelte",
       "types": "./dist/Surface.svelte.d.ts"
     },
     "./TextBurst.svelte": {
       "svelte": "./dist/TextBurst.svelte",
+      "default": "./dist/TextBurst.svelte",
       "types": "./dist/TextBurst.svelte.d.ts"
     },
     "./Ticker.svelte": {
       "svelte": "./dist/Ticker.svelte",
+      "default": "./dist/Ticker.svelte",
       "types": "./dist/Ticker.svelte.d.ts"
     },
     "./TimedScores.svelte": {
       "svelte": "./dist/TimedScores.svelte",
+      "default": "./dist/TimedScores.svelte",
       "types": "./dist/TimedScores.svelte.d.ts"
     },
     "./TitleImage.svelte": {
       "svelte": "./dist/TitleImage.svelte",
+      "default": "./dist/TitleImage.svelte",
       "types": "./dist/TitleImage.svelte.d.ts"
     },
     "./updateSnakeGameState.js": {

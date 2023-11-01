@@ -1,5 +1,5 @@
 <script lang="ts">
-	import {GR3i} from '@grogarden/util/maths.js';
+	import {GR_3i} from '@grogarden/util/maths.js';
 
 	import {getCurrentTickDuration} from '$lib/SnakeGame';
 
@@ -13,7 +13,7 @@
 	// the higher this constant, the looser the movement feels,
 	// which can make it feel like difficult sludge.
 	// however a higher constant, to a point, makes the animation smoother.
-	const MOVEMENT_PCT_OF_TICK = GR3i;
+	const MOVEMENT_PCT_OF_TICK = GR_3i;
 	const DEFAULT_TICK_DURATION = 100;
 
 	const currentTickDuration = getCurrentTickDuration();

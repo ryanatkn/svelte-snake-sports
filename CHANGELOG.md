@@ -1,5 +1,11 @@
 # @ryanatkn/svelte-snake-sports
 
+## 0.6.0
+
+### Minor Changes
+
+- 7782402: upgrade deps
+
 ## 0.5.1
 
 ### Patch Changes

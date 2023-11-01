@@ -1,5 +1,11 @@
 # @ryanatkn/svelte-snake-sports
 
+## 0.6.1
+
+### Patch Changes
+
+- 654d369: set `"public": true` in `package.json`
+
 ## 0.6.0
 
 ### Minor Changes

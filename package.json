@@ -3,6 +3,7 @@
   "description": "games of snake in svelte and sveltekit",
   "version": "0.7.0",
   "public": true,
+  "icon": "🐍",
   "homepage": "https://sss.ryanatkn.com/",
   "license": "Unlicense",
   "author": {

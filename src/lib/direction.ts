@@ -19,7 +19,7 @@ export const areOpposites = (a: Direction, b: Direction): boolean =>
 	a === 'up'
 		? b === 'down'
 		: a === 'down'
-		? b === 'up'
-		: a === 'left'
-		? b === 'right'
-		: b === 'left';
+		  ? b === 'up'
+		  : a === 'left'
+		    ? b === 'right'
+		    : b === 'left';

@@ -1,34 +1,40 @@
 # @ryanatkn/svelte_snake_sports
 
+## 0.8.0
+
+### Minor Changes
+
+- upgrade deps ([766093e](https://github.com/ryanatkn/svelte_snake_sports/commit/766093e))
+
 ## 0.7.0
 
 ### Minor Changes
 
-- dc1a6c4: rename to svelte_snake_sports
+- rename to svelte_snake_sports ([dc1a6c4](https://github.com/ryanatkn/svelte_snake_sports/commit/dc1a6c4))
 
 ## 0.6.1
 
 ### Patch Changes
 
-- 654d369: set `"public": true` in `package.json`
+- set `"public": true` in `package.json` ([654d369](https://github.com/ryanatkn/svelte_snake_sports/commit/654d369))
 
 ## 0.6.0
 
 ### Minor Changes
 
-- 7782402: upgrade deps
+- upgrade deps ([7782402](https://github.com/ryanatkn/svelte_snake_sports/commit/7782402))
 
 ## 0.5.1
 
 ### Patch Changes
 
-- e922ac1: add peer deps
+- add peer deps ([e922ac1](https://github.com/ryanatkn/svelte_snake_sports/commit/e922ac1))
 
 ## 0.5.0
 
 ### Minor Changes
 
-- 5d9f39a: upgrade deps
+- upgrade deps ([#33](https://github.com/ryanatkn/svelte_snake_sports/pull/33))
 
 ## 0.5.0
 

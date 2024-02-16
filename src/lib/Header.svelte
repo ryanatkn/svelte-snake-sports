@@ -1,6 +1,6 @@
 <script lang="ts">
 	import {base} from '$app/paths';
-	import {random_item} from '@grogarden/util/random.js';
+	import {random_item} from '@ryanatkn/belt/random.js';
 	import {sports} from '$lib/sports';
 
 	const randomSport = random_item(sports);

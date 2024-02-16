@@ -32,9 +32,9 @@
 
 ## 0.5.0
 
-- **break**: replace `InteractiveSurface.svelte` with `@fuz.dev/fuz/Surface.svelte`
+- **break**: replace `InteractiveSurface.svelte` with `@ryanatkn/fuz/Surface.svelte`
   ([#32](https://github.com/ryanatkn/svelte_snake_sports/pull/32))
-- **break**: upgrade deps, `@fuz.dev/fuz@0.48.0` and `@sveltejs/adapter-static@2`
+- **break**: upgrade deps, `@ryanatkn/fuz@0.48.0` and `@sveltejs/adapter-static@2`
   ([#32](https://github.com/ryanatkn/svelte_snake_sports/pull/32))
 
 ## 0.4.0

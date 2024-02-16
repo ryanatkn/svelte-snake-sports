@@ -1,5 +1,5 @@
 <script lang="ts">
-	// import Breadcrumbs from '@fuz.dev/fuz/Breadcrumbs.svelte';
+	// import Breadcrumbs from '@ryanatkn/fuz/Breadcrumbs.svelte';
 	import {base} from '$app/paths';
 
 	import ClasssicSnake from '$lib/sports/classsic/ClasssicSnake.svelte';

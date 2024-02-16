@@ -2,7 +2,7 @@
 	import {base} from '$app/paths';
 	import {page} from '$app/stores';
 
-	// import Breadcrumbs from '@fuz.dev/fuz/Breadcrumbs.svelte';
+	// import Breadcrumbs from '@ryanatkn/fuz/Breadcrumbs.svelte';
 </script>
 
 <footer class="box width_sm">

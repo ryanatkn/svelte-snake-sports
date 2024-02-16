@@ -1,6 +1,6 @@
-import {random_int, random_item} from '@grogarden/util/random.js';
-import {remove_unordered} from '@grogarden/util/array.js';
-import {Unreachable_Error} from '@grogarden/util/error.js';
+import {random_int, random_item} from '@ryanatkn/belt/random.js';
+import {remove_unordered} from '@ryanatkn/belt/array.js';
+import {Unreachable_Error} from '@ryanatkn/belt/error.js';
 
 import {Entity} from '$lib/Entity';
 import {directions, horizontalDirections, verticalDirections, type Direction} from '$lib/direction';

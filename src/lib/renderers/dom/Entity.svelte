@@ -1,5 +1,5 @@
 <script lang="ts">
-	import {GR_3i} from '@grogarden/util/maths.js';
+	import {GR_3i} from '@ryanatkn/belt/maths.js';
 
 	import {getCurrentTickDuration} from '$lib/SnakeGame';
 

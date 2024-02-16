@@ -1,6 +1,6 @@
 <script lang="ts">
-	import {random_item} from '@grogarden/util/random.js';
-	import {plural} from '@grogarden/util/string.js';
+	import {random_item} from '@ryanatkn/belt/random.js';
+	import {plural} from '@ryanatkn/belt/string.js';
 	import {onDestroy} from 'svelte';
 	import {scale} from 'svelte/transition';
 
@@ -26,7 +26,7 @@
 	export let song: HTMLAudioElement | undefined;
 
 	const sss = (): void => {
-		ssses = [{...random_item(items)!}].concat(ssses);
+		ssses = [{...random_item(items)}].concat(ssses);
 	};
 	const reset = (): void => {
 		ssses = [];

@@ -1,10 +1,10 @@
 <script lang="ts">
-	import '@fuz.dev/fuz/style.css';
-	import '@fuz.dev/fuz/theme.css';
+	import '@ryanatkn/fuz/style.css';
+	import '@ryanatkn/fuz/theme.css';
 	import '$lib/style.css';
 
-	import Themed from '@fuz.dev/fuz/Themed.svelte';
-	import {sync_color_scheme} from '@fuz.dev/fuz/theme.js';
+	import Themed from '@ryanatkn/fuz/Themed.svelte';
+	import {sync_color_scheme} from '@ryanatkn/fuz/theme.js';
 	import {writable} from 'svelte/store';
 
 	const selected_color_scheme = writable('dark' as const);

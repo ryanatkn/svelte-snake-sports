@@ -1,5 +1,5 @@
 <script lang="ts">
-	import {swallow} from '@grogarden/util/dom.js';
+	import {swallow} from '@ryanatkn/belt/dom.js';
 
 	// TODO probably add events
 	export let scale = 1; // makes the pointer position calculations transform-scale-aware

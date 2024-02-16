@@ -37,16 +37,16 @@ caveats:
 
 ## usage
 
-Windows users will need a Linux VM, see [this issue](https://github.com/grogarden/gro/issues/319).
+Windows users will need a Linux VM, see [this issue](https://github.com/ryanatkn/gro/issues/319).
 
 ```bash
 npm run dev
 # or
-gro dev # npm i -g @grogarden/gro
+gro dev # npm i -g @ryanatkn/gro
 ```
 
 > learn more about [SvelteKit](https://github.com/sveltejs/kit),
-> [Vite](https://github.com/vitejs/vite), [Gro](https://github.com/grogarden/gro),
+> [Vite](https://github.com/vitejs/vite), [Gro](https://github.com/ryanatkn/gro),
 > and [Felt](https://github.com/fuz-dev/fuz)
 
 ## build
@@ -59,7 +59,7 @@ gro build
 
 ## deploy
 
-[Deploy](https://github.com/grogarden/gro/blob/main/src/docs/deploy.md)
+[Deploy](https://github.com/ryanatkn/gro/blob/main/src/docs/deploy.md)
 (build, commit, and push) to the `deploy` branch, e.g. for GitHub Pages:
 
 ```bash
@@ -105,7 +105,7 @@ on the web:
 [ESLint](https://github.com/eslint/eslint) ∙
 [Prettier](https://github.com/prettier/prettier) ∙
 [Felt](https://github.com/fuz-dev/fuz) ∙
-[Gro](https://github.com/grogarden/gro)
+[Gro](https://github.com/ryanatkn/gro)
 & [more](package.json)
 
 music by Alexander Nakarada

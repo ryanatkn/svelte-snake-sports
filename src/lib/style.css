@@ -1,10 +1,10 @@
 /* global stylesheet imported by `src/routes/+layout.svelte */
 
 :root {
-	--hue_2: 210; /* blue */
-	--color_2: hsl(var(--hue_2), 55%, 50%);
-	--hue_1: 120; /* green, triad with `--color_3` and `--color_4` */
-	--color_1: hsl(var(--hue_1), 55%, 32%); /* same as THEME_COLOR */
+	--hue_b: 210; /* blue */
+	--color_b: hsl(var(--hue_b), 55%, 50%);
+	--hue_a: 120; /* green, triad with `--color_d` and `--color_e` */
+	--color_a: hsl(var(--hue_a), 55%, 32%); /* same as THEME_COLOR */
 
 	--border_color_dark: var(--medium_brown);
 	--bg: var(--dim_brown);

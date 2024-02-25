@@ -2,9 +2,9 @@
 
 :root {
 	--hue_b: 210; /* blue */
-	--color_b: hsl(var(--hue_b), 55%, 50%);
-	--hue_a: 120; /* green, triad with `--color_d` and `--color_e` */
-	--color_a: hsl(var(--hue_a), 55%, 32%); /* same as THEME_COLOR */
+	--color_b_5: hsl(var(--hue_b), 55%, 50%);
+	--hue_a: 120; /* green, triad with `--color_d_5` and `--color_e_5` */
+	--color_a_5: hsl(var(--hue_a), 55%, 32%); /* same as THEME_COLOR */
 
 	--border_color_dark: var(--medium_brown);
 	--bg: var(--dim_brown);

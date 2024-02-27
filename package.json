@@ -1,7 +1,7 @@
 {
   "name": "@ryanatkn/svelte_snake_sports",
   "description": "games of snake in svelte and sveltekit",
-  "version": "0.9.0",
+  "version": "0.0.1",
   "public": true,
   "icon": "🐍",
   "homepage": "https://sss.ryanatkn.com/",
@@ -42,7 +42,6 @@
     "svelte": "*"
   },
   "devDependencies": {
-    "@changesets/changelog-git": "^0.2.0",
     "@ryanatkn/belt": "^0.20.5",
     "@ryanatkn/eslint-config": "^0.1.0",
     "@ryanatkn/fuz": "^0.90.0",

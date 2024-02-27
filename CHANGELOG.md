@@ -1,5 +1,11 @@
 # @ryanatkn/svelte_snake_sports
 
+## 0.9.0
+
+### Minor Changes
+
+- upgrade @ryanatkn/fuz ([8c8ec06](https://github.com/ryanatkn/svelte_snake_sports/commit/8c8ec06))
+
 ## 0.8.0
 
 ### Minor Changes

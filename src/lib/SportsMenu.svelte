@@ -21,7 +21,7 @@
 <style>
 	li {
 		list-style: none;
-		margin-bottom: var(--spacing_5);
+		margin-bottom: var(--space_xl5);
 	}
 	li:last-child {
 		margin-bottom: 0;

@@ -147,7 +147,7 @@
 		flex-wrap: wrap;
 		align-items: center;
 		justify-content: center;
-		padding: var(--spacing_md);
-		margin-bottom: var(--spacing_2);
+		padding: var(--space_md);
+		margin-bottom: var(--space_xl2);
 	}
 </style>

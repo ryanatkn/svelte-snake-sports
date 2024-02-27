@@ -25,22 +25,22 @@
 <style>
 	.score {
 		display: flex;
-		padding: var(--spacing_1);
+		padding: var(--space_xl);
 		align-items: center;
 	}
 
 	.value {
-		padding: 0 var(--spacing_md);
-		font-size: var(--size_3);
+		padding: 0 var(--space_md);
+		font-size: var(--size_xl3);
 		font-weight: 600;
 	}
 
 	.text-burst-wrapper {
 		position: relative;
 		/* TODO center this properly */
-		top: calc(var(--size_1) / -2);
+		top: calc(var(--size_xl) / -2);
 		width: 0;
 		height: 0;
-		font-size: var(--size_1);
+		font-size: var(--size_xl);
 	}
 </style>

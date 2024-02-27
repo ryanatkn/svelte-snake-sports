@@ -17,10 +17,10 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding: var(--spacing_1);
+		padding: var(--space_xl);
 	}
 	a {
-		margin-bottom: var(--spacing_lg);
+		margin-bottom: var(--space_lg);
 	}
 	img {
 		width: 256px;

@@ -46,11 +46,11 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding: var(--spacing_md);
+		padding: var(--space_md);
 	}
 
 	.value {
 		padding: 0 5px;
-		font-size: var(--size_1);
+		font-size: var(--size_xl);
 	}
 </style>

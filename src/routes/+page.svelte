@@ -35,6 +35,6 @@
 	}
 
 	section {
-		margin: var(--spacing_1);
+		margin: var(--space_xl);
 	}
 </style>

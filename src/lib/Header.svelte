@@ -36,16 +36,16 @@
 	}
 	@media (max-width: 550px) {
 		h1 {
-			font-size: var(--size_2);
+			font-size: var(--size_xl2);
 		}
 	}
 	@media (max-width: 450px) {
 		h1 {
-			font-size: var(--size_1);
+			font-size: var(--size_xl);
 		}
 	}
 	.snake {
-		padding: 0 var(--spacing_sm);
+		padding: 0 var(--space_sm);
 		transform: rotate(8deg);
 	}
 	.second-snake {

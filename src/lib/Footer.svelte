@@ -47,6 +47,6 @@
 		flex-direction: column;
 	}
 	.snake {
-		font-size: var(--size_5);
+		font-size: var(--size_xl5);
 	}
 </style>

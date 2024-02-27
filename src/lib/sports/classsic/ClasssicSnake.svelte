@@ -175,7 +175,7 @@
 				</div>
 				<Ticker {clock} tickDuration={currentTickDuration} {tick} />
 				<StageControls {clock} {tick} {game} />
-				<section class="panel" style:padding="var(--spacing_1)">
+				<section class="panel" style:padding="var(--space_xl)">
 					<ControlsInstructions />
 				</section>
 				<section class="box prose">
@@ -215,13 +215,13 @@
 		align-items: center;
 	}
 	section {
-		padding-top: var(--spacing_5);
+		padding-top: var(--space_xl5);
 	}
 	.scores {
 		display: flex;
 	}
 	.text-burst-wrapper {
-		font-size: var(--size_5);
+		font-size: var(--size_xl5);
 		position: absolute;
 		/* TODO hacky positioning */
 		left: 6rem;

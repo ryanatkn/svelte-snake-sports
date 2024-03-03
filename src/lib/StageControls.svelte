@@ -30,7 +30,7 @@
 			select={(d) => enqueueMovementCommand(d)}
 		/>
 		{#if movementCommandQueue}
-			<div class="padded_md">
+			<div class="p_md">
 				<MovementCommandQueue {movementCommandQueue} queueSize={MOVEMENT_COMMAND_QUEUE_SIZE} />
 			</div>
 		{/if}

@@ -6,7 +6,7 @@
 </script>
 
 <footer class="box width_sm">
-	<div class="panel padded_md prose">
+	<div class="panel p_md prose">
 		<p>
 			<a href="https://github.com/ryanatkn/svelte_snake_sports">ssource code & creditss on GitHub</a
 			>
@@ -30,7 +30,7 @@
 		{/if}
 	</div>
 	<!-- TODO why is this not working? latest sveltekit problem with Felt? -->
-	<!-- <div class="padded_1"> -->
+	<!-- <div class="p_xl"> -->
 	<!-- <Breadcrumbs basePath={base}>🐍</Breadcrumbs> -->
 	<!-- </div> -->
 </footer>

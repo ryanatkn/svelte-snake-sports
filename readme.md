@@ -18,8 +18,6 @@ npm i -D @ryanatkn/svelte_snake_sports
 
 ## sports
 
-submit highscores!
-
 | 🐍                                                                                                                                                                                                                                                                                                                                                         | sport                                           | goal                             |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- | -------------------------------- |
 | <a href="https://sss.ryanatkn.com/classsic"><img src="/static/assets/classsic.webp" alt="logo for classsic, macro photography of an adorable cartoon snake with big eyes next to a red apple on lush green moss in a realistic 3d video game in the style of Tim Burton" width="192" /></a>                                                                | [classsic](https://sss.ryanatkn.com/classsic)   | eat many apples                  |

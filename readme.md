@@ -1,5 +1,6 @@
 # svelte🐍snake🐍sports
 
+> archived on Svelte 4 💥🐍🦴
 > games of [Snake](https://wikipedia.org/wiki/Snake_game)
 > in [Svelte](https://github.com/sveltejs/svelte)
 > and [SvelteKit](https://github.com/sveltejs/kit) —

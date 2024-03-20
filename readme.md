@@ -10,12 +10,6 @@ Play: [sss.ryanatkn.com](https://sss.ryanatkn.com/)
 
 Watch the intro video: [youtube.com/watch?v=ciei8H6IOWk](https://www.youtube.com/watch?v=ciei8H6IOWk)
 
-Install via [npm](https://www.npmjs.com/package/@ryanatkn/svelte_snake_sports):
-
-```bash
-npm i -D @ryanatkn/svelte_snake_sports
-```
-
 ## sports
 
 | 🐍                                                                                                                                                                                                                                                                                                                                                         | sport                                           | goal                             |

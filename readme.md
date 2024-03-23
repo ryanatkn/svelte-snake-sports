@@ -19,7 +19,7 @@ Watch the intro video: [youtube.com/watch?v=ciei8H6IOWk](https://www.youtube.com
 | <a href="https://ryanatkn.github.io/svelte-snake-sports/buncheses"><img src="/static/assets/buncheses.webp" alt="logo for buncheses, macro photography of an adorable green cartoon snake with huge cute eyes next to a pile of red apples on lush green moss, realistic 3d video game, digital art, vibrant, artstation" width="192" /></a>                                     | [buncheses](https://ryanatkn.github.io/svelte-snake-sports/buncheses) | eat many whole bunches of apples |
 | <a href="https://ryanatkn.github.io/svelte-snake-sports/trailsss"><img src="/static/assets/trailsss.webp" alt="logo for trailsss, macro photography of an adorable green cartoon snake with big cute eyes running towards a row of red apples in a line on lush green moss, realistic 3d video game, digital art, Pixar movie character, vibrant, artstation" width="192" /></a> | [trailsss](https://ryanatkn.github.io/svelte-snake-sports/trailsss)   | eat trails of apples             |
 
-Here's [the source code](https://github.com/ryanatkn/svelte_snake_sports/tree/main/src/lib/sports)
+Here's [the source code](https://github.com/ryanatkn/svelte-snake-sports/tree/main/src/lib/sports)
 for each sport.
 
 caveats:

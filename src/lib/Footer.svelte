@@ -8,7 +8,7 @@
 <footer class="box width_sm">
 	<div class="panel p_md prose">
 		<p>
-			<a href="https://github.com/ryanatkn/svelte_snake_sports">ssource code & creditss on GitHub</a
+			<a href="https://github.com/ryanatkn/svelte-snake-sports">ssource code & creditss on GitHub</a
 			>
 		</p>
 		<p>

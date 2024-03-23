@@ -1,5 +1,5 @@
 {
-  "name": "@ryanatkn/svelte_snake_sports",
+  "name": "@ryanatkn/svelte-snake-sports",
   "description": "archived on Svelte 4 💥🐍🦴 games of snake in svelte and sveltekit",
   "version": "0.0.1",
   "public": true,
@@ -13,10 +13,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ryanatkn/svelte_snake_sports.git"
+    "url": "git+https://github.com/ryanatkn/svelte-snake-sports.git"
   },
   "bugs": {
-    "url": "https://github.com/ryanatkn/svelte_snake_sports/issues"
+    "url": "https://github.com/ryanatkn/svelte-snake-sports/issues"
   },
   "keywords": [
     "web",

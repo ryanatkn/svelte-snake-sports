@@ -1,8 +1,6 @@
 <script lang="ts">
 	import {base} from '$app/paths';
 	import {page} from '$app/stores';
-
-	// import Breadcrumbs from '@ryanatkn/fuz/Breadcrumbs.svelte';
 </script>
 
 <footer class="box width_sm">
@@ -29,7 +27,7 @@
 			</p>
 		{/if}
 	</div>
-	<!-- TODO why is this not working? latest sveltekit problem with Felt? -->
+	<!-- TODO fix -->
 	<!-- <div class="p_xl"> -->
 	<!-- <Breadcrumbs basePath={base}>🐍</Breadcrumbs> -->
 	<!-- </div> -->

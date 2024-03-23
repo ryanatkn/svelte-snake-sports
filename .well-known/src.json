@@ -1,0 +1,455 @@
+{
+  "name": "@ryanatkn/svelte-snake-sports",
+  "version": "0.0.1",
+  "modules": {
+    "./bouncey.js": {
+      "path": "bouncey.ts",
+      "declarations": [
+        {
+          "name": "Bouncey",
+          "kind": "type"
+        },
+        {
+          "name": "bouncey",
+          "kind": "function"
+        }
+      ]
+    },
+    "./clock.js": {
+      "path": "clock.ts",
+      "declarations": [
+        {
+          "name": "ClockState",
+          "kind": "type"
+        },
+        {
+          "name": "Clock",
+          "kind": "type"
+        },
+        {
+          "name": "createClock",
+          "kind": "function"
+        },
+        {
+          "name": "getClock",
+          "kind": "function"
+        },
+        {
+          "name": "setClock",
+          "kind": "function"
+        }
+      ]
+    },
+    "./ClockControls.svelte": {
+      "path": "ClockControls.svelte",
+      "declarations": []
+    },
+    "./ControlsInstructions.svelte": {
+      "path": "ControlsInstructions.svelte",
+      "declarations": []
+    },
+    "./Dimensions.svelte": {
+      "path": "Dimensions.svelte",
+      "declarations": []
+    },
+    "./direction.js": {
+      "path": "direction.ts",
+      "declarations": [
+        {
+          "name": "Direction",
+          "kind": "type"
+        },
+        {
+          "name": "directions",
+          "kind": "variable"
+        },
+        {
+          "name": "verticalDirections",
+          "kind": "variable"
+        },
+        {
+          "name": "horizontalDirections",
+          "kind": "variable"
+        },
+        {
+          "name": "toDirection",
+          "kind": "function"
+        },
+        {
+          "name": "areOpposites",
+          "kind": "function"
+        }
+      ]
+    },
+    "./DirectionalControls.svelte": {
+      "path": "DirectionalControls.svelte",
+      "declarations": []
+    },
+    "./EatenOrTimedScores.svelte": {
+      "path": "EatenOrTimedScores.svelte",
+      "declarations": []
+    },
+    "./EatenScores.svelte": {
+      "path": "EatenScores.svelte",
+      "declarations": []
+    },
+    "./Entity.js": {
+      "path": "Entity.ts",
+      "declarations": [
+        {
+          "name": "Entity",
+          "kind": "class"
+        }
+      ]
+    },
+    "./Footer.svelte": {
+      "path": "Footer.svelte",
+      "declarations": []
+    },
+    "./Fps.svelte": {
+      "path": "Fps.svelte",
+      "declarations": []
+    },
+    "./GameAudio.svelte": {
+      "path": "GameAudio.svelte",
+      "declarations": []
+    },
+    "./Gamespace.svelte": {
+      "path": "Gamespace.svelte",
+      "declarations": []
+    },
+    "./Header.svelte": {
+      "path": "Header.svelte",
+      "declarations": []
+    },
+    "./Hotkeys.svelte": {
+      "path": "Hotkeys.svelte",
+      "declarations": []
+    },
+    "./MovementCommandQueue.svelte": {
+      "path": "MovementCommandQueue.svelte",
+      "declarations": []
+    },
+    "./PauseInstructions.svelte": {
+      "path": "PauseInstructions.svelte",
+      "declarations": []
+    },
+    "./Positioned.svelte": {
+      "path": "Positioned.svelte",
+      "declarations": []
+    },
+    "./renderers/dom/Apple.svelte": {
+      "path": "renderers/dom/Apple.svelte",
+      "declarations": []
+    },
+    "./renderers/dom/DomRenderer.svelte": {
+      "path": "renderers/dom/DomRenderer.svelte",
+      "declarations": []
+    },
+    "./renderers/dom/Entity.svelte": {
+      "path": "renderers/dom/Entity.svelte",
+      "declarations": []
+    },
+    "./renderers/dom/SnakeSegment.svelte": {
+      "path": "renderers/dom/SnakeSegment.svelte",
+      "declarations": []
+    },
+    "./renderers/dom/Tiles.svelte": {
+      "path": "renderers/dom/Tiles.svelte",
+      "declarations": []
+    },
+    "./RestartInstructions.svelte": {
+      "path": "RestartInstructions.svelte",
+      "declarations": []
+    },
+    "./ScaledSnakeRenderer.svelte": {
+      "path": "ScaledSnakeRenderer.svelte",
+      "declarations": []
+    },
+    "./ScaledWorld.svelte": {
+      "path": "ScaledWorld.svelte",
+      "declarations": []
+    },
+    "./Score.svelte": {
+      "path": "Score.svelte",
+      "declarations": []
+    },
+    "./Settings.svelte": {
+      "path": "Settings.svelte",
+      "declarations": []
+    },
+    "./SnakeGame.svelte": {
+      "path": "SnakeGame.svelte",
+      "declarations": []
+    },
+    "./SnakeGame.js": {
+      "path": "SnakeGame.ts",
+      "declarations": [
+        {
+          "name": "ISnakeGame",
+          "kind": "type"
+        },
+        {
+          "name": "SnakeGameEvent",
+          "kind": "type"
+        },
+        {
+          "name": "SnakeGameSnakeCollideBoundsEvent",
+          "kind": "type"
+        },
+        {
+          "name": "SnakeGameSnakeCollideSelfEvent",
+          "kind": "type"
+        },
+        {
+          "name": "SnakeGameEatAppleEvent",
+          "kind": "type"
+        },
+        {
+          "name": "SnakeGameHelpers",
+          "kind": "type"
+        },
+        {
+          "name": "CURRENT_TICK_DURATION_KEY",
+          "kind": "variable"
+        },
+        {
+          "name": "setCurrentTickDuration",
+          "kind": "function"
+        },
+        {
+          "name": "getCurrentTickDuration",
+          "kind": "function"
+        }
+      ]
+    },
+    "./SnakeGameState.js": {
+      "path": "SnakeGameState.ts",
+      "declarations": [
+        {
+          "name": "SnakeGameState",
+          "kind": "type"
+        },
+        {
+          "name": "toDefaultGameState",
+          "kind": "function"
+        }
+      ]
+    },
+    "./sports.js": {
+      "path": "sports.ts",
+      "declarations": [
+        {
+          "name": "sports",
+          "kind": "variable"
+        }
+      ]
+    },
+    "./sports/buncheses/BunchesesSnake.svelte": {
+      "path": "sports/buncheses/BunchesesSnake.svelte",
+      "declarations": []
+    },
+    "./sports/buncheses/FailInstructions.svelte": {
+      "path": "sports/buncheses/FailInstructions.svelte",
+      "declarations": []
+    },
+    "./sports/buncheses/ReadyInstructions.svelte": {
+      "path": "sports/buncheses/ReadyInstructions.svelte",
+      "declarations": []
+    },
+    "./sports/classsic/ClasssicSnake.svelte": {
+      "path": "sports/classsic/ClasssicSnake.svelte",
+      "declarations": []
+    },
+    "./sports/classsic/FailInstructions.svelte": {
+      "path": "sports/classsic/FailInstructions.svelte",
+      "declarations": []
+    },
+    "./sports/classsic/ReadyInstructions.svelte": {
+      "path": "sports/classsic/ReadyInstructions.svelte",
+      "declarations": []
+    },
+    "./sports/ssspeed/ReadyInstructions.svelte": {
+      "path": "sports/ssspeed/ReadyInstructions.svelte",
+      "declarations": []
+    },
+    "./sports/ssspeed/SsspeedSnake.svelte": {
+      "path": "sports/ssspeed/SsspeedSnake.svelte",
+      "declarations": []
+    },
+    "./sports/ssspeed/WinInstructions.svelte": {
+      "path": "sports/ssspeed/WinInstructions.svelte",
+      "declarations": []
+    },
+    "./sports/trailsss/ReadyInstructions.svelte": {
+      "path": "sports/trailsss/ReadyInstructions.svelte",
+      "declarations": []
+    },
+    "./sports/trailsss/TrailsssSnake.svelte": {
+      "path": "sports/trailsss/TrailsssSnake.svelte",
+      "declarations": []
+    },
+    "./sports/trailsss/WinInstructions.svelte": {
+      "path": "sports/trailsss/WinInstructions.svelte",
+      "declarations": []
+    },
+    "./SportsMenu.svelte": {
+      "path": "SportsMenu.svelte",
+      "declarations": []
+    },
+    "./Sss.svelte": {
+      "path": "Sss.svelte",
+      "declarations": []
+    },
+    "./StageControls.svelte": {
+      "path": "StageControls.svelte",
+      "declarations": []
+    },
+    "./Stats.svelte": {
+      "path": "Stats.svelte",
+      "declarations": []
+    },
+    "./storage.js": {
+      "path": "storage.ts",
+      "declarations": [
+        {
+          "name": "assertNumber",
+          "kind": null
+        },
+        {
+          "name": "assertObject",
+          "kind": null
+        },
+        {
+          "name": "getFromStorage",
+          "kind": "function"
+        },
+        {
+          "name": "setInStorage",
+          "kind": "function"
+        },
+        {
+          "name": "clearLocalStorage",
+          "kind": "function"
+        },
+        {
+          "name": "askToClearLocalStorage",
+          "kind": "function"
+        }
+      ]
+    },
+    "./style.css": {
+      "path": "style.css",
+      "declarations": []
+    },
+    "./Surface.svelte": {
+      "path": "Surface.svelte",
+      "declarations": []
+    },
+    "./TextBurst.svelte": {
+      "path": "TextBurst.svelte",
+      "declarations": []
+    },
+    "./Ticker.svelte": {
+      "path": "Ticker.svelte",
+      "declarations": []
+    },
+    "./TimedScores.svelte": {
+      "path": "TimedScores.svelte",
+      "declarations": []
+    },
+    "./TitleImage.svelte": {
+      "path": "TitleImage.svelte",
+      "declarations": []
+    },
+    "./updateSnakeGameState.js": {
+      "path": "updateSnakeGameState.ts",
+      "declarations": [
+        {
+          "name": "updateSnakeGameState",
+          "kind": "function"
+        },
+        {
+          "name": "validateState",
+          "kind": "function"
+        },
+        {
+          "name": "initGameState",
+          "kind": "function"
+        },
+        {
+          "name": "getRandomEmptyPosition",
+          "kind": "function"
+        },
+        {
+          "name": "getRandomDirection",
+          "kind": "function"
+        },
+        {
+          "name": "getRandomTangent",
+          "kind": "function"
+        },
+        {
+          "name": "toOppositeDirection",
+          "kind": "function"
+        },
+        {
+          "name": "getRandomTurn",
+          "kind": "function"
+        },
+        {
+          "name": "isVerticalDirection",
+          "kind": "function"
+        },
+        {
+          "name": "isHorizontalDirection",
+          "kind": "function"
+        },
+        {
+          "name": "spawnRandomShape6a",
+          "kind": "function"
+        },
+        {
+          "name": "spawnRandomTrail",
+          "kind": "function"
+        },
+        {
+          "name": "getEmptyPositionFrom",
+          "kind": "function"
+        },
+        {
+          "name": "getEmptyPositionAt",
+          "kind": "function"
+        },
+        {
+          "name": "getNearestEmptyPositionFrom",
+          "kind": "function"
+        },
+        {
+          "name": "moveX",
+          "kind": "function"
+        },
+        {
+          "name": "moveY",
+          "kind": "function"
+        },
+        {
+          "name": "spawnApples",
+          "kind": "function"
+        },
+        {
+          "name": "toApples",
+          "kind": "function"
+        },
+        {
+          "name": "toSnakeSegments",
+          "kind": "function"
+        },
+        {
+          "name": "toSnakeSegment",
+          "kind": "function"
+        }
+      ]
+    }
+  }
+}

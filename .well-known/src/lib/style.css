@@ -1,0 +1,207 @@
+/* global stylesheet imported by `src/routes/+layout.svelte */
+
+:root {
+	--hue_b: 210; /* blue */
+	--color_b_5: hsl(var(--hue_b), 55%, 50%);
+	--hue_a: 120; /* green, triad with `--color_d_5` and `--color_e_5` */
+	--color_a_5: hsl(var(--hue_a), 55%, 32%); /* same as THEME_COLOR */
+
+	--border_color_dark: var(--medium_brown);
+	--bg: var(--dim_brown);
+	--button_color_disabled: var(--gray_brown);
+	--button_color_hover: var(--dark_brown);
+	--button_color_active: var(--dark_brown);
+
+	/* specific to this project, consider upstreaming */
+	--bg_y: 0px;
+	--darker_brown: hsl(15, 50%, 1%);
+	--dark_brown: hsl(15, 50%, 2%);
+	--dimmer_brown: hsl(30, 50%, 7%);
+	--dim_brown: hsl(30, 50%, 13%);
+	--rich_brown: hsl(30, 75%, 22%);
+	--brown_text_color: hsl(30, 85%, 72%);
+	--brown_text_color_lighter: hsl(30, 95%, 85%);
+	--brown_text_color_lightest: hsl(30, 100%, 93%);
+	--medium_brown: hsl(30, 25%, 27%);
+	--gray_brown: hsl(30, 16%, 20%);
+	--bright_green: hsl(116, 80%, 41%);
+	--dim_green: hsl(111, 46%, 40%);
+	--dim_red: hsl(353, 56%, 37%);
+	--bright_red: hsl(353, 78%, 44%);
+	--dead_red: hsl(9, 65%, 37%);
+	--bright_dead_red: hsl(9, 76%, 45%);
+	--blue_to_brown_hue_rotation: 215;
+
+	--renderer_scale: 1;
+}
+
+html {
+	min-height: 100%; /* scales up the body bg to avoid weird rendering */
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background: radial-gradient(
+		at 50% var(--bg_y),
+		var(--dim_brown),
+		var(--dim_brown),
+		var(--dark_brown)
+	);
+}
+
+footer {
+	padding: var(--space_xl5) 0;
+}
+
+/* TODO upstream to Felt? */
+form label {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	font-weight: bold;
+	margin-bottom: var(--space_xl);
+}
+form label:last-child {
+	margin: 0;
+}
+
+button {
+	/* TODO delete all of this when felt has dark mode */
+	color: var(--brown_text_color_lightest);
+	border-radius: 3rem;
+	padding: var(--space_md) var(--space_xl);
+	background: var(--dim_brown);
+	box-shadow: 0 0 0 3px var(--rich_brown) inset !important;
+	--border_color: var(--darker_brown);
+}
+button:hover,
+button:focus {
+	box-shadow: 0 0 0 3px var(--dim_brown) inset !important;
+	background: var(--dimmer_brown);
+}
+button:active {
+	box-shadow: 0 0 0 3px var(--dark_brown) inset !important;
+}
+button.selected {
+	box-shadow: 0 0 0 3px var(--darker_brown) inset !important;
+	background: var(--rich_brown);
+}
+
+.snake-1 {
+	filter: hue-rotate(120deg);
+}
+.snake-2 {
+	filter: hue-rotate(240deg);
+}
+
+.icon-button {
+	line-height: 1;
+	padding-left: var(--space_sm);
+	padding-right: var(--space_sm);
+	font-size: var(--size_xl3);
+	min-width: var(--icon_size_lg);
+	min-height: var(--icon_size_lg);
+}
+
+.apple {
+	position: relative;
+	background-color: var(--bright_red);
+	border-radius: calc(17px * var(--renderer_scale)) calc(14px * var(--renderer_scale))
+		calc(14px * var(--renderer_scale)) calc(12px * var(--renderer_scale));
+	width: calc(30px * var(--renderer_scale));
+	height: calc(30px * var(--renderer_scale));
+}
+.apple::after {
+	content: '';
+	display: block;
+	position: absolute;
+	left: calc(13px * var(--renderer_scale));
+	top: calc(-3px * var(--renderer_scale));
+	width: calc(3px * var(--renderer_scale));
+	height: calc(7px * var(--renderer_scale));
+	background-color: var(--dim_brown);
+	border-radius: calc(4px * var(--renderer_scale));
+}
+
+.clickable-box {
+	transition:
+		border-radius 0.09s ease-out,
+		transform 0.13s ease;
+	border-radius: 20%;
+}
+.clickable-box:hover {
+	border-radius: 16%;
+	transform: scale3d(1.03, 1.03, 1.03) skew(0.6deg);
+}
+.clickable-box:active {
+	border-radius: 18%;
+	/* this was a typo, fun but maybe obnoxious or too jarring:
+	transform: scale3d(1.97, 1.97, 1.97); */
+	transform: scale3d(0.94, 0.94, 0.94);
+}
+
+.instructions {
+	position: absolute;
+	opacity: 0.75;
+	top: 50%;
+	left: 50%;
+	transform: translate3d(-50%, -50%, 0);
+	font-size: var(--size_lg);
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	font-weight: 600;
+}
+.instructions > *:not(button) {
+	padding: 0 var(--space_xs);
+	background-color: var(--bg);
+	border-bottom: 3px solid var(--dim_red);
+	white-space: nowrap;
+}
+.instructions strong {
+	font-weight: 900;
+}
+@media (max-width: 400px) {
+	.instructions {
+		font-size: var(--size_md);
+	}
+}
+
+@keyframes bounce {
+	0% {
+		transform: scale3d(1, 1, 1);
+	}
+	40% {
+		transform: scale3d(1.3, 1.3, 1.3);
+	}
+	100% {
+		transform: scale3d(1, 1, 1);
+	}
+}
+
+.bounce {
+	animation: bounce 0.2s cubic-bezier(0.1, -0.68, 0.49, 1.56);
+}
+
+/* TODO upstream to Felt probably */
+@keyframes pop-in {
+	from {
+		transform: scale3d(0, 0, 0);
+	}
+	to {
+		transform: scale3d(1, 1, 1);
+	}
+}
+
+/* TODO probably upstream to Felt */
+fieldset {
+	padding: var(--space_sm);
+	border: 0;
+}
+
+.surface:focus {
+	outline: var(--border_width_5) dotted var(--border_color_dark);
+	border-radius: var(--radius_xs);
+}

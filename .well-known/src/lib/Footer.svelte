@@ -1,6 +1,7 @@
 <script lang="ts">
 	import {base} from '$app/paths';
 	import {page} from '$app/stores';
+	import {strip_end} from '@ryanatkn/belt/string.js';
 </script>
 
 <footer class="box width_sm">
@@ -18,7 +19,7 @@
 		<p>
 			generated images by <a href="https://wikipedia.org/wiki/DALL-E">DALL-E</a>
 		</p>
-		{#if $page.url.pathname !== (base || '/')}
+		{#if strip_end($page.url.pathname, '/') !== base}
 			<p>
 				<a href={base || '/'} class="back-link"
 					>go back home<br />

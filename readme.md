@@ -5,7 +5,8 @@
 > in [Svelte](https://github.com/sveltejs/svelte)
 > and [SvelteKit](https://github.com/sveltejs/kit)
 
-⚠️ archived because the code is very experimental/messy and it's just snake
+⚠️ archived because the code is very experimental/messy and it's just snake -
+also the images feel off, and I'm not motivated to make good thumbnails
 
 Play: [ryanatkn.github.io/svelte-snake-sports](https://ryanatkn.github.io/svelte-snake-sports/)
 

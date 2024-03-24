@@ -5,14 +5,19 @@
 > in [Svelte](https://github.com/sveltejs/svelte)
 > and [SvelteKit](https://github.com/sveltejs/kit)
 
+⚠️ archived because the code is very experimental/messy and it's just snake
+
 Play: [ryanatkn.github.io/svelte-snake-sports](https://ryanatkn.github.io/svelte-snake-sports/)
 
 Watch the intro video: [youtube.com/watch?v=ciei8H6IOWk](https://www.youtube.com/watch?v=ciei8H6IOWk)
 
+Watch a run of buncheses: [youtube.com/watch?v=EorynexNDJI](https://www.youtube.com/watch?v=EorynexNDJI)
+(visuals were improved after the video was made, that white bg wew)
+
 ## sports
 
-| 🐍                                                                                                                                                                                                                                                                                                                                                         | sport                                           | goal                             |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- | -------------------------------- |
+| 🐍                                                                                                                                                                                                                                                                                                                                                                               | sport                                                                 | goal                             |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | -------------------------------- |
 | <a href="https://ryanatkn.github.io/svelte-snake-sports/classsic"><img src="/static/assets/classsic.webp" alt="logo for classsic, macro photography of an adorable cartoon snake with big eyes next to a red apple on lush green moss in a realistic 3d video game in the style of Tim Burton" width="192" /></a>                                                                | [classsic](https://ryanatkn.github.io/svelte-snake-sports/classsic)   | eat many apples                  |
 | <a href="https://ryanatkn.github.io/svelte-snake-sports/ssspeed"><img src="/static/assets/ssspeed.webp" alt="logo for ssspeed, macro photography of a cute cartoon snake eating a red apple on lush green moss in a 3d video game" width="192" /></a>                                                                                                                            | [ssspeed](https://ryanatkn.github.io/svelte-snake-sports/ssspeed)     | eat apples asap                  |
 | <a href="https://ryanatkn.github.io/svelte-snake-sports/buncheses"><img src="/static/assets/buncheses.webp" alt="logo for buncheses, macro photography of an adorable green cartoon snake with huge cute eyes next to a pile of red apples on lush green moss, realistic 3d video game, digital art, vibrant, artstation" width="192" /></a>                                     | [buncheses](https://ryanatkn.github.io/svelte-snake-sports/buncheses) | eat many whole bunches of apples |

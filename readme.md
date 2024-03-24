@@ -13,7 +13,6 @@ Play: [ryanatkn.github.io/svelte-snake-sports](https://ryanatkn.github.io/svelte
 Watch the intro video: [youtube.com/watch?v=ciei8H6IOWk](https://www.youtube.com/watch?v=ciei8H6IOWk)
 
 Watch a run of buncheses: [youtube.com/watch?v=EorynexNDJI](https://www.youtube.com/watch?v=EorynexNDJI)
-(visuals were improved after the video was made, that white bg wew)
 
 ## sports
 
